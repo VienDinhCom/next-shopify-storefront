@@ -1,0 +1,36 @@
+{
+  "name": "maxvien",
+  "version": "0.1.0",
+  "homepage": "http://maxvien.github.io",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "flow": "flow check ./src/",
+    "flow:i": "flow-typed install",
+    "push": "git add . && git commit -m Update && git pull origin && git push origin"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-scripts": "2.1.5"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "flow-bin": "^0.93.0",
+    "flow-typed": "^2.5.1",
+    "gh-pages": "^2.0.1",
+    "prettier": "^1.16.4"
+  }
+}

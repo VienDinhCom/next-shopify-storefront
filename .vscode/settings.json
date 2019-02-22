@@ -1,0 +1,9 @@
+{
+  "flow.enabled": true,
+  "eslint.enable": true,
+  "flow.runOnAllFiles": true,
+  "eslint.autoFixOnSave": true,
+  "javascript.validate.enable": false,
+  "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
+  "emmet.triggerExpansionOnTab": true
+}
