@@ -16,7 +16,9 @@ function ProductList(props) {
   return (
     <ul>
       {data.map(({ id, title }) => (
-        <li key={id}>{title}</li>
+        <li key={id} onClick={() => props.history.push(`/product/${id}`)}>
+          {title}
+        </li>
       ))}
     </ul>
   );
