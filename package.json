@@ -1,7 +1,7 @@
 {
-  "name": "maxvien",
+  "name": "react-redux-shopify-store",
   "version": "0.1.0",
-  "homepage": "http://maxvien.github.io",
+  "homepage": "https://github.com/maxvien/react-redux-shopify-store",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -11,8 +11,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "flow": "flow check ./src/",
-    "flow:i": "flow-typed install",
-    "push": "git add . && git commit -m Update && git pull origin && git push origin"
+    "flow:i": "flow-typed install"
   },
   "browserslist": [
     ">0.2%",
@@ -23,7 +22,10 @@
   "dependencies": {
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-scripts": "2.1.5"
+    "react-redux": "^7.0.3",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.5",
+    "redux-starter-kit": "^0.5.1"
   },
   "devDependencies": {
     "eslint-config-prettier": "^4.0.0",
