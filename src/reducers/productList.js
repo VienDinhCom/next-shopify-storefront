@@ -8,7 +8,7 @@ import {
 const defaultState = {
   loading: false,
   error: null,
-  data: null,
+  data: [],
 };
 
 export default createReducer(defaultState, {

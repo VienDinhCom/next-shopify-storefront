@@ -7,16 +7,18 @@ function ProductList(props) {
     props.getProductList();
   }, []);
 
+  const { loading, error, data } = props.productList;
+
+  if (loading) return <p>Loading...</p>;
+
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
-    <>
-      {props.productList.data ? (
-        <ul>
-          {props.productList.data.map(({ id, title }) => (
-            <li key={id}>{title}</li>
-          ))}
-        </ul>
-      ) : null}
-    </>
+    <ul>
+      {data.map(({ id, title }) => (
+        <li key={id}>{title}</li>
+      ))}
+    </ul>
   );
 }
 
