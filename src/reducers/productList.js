@@ -8,7 +8,7 @@ import {
 const defaultState = {
   loading: false,
   error: null,
-  data: [],
+  data: null,
 };
 
 export default createReducer(defaultState, {
@@ -19,6 +19,6 @@ export default createReducer(defaultState, {
     error: action.payload,
   }),
   [getProductListSuccess]: (state, action) => ({
-    productList: action.payload,
+    data: action.payload,
   }),
 });

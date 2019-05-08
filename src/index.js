@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { configureStore } from 'redux-starter-kit';
 import { Provider } from 'react-redux';
-
 import { rootReducer } from './reducers';
 import Root from './components/Root/Root';
 

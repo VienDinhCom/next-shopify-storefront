@@ -1,7 +1,15 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import ProductList from '../ProductList/ProductList';
 
 function Root() {
-  return <h1>React Redux Shopify Store </h1>;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={ProductList} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default Root;
