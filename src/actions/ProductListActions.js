@@ -1,4 +1,5 @@
 import { createAction } from 'redux-starter-kit';
+import { gql } from 'apollo-boost';
 import { types } from '../constants';
 import shopify from '../services/shopify';
 
@@ -17,15 +18,26 @@ export function getProductList() {
     try {
       dispatch(getProductListRequest());
 
-      let products = await shopify.product.fetchAll();
+      const query = gql`
+        {
+          products(first: 3) {
+            edges {
+              node {
+                title
+                handle
+                description
+              }
+            }
+          }
+        }
+      `;
 
-      products = products.map(product => {
-        return {
-          id: product.id,
-          title: product.title,
-          images: product.images.map(({ src }) => src),
-        };
-      });
+      const { data } = await shopify.query({ query });
+      const products = data.products.edges.map(({ node }) => ({
+        title: node.title,
+        handle: node.handle,
+        description: node.description,
+      }));
 
       dispatch(getProductListSuccess(products));
     } catch (error) {

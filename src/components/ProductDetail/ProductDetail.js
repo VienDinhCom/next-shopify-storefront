@@ -4,7 +4,7 @@ import { getProductDetail } from '../../actions';
 
 function ProductDetail(props) {
   useEffect(() => {
-    props.getProductDetail(props.match.params.productId);
+    props.getProductDetail(props.match.params.productHandle);
   }, []);
 
   const { loading, error, data } = props.productDetail;
