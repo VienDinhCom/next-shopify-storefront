@@ -7,7 +7,7 @@ function ProductDetail(props) {
     props.getProductDetail(props.match.params.productHandle);
   }, []);
 
-  const { loading, error, data } = props.productDetail;
+  const { loading, error, data } = props.product;
 
   if (loading) return <p>Loading...</p>;
 
@@ -21,8 +21,8 @@ function ProductDetail(props) {
   );
 }
 
-function mapStateToProps({ productDetail }) {
-  return { productDetail };
+function mapStateToProps({ product }) {
+  return { product };
 }
 
 function mapDispatchToProps(dispatch) {

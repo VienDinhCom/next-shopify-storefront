@@ -3,15 +3,9 @@ import { gql } from 'apollo-boost';
 import { types } from '../constants';
 import shopify from '../services/shopify';
 
-export const getProductDetailRequest = createAction(
-  types.GET_PRODUCT_DETAIL_REQUEST
-);
-export const getProductDetailFailure = createAction(
-  types.GET_PRODUCT_DETAIL_FAILURE
-);
-export const getProductDetailSuccess = createAction(
-  types.GET_PRODUCT_DETAIL_SUCCESS
-);
+export const getProductDetailRequest = createAction(types.GET_PRODUCT_DETAIL_REQUEST);
+export const getProductDetailFailure = createAction(types.GET_PRODUCT_DETAIL_FAILURE);
+export const getProductDetailSuccess = createAction(types.GET_PRODUCT_DETAIL_SUCCESS);
 
 export const getProductDetail = (handle: string) => {
   return async (dispatch: Function) => {

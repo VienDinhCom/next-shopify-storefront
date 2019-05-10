@@ -1,9 +1,5 @@
 import { createReducer } from 'redux-starter-kit';
-import {
-  getProductDetailRequest,
-  getProductDetailFailure,
-  getProductDetailSuccess,
-} from '../actions';
+import { getProductDetailRequest, getProductDetailFailure, getProductDetailSuccess } from '../actions';
 
 const defaultState = {
   loading: false,
