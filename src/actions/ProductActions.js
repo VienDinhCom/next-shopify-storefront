@@ -3,14 +3,14 @@ import { gql } from 'apollo-boost';
 import { types } from '../constants';
 import shopify from '../services/shopify';
 
-export const getProductDetailRequest = createAction(types.GET_PRODUCT_DETAIL_REQUEST);
-export const getProductDetailFailure = createAction(types.GET_PRODUCT_DETAIL_FAILURE);
-export const getProductDetailSuccess = createAction(types.GET_PRODUCT_DETAIL_SUCCESS);
+export const getProductRequest = createAction(types.GET_PRODUCT_REQUEST);
+export const getProductFailure = createAction(types.GET_PRODUCT_FAILURE);
+export const getProductSuccess = createAction(types.GET_PRODUCT_SUCCESS);
 
-export const getProductDetail = (handle: string) => {
+export const getProduct = (handle: string) => {
   return async (dispatch: Function) => {
     try {
-      dispatch(getProductDetailRequest());
+      dispatch(getProductRequest());
 
       const query = gql`
         query product($handle: String!) {
@@ -43,9 +43,9 @@ export const getProductDetail = (handle: string) => {
         images: product.images.edges.map(({ node }) => node.originalSrc),
       };
 
-      dispatch(getProductDetailSuccess(product));
+      dispatch(getProductSuccess(product));
     } catch (error) {
-      dispatch(getProductDetailFailure(error));
+      dispatch(getProductFailure(error));
     }
   };
 };

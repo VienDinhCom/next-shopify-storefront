@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getProductDetail } from '../../actions';
+import { getProduct } from '../../actions';
 
 function ProductDetail(props) {
   useEffect(() => {
-    props.getProductDetail(props.match.params.productHandle);
+    props.getProduct(props.match.params.productHandle);
   }, []);
 
   const { loading, error, data } = props.product;
@@ -27,7 +27,7 @@ function mapStateToProps({ product }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getProductDetail: productId => dispatch(getProductDetail(productId)),
+    getProduct: productId => dispatch(getProduct(productId)),
   };
 }
 
