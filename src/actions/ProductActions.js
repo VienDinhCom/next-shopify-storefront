@@ -28,24 +28,24 @@ export const getProduct = (handle: string) => {
         }
       `;
 
-      const { data } = await shopify.query({
+      const response = await shopify.query({
         query,
         variables: {
           handle,
         },
       });
 
-      let product = data.productByHandle;
+      let data = response.data.productByHandle;
 
-      product = {
-        title: product.title,
-        description: product.description,
-        images: product.images.edges.map(({ node }) => node.originalSrc),
+      data = {
+        title: data.title,
+        description: data.description,
+        images: data.images.edges.map(({ node }) => node.originalSrc),
       };
 
-      dispatch(getProductSuccess(product));
+      dispatch(getProductSuccess({ data }));
     } catch (error) {
-      dispatch(getProductFailure(error));
+      dispatch(getProductFailure({ error }));
     }
   };
 };
