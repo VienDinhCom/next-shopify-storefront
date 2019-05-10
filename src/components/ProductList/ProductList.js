@@ -22,7 +22,7 @@ function ProductList(props) {
         </tr>
       </thead>
       <tbody>
-        {(data || []).map(({ handle, title, description }) => (
+        {data.map(({ handle, title, description }) => (
           <tr key={handle}>
             <td onClick={() => props.history.push(`/product/${handle}`)}>{title}</td>
             <td>{description}</td>
