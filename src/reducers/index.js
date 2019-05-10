@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux-starter-kit';
-import productList from './productList';
-import productDetail from './productDetail';
+import product from './product';
+import products from './products';
 
 export const rootReducer = combineReducers({
-  productList,
-  productDetail,
+  product,
+  products,
 });

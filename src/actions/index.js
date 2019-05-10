@@ -1,2 +1,2 @@
-export * from './ProductListActions';
-export * from './ProductDetailActions';
+export * from './ProductsActions';
+export * from './ProductActions';
