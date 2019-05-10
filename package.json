@@ -20,13 +20,14 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "apollo-boost": "^0.3.1",
+    "graphql": "^14.3.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.5",
-    "redux-starter-kit": "^0.5.1",
-    "shopify-buy": "^2.2.3"
+    "redux-starter-kit": "^0.5.1"
   },
   "devDependencies": {
     "eslint-config-prettier": "^4.0.0",

@@ -14,13 +14,26 @@ function ProductList(props) {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <ul>
-      {data.map(({ id, title }) => (
-        <li key={id} onClick={() => props.history.push(`/product/${id}`)}>
-          {title}
-        </li>
-      ))}
-    </ul>
+    <table className="table table-bordered">
+      <thead>
+        <tr>
+          <td>Handle</td>
+          <td style={{ width: 200 }}>Title</td>
+          <td>Description</td>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map(({ handle, title, description }) => (
+          <tr key={handle}>
+            <td>{handle}</td>
+            <td onClick={() => props.history.push(`/product/${handle}`)}>
+              {title}
+            </td>
+            <td>{description}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 

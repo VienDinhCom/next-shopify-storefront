@@ -1,4 +1,5 @@
 import { createAction } from 'redux-starter-kit';
+import { gql } from 'apollo-boost';
 import { types } from '../constants';
 import shopify from '../services/shopify';
 
@@ -12,17 +13,40 @@ export const getProductDetailSuccess = createAction(
   types.GET_PRODUCT_DETAIL_SUCCESS
 );
 
-export const getProductDetail = (productId: string) => {
+export const getProductDetail = (handle: string) => {
   return async (dispatch: Function) => {
     try {
       dispatch(getProductDetailRequest());
 
-      let product = await shopify.product.fetch(productId);
+      const query = gql`
+        query product($handle: String!) {
+          productByHandle(handle: $handle) {
+            title
+            description
+            images(first: 1) {
+              edges {
+                node {
+                  originalSrc
+                }
+              }
+            }
+          }
+        }
+      `;
+
+      const { data } = await shopify.query({
+        query,
+        variables: {
+          handle,
+        },
+      });
+
+      let product = data.productByHandle;
 
       product = {
-        id: product.id,
         title: product.title,
-        images: product.images.map(({ src }) => src),
+        description: product.description,
+        images: product.images.edges.map(({ node }) => node.originalSrc),
       };
 
       dispatch(getProductDetailSuccess(product));

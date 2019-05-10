@@ -8,7 +8,7 @@ function Root() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={ProductList} />
-        <Route path="/product/:productId" exact component={ProductDetail} />
+        <Route path="/product/:productHandle" exact component={ProductDetail} />
       </Switch>
     </BrowserRouter>
   );
