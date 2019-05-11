@@ -2,19 +2,21 @@ import { createReducer } from 'redux-starter-kit';
 import { getProductRequest, getProductFailure, getProductSuccess } from '../actions';
 
 const defaultState = {
-  loading: false,
+  loading: true,
   error: null,
   data: {},
 };
 
 export default createReducer(defaultState, {
-  [getProductRequest]: (state, action) => ({
-    loading: true,
-  }),
-  [getProductFailure]: (state, action) => ({
-    error: action.payload,
-  }),
-  [getProductSuccess]: (state, action) => ({
-    data: action.payload,
-  }),
+  [getProductRequest]: () => {
+    return defaultState;
+  },
+  [getProductFailure]: (state, { payload }) => {
+    state.loading = false;
+    state.error = payload.error;
+  },
+  [getProductSuccess]: (state, { payload }) => {
+    state.loading = false;
+    state.data = payload.data;
+  },
 });
