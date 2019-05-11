@@ -6,11 +6,12 @@ import { getFristPageOfProducts, getNextPageOfProducts } from '../../actions';
 class ProductList extends Component<any, any> {
   state = {
     query: '',
+    sortKey: 'CREATED_AT',
   };
   componentWillMount() {
-    const { query } = queryString.parse(this.props.location.search);
+    const { query, sortKey } = queryString.parse(this.props.location.search);
 
-    this.setState({ query });
+    this.setState({ query, sortKey });
     this.handleFristPage(this.props.location.search);
   }
   componentWillReceiveProps(nextProps) {
@@ -21,24 +22,36 @@ class ProductList extends Component<any, any> {
     }
   }
   handleFristPage = (search: string) => {
-    const { query } = queryString.parse(search);
+    const { query, sortKey } = queryString.parse(search);
 
     this.props.getFristPageOfProducts({
-      query: query,
+      query,
+      sortKey,
     });
   };
   handleNextPage = (cursor: string) => {
-    const { query } = queryString.parse(this.props.location.search);
+    const { query, sortKey } = queryString.parse(this.props.location.search);
 
     this.props.getNextPageOfProducts({
       query,
       cursor,
+      sortKey,
     });
   };
   handleQuery = event => {
     event.preventDefault();
+    const search = queryString.parse(this.props.location.search);
+
     this.props.history.push({
-      search: queryString.stringify({ query: this.state.query }),
+      search: queryString.stringify({ ...search, query: this.state.query }),
+    });
+  };
+  handleSortKey = event => {
+    this.setState({ sortKey: event.target.value });
+    const search = queryString.parse(this.props.location.search);
+
+    this.props.history.push({
+      search: queryString.stringify({ ...search, sortKey: event.target.value }),
     });
   };
   render() {
@@ -62,6 +75,17 @@ class ProductList extends Component<any, any> {
                 />
                 <button>Search</button>
               </form>
+              <select onChange={this.handleSortKey} value={state.sortKey}>
+                <option value="TITLE">Title</option>
+                <option value="PRODUCT_TYPE">Product Type</option>
+                <option value="VENDOR">Vendor</option>
+                <option value="UPDATED_AT">Updated At</option>
+                <option value="CREATED_AT">Created At</option>
+                <option value="BEST_SELLING">Best Selling</option>
+                <option value="PRICE">Price</option>
+                <option value="ID">Id</option>
+                <option value="RELEVANCE">Relevance</option>
+              </select>
             </td>
           </tr>
           <tr>
@@ -78,7 +102,7 @@ class ProductList extends Component<any, any> {
             <td colSpan="2" align="center">
               {nextPage.error && <p>Error: {nextPage.error}</p>}
               <button disabled={!hasNextPage} onClick={() => this.handleNextPage(data[data.length - 1].cursor)}>
-                {nextPage.loading ? 'Loading' : nextPage.error ? 'Try Again' : 'LoadMore'}
+                {nextPage.loading ? 'Loading' : nextPage.error ? 'Try Again' : 'Load More'}
               </button>
             </td>
           </tr>
