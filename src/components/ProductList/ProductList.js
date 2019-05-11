@@ -13,13 +13,6 @@ class ProductList extends Component<any, any> {
     this.setState({ query });
     this.handleFristPage(this.props.location.search);
   }
-  componentWillReceiveProps(nextProps) {
-    const { props } = this;
-
-    if (props.location.search !== nextProps.location.search) {
-      this.handleFristPage(nextProps.location.search);
-    }
-  }
   handleFristPage = (search: string) => {
     const { query } = queryString.parse(search);
 
@@ -37,9 +30,9 @@ class ProductList extends Component<any, any> {
   };
   handleQuery = event => {
     event.preventDefault();
-    this.props.history.push({
-      search: queryString.stringify({ query: this.state.query }),
-    });
+    const search = queryString.stringify({ query: this.state.query });
+    this.props.history.push({ search });
+    this.handleFristPage(search);
   };
   render() {
     const { props, state } = this;
