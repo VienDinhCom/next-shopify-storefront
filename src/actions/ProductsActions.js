@@ -9,14 +9,14 @@ export const getFirstPageOfProductsFailure = createAction(types.GET_FIRST_PAGE_O
 
 export const getFirstPageOfProductsSuccess = createAction(types.GET_FIRST_PAGE_OF_PRODUCTS_SUCCESS);
 
-export function getFristPageOfProducts() {
+export function getFristPageOfProducts(opts: Object) {
   return async (dispatch: Function) => {
     try {
       dispatch(getFirstPageOfProductsRequest());
 
       const query = gql`
-        {
-          products(first: 3) {
+        query product($query: String!) {
+          products(first: 5, query: $query) {
             edges {
               node {
                 title
@@ -32,7 +32,13 @@ export function getFristPageOfProducts() {
         }
       `;
 
-      const response = await shopify.query({ query });
+      const response = await shopify.query({
+        query,
+        variables: {
+          query: opts.query || '',
+        },
+      });
+
       const { hasNextPage } = response.data.products.pageInfo;
       const data = response.data.products.edges.map(({ node, cursor }) => ({
         title: node.title,
@@ -54,14 +60,14 @@ export const getNextPageOfProductsFailure = createAction(types.GET_NEXT_PAGE_OF_
 
 export const getNextPageOfProductsSuccess = createAction(types.GET_NEXT_PAGE_OF_PRODUCTS_SUCCESS);
 
-export function getNextPageOfProducts(cursor: string) {
+export function getNextPageOfProducts(opts: Object) {
   return async (dispatch: Function) => {
     try {
       dispatch(getNextPageOfProductsRequest());
 
       const query = gql`
-        query product($cursor: String!) {
-          products(first: 3, after: $cursor) {
+        query product($cursor: String!, $query: String) {
+          products(first: 3, after: $cursor, query: $query) {
             edges {
               node {
                 title
@@ -80,7 +86,8 @@ export function getNextPageOfProducts(cursor: string) {
       const response = await shopify.query({
         query,
         variables: {
-          cursor,
+          cursor: opts.cursor,
+          query: opts.query || '',
         },
       });
 
