@@ -3,15 +3,57 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { getFristPageOfProducts, getNextPageOfProducts } from '../../actions';
 
+const sortOpts = [
+  {
+    name: 'Best Selling',
+    sortKey: 'best_selling',
+    reverse: false,
+  },
+  {
+    name: 'Newest',
+    sortKey: 'created_at',
+    reverse: true,
+  },
+  {
+    name: 'Oldest',
+    sortKey: 'created_at',
+    reverse: false,
+  },
+  {
+    name: 'Price (Low > High)',
+    sortKey: 'price',
+    reverse: true,
+  },
+  {
+    name: 'Price (High > Low)',
+    sortKey: 'price',
+    reverse: false,
+  },
+  {
+    name: 'Title (A - Z)',
+    sortKey: 'title',
+    reverse: false,
+  },
+  {
+    name: 'Title (Z - A)',
+    sortKey: 'title',
+    reverse: true,
+  },
+];
+
 class ProductList extends Component<any, any> {
   state = {
     query: '',
-    sortKey: 'CREATED_AT',
+    sort: 0,
   };
   componentWillMount() {
-    const { query, sortKey } = queryString.parse(this.props.location.search);
+    const { query, sortKey, reverse } = queryString.parse(this.props.location.search);
 
-    this.setState({ query, sortKey });
+    const sort = sortOpts.findIndex(
+      opt => opt.sortKey === sortKey && opt.reverse === (reverse === 'true' ? true : false)
+    );
+
+    this.setState({ query, sort });
     this.handleFristPage(this.props.location.search);
   }
   componentWillReceiveProps(nextProps) {
@@ -22,20 +64,22 @@ class ProductList extends Component<any, any> {
     }
   }
   handleFristPage = (search: string) => {
-    const { query, sortKey } = queryString.parse(search);
+    const { query, sortKey, reverse } = queryString.parse(search);
 
     this.props.getFristPageOfProducts({
       query,
       sortKey,
+      reverse,
     });
   };
   handleNextPage = (cursor: string) => {
-    const { query, sortKey } = queryString.parse(this.props.location.search);
+    const { query, sortKey, reverse } = queryString.parse(this.props.location.search);
 
     this.props.getNextPageOfProducts({
       query,
       cursor,
       sortKey,
+      reverse,
     });
   };
   handleQuery = event => {
@@ -46,12 +90,17 @@ class ProductList extends Component<any, any> {
       search: queryString.stringify({ ...search, query: this.state.query }),
     });
   };
-  handleSortKey = event => {
-    this.setState({ sortKey: event.target.value });
+  handleSort = event => {
+    const { sortKey, reverse } = sortOpts[event.target.value];
+
+    const sort = sortOpts.findIndex(opt => opt.sortKey === sortKey && opt.reverse === reverse);
+
+    this.setState({ sort });
+
     const search = queryString.parse(this.props.location.search);
 
     this.props.history.push({
-      search: queryString.stringify({ ...search, sortKey: event.target.value }),
+      search: queryString.stringify({ ...search, sortKey, reverse }),
     });
   };
   render() {
@@ -75,16 +124,12 @@ class ProductList extends Component<any, any> {
                 />
                 <button>Search</button>
               </form>
-              <select onChange={this.handleSortKey} value={state.sortKey}>
-                <option value="TITLE">Title</option>
-                <option value="PRODUCT_TYPE">Product Type</option>
-                <option value="VENDOR">Vendor</option>
-                <option value="UPDATED_AT">Updated At</option>
-                <option value="CREATED_AT">Created At</option>
-                <option value="BEST_SELLING">Best Selling</option>
-                <option value="PRICE">Price</option>
-                <option value="ID">Id</option>
-                <option value="RELEVANCE">Relevance</option>
+              <select onChange={this.handleSort} value={state.sort}>
+                {sortOpts.map(({ name, sortKey, reverse }, index) => (
+                  <option key={name} value={index}>
+                    {name}
+                  </option>
+                ))}
               </select>
             </td>
           </tr>

@@ -15,8 +15,8 @@ export function getFristPageOfProducts(opts: Object) {
       dispatch(getFirstPageOfProductsRequest());
 
       const query = gql`
-        query product($query: String!, $sortKey: ProductSortKeys) {
-          products(first: 5, query: $query, sortKey: $sortKey) {
+        query product($query: String!, $sortKey: ProductSortKeys, $reverse: Boolean) {
+          products(first: 5, query: $query, sortKey: $sortKey, reverse: $reverse) {
             edges {
               node {
                 title
@@ -36,7 +36,8 @@ export function getFristPageOfProducts(opts: Object) {
         query,
         variables: {
           query: opts.query || '',
-          sortKey: opts.sortKey || 'CREATED_AT',
+          sortKey: opts.sortKey ? opts.sortKey.toUpperCase() : 'BEST_SELLING',
+          reverse: opts.reverse === 'true' ? true : false,
         },
       });
 
@@ -67,8 +68,8 @@ export function getNextPageOfProducts(opts: Object) {
       dispatch(getNextPageOfProductsRequest());
 
       const query = gql`
-        query product($cursor: String!, $query: String, $sortKey: ProductSortKeys) {
-          products(first: 3, after: $cursor, query: $query, sortKey: $sortKey) {
+        query product($cursor: String!, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
+          products(first: 3, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
             edges {
               node {
                 title
@@ -89,7 +90,8 @@ export function getNextPageOfProducts(opts: Object) {
         variables: {
           cursor: opts.cursor,
           query: opts.query || '',
-          sortKey: opts.sortKey || 'CREATED_AT',
+          sortKey: opts.sortKey ? opts.sortKey.toUpperCase() : 'BEST_SELLING',
+          reverse: opts.reverse === 'true' ? true : false,
         },
       });
 
