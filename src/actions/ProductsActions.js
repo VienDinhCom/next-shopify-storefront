@@ -3,21 +3,29 @@ import { gql } from 'apollo-boost';
 import { types } from '../constants';
 import shopify from '../services/shopify';
 
-const productFields = gql`
-  fragment productFields on Product {
-    title
-    handle
-    description
-    createdAt
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
+const productConnectionFields = gql`
+  fragment productConnectionFields on ProductConnection {
+    edges {
+      node {
+        title
+        handle
+        description
+        createdAt
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+          maxVariantPrice {
+            amount
+            currencyCode
+          }
+        }
       }
-      maxVariantPrice {
-        amount
-        currencyCode
-      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
     }
   }
 `;
@@ -34,21 +42,13 @@ export function getFristPageOfProducts(opts: Object) {
       dispatch(getFirstPageOfProductsRequest());
 
       const query = gql`
+        ${productConnectionFields}
+
         query product($query: String!, $sortKey: ProductSortKeys, $reverse: Boolean) {
           products(first: 5, query: $query, sortKey: $sortKey, reverse: $reverse) {
-            edges {
-              node {
-                ...productFields
-              }
-              cursor
-            }
-            pageInfo {
-              hasNextPage
-            }
+            ...productConnectionFields
           }
         }
-
-        ${productFields}
       `;
 
       const response = await shopify.query({
@@ -82,21 +82,13 @@ export function getNextPageOfProducts(opts: Object) {
       dispatch(getNextPageOfProductsRequest());
 
       const query = gql`
+        ${productConnectionFields}
+
         query product($cursor: String!, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
           products(first: 3, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
-            edges {
-              node {
-                ...productFields
-              }
-              cursor
-            }
-            pageInfo {
-              hasNextPage
-            }
+            ...productConnectionFields
           }
         }
-
-        ${productFields}
       `;
 
       const response = await shopify.query({
