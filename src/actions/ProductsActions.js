@@ -22,6 +22,17 @@ export function getFristPageOfProducts(opts: Object) {
                 title
                 handle
                 description
+                createdAt
+                priceRange {
+                  minVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                  maxVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                }
               }
               cursor
             }
@@ -42,12 +53,7 @@ export function getFristPageOfProducts(opts: Object) {
       });
 
       const { hasNextPage } = response.data.products.pageInfo;
-      const data = response.data.products.edges.map(({ node, cursor }) => ({
-        title: node.title,
-        handle: node.handle,
-        description: node.description,
-        cursor,
-      }));
+      const data = response.data.products.edges.map(({ node, cursor }) => ({ ...node, cursor }));
 
       dispatch(getFirstPageOfProductsSuccess({ data, hasNextPage }));
     } catch (error) {
@@ -75,6 +81,17 @@ export function getNextPageOfProducts(opts: Object) {
                 title
                 handle
                 description
+                createdAt
+                priceRange {
+                  minVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                  maxVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                }
               }
               cursor
             }
@@ -96,13 +113,7 @@ export function getNextPageOfProducts(opts: Object) {
       });
 
       const { hasNextPage } = response.data.products.pageInfo;
-
-      const data = response.data.products.edges.map(({ node, cursor }) => ({
-        title: node.title,
-        handle: node.handle,
-        description: node.description,
-        cursor,
-      }));
+      const data = response.data.products.edges.map(({ node, cursor }) => ({ ...node, cursor }));
 
       dispatch(getNextPageOfProductsSuccess({ data, hasNextPage }));
     } catch (error) {
