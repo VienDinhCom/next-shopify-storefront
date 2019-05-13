@@ -3,6 +3,25 @@ import { gql } from 'apollo-boost';
 import { types } from '../constants';
 import shopify from '../services/shopify';
 
+const productFields = gql`
+  fragment productFields on Product {
+    title
+    handle
+    description
+    createdAt
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+  }
+`;
+
 export const getFirstPageOfProductsRequest = createAction(types.GET_FIRST_PAGE_OF_PRODUCTS_REQUEST);
 
 export const getFirstPageOfProductsFailure = createAction(types.GET_FIRST_PAGE_OF_PRODUCTS_FAILURE);
@@ -19,20 +38,7 @@ export function getFristPageOfProducts(opts: Object) {
           products(first: 5, query: $query, sortKey: $sortKey, reverse: $reverse) {
             edges {
               node {
-                title
-                handle
-                description
-                createdAt
-                priceRange {
-                  minVariantPrice {
-                    amount
-                    currencyCode
-                  }
-                  maxVariantPrice {
-                    amount
-                    currencyCode
-                  }
-                }
+                ...productFields
               }
               cursor
             }
@@ -41,6 +47,8 @@ export function getFristPageOfProducts(opts: Object) {
             }
           }
         }
+
+        ${productFields}
       `;
 
       const response = await shopify.query({
@@ -78,20 +86,7 @@ export function getNextPageOfProducts(opts: Object) {
           products(first: 3, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
             edges {
               node {
-                title
-                handle
-                description
-                createdAt
-                priceRange {
-                  minVariantPrice {
-                    amount
-                    currencyCode
-                  }
-                  maxVariantPrice {
-                    amount
-                    currencyCode
-                  }
-                }
+                ...productFields
               }
               cursor
             }
@@ -100,6 +95,8 @@ export function getNextPageOfProducts(opts: Object) {
             }
           }
         }
+
+        ${productFields}
       `;
 
       const response = await shopify.query({
