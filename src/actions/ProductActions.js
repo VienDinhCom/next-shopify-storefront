@@ -24,6 +24,23 @@ export const getProduct = (handle: string) => {
                 }
               }
             }
+            options {
+              id
+              name
+              values
+            }
+            variants(first: 250) {
+              edges {
+                node {
+                  id
+                  title
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
           }
         }
       `;
@@ -36,12 +53,6 @@ export const getProduct = (handle: string) => {
       });
 
       let data = response.data.productByHandle;
-
-      data = {
-        title: data.title,
-        description: data.description,
-        images: data.images.edges.map(({ node }) => node.originalSrc),
-      };
 
       dispatch(getProductSuccess({ data }));
     } catch (error) {

@@ -31,9 +31,7 @@ const productConnectionFields = gql`
 `;
 
 export const getFirstPageOfProductsRequest = createAction(types.GET_FIRST_PAGE_OF_PRODUCTS_REQUEST);
-
 export const getFirstPageOfProductsFailure = createAction(types.GET_FIRST_PAGE_OF_PRODUCTS_FAILURE);
-
 export const getFirstPageOfProductsSuccess = createAction(types.GET_FIRST_PAGE_OF_PRODUCTS_SUCCESS);
 
 export function getFristPageOfProducts(opts: Object) {
@@ -44,7 +42,7 @@ export function getFristPageOfProducts(opts: Object) {
       const query = gql`
         ${productConnectionFields}
 
-        query product($query: String!, $sortKey: ProductSortKeys, $reverse: Boolean) {
+        query($query: String!, $sortKey: ProductSortKeys, $reverse: Boolean) {
           products(first: 5, query: $query, sortKey: $sortKey, reverse: $reverse) {
             ...productConnectionFields
           }
@@ -71,9 +69,7 @@ export function getFristPageOfProducts(opts: Object) {
 }
 
 export const getNextPageOfProductsRequest = createAction(types.GET_NEXT_PAGE_OF_PRODUCTS_REQUEST);
-
 export const getNextPageOfProductsFailure = createAction(types.GET_NEXT_PAGE_OF_PRODUCTS_FAILURE);
-
 export const getNextPageOfProductsSuccess = createAction(types.GET_NEXT_PAGE_OF_PRODUCTS_SUCCESS);
 
 export function getNextPageOfProducts(opts: Object) {
@@ -84,7 +80,7 @@ export function getNextPageOfProducts(opts: Object) {
       const query = gql`
         ${productConnectionFields}
 
-        query product($cursor: String!, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
+        query($cursor: String!, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
           products(first: 3, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
             ...productConnectionFields
           }

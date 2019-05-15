@@ -1,24 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getProduct } from '../../actions';
+import VariantSelector from './VariantSelector';
 
-function ProductDetail(props) {
-  useEffect(() => {
-    props.getProduct(props.match.params.productHandle);
-  }, []);
+class ProductDetail extends Component<Object, Object> {
+  componentWillMount() {
+    this.props.getProduct(this.props.match.params.productHandle);
+  }
 
-  const { loading, error, data } = props.product;
+  render() {
+    const { loading, error, data } = this.props.product;
 
-  if (loading) return <p>Loading...</p>;
+    if (loading) return <p>Loading...</p>;
 
-  if (error) return <p>Error: {error.message}</p>;
+    if (error) return <p>Error: {error.message}</p>;
 
-  return (
-    <>
-      <h1>{data.title}</h1>
-      {data.images ? <img src={data.images[0]} width={200} alt="" /> : null}
-    </>
-  );
+    let variant = {};
+    let variantQuantity = {};
+
+    return (
+      <>
+        <h1>{data.title}</h1>
+        <p>{data.description}</p>
+        <img src={data.images.edges[0].node.originalSrc} width={200} alt="" />
+
+        <VariantSelector
+          options={data.options}
+          variants={data.variants}
+          getSelectedVariant={id => {
+            console.log(id);
+          }}
+        />
+        <button onClick={() => this.props.addVariantToCart(variant.id, variantQuantity)}>Add to Cart</button>
+      </>
+    );
+  }
 }
 
 function mapStateToProps({ product }) {
