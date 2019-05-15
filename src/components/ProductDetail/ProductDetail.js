@@ -24,12 +24,12 @@ class ProductDetail extends Component<Object, Object> {
       <>
         <h1>{data.title}</h1>
         <p>{data.description}</p>
-        <img src={data.images.edges[0].node.originalSrc} width={200} alt="" />
+        {data.images.edges[0] && <img src={data.images.edges[0].node.originalSrc} width={200} alt="" />}
 
         <VariantSelector
           options={data.options}
           variants={data.variants}
-          getSelectedVariant={selectedVariant => this.setState({ selectedVariant })}
+          getSelectedVariant={id => this.setState({ selectedVariant: id })}
         />
 
         <label className="Product__option">
