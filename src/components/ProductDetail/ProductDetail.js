@@ -4,19 +4,21 @@ import { getProduct } from '../../actions';
 import VariantSelector from './VariantSelector';
 
 class ProductDetail extends Component<Object, Object> {
+  state = {
+    selectedVariant: null,
+    variantQuantity: 1,
+  };
   componentWillMount() {
     this.props.getProduct(this.props.match.params.productHandle);
   }
 
   render() {
     const { loading, error, data } = this.props.product;
+    const { selectedVariant, variantQuantity } = this.state;
 
     if (loading) return <p>Loading...</p>;
 
     if (error) return <p>Error: {error.message}</p>;
-
-    let variant = {};
-    let variantQuantity = {};
 
     return (
       <>
@@ -27,11 +29,22 @@ class ProductDetail extends Component<Object, Object> {
         <VariantSelector
           options={data.options}
           variants={data.variants}
-          getSelectedVariant={id => {
-            console.log(id);
-          }}
+          getSelectedVariant={selectedVariant => this.setState({ selectedVariant })}
         />
-        <button onClick={() => this.props.addVariantToCart(variant.id, variantQuantity)}>Add to Cart</button>
+
+        <label className="Product__option">
+          Quantity
+          <input
+            min="1"
+            type="number"
+            value={variantQuantity}
+            onChange={event => this.setState({ variantQuantity: event.target.value })}
+          />
+        </label>
+
+        <br />
+
+        <button onClick={() => this.props.addVariantToCart(selectedVariant, variantQuantity)}>Add to Cart</button>
       </>
     );
   }
