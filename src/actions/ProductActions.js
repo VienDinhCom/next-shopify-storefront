@@ -7,7 +7,7 @@ export const getProductRequest = createAction(types.GET_PRODUCT_REQUEST);
 export const getProductFailure = createAction(types.GET_PRODUCT_FAILURE);
 export const getProductSuccess = createAction(types.GET_PRODUCT_SUCCESS);
 
-export const getProduct = (handle: string) => {
+export const getProduct = (args: Object) => {
   return async (dispatch: Function) => {
     try {
       dispatch(getProductRequest());
@@ -48,7 +48,7 @@ export const getProduct = (handle: string) => {
       const response = await shopify.query({
         query,
         variables: {
-          handle,
+          handle: args.handle,
         },
       });
 

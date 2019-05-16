@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getProduct } from '../../actions';
+import { getProduct, addVariantToCart } from '../../actions';
 import VariantSelector from './VariantSelector';
 
 class ProductDetail extends Component<Object, Object> {
@@ -56,7 +56,8 @@ function mapStateToProps({ product }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getProduct: productId => dispatch(getProduct(productId)),
+    getProduct: handle => dispatch(getProduct({ handle })),
+    addVariantToCart: (variantId, quantity) => dispatch(addVariantToCart({ variantId, quantity })),
   };
 }
 

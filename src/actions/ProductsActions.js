@@ -34,7 +34,7 @@ export const getFirstPageOfProductsRequest = createAction(types.GET_FIRST_PAGE_O
 export const getFirstPageOfProductsFailure = createAction(types.GET_FIRST_PAGE_OF_PRODUCTS_FAILURE);
 export const getFirstPageOfProductsSuccess = createAction(types.GET_FIRST_PAGE_OF_PRODUCTS_SUCCESS);
 
-export function getFristPageOfProducts(opts: Object) {
+export function getFristPageOfProducts(args: Object) {
   return async (dispatch: Function) => {
     try {
       dispatch(getFirstPageOfProductsRequest());
@@ -52,9 +52,9 @@ export function getFristPageOfProducts(opts: Object) {
       const response = await shopify.query({
         query,
         variables: {
-          query: opts.query || '',
-          sortKey: opts.sortKey ? opts.sortKey.toUpperCase() : 'BEST_SELLING',
-          reverse: opts.reverse === 'true' ? true : false,
+          query: args.query || '',
+          sortKey: args.sortKey ? args.sortKey.toUpperCase() : 'BEST_SELLING',
+          reverse: args.reverse === 'true' ? true : false,
         },
       });
 
@@ -72,7 +72,7 @@ export const getNextPageOfProductsRequest = createAction(types.GET_NEXT_PAGE_OF_
 export const getNextPageOfProductsFailure = createAction(types.GET_NEXT_PAGE_OF_PRODUCTS_FAILURE);
 export const getNextPageOfProductsSuccess = createAction(types.GET_NEXT_PAGE_OF_PRODUCTS_SUCCESS);
 
-export function getNextPageOfProducts(opts: Object) {
+export function getNextPageOfProducts(args: Object) {
   return async (dispatch: Function) => {
     try {
       dispatch(getNextPageOfProductsRequest());
@@ -90,10 +90,10 @@ export function getNextPageOfProducts(opts: Object) {
       const response = await shopify.query({
         query,
         variables: {
-          cursor: opts.cursor,
-          query: opts.query || '',
-          sortKey: opts.sortKey ? opts.sortKey.toUpperCase() : 'BEST_SELLING',
-          reverse: opts.reverse === 'true' ? true : false,
+          cursor: args.cursor,
+          query: args.query || '',
+          sortKey: args.sortKey ? args.sortKey.toUpperCase() : 'BEST_SELLING',
+          reverse: args.reverse === 'true' ? true : false,
         },
       });
 
