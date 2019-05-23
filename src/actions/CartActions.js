@@ -172,7 +172,7 @@ export function updateQuantityOfVariant(variantId: string, quantity: number) {
     const lineItems = getLineItems(getState().cart.data.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
-    lineItems[lineItemIndex].quantity = parseInt(quantity);
+    lineItems[lineItemIndex].quantity = parseInt(quantity || 1);
 
     dispatch(changeLineItems(lineItems));
   };
