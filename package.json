@@ -23,6 +23,7 @@
     "apollo-boost": "^0.3.1",
     "dayjs": "^1.8.14",
     "graphql": "^14.3.0",
+    "js-cookie": "^2.2.0",
     "lodash": "^4.17.11",
     "query-string": "^6.5.0",
     "react": "^16.8.2",

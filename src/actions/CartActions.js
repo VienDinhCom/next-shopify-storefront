@@ -1,4 +1,6 @@
 import { createAction } from 'redux-starter-kit';
+import cookie from 'js-cookie';
+import _ from 'lodash';
 import { gql } from 'apollo-boost';
 import { types } from '../constants';
 import shopify from '../services/shopify';
@@ -26,6 +28,7 @@ const checkoutFields = gql`
       }
       edges {
         node {
+          id
           title
           variant {
             id
@@ -45,11 +48,11 @@ const checkoutFields = gql`
   }
 `;
 
-export const addVariantToCartRequest = createAction(types.ADD_VARIANT_TO_CART_REQUEST);
-export const addVariantToCartFailure = createAction(types.ADD_VARIANT_TO_CART_FAILURE);
-export const addVariantToCartSuccess = createAction(types.ADD_VARIANT_TO_CART_SUCCESS);
+async function getCheckoutId() {
+  let checkoutId = cookie.get('checkoutId');
 
-async function checkoutCreate() {
+  if (checkoutId) return checkoutId;
+
   const mutation = gql`
     mutation {
       checkoutCreate(input: {}) {
@@ -62,32 +65,59 @@ async function checkoutCreate() {
 
   const { data } = await shopify.mutate({ mutation });
 
-  return data.checkoutCreate.checkout.id;
+  checkoutId = data.checkoutCreate.checkout.id;
+
+  cookie.set('checkoutId', checkoutId, { expires: 7 });
+
+  return checkoutId;
 }
 
-export function addVariantToCart(args: Object) {
+export const getCartRequest = createAction(types.GET_CART_REQUEST);
+export const getCartFailure = createAction(types.GET_CART_FAILURE);
+export const getCartSuccess = createAction(types.GET_CART_SUCCESS);
+
+export function getCart() {
   return async (dispatch: Function, getState: Function) => {
     try {
-      dispatch(addVariantToCartRequest());
-      const checkout = getState().cart.data;
-      let checkoutId = checkout.id;
-      let lineItems = checkout.lineItems;
+      dispatch(getCartRequest());
 
-      if (!checkoutId) checkoutId = await checkoutCreate();
+      const checkoutId = await getCheckoutId();
 
-      if (lineItems) {
-        lineItems = lineItems.edges.map(({ node }) => ({
-          quantity: node.quantity,
-          variantId: node.variant.id,
-        }));
-      } else {
-        lineItems = [];
-      }
+      const query = gql`
+        ${checkoutFields}
 
-      lineItems.push({
-        variantId: args.variantId,
-        quantity: args.quantity,
+        query($checkoutId: ID!) {
+          node(id: $checkoutId) {
+            ... on Checkout {
+              ...checkoutFields
+            }
+          }
+        }
+      `;
+
+      const { data } = await shopify.query({
+        query,
+        variables: {
+          checkoutId: checkoutId,
+        },
       });
+
+      dispatch(getCartSuccess({ data: data.node }));
+    } catch (error) {
+      dispatch(getCartFailure({ error }));
+    }
+  };
+}
+
+export const changeLineItemsRequest = createAction(types.CHANGE_LINE_ITEMS_REQUEST);
+export const changeLineItemsFailure = createAction(types.CHANGE_LINE_ITEMS_FAILURE);
+export const changeLineItemsSuccess = createAction(types.CHANGE_LINE_ITEMS_SUCCESS);
+
+function changeLineItems(lineItems: Object[]) {
+  return async (dispatch: Function) => {
+    try {
+      dispatch(changeLineItemsRequest());
+      let checkoutId = await getCheckoutId();
 
       const mutation = gql`
         ${checkoutFields}
@@ -109,9 +139,30 @@ export function addVariantToCart(args: Object) {
         },
       });
 
-      dispatch(addVariantToCartSuccess({ data: data.checkoutLineItemsReplace.checkout }));
+      dispatch(changeLineItemsSuccess({ data: data.checkoutLineItemsReplace.checkout }));
     } catch (error) {
-      dispatch(addVariantToCartFailure({ error }));
+      dispatch(changeLineItemsFailure({ error }));
     }
+  };
+}
+
+function getLineItems(lineItems) {
+  return lineItems.map(({ node }) => {
+    return { variantId: node.variant.id, quantity: node.quantity };
+  });
+}
+
+export function addVariantToCart(variantId: string | null, quantity: number) {
+  return async (dispatch: Function, getState: Function) => {
+    const lineItems = getLineItems(getState().cart.data.lineItems.edges);
+    const lineItemIndex = _.findIndex(lineItems, { variantId });
+
+    if (lineItemIndex >= 0) {
+      lineItems[lineItemIndex].quantity += quantity;
+    } else {
+      lineItems.push({ variantId, quantity });
+    }
+
+    dispatch(changeLineItems(lineItems));
   };
 }

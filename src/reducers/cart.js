@@ -1,5 +1,12 @@
 import { createReducer } from 'redux-starter-kit';
-import { addVariantToCartRequest, addVariantToCartFailure, addVariantToCartSuccess } from '../actions';
+import {
+  getCartRequest,
+  getCartFailure,
+  getCartSuccess,
+  changeLineItemsRequest,
+  changeLineItemsFailure,
+  changeLineItemsSuccess,
+} from '../actions';
 
 const defaultState = {
   loading: true,
@@ -8,15 +15,27 @@ const defaultState = {
 };
 
 export default createReducer(defaultState, {
-  [addVariantToCartRequest]: state => {
+  [getCartRequest]: state => {
     state.loading = true;
     state.error = null;
   },
-  [addVariantToCartFailure]: (state, { payload }) => {
+  [getCartFailure]: (state, { payload }) => {
     state.loading = false;
     state.error = payload.error;
   },
-  [addVariantToCartSuccess]: (state, { payload }) => {
+  [getCartSuccess]: (state, { payload }) => {
+    state.loading = false;
+    state.data = payload.data;
+  },
+  [changeLineItemsRequest]: state => {
+    state.loading = true;
+    state.error = null;
+  },
+  [changeLineItemsFailure]: (state, { payload }) => {
+    state.loading = false;
+    state.error = payload.error;
+  },
+  [changeLineItemsSuccess]: (state, { payload }) => {
     state.loading = false;
     state.data = payload.data;
   },

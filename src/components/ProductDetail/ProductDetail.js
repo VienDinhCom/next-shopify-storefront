@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getProduct, addVariantToCart } from '../../actions';
 import VariantSelector from './VariantSelector';
+import Cart from '../Cart/Cart';
 
 class ProductDetail extends Component<Object, Object> {
   state = {
@@ -9,7 +10,7 @@ class ProductDetail extends Component<Object, Object> {
     variantQuantity: 1,
   };
   componentWillMount() {
-    this.props.getProduct(this.props.match.params.productHandle);
+    this.props.dispatch(getProduct(this.props.match.params.productHandle));
   }
 
   render() {
@@ -22,6 +23,8 @@ class ProductDetail extends Component<Object, Object> {
 
     return (
       <>
+        <Cart />
+        <hr />
         <h1>{data.title}</h1>
         <p>{data.description}</p>
         {data.images.edges[0] && <img src={data.images.edges[0].node.originalSrc} width={200} alt="" />}
@@ -44,7 +47,9 @@ class ProductDetail extends Component<Object, Object> {
 
         <br />
 
-        <button onClick={() => this.props.addVariantToCart(selectedVariant, variantQuantity)}>Add to Cart</button>
+        <button onClick={() => this.props.dispatch(addVariantToCart(selectedVariant, parseInt(variantQuantity)))}>
+          Add to Cart
+        </button>
       </>
     );
   }
@@ -54,14 +59,4 @@ function mapStateToProps({ product }) {
   return { product };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getProduct: handle => dispatch(getProduct({ handle })),
-    addVariantToCart: (variantId, quantity) => dispatch(addVariantToCart({ variantId, quantity })),
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProductDetail);
+export default connect(mapStateToProps)(ProductDetail);
