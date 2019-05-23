@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import dayjs from 'dayjs';
 import { getFristPageOfProducts, getNextPageOfProducts } from '../../actions';
 
 const sortOpts = [
@@ -22,12 +23,12 @@ const sortOpts = [
   {
     name: 'Price (Low > High)',
     sortKey: 'price',
-    reverse: true,
+    reverse: false,
   },
   {
     name: 'Price (High > Low)',
     sortKey: 'price',
-    reverse: false,
+    reverse: true,
   },
   {
     name: 'Title (A - Z)',
@@ -41,7 +42,7 @@ const sortOpts = [
   },
 ];
 
-class ProductList extends Component<any, any> {
+class ProductList extends Component<Object, Object> {
   state = {
     query: '',
     sort: 0,
@@ -115,7 +116,7 @@ class ProductList extends Component<any, any> {
       <table className="table table-bordered">
         <tbody>
           <tr>
-            <td colSpan="2">
+            <td colSpan="3">
               <form action="" onSubmit={this.handleQuery}>
                 <input
                   type="text"
@@ -135,16 +136,20 @@ class ProductList extends Component<any, any> {
           </tr>
           <tr>
             <td style={{ width: 200 }}>Title</td>
-            <td>Description</td>
+            <td>Date</td>
+            <td>Price</td>
           </tr>
-          {data.map(({ handle, title, description }) => (
+          {data.map(({ handle, title, description, priceRange, createdAt }) => (
             <tr key={handle}>
               <td onClick={() => props.history.push(`/product/${handle}`)}>{title}</td>
-              <td>{description}</td>
+              <td>{dayjs(createdAt).format('DD/MM/YYYY')}</td>
+              <td>
+                {priceRange.minVariantPrice.amount} {priceRange.minVariantPrice.currencyCode}
+              </td>
             </tr>
           ))}
           <tr>
-            <td colSpan="2" align="center">
+            <td colSpan="3" align="center">
               {nextPage.error && <p>Error: {nextPage.error}</p>}
               <button disabled={!hasNextPage} onClick={() => this.handleNextPage(data[data.length - 1].cursor)}>
                 {nextPage.loading ? 'Loading' : nextPage.error ? 'Try Again' : 'Load More'}

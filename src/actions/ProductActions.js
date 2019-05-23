@@ -7,7 +7,7 @@ export const getProductRequest = createAction(types.GET_PRODUCT_REQUEST);
 export const getProductFailure = createAction(types.GET_PRODUCT_FAILURE);
 export const getProductSuccess = createAction(types.GET_PRODUCT_SUCCESS);
 
-export const getProduct = (handle: string) => {
+export const getProduct = (productHandle: string) => {
   return async (dispatch: Function) => {
     try {
       dispatch(getProductRequest());
@@ -24,6 +24,23 @@ export const getProduct = (handle: string) => {
                 }
               }
             }
+            options {
+              id
+              name
+              values
+            }
+            variants(first: 250) {
+              edges {
+                node {
+                  id
+                  title
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
           }
         }
       `;
@@ -31,17 +48,11 @@ export const getProduct = (handle: string) => {
       const response = await shopify.query({
         query,
         variables: {
-          handle,
+          handle: productHandle,
         },
       });
 
       let data = response.data.productByHandle;
-
-      data = {
-        title: data.title,
-        description: data.description,
-        images: data.images.edges.map(({ node }) => node.originalSrc),
-      };
 
       dispatch(getProductSuccess({ data }));
     } catch (error) {
