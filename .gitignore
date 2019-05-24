@@ -9,7 +9,8 @@
 /coverage
 
 # production
-/build
+/.next
+/dist
 
 # misc
 .firebase

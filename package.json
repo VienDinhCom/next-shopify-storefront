@@ -1,44 +1,37 @@
 {
-  "name": "react-redux-shopify-store",
-  "version": "0.1.0",
-  "homepage": "https://github.com/maxvien/react-redux-shopify-store",
-  "private": true,
+  "name": "next-typescript",
+  "version": "1.0.0",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "flow": "flow check ./src/",
-    "flow:i": "flow-typed install"
+    "dev": "nodemon",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "dependencies": {
-    "apollo-boost": "^0.3.1",
-    "dayjs": "^1.8.14",
-    "graphql": "^14.3.0",
-    "js-cookie": "^2.2.0",
-    "lodash": "^4.17.11",
-    "query-string": "^6.5.0",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.5",
-    "redux-starter-kit": "^0.5.1"
+    "redux-starter-kit": "^0.5.1",
+    "@zeit/next-typescript": "^1.1.1"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "flow-bin": "^0.93.0",
-    "flow-typed": "^2.5.1",
-    "gh-pages": "^2.0.1",
-    "prettier": "^1.16.4"
+    "@types/next": "^8.0.5",
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "16.8.4",
+    "@types/react-redux": "^7.0.9",
+    "@typescript-eslint/eslint-plugin": "^1.0.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-typescript": "^4.0.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.11.0",
+    "nodemon": "^1.19.0",
+    "prettier": "^1.17.1",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.5"
   }
 }
