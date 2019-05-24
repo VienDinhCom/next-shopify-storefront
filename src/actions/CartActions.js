@@ -152,7 +152,7 @@ function getLineItems(lineItems) {
   });
 }
 
-export function addVariantToCart(variantId: string | null, quantity: number) {
+export function addVariantToCart(variantId: string, quantity: number) {
   return async (dispatch: Function, getState: Function) => {
     const lineItems = getLineItems(getState().cart.data.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
@@ -162,6 +162,29 @@ export function addVariantToCart(variantId: string | null, quantity: number) {
     } else {
       lineItems.push({ variantId, quantity });
     }
+
+    dispatch(changeLineItems(lineItems));
+  };
+}
+
+export function updateQuantityOfVariant(variantId: string, quantity: number) {
+  return async (dispatch: Function, getState: Function) => {
+    const lineItems = getLineItems(getState().cart.data.lineItems.edges);
+    const lineItemIndex = _.findIndex(lineItems, { variantId });
+
+    lineItems[lineItemIndex].quantity = parseInt(quantity || 1);
+
+    dispatch(changeLineItems(lineItems));
+  };
+}
+
+export function removeVariantOutOfCart(variantId: string) {
+  return async (dispatch: Function, getState: Function) => {
+    let lineItems = getLineItems(getState().cart.data.lineItems.edges);
+
+    lineItems = _.remove(lineItems, function(lineItem) {
+      return lineItem.variantId !== variantId;
+    });
 
     dispatch(changeLineItems(lineItems));
   };

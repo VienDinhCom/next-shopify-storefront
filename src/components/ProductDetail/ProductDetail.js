@@ -6,7 +6,7 @@ import Cart from '../Cart/Cart';
 
 class ProductDetail extends Component<Object, Object> {
   state = {
-    selectedVariant: null,
+    selectedVariant: '',
     variantQuantity: 1,
   };
   componentWillMount() {
