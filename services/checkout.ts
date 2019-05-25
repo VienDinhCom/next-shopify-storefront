@@ -140,7 +140,7 @@ export function replaceLineItems(lineItems: ILineItem[]) {
   };
 }
 
-function getLineItems(lineItems: ILineItem[]): ILineItem[] {
+function getLineItems(lineItems: Object[]): ILineItem[] {
   return lineItems.map(({ node }: any) => {
     return { variantId: node.variant.id, quantity: node.quantity };
   });
