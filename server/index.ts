@@ -1,27 +1,36 @@
-import { createServer } from 'http';
-import { parse } from 'url';
+import express from 'express';
 import next from 'next';
 
-const port = parseInt(process.env.PORT || '3000', 10);
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-app.prepare().then(() => {
-  createServer((req, res) => {
-    const parsedUrl = parse(req.url || '', true);
-    // const { pathname, query } = parsedUrl
+app
+  .prepare()
+  .then(() => {
+    const server = express();
 
-    handle(req, res, parsedUrl);
+    server.get('/collections/:id', (req, res) => {
+      const actualPage = '/collections';
+      const queryParams = { id: req.params.id };
+      app.render(req, res, actualPage, queryParams);
+    });
 
-    // if (pathname === '/a') {
-    //   app.render(req, res, '/a', query)
-    // } else if (pathname === '/b') {
-    //   app.render(req, res, '/b', query)
-    // } else {
-    //   handle(req, res, parsedUrl)
-    // }
-  }).listen(port);
+    server.get('/products/:id', (req, res) => {
+      const actualPage = '/products';
+      const queryParams = { id: req.params.id };
+      app.render(req, res, actualPage, queryParams);
+    });
 
-  console.log(`> Server listening at http://localhost:${port} as ${dev ? 'development' : process.env.NODE_ENV}`); // eslint-disable-line
-});
+    server.get('*', (req, res) => {
+      return handle(req, res);
+    });
+
+    server.listen(3000, () => {
+      console.log('> Ready on http://localhost:3000'); // eslint-disable-line
+    });
+  })
+  .catch(ex => {
+    console.error(ex.stack); // eslint-disable-line
+    process.exit(1);
+  });

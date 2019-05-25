@@ -1,24 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { increment, decrement } from '../store';
+import Link from 'next/link';
 
-interface Props {
-  count: number;
-  dispatch: Function;
+function LinkAs({ path, param, value, children }: any) {
+  return (
+    <Link as={`${path}/${value}`} href={`${path}?${param}=${value}`}>
+      {children}
+    </Link>
+  );
 }
 
-const Index = ({ count, dispatch }: Props) => (
-  <>
-    <div>{count}</div>
-    <button type="button" onClick={() => dispatch(increment(1))}>
-      +
-    </button>
-    <button type="button" onClick={() => dispatch(decrement(1))}>
-      -
-    </button>
-  </>
+const Index = () => (
+  <LinkAs path="/collections" param="id" value="Hello">
+    <span>Hello Collections</span>
+  </LinkAs>
 );
 
-export default connect((state: number) => ({
-  count: state
-}))(Index);
+export default Index;
