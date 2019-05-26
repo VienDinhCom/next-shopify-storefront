@@ -1,7 +1,7 @@
-import React from 'react';
 import Link from 'next/link';
+import React, { ReactElement } from 'react';
 
-function LinkAs({ path, param, value, children }: any) {
+function LinkAs({ path, param, value, children }: any): ReactElement {
   return (
     <Link as={`${path}/${value}`} href={`${path}?${param}=${value}`}>
       {children}
@@ -9,10 +9,12 @@ function LinkAs({ path, param, value, children }: any) {
   );
 }
 
-const Index = () => (
-  <LinkAs path="/collections" param="id" value="Hello">
-    <span>Hello Collections</span>
-  </LinkAs>
-);
+function Index(): ReactElement {
+  return (
+    <LinkAs path="/collections" param="id" value="Hello">
+      <span>Hello Collections</span>
+    </LinkAs>
+  );
+}
 
 export default Index;

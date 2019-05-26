@@ -1,6 +1,6 @@
-import _ from 'lodash';
-import cookie from 'js-cookie';
 import { gql } from 'apollo-boost';
+import cookie from 'js-cookie';
+import _ from 'lodash';
 import { actions } from '../store';
 import { shopify } from './apis';
 
@@ -79,7 +79,7 @@ const checkoutLineItemsReplaceMutation = gql`
   }
 `;
 
-async function create() {
+async function create(): Promise<string> {
   let checkoutId = cookie.get('checkoutId');
 
   if (checkoutId) return checkoutId;
@@ -90,11 +90,11 @@ async function create() {
 
   if (checkoutId) cookie.set('checkoutId', checkoutId, { expires: 7 });
 
-  return checkoutId;
+  return checkoutId || '';
 }
 
-export function fetch() {
-  return async (dispatch: Function) => {
+export function fetch(): Function {
+  return async (dispatch: Function): Promise<void> => {
     try {
       dispatch(actions.checkout.request());
 
@@ -114,13 +114,13 @@ export function fetch() {
   };
 }
 
-interface ILineItem {
+interface LineItem {
   variantId: string;
   quantity: number;
 }
 
-export function replaceLineItems(lineItems: ILineItem[]) {
-  return async (dispatch: Function) => {
+export function replaceLineItems(lineItems: LineItem[]): Function {
+  return async (dispatch: Function): Promise<void> => {
     try {
       dispatch(actions.checkout.lineItemsReplaceRequest());
       const checkoutId = await create();
@@ -133,21 +133,23 @@ export function replaceLineItems(lineItems: ILineItem[]) {
         }
       });
 
-      dispatch(actions.checkout.lineItemsReplaceSuccess({ item: data.checkoutLineItemsReplace.checkout }));
+      dispatch(
+        actions.checkout.lineItemsReplaceSuccess({
+          item: data.checkoutLineItemsReplace.checkout
+        })
+      );
     } catch (error) {
       dispatch(actions.checkout.failure({ error }));
     }
   };
 }
 
-function getLineItems(lineItems: Object[]): ILineItem[] {
-  return lineItems.map(({ node }: any) => {
-    return { variantId: node.variant.id, quantity: node.quantity };
-  });
+function getLineItems(lineItems: object[]): LineItem[] {
+  return lineItems.map(({ node }: any): LineItem => ({ variantId: node.variant.id, quantity: node.quantity }));
 }
 
-export function addLineItem(variantId: string, quantity: number) {
-  return async (dispatch: Function, getState: Function) => {
+export function addLineItem(variantId: string, quantity: number): Function {
+  return async (dispatch: Function, getState: Function): Promise<void> => {
     const lineItems = getLineItems(getState().cart.data.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
@@ -161,8 +163,8 @@ export function addLineItem(variantId: string, quantity: number) {
   };
 }
 
-export function updateQuantity(variantId: string, quantity: number) {
-  return async (dispatch: Function, getState: Function) => {
+export function updateQuantity(variantId: string, quantity: number): Function {
+  return async (dispatch: Function, getState: Function): Promise<void> => {
     const lineItems = getLineItems(getState().cart.data.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
@@ -172,13 +174,11 @@ export function updateQuantity(variantId: string, quantity: number) {
   };
 }
 
-export function removeLineItem(variantId: string) {
-  return async (dispatch: Function, getState: Function) => {
+export function removeLineItem(variantId: string): Function {
+  return async (dispatch: Function, getState: Function): Promise<void> => {
     let lineItems = getLineItems(getState().cart.data.lineItems.edges);
 
-    lineItems = _.remove(lineItems, lineItem => {
-      return lineItem.variantId !== variantId;
-    });
+    lineItems = _.remove(lineItems, (lineItem: LineItem): boolean => lineItem.variantId !== variantId);
 
     dispatch(replaceLineItems(lineItems));
   };

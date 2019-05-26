@@ -1,6 +1,19 @@
 import { createSlice } from 'redux-starter-kit';
 
-const initialState = {
+export interface CheckoutState {
+  loading: boolean;
+  error: Error | null;
+  item: object;
+}
+
+export interface CheckoutAction {
+  payload: {
+    error?: Error;
+    item?: object;
+  };
+}
+
+const initialState: CheckoutState = {
   loading: true,
   error: null,
   item: {}
@@ -10,29 +23,29 @@ export default createSlice({
   slice: 'checkout',
   initialState,
   reducers: {
-    request: state => {
+    request: (state: CheckoutState): void => {
       state.loading = true;
       state.error = null;
     },
-    failure: (state, { payload }) => {
+    failure: (state: CheckoutState, { payload }: CheckoutAction): void => {
       state.loading = false;
-      state.error = payload.error;
+      state.error = payload.error || null;
     },
-    success: (state, { payload }) => {
+    success: (state: CheckoutState, { payload }: CheckoutAction): void => {
       state.loading = false;
-      state.item = payload.item;
+      state.item = payload.item || {};
     },
-    lineItemsReplaceRequest: state => {
+    lineItemsReplaceRequest: (state: CheckoutState): void => {
       state.loading = true;
       state.error = null;
     },
-    lineItemsReplaceFailure: (state, { payload }) => {
+    lineItemsReplaceFailure: (state: CheckoutState, { payload }: CheckoutAction): void => {
       state.loading = false;
-      state.error = payload.error;
+      state.error = payload.error || null;
     },
-    lineItemsReplaceSuccess: (state, { payload }) => {
+    lineItemsReplaceSuccess: (state: CheckoutState, { payload }: CheckoutAction): void => {
       state.loading = false;
-      state.item = payload.item;
+      state.item = payload.item || {};
     }
   }
 });

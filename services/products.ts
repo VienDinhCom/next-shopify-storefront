@@ -47,15 +47,15 @@ export const nextPageQuery = gql`
   }
 `;
 
-interface IArgs {
+interface Args {
   cursor: string;
   query: string;
   sortKey: string;
   reverse: boolean;
 }
 
-export function getFirstPage({ query, sortKey, reverse }: IArgs) {
-  return async (dispatch: Function) => {
+export function getFirstPage({ query, sortKey, reverse }: Args): Function {
+  return async (dispatch: Function): Promise<void> => {
     try {
       dispatch(actions.products.firstPageRequest());
 
@@ -69,7 +69,7 @@ export function getFirstPage({ query, sortKey, reverse }: IArgs) {
       });
 
       const { hasNextPage } = response.data.products.pageInfo;
-      const items = response.data.products.edges.map(({ node, cursor }: any) => ({ ...node, cursor }));
+      const items = response.data.products.edges.map(({ node, cursor }: any): object => ({ ...node, cursor }));
 
       dispatch(actions.products.firstPageSuccess({ items, hasNextPage }));
     } catch (error) {
@@ -78,8 +78,8 @@ export function getFirstPage({ query, sortKey, reverse }: IArgs) {
   };
 }
 
-export function getNextPage({ cursor, query, sortKey, reverse }: IArgs) {
-  return async (dispatch: Function) => {
+export function getNextPage({ cursor, query, sortKey, reverse }: Args): Function {
+  return async (dispatch: Function): Promise<void> => {
     try {
       dispatch(actions.products.nextPageRequest());
 
@@ -94,7 +94,7 @@ export function getNextPage({ cursor, query, sortKey, reverse }: IArgs) {
       });
 
       const { hasNextPage } = response.data.products.pageInfo;
-      const items = response.data.products.edges.map((edge: any) => ({ ...edge.node, cursor: edge.cursor }));
+      const items = response.data.products.edges.map((edge: any): object => ({ ...edge.node, cursor: edge.cursor }));
 
       dispatch(actions.products.nextPageSuccess({ items, hasNextPage }));
     } catch (error) {

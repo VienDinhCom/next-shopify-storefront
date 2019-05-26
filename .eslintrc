@@ -1,17 +1,24 @@
 {
   "extends": [
-    "airbnb-typescript",
-    "plugin:prettier/recommended"
+    "typescript",
+    "typescript/react",
+    "typescript/prettier",
+    "typescript/prettier-react"
   ],
   "plugins": [
     "react-hooks"
   ],
   "rules": {
-    "no-param-reassign": "off",
-    "import/prefer-default-export": "off",
-    "react/jsx-indent": "off",
-    "react/jsx-one-expression-per-line": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true
   }
 }

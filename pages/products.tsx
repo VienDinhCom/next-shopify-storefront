@@ -1,7 +1,7 @@
-import React from 'react';
 import { withRouter } from 'next/router';
+import React, { ReactElement } from 'react';
 
-function ProductsPage({ router }: any) {
+function ProductsPage({ router }: any): ReactElement {
   return (
     <>
       <h1>{router.query.id}</h1>

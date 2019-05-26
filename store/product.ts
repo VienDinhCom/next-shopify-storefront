@@ -1,6 +1,19 @@
 import { createSlice } from 'redux-starter-kit';
 
-const initialState = {
+export interface ProductState {
+  loading: boolean;
+  error: Error | null;
+  item: object;
+}
+
+interface CheckoutAction {
+  payload: {
+    error?: Error;
+    item?: object;
+  };
+}
+
+const initialState: ProductState = {
   loading: true,
   error: null,
   item: {}
@@ -10,16 +23,14 @@ export default createSlice({
   slice: 'product',
   initialState,
   reducers: {
-    request: () => {
-      return initialState;
-    },
-    failure: (state, { payload }) => {
+    request: (): ProductState => initialState,
+    failure: (state: ProductState, { payload }: CheckoutAction): void => {
       state.loading = false;
-      state.error = payload.error;
+      state.error = payload.error || null;
     },
-    success: (state, { payload }) => {
+    success: (state: ProductState, { payload }: CheckoutAction): void => {
       state.loading = false;
-      state.item = payload.item;
+      state.item = payload.item || {};
     }
   }
 });

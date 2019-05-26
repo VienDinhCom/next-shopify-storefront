@@ -1,12 +1,13 @@
-import Head from 'next/head';
 import App, { Container } from 'next/app';
+import Head from 'next/head';
+import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
-import React from 'react';
 import store from '../store';
 
 class Root extends App {
-  render() {
+  public render(): ReactElement {
     const { Component, pageProps } = this.props;
+
     return (
       <Container>
         <Provider store={store}>
