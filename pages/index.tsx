@@ -4,12 +4,12 @@ import Link from '../components/Link';
 function Index(): ReactElement {
   return (
     <Link
-      path="/collections"
+      path="/products"
       params={{
         id: 'hello'
       }}
     >
-      <span>Hello Collections</span>
+      <span>Product: Hello</span>
     </Link>
   );
 }
