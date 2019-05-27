@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import Link from 'next/link';
 import Layout from '../Layout';
 
 interface Props {
@@ -10,6 +9,7 @@ function Home({ children }: Props): ReactElement {
   return (
     <Layout>
       <>Home</>
+      {children}
     </Layout>
   );
 }

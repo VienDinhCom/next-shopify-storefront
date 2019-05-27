@@ -34,7 +34,7 @@ function Products(props: Props): ReactElement {
             <td>Price</td>
           </tr>
           {props.products.items.map(
-            ({ handle, title, description, priceRange, createdAt }: any): any => (
+            ({ handle, title, priceRange, createdAt }: any): any => (
               <tr key={handle}>
                 <td onClick={() => props.history.push(`/product/${handle}`)}>{title}</td>
                 <td>{dayjs(createdAt).format('DD/MM/YYYY')}</td>

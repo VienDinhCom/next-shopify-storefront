@@ -1,6 +1,6 @@
 import React, { Component, ReactElement } from 'react';
 import { NextComponentClass } from 'next';
-import { createStore, actions } from '../store';
+import { createStore } from '../store';
 import { Store } from 'redux';
 
 interface Props {
