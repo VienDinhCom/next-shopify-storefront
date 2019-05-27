@@ -1,4 +1,3 @@
-import { withRouter } from 'next/router';
 import React, { ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Products from '../components/Products/Products';
@@ -36,4 +35,4 @@ function mapStateToProps({ products }: any): object {
   return { products };
 }
 
-export default withRouter(connect(mapStateToProps)(ProductsPage));
+export default connect(mapStateToProps)(ProductsPage);
