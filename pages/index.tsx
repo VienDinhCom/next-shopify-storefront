@@ -1,19 +1,16 @@
-import Link from 'next/link';
 import React, { ReactElement } from 'react';
-
-function LinkAs({ path, param, value, children }: any): ReactElement {
-  return (
-    <Link as={`${path}/${value}`} href={`${path}?${param}=${value}`}>
-      {children}
-    </Link>
-  );
-}
+import Link from '../components/Link';
 
 function Index(): ReactElement {
   return (
-    <LinkAs path="/collections" param="id" value="Hello">
+    <Link
+      path="/collections"
+      params={{
+        id: 'hello'
+      }}
+    >
       <span>Hello Collections</span>
-    </LinkAs>
+    </Link>
   );
 }
 
