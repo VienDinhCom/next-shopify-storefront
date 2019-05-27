@@ -1,5 +1,6 @@
 import express from 'express';
 import next from 'next';
+import 'isomorphic-unfetch';
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });

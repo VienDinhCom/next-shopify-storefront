@@ -17,7 +17,7 @@ interface ProductsAction {
   payload: {
     error?: Error;
     items?: object[];
-    hasNextPage: boolean;
+    hasNextPage?: boolean;
   };
 }
 
@@ -38,7 +38,10 @@ export default createSlice({
   slice: 'products',
   initialState,
   reducers: {
-    firstPageRequest: (): ProductsState => initialState,
+    firstPageRequest: (state: ProductsState): void => {
+      state.nextPage.loading = true;
+      state.nextPage.error = null;
+    },
     firstPageFailure: (state: ProductsState, { payload }: ProductsAction): void => {
       state.firstPage.loading = false;
       state.firstPage.error = payload.error || null;
@@ -46,7 +49,7 @@ export default createSlice({
     firstPageSuccess: (state: ProductsState, { payload }: ProductsAction): void => {
       state.firstPage.loading = false;
       state.items = payload.items || [];
-      state.hasNextPage = payload.hasNextPage;
+      state.hasNextPage = payload.hasNextPage || false;
     },
     nextPageRequest: (state: ProductsState): void => {
       state.nextPage.loading = true;
@@ -59,7 +62,7 @@ export default createSlice({
     nextPageSuccess: (state: ProductsState, { payload }: ProductsAction): void => {
       state.nextPage.loading = false;
       state.items = state.items.concat(payload.items || []);
-      state.hasNextPage = payload.hasNextPage;
+      state.hasNextPage = payload.hasNextPage || false;
     }
   }
 });

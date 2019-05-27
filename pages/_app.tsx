@@ -1,12 +1,17 @@
 import App, { Container } from 'next/app';
-import Head from 'next/head';
 import React, { ReactElement } from 'react';
+import { Store } from 'redux';
 import { Provider } from 'react-redux';
-import store from '../store';
+import Head from 'next/head';
+import withRedux from '../hocs/withRedux';
 
-class Root extends App {
+interface Props {
+  store: Store;
+}
+
+class Root extends App<Props> {
   public render(): ReactElement {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, store } = this.props;
 
     return (
       <Container>
@@ -22,4 +27,4 @@ class Root extends App {
   }
 }
 
-export default Root;
+export default withRedux(Root);

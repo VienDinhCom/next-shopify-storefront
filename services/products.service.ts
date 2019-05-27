@@ -48,7 +48,7 @@ export const nextPageQuery = gql`
 `;
 
 interface Args {
-  cursor: string;
+  cursor?: string;
   query: string;
   sortKey: string;
   reverse: boolean;
@@ -59,17 +59,17 @@ export function getFirstPage({ query, sortKey, reverse }: Args): Function {
     try {
       dispatch(actions.products.firstPageRequest());
 
-      const response = await shopify.query({
+      const { data } = await shopify.query({
         query: firstPageQuery,
         variables: {
-          query: query || '',
+          query,
           sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
           reverse
         }
       });
 
-      const { hasNextPage } = response.data.products.pageInfo;
-      const items = response.data.products.edges.map(({ node, cursor }: any): object => ({ ...node, cursor }));
+      const { hasNextPage } = data.products.pageInfo;
+      const items = data.products.edges.map(({ node, cursor }: any): object => ({ ...node, cursor }));
 
       dispatch(actions.products.firstPageSuccess({ items, hasNextPage }));
     } catch (error) {
@@ -83,18 +83,18 @@ export function getNextPage({ cursor, query, sortKey, reverse }: Args): Function
     try {
       dispatch(actions.products.nextPageRequest());
 
-      const response = await shopify.query({
+      const { data } = await shopify.query({
         query: nextPageQuery,
         variables: {
           cursor,
-          query: query || '',
+          query,
           sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
           reverse
         }
       });
 
-      const { hasNextPage } = response.data.products.pageInfo;
-      const items = response.data.products.edges.map((edge: any): object => ({ ...edge.node, cursor: edge.cursor }));
+      const { hasNextPage } = data.products.pageInfo;
+      const items = data.products.edges.map((edge: any): object => ({ ...edge.node, cursor: edge.cursor }));
 
       dispatch(actions.products.nextPageSuccess({ items, hasNextPage }));
     } catch (error) {

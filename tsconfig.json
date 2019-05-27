@@ -5,6 +5,7 @@
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
+      "dom",
       "es2016"
     ],
     "module": "commonjs",

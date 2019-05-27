@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from 'redux-starter-kit';
+import { combineReducers, configureStore, Store } from 'redux-starter-kit';
 import checkout from './checkout';
 import product from './product';
 import products from './products';
@@ -15,6 +15,9 @@ const rootReducer = combineReducers({
   products: products.reducer
 });
 
-export default configureStore({
-  reducer: rootReducer
-});
+export function createStore(initialState = {}): Store {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState: initialState
+  });
+}
