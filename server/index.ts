@@ -22,10 +22,10 @@ const handle = app.getRequestHandler();
     );
 
     server.get(
-      '/product/:id',
+      '/product/:handle',
       (req: any, res: any): void => {
         const actualPage = '/product';
-        const queryParams = { id: req.params.id };
+        const queryParams = { handle: req.params.handle };
         app.render(req, res, actualPage, queryParams);
       }
     );

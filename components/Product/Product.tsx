@@ -7,10 +7,9 @@ interface Props {
 }
 
 function Product(props: Props): ReactElement {
-  // console.log(props);
   return (
     <Layout>
-      <h1>Product</h1>
+      <h1>Product: {props.product.item.title}</h1>
     </Layout>
   );
 }

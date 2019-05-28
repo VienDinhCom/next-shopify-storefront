@@ -15,7 +15,7 @@ function withRedux(App: any): NextComponentClass {
       let appProps = {};
       const isServer = appContext.ctx.res;
 
-      if (isServer) store = createStore(); // Server Store
+      if (isServer) store = createStore();
 
       appContext.ctx.store = store;
 
@@ -33,7 +33,7 @@ function withRedux(App: any): NextComponentClass {
 
     public constructor(props: any) {
       super(props);
-      store = createStore(props.initialState); // Client Store
+      store = createStore(props.initialState);
     }
 
     public render(): ReactElement {

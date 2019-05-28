@@ -26,9 +26,10 @@ function ProductsPage({ products, notLoaded, dispatch }: Props): ReactElement {
   return <Products products={products} />;
 }
 
-ProductsPage.getInitialProps = async ({ store, res }: any): Promise<object> => {
-  res && (await store.dispatch(getFirstPage()));
-  return { notLoaded: res ? false : true };
+ProductsPage.getInitialProps = async ({ store, req }: any): Promise<object> => {
+  const isServer = req;
+  isServer && (await store.dispatch(getFirstPage()));
+  return { notLoaded: req ? false : true };
 };
 
 function mapStateToProps({ products }: any): object {
