@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import Layout from '../Layout';
 import { ProductsState } from '../../store/products';
 import dayjs from 'dayjs';
+import Link from '../Link';
 
 interface Props {
   products: ProductsState;
@@ -36,7 +37,11 @@ function Products(props: Props): ReactElement {
           {props.products.items.map(
             ({ handle, title, priceRange, createdAt }: any): any => (
               <tr key={handle}>
-                <td onClick={() => props.history.push(`/product/${handle}`)}>{title}</td>
+                <td>
+                  <Link path="/product" params={{ handle }}>
+                    {title}
+                  </Link>
+                </td>
                 <td>{dayjs(createdAt).format('DD/MM/YYYY')}</td>
                 <td>
                   {priceRange.minVariantPrice.amount} {priceRange.minVariantPrice.currencyCode}

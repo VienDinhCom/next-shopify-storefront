@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 interface Props {
   path: string;
   params: any;
-  children: ReactElement;
+  children: any;
 }
 
 function Link({ path, params, children }: Props): ReactElement {
@@ -18,7 +18,7 @@ function Link({ path, params, children }: Props): ReactElement {
 
   return (
     <NextLink as={`${path}${string}`} href={`${path}?${query}`}>
-      {children}
+      <a>{children}</a>
     </NextLink>
   );
 }
