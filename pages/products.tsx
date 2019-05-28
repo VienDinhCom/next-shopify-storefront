@@ -26,8 +26,8 @@ function ProductsPage({ products, notLoaded, query, dispatch }: Props): ReactEle
   return <Products products={products} query={query} />;
 }
 
-ProductsPage.getInitialProps = async (server: any): Promise<object> => {
-  const { store, req, query } = server;
+ProductsPage.getInitialProps = async (context: any): Promise<object> => {
+  const { store, req, query } = context;
   const isServer = req;
   const notLoaded = req ? false : true;
 

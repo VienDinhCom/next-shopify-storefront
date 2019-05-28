@@ -22,8 +22,8 @@ function ProductPage({ product, notLoaded, dispatch, query }: Props): ReactEleme
   return <Product product={product} />;
 }
 
-ProductPage.getInitialProps = async (server: any): Promise<object> => {
-  const { store, req, query } = server;
+ProductPage.getInitialProps = async (context: any): Promise<object> => {
+  const { store, req, query } = context;
   const isServer = req;
   const notLoaded = req ? false : true;
 
