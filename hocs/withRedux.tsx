@@ -7,11 +7,15 @@ interface Props {
   initialState: object;
 }
 
+let store: Store;
+
 function withRedux(App: any): NextComponentClass {
   return class AppWithRedux extends Component<Props> {
     public static async getInitialProps(appContext: any): Promise<object> {
       let appProps = {};
-      const store = createStore();
+      const isServer = appContext.ctx.res;
+
+      if (isServer) store = createStore(); // Server Store
 
       appContext.ctx.store = store;
 
@@ -29,12 +33,11 @@ function withRedux(App: any): NextComponentClass {
 
     public constructor(props: any) {
       super(props);
-
-      this.store = createStore(props.initialState);
+      store = createStore(props.initialState); // Client Store
     }
 
     public render(): ReactElement {
-      return <App {...this.props} store={this.store} />;
+      return <App {...this.props} store={store} />;
     }
   };
 }
