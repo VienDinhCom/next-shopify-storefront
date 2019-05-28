@@ -10,26 +10,30 @@ interface Props {
   notLoaded: boolean;
 }
 
-function getFirstPage(): Function {
+function getFirstPage({ query, reverse, sortKey }): Function {
   return productsService.getFirstPage({
-    query: '',
-    reverse: false,
-    sortKey: ''
+    query,
+    sortKey,
+    reverse: reverse === 'true' ? true : false
   });
 }
 
-function ProductsPage({ products, notLoaded, dispatch }: Props): ReactElement {
+function ProductsPage({ products, notLoaded, query, dispatch }: Props): ReactElement {
   useEffect((): void => {
-    if (notLoaded) dispatch(getFirstPage());
-  }, []);
+    if (notLoaded) dispatch(getFirstPage(query));
+  }, [query]);
 
-  return <Products products={products} />;
+  return <Products products={products} query={query} />;
 }
 
-ProductsPage.getInitialProps = async ({ store, req }: any): Promise<object> => {
+ProductsPage.getInitialProps = async (server: any): Promise<object> => {
+  const { store, req, query } = server;
   const isServer = req;
-  isServer && (await store.dispatch(getFirstPage()));
-  return { notLoaded: req ? false : true };
+  const notLoaded = req ? false : true;
+
+  isServer && (await store.dispatch(getFirstPage(query)));
+
+  return { notLoaded, query };
 };
 
 function mapStateToProps({ products }: any): object {

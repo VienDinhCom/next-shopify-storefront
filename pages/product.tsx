@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'next/router';
 import Product from '../components/Product/Product';
 import * as productService from '../services/product.service';
 import { ProductState } from '../store/product';
@@ -15,22 +14,26 @@ function getProduct(handle): Function {
   return productService.fetch({ handle });
 }
 
-function ProductPage({ product, notLoaded, dispatch, router }: Props): ReactElement {
+function ProductPage({ product, notLoaded, dispatch, query }: Props): ReactElement {
   useEffect((): void => {
-    if (notLoaded) dispatch(getProduct(router.query.handle));
+    if (notLoaded) dispatch(getProduct(query.handle));
   }, []);
 
   return <Product product={product} />;
 }
 
-ProductPage.getInitialProps = async ({ store, req }: any): Promise<object> => {
+ProductPage.getInitialProps = async (server: any): Promise<object> => {
+  const { store, req, query } = server;
   const isServer = req;
-  isServer && (await store.dispatch(getProduct(req.params.handle)));
-  return { notLoaded: req ? false : true };
+  const notLoaded = req ? false : true;
+
+  isServer && (await store.dispatch(getProduct(query.handle)));
+
+  return { notLoaded, query };
 };
 
 function mapStateToProps({ product }: any): object {
   return { product };
 }
 
-export default withRouter(connect(mapStateToProps)(ProductPage));
+export default connect(mapStateToProps)(ProductPage);

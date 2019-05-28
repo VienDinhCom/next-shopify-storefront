@@ -62,7 +62,7 @@ export function getFirstPage({ query, sortKey, reverse }: Args): Function {
       const { data } = await shopify.query({
         query: firstPageQuery,
         variables: {
-          query,
+          query: query || '',
           sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
           reverse
         }
