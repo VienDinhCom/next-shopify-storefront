@@ -6,7 +6,7 @@ export interface CheckoutState {
   item: object;
 }
 
-export interface CheckoutAction {
+interface CheckoutAction {
   payload: {
     error?: Error;
     item?: object;

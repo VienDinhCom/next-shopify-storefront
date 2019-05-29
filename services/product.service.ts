@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 import { actions } from '../store';
-import { shopify } from './apis';
+import { shopify } from './apis.service';
 
 export const productQuery = gql`
   query product($handle: String!) {

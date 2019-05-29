@@ -1,8 +1,8 @@
 import React, { ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Products from '../components/Products/Products';
-import * as productsService from '../services/products.service';
-import { ProductsState } from '../store/products';
+import * as services from '../services';
+import { ProductsState } from '../store/product.slice';
 
 interface Props {
   products: ProductsState;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 function getFirstPage({ query, reverse, sortKey }): Function {
-  return productsService.getFirstPage({
+  return services.products.getFirstPage({
     query,
     sortKey,
     reverse: reverse === 'true' ? true : false

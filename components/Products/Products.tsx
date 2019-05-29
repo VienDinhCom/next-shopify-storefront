@@ -2,8 +2,9 @@ import React, { ReactElement } from 'react';
 import queryString from 'query-string';
 import Router from 'next/router';
 import dayjs from 'dayjs';
+import { connect } from 'react-redux';
+import * as services from '../../services';
 import Layout from '../Layout';
-import { ProductsState } from '../../store/products';
 import Link from '../Link';
 
 interface Props {
@@ -56,6 +57,8 @@ function pushQueryString(queryStr: string): void {
 let timeoutID = 0;
 
 function Products(props: Props): ReactElement {
+  // console.log(props);
+
   function _search(event: Event): void {
     const query = event.target.value;
     const queryStr = queryString.stringify({ ...props.query, query });
@@ -72,9 +75,21 @@ function Products(props: Props): ReactElement {
     pushQueryString(queryStr);
   }
 
+  function _getNextPage(): void {
+    const { query, reverse, sortKey } = props.query;
+    const cursor = props.products.items[props.products.items.length - 1].cursor;
+    props.dispatch(
+      services.products.getNextPage({
+        cursor,
+        query,
+        sortKey,
+        reverse: reverse === 'true' ? true : false
+      })
+    );
+  }
+
   return (
     <Layout>
-      {props.products.firstPage.loading ? 'Loading...' : null}
       <table className="table table-bordered">
         <tbody>
           <tr>
@@ -96,6 +111,11 @@ function Products(props: Props): ReactElement {
             <td>Date</td>
             <td>Price</td>
           </tr>
+          {props.products.firstPage.loading && (
+            <tr>
+              <td colSpan="3">Loading...</td>
+            </tr>
+          )}
           {props.products.items.map(
             ({ handle, title, priceRange, createdAt }: any): any => (
               <tr key={handle}>
@@ -111,18 +131,22 @@ function Products(props: Props): ReactElement {
               </tr>
             )
           )}
-          {/* <tr>
-          <td colSpan="3" align="center">
-            {nextPage.error && <p>Error: {nextPage.error}</p>}
-            <button disabled={!hasNextPage} onClick={() => this.handleNextPage(data[data.length - 1].cursor)}>
-              {nextPage.loading ? 'Loading' : nextPage.error ? 'Try Again' : 'Load More'}
-            </button>
-          </td>
-        </tr> */}
+          <tr>
+            <td colSpan="3" align="center">
+              {props.products.nextPage.error && <p>Error: {props.products.nextPage.error}</p>}
+              <button disabled={!props.products.hasNextPage} onClick={_getNextPage}>
+                {props.products.nextPage.loading
+                  ? 'Loading'
+                  : props.products.nextPage.error
+                  ? 'Try Again'
+                  : 'Load More'}
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </Layout>
   );
 }
 
-export default Products;
+export default connect()(Products);

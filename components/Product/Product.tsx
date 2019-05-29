@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import Layout from '../Layout';
-import { ProductState } from '../../store/products';
+import { ProductState } from '../../store/products.slice';
 
 interface Props {
   products: ProductState;

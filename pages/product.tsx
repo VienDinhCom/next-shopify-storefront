@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Product from '../components/Product/Product';
 import * as productService from '../services/product.service';
-import { ProductState } from '../store/product';
+import { ProductState } from '../store/product.slice';
 
 interface Props {
   products: ProductState;

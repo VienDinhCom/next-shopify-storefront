@@ -1,7 +1,7 @@
 import { combineReducers, configureStore, Store } from 'redux-starter-kit';
-import checkout from './checkout';
-import product from './product';
-import products from './products';
+import checkout from './checkout.slice';
+import product from './product.slice';
+import products from './products.slice';
 
 export const actions = {
   checkout: checkout.actions,

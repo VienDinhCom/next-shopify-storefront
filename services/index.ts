@@ -1,0 +1,4 @@
+import * as product from './product.service';
+import * as products from './products.service';
+
+export { product, products };

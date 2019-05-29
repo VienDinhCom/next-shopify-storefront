@@ -2,7 +2,7 @@ import { gql } from 'apollo-boost';
 import cookie from 'js-cookie';
 import _ from 'lodash';
 import { actions } from '../store';
-import { shopify } from './apis';
+import { shopify } from './apis.service';
 
 export const checkoutFields = gql`
   fragment checkoutFields on Checkout {
