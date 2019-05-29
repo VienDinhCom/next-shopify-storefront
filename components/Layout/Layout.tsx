@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import Link from 'next/link';
+import Cart from '../Cart/Cart';
 
 interface Props {
   children: ReactElement;
@@ -16,6 +17,9 @@ function Layout({ children }: Props): ReactElement {
           <span>Products</span>
         </Link>
       </nav>
+      <hr />
+      <Cart />
+      <hr />
       <main>{children}</main>
     </>
   );

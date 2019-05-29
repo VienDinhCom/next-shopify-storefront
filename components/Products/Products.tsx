@@ -4,7 +4,7 @@ import Router from 'next/router';
 import dayjs from 'dayjs';
 import { connect } from 'react-redux';
 import * as services from '../../services';
-import Layout from '../Layout';
+import Layout from '../Layout/Layout';
 import Link from '../Link';
 
 interface Props {

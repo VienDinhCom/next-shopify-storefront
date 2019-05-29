@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import cookie from 'js-cookie';
+import cookies from 'js-cookie';
 import _ from 'lodash';
 import { actions } from '../store';
 import { shopify } from './apis.service';
@@ -79,8 +79,8 @@ const checkoutLineItemsReplaceMutation = gql`
   }
 `;
 
-async function create(): Promise<string> {
-  let checkoutId = cookie.get('checkoutId');
+export async function create(req: any, res: any): Promise<string> {
+  let { checkoutId } = req.cookies;
 
   if (checkoutId) return checkoutId;
 
@@ -88,17 +88,15 @@ async function create(): Promise<string> {
 
   checkoutId = data.checkoutCreate.checkout.id;
 
-  if (checkoutId) cookie.set('checkoutId', checkoutId, { expires: 7 });
+  if (checkoutId) res.cookie('checkoutId', checkoutId, { maxAge: 1000 * 60 * 60 * 24 * 7 });
 
   return checkoutId || '';
 }
 
-export function fetch(): Function {
+export function fetch(checkoutId: string): Function {
   return async (dispatch: Function): Promise<void> => {
     try {
       dispatch(actions.checkout.request());
-
-      const checkoutId = await create();
 
       const { data } = await shopify.query({
         query: checkoutQuery,
@@ -123,7 +121,7 @@ export function replaceLineItems(lineItems: LineItem[]): Function {
   return async (dispatch: Function): Promise<void> => {
     try {
       dispatch(actions.checkout.lineItemsReplaceRequest());
-      const checkoutId = await create();
+      const checkoutId = cookies.get('checkoutId');
 
       const { data } = await shopify.mutate({
         mutation: checkoutLineItemsReplaceMutation,
