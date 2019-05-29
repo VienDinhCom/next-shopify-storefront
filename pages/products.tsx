@@ -31,7 +31,7 @@ ProductsPage.getInitialProps = async (context: any): Promise<object> => {
   const isServer = req;
   const notLoaded = req ? false : true;
 
-  isServer && (await store.dispatch(getFirstPage(query)));
+  if (isServer) await store.dispatch(getFirstPage(query));
 
   return { notLoaded, query };
 };

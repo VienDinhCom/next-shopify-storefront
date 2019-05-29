@@ -14,7 +14,7 @@ class Root extends App<Props> {
     const isServer = ctx.res;
     const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
 
-    isServer && (await ctx.store.dispatch(services.checkout.fetch(ctx.req, ctx.res)));
+    if (isServer) await ctx.store.dispatch(services.checkout.fetch(ctx.req, ctx.res));
 
     return { pageProps };
   }
