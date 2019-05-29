@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Product from '../components/Product/Product';
-import * as productService from '../services/product.service';
+import * as services from '../services';
 import { ProductState } from '../store/product.slice';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 function getProduct(handle): Function {
-  return productService.fetch({ handle });
+  return services.product.fetch({ handle });
 }
 
 function ProductPage({ product, notLoaded, dispatch, query }: Props): ReactElement {
