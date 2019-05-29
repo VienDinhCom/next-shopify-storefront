@@ -1,7 +1,9 @@
 import React, { ReactElement, useState } from 'react';
+import { connect } from 'react-redux';
 import Layout from '../Layout/Layout';
 import VariantSelector from './VariantSelector';
 import { ProductState } from '../../store/products.slice';
+import * as services from '../../services';
 
 interface Props {
   products: ProductState;
@@ -44,11 +46,15 @@ function Product(props: Props): ReactElement {
 
           <br />
 
-          <button onClick={(): void => console.log(values)}>Add to Cart</button>
+          <button
+            onClick={(): void => props.dispatch(services.checkout.addLineItem(values.variantId, values.quantity))}
+          >
+            Add to Cart
+          </button>
         </>
       )}
     </Layout>
   );
 }
 
-export default Product;
+export default connect()(Product);

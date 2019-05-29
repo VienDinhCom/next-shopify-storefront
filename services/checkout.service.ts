@@ -148,7 +148,7 @@ function getLineItems(lineItems: object[]): LineItem[] {
 
 export function addLineItem(variantId: string, quantity: number): Function {
   return async (dispatch: Function, getState: Function): Promise<void> => {
-    const lineItems = getLineItems(getState().cart.data.lineItems.edges);
+    const lineItems = getLineItems(getState().checkout.item.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
     if (lineItemIndex >= 0) {
@@ -163,7 +163,7 @@ export function addLineItem(variantId: string, quantity: number): Function {
 
 export function updateQuantity(variantId: string, quantity: number): Function {
   return async (dispatch: Function, getState: Function): Promise<void> => {
-    const lineItems = getLineItems(getState().cart.data.lineItems.edges);
+    const lineItems = getLineItems(getState().checkout.item.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
     lineItems[lineItemIndex].quantity = quantity;
@@ -174,7 +174,7 @@ export function updateQuantity(variantId: string, quantity: number): Function {
 
 export function removeLineItem(variantId: string): Function {
   return async (dispatch: Function, getState: Function): Promise<void> => {
-    let lineItems = getLineItems(getState().cart.data.lineItems.edges);
+    let lineItems = getLineItems(getState().checkout.item.lineItems.edges);
 
     lineItems = _.remove(lineItems, (lineItem: LineItem): boolean => lineItem.variantId !== variantId);
 

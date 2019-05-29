@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
+import * as services from '../../services';
 
 function Cart(props: any): ReactElement {
   const { loading, error, item } = props.checkout;
@@ -17,8 +18,17 @@ function Cart(props: any): ReactElement {
             ({ node }): ReactElement => (
               <li key={node.id}>
                 {node.title} ({node.variant.title}){' '}
-                <input type="number" onChange={1} min={1} defaultValue={node.quantity} />{' '}
-                <button onClick={1}>Remove</button>
+                <input
+                  type="number"
+                  onChange={(): void =>
+                    props.dispatch(services.checkout.updateQuantity(node.variant.id, parseInt(event.target.value)))
+                  }
+                  min={1}
+                  defaultValue={node.quantity}
+                />{' '}
+                <button onClick={(): void => props.dispatch(services.checkout.removeLineItem(node.variant.id))}>
+                  Remove
+                </button>
               </li>
             )
           )}
