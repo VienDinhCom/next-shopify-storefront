@@ -79,24 +79,17 @@ const checkoutLineItemsReplaceMutation = gql`
   }
 `;
 
-export async function create(req: any, res: any): Promise<string> {
-  let { checkoutId } = req.cookies;
-
-  if (checkoutId) return checkoutId;
-
-  const { data } = await shopify.mutate({ mutation: checkoutCreateMutation });
-
-  checkoutId = data.checkoutCreate.checkout.id;
-
-  if (checkoutId) res.cookie('checkoutId', checkoutId, { maxAge: 1000 * 60 * 60 * 24 * 7 });
-
-  return checkoutId || '';
-}
-
-export function fetch(checkoutId: string): Function {
+export function fetch(req: any, res: any): Function {
   return async (dispatch: Function): Promise<void> => {
     try {
       dispatch(actions.checkout.request());
+      let { checkoutId } = req.cookies;
+
+      if (!checkoutId) {
+        const { data } = await shopify.mutate({ mutation: checkoutCreateMutation });
+        checkoutId = data.checkoutCreate.checkout.id;
+        res.cookie('checkoutId', checkoutId, { maxAge: 1000 * 60 * 60 * 24 * 7 }); // 7 days
+      }
 
       const { data } = await shopify.query({
         query: checkoutQuery,
