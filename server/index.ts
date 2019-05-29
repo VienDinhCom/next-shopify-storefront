@@ -1,6 +1,5 @@
 import express from 'express';
 import next from 'next';
-import 'isomorphic-unfetch';
 import cookieParser from 'cookie-parser';
 
 const dev = process.env.NODE_ENV !== 'production';

@@ -1,3 +1,4 @@
+import 'isomorphic-unfetch';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 
 export const shopify = new ApolloClient({
