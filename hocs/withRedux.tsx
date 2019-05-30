@@ -1,5 +1,6 @@
 import React, { Component, ReactElement } from 'react';
 import { NextComponentClass } from 'next';
+import { NextAppContext } from 'next/app';
 import { createStore } from '../store';
 import { Store } from 'redux';
 
@@ -9,9 +10,9 @@ interface Props {
 
 let store: Store;
 
-function withRedux(App: any): NextComponentClass {
+function withRedux(App: NextComponentClass): NextComponentClass {
   return class AppWithRedux extends Component<Props> {
-    public static async getInitialProps(appContext: any): Promise<object> {
+    public static async getInitialProps(appContext: NextAppContext): Promise<object> {
       let appProps = {};
       const isServer = appContext.ctx.res;
 
@@ -29,9 +30,7 @@ function withRedux(App: any): NextComponentClass {
       };
     }
 
-    public store: Store;
-
-    public constructor(props: any) {
+    public constructor(props: Props) {
       super(props);
       store = createStore(props.initialState);
     }
