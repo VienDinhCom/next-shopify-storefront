@@ -13,7 +13,7 @@ let store: Store;
 function withRedux(App: NextComponentClass): NextComponentClass {
   return class AppWithRedux extends Component<Props> {
     public static async getInitialProps(appContext: NextAppContext): Promise<object> {
-      let appProps = {};
+      let initialProps = {};
       const isServer = appContext.ctx.res;
 
       if (isServer) store = createStore();
@@ -21,11 +21,11 @@ function withRedux(App: NextComponentClass): NextComponentClass {
       appContext.ctx.store = store;
 
       if (typeof App.getInitialProps === 'function') {
-        appProps = await App.getInitialProps(appContext);
+        initialProps = await App.getInitialProps(appContext);
       }
 
       return {
-        ...appProps,
+        ...initialProps,
         initialState: store.getState()
       };
     }

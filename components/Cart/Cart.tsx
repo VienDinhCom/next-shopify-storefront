@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
 import * as services from '../../services';
+import Button from '@material-ui/core/Button';
 
 function Cart(props: any): ReactElement {
   const { loading, error, item } = props.checkout;
@@ -12,6 +13,9 @@ function Cart(props: any): ReactElement {
   return (
     <>
       <h1>Cart</h1>
+      <Button variant="contained" color="primary">
+        Hello World
+      </Button>
       <ul>
         {item.lineItems &&
           item.lineItems.edges.map(

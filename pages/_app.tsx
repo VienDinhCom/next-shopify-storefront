@@ -4,6 +4,7 @@ import { Store } from 'redux';
 import { Provider } from 'react-redux';
 import withRedux from '../hocs/withRedux';
 import * as services from '../services';
+import withMui from '../hocs/withMui';
 
 interface Props {
   store: Store;
@@ -31,4 +32,4 @@ class Root extends App<Props> {
   }
 }
 
-export default withRedux(Root);
+export default withRedux(withMui(Root));
