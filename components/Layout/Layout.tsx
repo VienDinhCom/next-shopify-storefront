@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
 import Link from 'next/link';
+import React, { ReactElement } from 'react';
 import Cart from '../Cart/Cart';
 
 interface Props {
-  children: ReactElement;
+  children;
 }
 
 function Layout({ children }: Props): ReactElement {

@@ -54,8 +54,8 @@ interface Args {
   reverse: boolean;
 }
 
-export function getFirstPage({ query, sortKey, reverse }: Args): Function {
-  return async (dispatch: Function): Promise<void> => {
+export function getFirstPage({ query, sortKey, reverse }: Args) {
+  return async dispatch => {
     try {
       dispatch(actions.products.firstPageRequest());
 
@@ -64,12 +64,12 @@ export function getFirstPage({ query, sortKey, reverse }: Args): Function {
         variables: {
           query: query || '',
           sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
-          reverse
-        }
+          reverse,
+        },
       });
 
       const { hasNextPage } = data.products.pageInfo;
-      const items = data.products.edges.map(({ node, cursor }: any): object => ({ ...node, cursor }));
+      const items = data.products.edges.map(({ node, cursor }): object => ({ ...node, cursor }));
 
       dispatch(actions.products.firstPageSuccess({ items, hasNextPage }));
     } catch (error) {
@@ -78,8 +78,8 @@ export function getFirstPage({ query, sortKey, reverse }: Args): Function {
   };
 }
 
-export function getNextPage({ cursor, query, sortKey, reverse }: Args): Function {
-  return async (dispatch: Function): Promise<void> => {
+export function getNextPage({ cursor, query, sortKey, reverse }: Args) {
+  return async dispatch => {
     try {
       dispatch(actions.products.nextPageRequest());
 
@@ -89,12 +89,12 @@ export function getNextPage({ cursor, query, sortKey, reverse }: Args): Function
           cursor,
           query,
           sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
-          reverse
-        }
+          reverse,
+        },
       });
 
       const { hasNextPage } = data.products.pageInfo;
-      const items = data.products.edges.map((edge: any): object => ({ ...edge.node, cursor: edge.cursor }));
+      const items = data.products.edges.map(edge => ({ ...edge.node, cursor: edge.cursor }));
 
       dispatch(actions.products.nextPageSuccess({ items, hasNextPage }));
     } catch (error) {

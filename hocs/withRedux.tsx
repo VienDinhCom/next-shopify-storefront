@@ -1,8 +1,6 @@
-import React, { Component, ReactElement } from 'react';
-import { NextComponentClass } from 'next';
-import { NextAppContext } from 'next/app';
-import { createStore } from '../store';
+import React, { Component } from 'react';
 import { Store } from 'redux';
+import { createStore } from '../store';
 
 interface Props {
   initialState: object;
@@ -10,13 +8,15 @@ interface Props {
 
 let store: Store;
 
-function withRedux(App: NextComponentClass): NextComponentClass {
+function withRedux(App) {
   return class AppWithRedux extends Component<Props> {
-    public static async getInitialProps(appContext: NextAppContext): Promise<object> {
+    public static async getInitialProps(appContext) {
       let initialProps = {};
       const isServer = appContext.ctx.res;
 
-      if (isServer) store = createStore();
+      if (isServer) {
+        store = createStore();
+      }
 
       appContext.ctx.store = store;
 
@@ -26,7 +26,7 @@ function withRedux(App: NextComponentClass): NextComponentClass {
 
       return {
         ...initialProps,
-        initialState: store.getState()
+        initialState: store.getState(),
       };
     }
 
@@ -35,7 +35,7 @@ function withRedux(App: NextComponentClass): NextComponentClass {
       store = createStore(props.initialState);
     }
 
-    public render(): ReactElement {
+    public render() {
       return <App {...this.props} store={store} />;
     }
   };

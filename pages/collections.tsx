@@ -1,7 +1,15 @@
 import { withRouter } from 'next/router';
-import React, { ReactElement } from 'react';
+import React from 'react';
 
-function CollectionsPage({ router }: any): ReactElement {
+interface Props {
+  router: {
+    query: {
+      id: string;
+    };
+  };
+}
+
+function CollectionsPage({ router }: Props) {
   return (
     <>
       <h1>{router.query.id}</h1>

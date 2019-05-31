@@ -1,7 +1,7 @@
-import React, { ReactElement } from 'react';
-import Home from '../components/Home';
+import React from 'react';
+import Home from '../components/Home/Home';
 
-function Index(): ReactElement {
+function Index() {
   return <Home />;
 }
 

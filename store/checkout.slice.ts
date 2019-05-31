@@ -3,20 +3,20 @@ import { createSlice } from 'redux-starter-kit';
 export interface CheckoutState {
   loading: boolean;
   error: Error | null;
-  item: object;
+  item: any
 }
 
 interface CheckoutAction {
   payload: {
     error?: Error;
-    item?: object;
+    item?: any
   };
 }
 
 const initialState: CheckoutState = {
   loading: true,
   error: null,
-  item: {}
+  item: {},
 };
 
 export default createSlice({
@@ -46,6 +46,6 @@ export default createSlice({
     lineItemsReplaceSuccess: (state: CheckoutState, { payload }: CheckoutAction): void => {
       state.loading = false;
       state.item = payload.item || {};
-    }
-  }
+    },
+  },
 });

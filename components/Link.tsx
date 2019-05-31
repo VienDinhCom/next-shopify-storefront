@@ -3,21 +3,21 @@ import React, { ReactElement } from 'react';
 
 interface Props {
   path: string;
-  params: any;
-  children: any;
+  params;
+  children;
 }
 
 function Link({ path, params, children }: Props): ReactElement {
-  let string = '';
+  let str = '';
   let query = '';
 
   for (const key in params) {
-    string = string + `/${params[key]}`;
+    str = str + `/${params[key]}`;
     query = query + `&${key}=${params[key]}`;
   }
 
   return (
-    <NextLink as={`${path}${string}`} href={`${path}?${query}`}>
+    <NextLink as={`${path}${str}`} href={`${path}?${query}`}>
       <a>{children}</a>
     </NextLink>
   );

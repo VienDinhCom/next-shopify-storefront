@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
 import { ServerStyleSheets } from '@material-ui/styles';
+import React, { Component } from 'react';
 import flush from 'styled-jsx/server';
 
 function withMuiDoc(Document) {
   return class DocumentWithMui extends Component {
-    static async getInitialProps(ctx) {
+    public static async getInitialProps(ctx) {
       const sheets = new ServerStyleSheets();
       const originalRenderPage = ctx.renderPage;
 
       ctx.renderPage = () => {
         return originalRenderPage({
-          enhanceApp: (App)=> (props) => sheets.collect(<App {...props} />)
+          enhanceApp: App => props => sheets.collect(<App {...props} />),
         });
       };
 
@@ -23,11 +23,11 @@ function withMuiDoc(Document) {
             {sheets.getStyleElement()}
             {flush() || null}
           </>
-        )
+        ),
       };
     }
 
-    render() {
+    public render() {
       return <Document {...this.props} />;
     }
   };

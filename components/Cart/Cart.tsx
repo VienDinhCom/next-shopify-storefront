@@ -1,14 +1,24 @@
+import Button from '@material-ui/core/Button';
 import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
 import * as services from '../../services';
-import Button from '@material-ui/core/Button';
+import { CheckoutState } from '../../store/checkout.slice';
 
-function Cart(props: any): ReactElement {
+interface Props {
+  checkout?: CheckoutState;
+  dispatch?: Function;
+}
+
+function Cart(props: Props): ReactElement {
   const { loading, error, item } = props.checkout;
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <>
@@ -30,9 +40,7 @@ function Cart(props: any): ReactElement {
                   min={1}
                   defaultValue={node.quantity}
                 />{' '}
-                <button onClick={(): void => props.dispatch(services.checkout.removeLineItem(node.variant.id))}>
-                  Remove
-                </button>
+                <button onClick={() => props.dispatch(services.checkout.removeLineItem(node.variant.id))}>Remove</button>
               </li>
             )
           )}
@@ -41,8 +49,8 @@ function Cart(props: any): ReactElement {
   );
 }
 
-function mapStateToProps({ checkout }: object): object {
-  return { checkout };
+function mapStateToProps(state): object {
+  return { checkout: state.checkout };
 }
 
 export default connect(mapStateToProps)(Cart);

@@ -35,16 +35,16 @@ export const productQuery = gql`
   }
 `;
 
-export function fetch({ handle }: { handle: string }): Function {
-  return async (dispatch: Function): Promise<void> => {
+export function fetch({ handle }: { handle: string }) {
+  return async dispatch => {
     try {
       dispatch(actions.product.request());
 
       const { data } = await shopify.query({
         query: productQuery,
         variables: {
-          handle
-        }
+          handle,
+        },
       });
 
       const item = data.productByHandle;

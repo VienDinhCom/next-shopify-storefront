@@ -1,42 +1,53 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Products from '../components/Products/Products';
 import * as services from '../services';
-import { ProductsState } from '../store/product.slice';
+import { ProductsState } from '../store/products.slice';
 
 interface Props {
   products: ProductsState;
   dispatch: Function;
   notLoaded: boolean;
+  query: {
+    query: string;
+    reverse: boolean;
+    sortKey: string;
+    sortIndex: number;
+  };
 }
 
-function getFirstPage({ query, reverse, sortKey }): Function {
+function getFirstPage({ query, reverse, sortKey }) {
   return services.products.getFirstPage({
     query,
     sortKey,
-    reverse: reverse === 'true' ? true : false
+    reverse,
   });
 }
 
-function ProductsPage({ products, notLoaded, query, dispatch }: Props): ReactElement {
-  useEffect((): void => {
-    if (notLoaded) dispatch(getFirstPage(query));
+function ProductsPage({ products, notLoaded, query, dispatch }: Props) {
+  useEffect(() => {
+    if (notLoaded) {
+      dispatch(getFirstPage(query));
+    }
   }, [query]);
 
   return <Products products={products} query={query} />;
 }
 
-ProductsPage.getInitialProps = async (context: any): Promise<object> => {
+ProductsPage.getInitialProps = async context => {
   const { store, req, query } = context;
   const isServer = req;
   const notLoaded = req ? false : true;
+  const transformedQuery = { ...query, reverse: query.reverse === 'true' ? true : false };
 
-  if (isServer) await store.dispatch(getFirstPage(query));
+  if (isServer) {
+    await store.dispatch(getFirstPage(transformedQuery));
+  }
 
-  return { notLoaded, query };
+  return { notLoaded, query: transformedQuery };
 };
 
-function mapStateToProps({ products }: any): object {
+function mapStateToProps({ products }: { products: ProductsState }) {
   return { products };
 }
 

@@ -1,7 +1,6 @@
 {
   "editor.tabSize": 2,
   "eslint.enable": true,
-  "typescript.validate.enable": false,
   "editor.formatOnSave": false,
   "eslint.autoFixOnSave": true,
   "eslint.validate": [

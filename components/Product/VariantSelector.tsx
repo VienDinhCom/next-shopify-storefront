@@ -1,25 +1,22 @@
-import React, { ReactElement, useState, useEffect } from 'react';
 import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
 
-function VariantSelector(props: any): ReactElement {
-  const defaultSelectedOptions = props.variants[0].node.selectedOptions.reduce(
-    (options: object, { name, value }: object): any => {
-      return { ...options, [name]: value };
-    },
-    {}
-  );
+function VariantSelector(props) {
+  const defaultSelectedOptions = props.variants[0].node.selectedOptions.reduce((options, { name, value }) => {
+    return { ...options, [name]: value };
+  }, {});
 
   const [selectedOptions, setSelectedOptions] = useState(defaultSelectedOptions);
 
-  function _onChange(event: any): void {
+  function _onChange(event) {
     const { name, value } = event.target;
     setSelectedOptions({ ...selectedOptions, [name]: value });
   }
 
-  useEffect((): void => {
+  useEffect(() => {
     const selectedVariant = props.variants.find(
-      ({ node }: any): boolean => {
-        const _selectedOptions = node.selectedOptions.reduce((options: object, { name, value }: object): any => {
+      ({ node }) => {
+        const _selectedOptions = node.selectedOptions.reduce((options, { name, value }) => {
           return { ...options, [name]: value };
         }, {});
 
@@ -31,12 +28,12 @@ function VariantSelector(props: any): ReactElement {
   }, [selectedOptions]);
 
   return props.options.map(
-    ({ name, values }: any): ReactElement => (
+    ({ name, values }) => (
       <div key={name}>
         <span>{name}: </span>
         <select name={name} value={selectedOptions[name]} onChange={_onChange}>
           {values.map(
-            (value: any): ReactElement => {
+            (value) => {
               return (
                 <option value={value} key={value}>
                   {value}

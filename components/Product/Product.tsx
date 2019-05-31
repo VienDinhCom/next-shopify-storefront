@@ -1,19 +1,21 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { ProductState } from '../../store/product.slice';
+import * as services from '../../services';
 import Layout from '../Layout/Layout';
 import VariantSelector from './VariantSelector';
-import { ProductState } from '../../store/products.slice';
-import * as services from '../../services';
+
 
 interface Props {
-  products: ProductState;
+  product: ProductState;
+  dispatch: Function;
 }
 
-function Product(props: Props): ReactElement {
+function Product(props: Props) {
   const { product } = props;
   const [values, setValues] = useState({
     variantId: '',
-    quantity: 1
+    quantity: 1,
   });
 
   return (
@@ -24,14 +26,12 @@ function Product(props: Props): ReactElement {
         <>
           <h1>{product.item.title}</h1>
           <p>{product.item.description}</p>
-          {product.item.images.edges[0] && (
-            <img src={product.item.images.edges[0].node.originalSrc} width={200} alt="" />
-          )}
+          {product.item.images.edges[0] && <img src={product.item.images.edges[0].node.originalSrc} width={200} alt="" />}
 
           <VariantSelector
             options={product.item.options}
             variants={product.item.variants.edges || []}
-            getVariantId={(variantId: string): void => setValues({ ...values, variantId })}
+            getVariantId={(variantId) => setValues({ ...values, variantId })}
           />
 
           <label className="Product__option">
@@ -40,15 +40,13 @@ function Product(props: Props): ReactElement {
               min="1"
               type="number"
               value={values.quantity}
-              onChange={(event: any): void => setValues({ ...values, quantity: parseInt(event.target.value) })}
+              onChange={(event) => setValues({ ...values, quantity: parseInt(event.target.value) })}
             />
           </label>
 
           <br />
 
-          <button
-            onClick={(): void => props.dispatch(services.checkout.addLineItem(values.variantId, values.quantity))}
-          >
+          <button onClick={() => props.dispatch(services.checkout.addLineItem(values.variantId, values.quantity))}>
             Add to Cart
           </button>
         </>
