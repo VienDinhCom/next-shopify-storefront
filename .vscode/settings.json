@@ -1,9 +1,28 @@
 {
-  "flow.enabled": true,
+  "editor.tabSize": 2,
   "eslint.enable": true,
-  "flow.runOnAllFiles": true,
+  "editor.formatOnSave": false,
   "eslint.autoFixOnSave": true,
-  "javascript.validate.enable": false,
-  "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
-  "emmet.triggerExpansionOnTab": true
+  "eslint.validate": [
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "javascriptreact",
+      "autoFix": true
+    },
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ],
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
 }

@@ -1,4 +1,4 @@
-build
-flow-typed
+dist
+.next
 node_modules
-src/services/worker.js
+next.config.js

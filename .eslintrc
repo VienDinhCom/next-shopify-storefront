@@ -1,13 +1,27 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "extends": [
-    "react-app",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier",
+    "prettier/@typescript-eslint",
     "prettier/react"
   ],
-  "plugins": [
-    "prettier"
-  ],
   "rules": {
-    "prettier/prettier": "error"
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/explicit-function-return-type": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true
   }
 }
