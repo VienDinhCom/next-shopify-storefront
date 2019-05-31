@@ -24,7 +24,7 @@ function Cart(props: any): ReactElement {
                 {node.title} ({node.variant.title}){' '}
                 <input
                   type="number"
-                  onChange={(): void =>
+                  onChange={(event): void =>
                     props.dispatch(services.checkout.updateQuantity(node.variant.id, parseInt(event.target.value)))
                   }
                   min={1}
