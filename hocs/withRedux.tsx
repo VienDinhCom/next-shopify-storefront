@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { createStore } from '../store';
 
@@ -36,7 +37,11 @@ function withRedux(App) {
     }
 
     public render() {
-      return <App {...this.props} store={store} />;
+      return (
+        <Provider store={store}>
+          <App {...this.props} store={store} />
+        </Provider>
+      );
     }
   };
 }
