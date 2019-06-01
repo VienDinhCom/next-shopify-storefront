@@ -1,6 +1,6 @@
 import Document from 'next/document';
-import withMuiDoc from '../hocs/withMuiDoc';
+import { withMuiDocument } from '../hocs/withMui';
 
 class MyDocument extends Document {}
 
-export default withMuiDoc(MyDocument);
+export default withMuiDocument(MyDocument);

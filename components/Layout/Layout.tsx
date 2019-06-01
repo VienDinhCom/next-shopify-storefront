@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import Cart from '../Cart/Cart';
 
 interface Props {
   children;
 }
 
-function Layout({ children }: Props): ReactElement {
+function Layout({ children }: Props) {
   return (
     <>
       <nav>

@@ -1,7 +1,24 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 
-function VariantSelector(props) {
+interface Props {
+  variants: {
+    node: {
+      id: string,
+      selectedOptions: {
+        name: string,
+        value: string
+      }[]
+    }
+  }[],
+  options: {
+    name: string,
+    values: string[]
+  }[],
+  getVariantId: (variantId: string) => void
+}
+
+function VariantSelector(props: Props) {
   const defaultSelectedOptions = props.variants[0].node.selectedOptions.reduce((options, { name, value }) => {
     return { ...options, [name]: value };
   }, {});

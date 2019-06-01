@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 interface Props {
   path: string;
@@ -7,7 +7,7 @@ interface Props {
   children;
 }
 
-function Link({ path, params, children }: Props): ReactElement {
+function Link({ path, params, children }: Props) {
   let str = '';
   let query = '';
 

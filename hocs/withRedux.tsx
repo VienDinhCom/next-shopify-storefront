@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import { Store } from 'redux';
+import isServer from 'detect-node';
 import { createStore } from '../store';
 
 interface Props {
@@ -12,7 +14,6 @@ function withRedux(App) {
   return class AppWithRedux extends Component<Props> {
     public static async getInitialProps(appContext) {
       let initialProps = {};
-      const isServer = appContext.ctx.res;
 
       if (isServer) {
         store = createStore();
@@ -36,7 +37,11 @@ function withRedux(App) {
     }
 
     public render() {
-      return <App {...this.props} store={store} />;
+      return (
+        <Provider store={store}>
+          <App {...this.props} store={store} />
+        </Provider>
+      );
     }
   };
 }
