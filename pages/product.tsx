@@ -1,42 +1,31 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Product from '../components/Product/Product';
 import * as services from '../services';
 import { ProductState } from '../store/product.slice';
+import isServer from 'detect-node';
 
 interface Props {
   product: ProductState;
-  dispatch: Function;
-  notLoaded: boolean;
   query: {
     handle: string;
   };
 }
 
-function getProduct(handle): Function {
-  return services.product.fetch({ handle });
-}
-
-function ProductPage({ product, notLoaded, dispatch, query }: Props) {
-  useEffect(() => {
-    if (notLoaded) {
-      dispatch(getProduct(query.handle));
-    }
-  }, []);
-
+function ProductPage({ product }: Props) {
   return <Product product={product} />;
 }
 
 ProductPage.getInitialProps = async context => {
-  const { store, req, query } = context;
-  const isServer = req;
-  const notLoaded = req ? false : true;
+  const { store, query } = context;
 
   if (isServer) {
-    await store.dispatch(getProduct(query.handle));
+    await store.dispatch(services.product.fetch({ handle: query.handle }));
+  } else {
+    store.dispatch(services.product.fetch({ handle: query.handle }));
   }
 
-  return { notLoaded, query };
+  return {};
 };
 
 function mapStateToProps({ product }: { product: ProductState }) {

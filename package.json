@@ -10,10 +10,12 @@
   "dependencies": {
     "@material-ui/core": "^4.0.0",
     "@material-ui/styles": "^4.0.1",
+    "@types/detect-node": "^2.0.0",
     "@zeit/next-typescript": "^1.1.1",
     "apollo-boost": "^0.3.1",
     "cookie-parser": "^1.4.4",
     "dayjs": "^1.8.14",
+    "detect-node": "^2.0.4",
     "express": "^4.17.0",
     "graphql": "^14.3.1",
     "isomorphic-unfetch": "^3.0.0",

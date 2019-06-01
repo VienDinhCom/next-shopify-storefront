@@ -1,5 +1,5 @@
 import Button from '@material-ui/core/Button';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as services from '../../services';
 import { CheckoutState } from '../../store/checkout.slice';
@@ -9,7 +9,7 @@ interface Props {
   dispatch?: Function;
 }
 
-function Cart(props: Props): ReactElement {
+function Cart(props: Props) {
   const { loading, error, item } = props.checkout;
 
   if (loading) {
@@ -29,12 +29,12 @@ function Cart(props: Props): ReactElement {
       <ul>
         {item.lineItems &&
           item.lineItems.edges.map(
-            ({ node }): ReactElement => (
+            ({ node }) => (
               <li key={node.id}>
                 {node.title} ({node.variant.title}){' '}
                 <input
                   type="number"
-                  onChange={(event): void =>
+                  onChange={(event) =>
                     props.dispatch(services.checkout.updateQuantity(node.variant.id, parseInt(event.target.value)))
                   }
                   min={1}
@@ -49,7 +49,7 @@ function Cart(props: Props): ReactElement {
   );
 }
 
-function mapStateToProps(state): object {
+function mapStateToProps(state) {
   return { checkout: state.checkout };
 }
 

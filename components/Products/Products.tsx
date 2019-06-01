@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import Router from 'next/router';
 import queryString from 'query-string';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { ProductsState } from '../../store/products.slice';
 import * as services from '../../services';
@@ -57,25 +57,24 @@ const sortOpts = [
   },
 ];
 
-function pushQueryString(queryStr: string): void {
+function pushQueryString(queryStr) {
   const { router } = Router;
   router.push(`${router.pathname}?${queryStr}`);
 }
 
 let timeoutID;
 
-function Products(props: Props): ReactElement {
-  // console.log(props);
+function Products(props: Props) {
 
-  function _search(event): void {
+  function _search(event) {
     const query = event.target.value;
     const queryStr = queryString.stringify({ ...props.query, query });
 
     clearTimeout(timeoutID);
-    timeoutID = setTimeout((): void => pushQueryString(queryStr), 1000);
+    timeoutID = setTimeout(() => pushQueryString(queryStr), 1000);
   }
 
-  function _sort(event): void {
+  function _sort(event) {
     const sortIndex = event.target.value;
     const { sortKey, reverse } = sortOpts[sortIndex];
     const queryStr = queryString.stringify({ ...props.query, sortKey, reverse, sortIndex });
@@ -84,16 +83,12 @@ function Products(props: Props): ReactElement {
   }
 
   function _getNextPage() {
-    const { query, reverse, sortKey } = props.query;
     const cursor = props.products.items[props.products.items.length - 1].cursor;
-
 
     props.dispatch(
       services.products.getNextPage({
-        cursor,
-        query,
-        sortKey,
-        reverse,
+        ...props.query,
+        cursor
       })
     );
   }
