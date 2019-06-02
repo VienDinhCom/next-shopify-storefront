@@ -18,21 +18,31 @@ function Product(props: Props) {
     quantity: 1,
   });
 
+  const variants = product.data.variants.edges.map(({node}) => {
+    return {id: node.id,
+      title: node.title,
+      selectedOptions: node.selectedOptions.map(option => ({name: option.name, value: option.value}))
+    }
+  });
+
+  console.log(variants)
+
+
   return (
     <Layout>
       {product.loading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <h1>{product.item.title}</h1>
-          <p>{product.item.description}</p>
-          {product.item.images.edges[0] && <img src={product.item.images.edges[0].node.originalSrc} width={200} alt="" />}
+          <h1>{product.data.title}</h1>
+          <p>{product.data.description}</p>
+          {product.data.images.edges[0] && <img src={product.data.images.edges[0].node.originalSrc} width={200} alt="" />}
 
-          <VariantSelector
-            options={product.item.options}
-            variants={product.item.variants.edges || []}
+          {/* <VariantSelector
+            // options={product.data.options}
+            variants={variants}
             getVariantId={(variantId) => setValues({ ...values, variantId })}
-          />
+          /> */}
 
           <label className="Product__option">
             Quantity

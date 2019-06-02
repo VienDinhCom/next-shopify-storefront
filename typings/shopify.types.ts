@@ -4120,7 +4120,9 @@ export type CheckoutLineItemsReplaceMutation = { __typename?: 'Mutation' } & {
 
 export type ProductFragment = { __typename?: 'Product' } & Pick<Product, 'title' | 'description'> & {
     images: { __typename?: 'ImageConnection' } & {
-      edges: Array<{ __typename?: 'ImageEdge' } & { node: { __typename?: 'Image' } & Pick<Image, 'originalSrc'> }>;
+      edges: Array<
+        { __typename?: 'ImageEdge' } & { node: { __typename?: 'Image' } & Pick<Image, 'altText' | 'originalSrc'> }
+      >;
     };
     options: Array<{ __typename?: 'ProductOption' } & Pick<ProductOption, 'id' | 'name' | 'values'>>;
     variants: { __typename?: 'ProductVariantConnection' } & {
@@ -4146,6 +4148,13 @@ export type ProductsFragment = { __typename?: 'ProductConnection' } & {
   edges: Array<
     { __typename?: 'ProductEdge' } & Pick<ProductEdge, 'cursor'> & {
         node: { __typename?: 'Product' } & Pick<Product, 'title' | 'handle' | 'description' | 'createdAt'> & {
+            images: { __typename?: 'ImageConnection' } & {
+              edges: Array<
+                { __typename?: 'ImageEdge' } & {
+                  node: { __typename?: 'Image' } & Pick<Image, 'transformedSrc' | 'altText'>;
+                }
+              >;
+            };
             priceRange: { __typename?: 'ProductPriceRange' } & {
               minVariantPrice: { __typename?: 'MoneyV2' } & Pick<MoneyV2, 'amount' | 'currencyCode'>;
               maxVariantPrice: { __typename?: 'MoneyV2' } & Pick<MoneyV2, 'amount' | 'currencyCode'>;

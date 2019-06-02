@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit';
-import { ProductFragment } from '../types'
+import { ProductFragment } from '../typings'
 
 export interface ProductState {
   loading: boolean;

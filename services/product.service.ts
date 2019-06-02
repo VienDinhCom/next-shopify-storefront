@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 import { actions } from '../store';
 import { shopify } from './apis.service';
-import { ProductQueryVariables } from '../types'
+import { ProductQueryVariables } from '../typings'
 
 const productFragment = gql`
   fragment product on Product {
@@ -10,6 +10,7 @@ const productFragment = gql`
     images(first: 1) {
       edges {
         node {
+          altText
           originalSrc
         }
       }

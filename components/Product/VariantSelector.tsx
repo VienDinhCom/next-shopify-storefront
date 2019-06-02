@@ -1,20 +1,17 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
+import { ProductOption, ProductVariant } from '../../typings'
 
 interface Props {
   variants: {
-    node: {
-      id: string,
-      selectedOptions: {
-        name: string,
-        value: string
-      }[]
-    }
+    id: string;
+    title: string;
+    selectedOptions: {
+      name: string;
+      value: string;
+    }[]
   }[],
-  options: {
-    name: string,
-    values: string[]
-  }[],
+  options?: Pick<ProductOption, 'id' | 'name' | 'values'>[],
   getVariantId: (variantId: string) => void
 }
 
@@ -31,7 +28,7 @@ function VariantSelector(props: Props) {
   }
 
   useEffect(() => {
-    const selectedVariant = props.variants.find(
+    const selectedVariant = props.variants.edges.find(
       ({ node }) => {
         const _selectedOptions = node.selectedOptions.reduce((options, { name, value }) => {
           return { ...options, [name]: value };

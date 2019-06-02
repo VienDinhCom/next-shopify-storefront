@@ -10,7 +10,7 @@ interface Props {
 }
 
 function Cart(props: Props) {
-  const { loading, error, item } = props.checkout;
+  const { loading, error, data } = props.checkout;
 
   if (loading) {
     return <p>Loading...</p>;
@@ -27,8 +27,8 @@ function Cart(props: Props) {
         Hello World
       </Button>
       <ul>
-        {item.lineItems &&
-          item.lineItems.edges.map(
+        {data.lineItems &&
+          data.lineItems.edges.map(
             ({ node }) => (
               <li key={node.id}>
                 {node.title} ({node.variant.title}){' '}
@@ -38,7 +38,7 @@ function Cart(props: Props) {
                     props.dispatch(services.checkout.updateQuantity(node.variant.id, parseInt(event.target.value)))
                   }
                   min={1}
-                  defaultValue={node.quantity}
+                  defaultValue={`${node.quantity}`}
                 />{' '}
                 <button onClick={() => props.dispatch(services.checkout.removeLineItem(node.variant.id))}>Remove</button>
               </li>

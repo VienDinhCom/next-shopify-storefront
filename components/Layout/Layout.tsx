@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import Cart from '../Cart/Cart';
+import Container from '@material-ui/core/Container';
 
 interface Props {
   children;
@@ -18,9 +19,9 @@ function Layout({ children }: Props) {
         </Link>
       </nav>
       <hr />
-      <Cart />
+      {/* <Cart /> */}
       <hr />
-      <main>{children}</main>
+      <Container>{children}</Container>
     </>
   );
 }

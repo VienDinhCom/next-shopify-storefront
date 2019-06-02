@@ -4,10 +4,11 @@ import Products from '../components/Products/Products';
 import * as services from '../services';
 import { ProductsState } from '../store/products.slice';
 import isServer from 'detect-node';
+import { ProductSortKeys } from '../typings'
 
 interface Props {
   products: ProductsState;
-  notLoaded: boolean;
+  dispatch: Function;
   query: {
     query: string;
     reverse: boolean;
@@ -16,14 +17,20 @@ interface Props {
   };
 }
 
-function ProductsPage({ products, query }: Props) {
-
-  return <Products products={products} query={query} />;
+function ProductsPage({ products, query, dispatch }: Props) {
+  return <Products products={products} query={query} dispatch={dispatch} />;
 }
 
 ProductsPage.getInitialProps = async context => {
-  const { store, query } = context;
-  const transformedQuery = { ...query, reverse: query.reverse === 'true' ? true : false };
+  const { store } = context;
+  const { query, sortKey, sortIndex, reverse } = context.query;
+
+  const transformedQuery = {
+    query: query || '',
+    sortKey: sortKey ? sortKey.toUpperCase() : ProductSortKeys.BestSelling,
+    sortIndex: sortIndex ? parseInt(sortIndex) : 0,
+    reverse: reverse === 'true' ? true : false
+  };
 
   if (isServer) {
     await store.dispatch(services.products.getFirstPage(transformedQuery));
@@ -31,7 +38,7 @@ ProductsPage.getInitialProps = async context => {
     store.dispatch(services.products.getFirstPage(transformedQuery));
   }
 
-  return { query: transformedQuery };
+  return { query: transformedQuery, dispatch: store.dispatch };
 };
 
 function mapStateToProps({ products }: { products: ProductsState }) {
