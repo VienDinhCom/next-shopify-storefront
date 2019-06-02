@@ -43,21 +43,17 @@ export const productQuery = gql`
   }
 `;
 
-export function fetch({ handle }: ProductQueryVariables) {
+export function fetch(variables: ProductQueryVariables) {
   return async dispatch => {
     try {
       dispatch(actions.product.request());
 
       const { data } = await shopify.query({
         query: productQuery,
-        variables: {
-          handle,
-        },
+        variables
       });
 
-      const item = data.productByHandle;
-
-      dispatch(actions.product.success({ item }));
+      dispatch(actions.product.success({ data: data.productByHandle }));
     } catch (error) {
       dispatch(actions.product.failure({ error }));
     }

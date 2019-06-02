@@ -10,13 +10,13 @@ export interface ProductsState {
     loading: boolean;
     error: Error;
   };
-  items: ProductsFragment;
+  data: ProductsFragment;
 }
 
 interface ProductsAction {
   payload: {
     error?: Error;
-    items?: ProductsFragment;
+    data?: ProductsFragment;
   };
 }
 
@@ -29,7 +29,7 @@ const initialState = {
     loading: false,
     error: null,
   },
-  items: null
+  data: null
 };
 
 export default createSlice({
@@ -46,7 +46,7 @@ export default createSlice({
     },
     firstPageSuccess: (state: ProductsState, { payload }: ProductsAction) => {
       state.firstPage.loading = false;
-      state.items = payload.items;
+      state.data = payload.data;
     },
     nextPageRequest: (state: ProductsState) => {
       state.nextPage.loading = true;
@@ -58,8 +58,8 @@ export default createSlice({
     },
     nextPageSuccess: (state: ProductsState, { payload }: ProductsAction) => {
       state.nextPage.loading = false;
-      state.items.edges = state.items.edges.concat(payload.items.edges);
-      state.items.pageInfo.hasNextPage = payload.items.pageInfo.hasNextPage
+      state.data.edges = state.data.edges.concat(payload.data.edges);
+      state.data.pageInfo.hasNextPage = payload.data.pageInfo.hasNextPage
     },
   },
 });

@@ -39,24 +39,17 @@ export const productsQuery = gql`
   }
 `;
 
-export function getFirstPage({ query, sortKey, reverse }: ProductsQueryVariables) {
+export function getFirstPage(variables: ProductsQueryVariables) {
   return async dispatch => {
     try {
       dispatch(actions.products.firstPageRequest());
 
       const { data } = await shopify.query({
         query: productsQuery,
-        variables: {
-          query: query || '',
-          sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
-          reverse,
-        },
+        variables
       });
 
-
-      const items: ProductConnection = data.products;
-
-      dispatch(actions.products.firstPageSuccess({ items }));
+      dispatch(actions.products.firstPageSuccess({ data: data.products }));
     } catch (error) {
       dispatch(actions.products.firstPageFailure({ error }));
     }
@@ -73,10 +66,7 @@ export function getNextPage(variables: ProductsQueryVariables) {
         variables
       });
 
-
-      const items: ProductConnection = data.products;
-
-      dispatch(actions.products.nextPageSuccess({ items }));
+      dispatch(actions.products.nextPageSuccess({ data: data.products }));
     } catch (error) {
       dispatch(actions.products.nextPageFailure({ error }));
     }
