@@ -1,12 +1,15 @@
-import dayjs from 'dayjs';
 import Router from 'next/router';
-import queryString from 'query-string';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import React from 'react';
-import { connect } from 'react-redux';
+import InfoIcon from '@material-ui/icons/Info';
 import { ProductsState } from '../../store/products.slice';
-import * as services from '../../services';
 import Layout from '../Layout/Layout';
-import Link from '../Link';
 
 interface Props {
   products: ProductsState;
@@ -19,133 +22,72 @@ interface Props {
   };
 }
 
-const sortOpts = [
-  {
-    name: 'Best Selling',
-    sortKey: 'best_selling',
-    reverse: false,
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
   },
-  {
-    name: 'Newest',
-    sortKey: 'created_at',
-    reverse: true,
+  gridList: {
+    width: 500,
+    height: 450,
   },
-  {
-    name: 'Oldest',
-    sortKey: 'created_at',
-    reverse: false,
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
   },
-  {
-    name: 'Price (Low > High)',
-    sortKey: 'price',
-    reverse: false,
-  },
-  {
-    name: 'Price (High > Low)',
-    sortKey: 'price',
-    reverse: true,
-  },
-  {
-    name: 'Title (A - Z)',
-    sortKey: 'title',
-    reverse: false,
-  },
-  {
-    name: 'Title (Z - A)',
-    sortKey: 'title',
-    reverse: true,
-  },
-];
-
-function pushQueryString(queryStr) {
-  const { router } = Router;
-  router.push(`${router.pathname}?${queryStr}`);
-}
-
-let timeoutID;
+}));
 
 function Products(props: Props) {
+  const { firstPage, nextPage, data } = props.products;
+  const classes = useStyles();
 
-  function _search(event) {
-    const query = event.target.value;
-    const queryStr = queryString.stringify({ ...props.query, query });
+  const theme = useTheme();
 
-    clearTimeout(timeoutID);
-    timeoutID = setTimeout(() => pushQueryString(queryStr), 1000);
+  let gridListCols = 4;
+
+  if (useMediaQuery(theme.breakpoints.down('md'))) {
+    gridListCols = 3;
   }
 
-  function _sort(event) {
-    const sortIndex = event.target.value;
-    const { sortKey, reverse } = sortOpts[sortIndex];
-    const queryStr = queryString.stringify({ ...props.query, sortKey, reverse, sortIndex });
-
-    pushQueryString(queryStr);
+  if (useMediaQuery(theme.breakpoints.down('sm'))) {
+    gridListCols = 2;
   }
 
-  function _getNextPage() {
-    const cursor = props.products.items[props.products.items.length - 1].cursor;
-
-    props.dispatch(
-      services.products.getNextPage({
-        ...props.query,
-        cursor
-      })
-    );
+  if (useMediaQuery(theme.breakpoints.down('xs'))) {
+    gridListCols = 1;
   }
 
   return (
     <Layout>
-      <table className="table table-bordered">
-        <tbody>
-          <tr>
-            <td colSpan={3}>
-              <input type="text" name="query" defaultValue={props.query.query} onChange={_search} />
-              <select onChange={_sort} name="sortIndex" value={props.query.sortIndex || 0}>
-                {sortOpts.map(
-                  ({ name }, index) => (
-                    <option key={name} value={index}>
-                      {name}
-                    </option>
-                  )
-                )}
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td style={{ width: 200 }}>Title</td>
-            <td>Date</td>
-            <td>Price</td>
-          </tr>
-          {props.products.firstPage.loading && (
-            <tr>
-              <td colSpan={3}>Loading...</td>
-            </tr>
-          )}
-          {props.products.items.map(({ handle, title, priceRange, createdAt }) => (
-            <tr key={handle}>
-              <td>
-                <Link path="/product" params={{ handle }}>
-                  {title}
-                </Link>
-              </td>
-              <td>{dayjs(createdAt).format('DD/MM/YYYY')}</td>
-              <td>
-                {priceRange.minVariantPrice.amount} {priceRange.minVariantPrice.currencyCode}
-              </td>
-            </tr>
+      <h1>Products</h1>
+
+      {firstPage.loading && (<p>Loading...</p>)}
+
+      {firstPage.error && (<p>{firstPage.error.message}</p>)}
+
+      {data && (
+        <GridList cellHeight={500} cols={gridListCols} spacing={10} >
+          {data.edges.map(({ node }) => (
+            <GridListTile key={node.handle}>
+              <img src={node.images.edges[0].node.transformedSrc} alt={node.images.edges[0].node.altText} />
+              <GridListTileBar
+                title={node.title}
+                subtitle={<span>{node.priceRange.minVariantPrice.amount} {node.priceRange.minVariantPrice.currencyCode}</span>}
+                actionIcon={
+                  <IconButton className={classes.icon}>
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </GridListTile>
           ))}
-          <tr>
-            <td colSpan={3} align="center">
-              {props.products.nextPage.error && <p>Error: {props.products.nextPage.error}</p>}
-              <button disabled={!props.products.hasNextPage} onClick={_getNextPage}>
-                {props.products.nextPage.loading ? 'Loading' : props.products.nextPage.error ? 'Try Again' : 'Load More'}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        </GridList>
+      )}
+
     </Layout>
-  );
+  )
 }
 
-export default connect()(Products);
+export default Products;

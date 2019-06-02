@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 import { actions } from '../store';
 import { shopify } from './apis.service';
-import { ProductsQueryVariables } from '../types'
+import { ProductsQueryVariables } from '../typings'
 
 const productsFragment = gql`
   fragment products on ProductConnection {
@@ -11,6 +11,14 @@ const productsFragment = gql`
         handle
         description
         createdAt
+        images(first: 1) {
+          edges {
+            node {
+              transformedSrc,
+              altText
+            }
+          }
+        }
         priceRange {
           minVariantPrice {
             amount

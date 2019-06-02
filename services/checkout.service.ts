@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import cookies from 'js-cookie';
 import { actions } from '../store';
 import { shopify } from './apis.service';
-import { CheckoutQueryVariables, CheckoutLineItemsReplaceMutationVariables } from '../types'
+import { CheckoutQueryVariables, CheckoutLineItemsReplaceMutationVariables } from '../typings'
 
 export const checkoutFragment = gql`
   fragment checkout on Checkout {
