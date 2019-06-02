@@ -1,9 +1,10 @@
 import { gql } from 'apollo-boost';
 import { actions } from '../store';
 import { shopify } from './apis.service';
+import { ProductsQueryVariables } from '../types'
 
-const productConnectionFields = gql`
-  fragment productConnectionFields on ProductConnection {
+const productsFragment = gql`
+  fragment products on ProductConnection {
     edges {
       node {
         title
@@ -29,74 +30,43 @@ const productConnectionFields = gql`
   }
 `;
 
-export const firstPageQuery = gql`
-  ${productConnectionFields}
-  query($query: String!, $sortKey: ProductSortKeys, $reverse: Boolean) {
-    products(first: 5, query: $query, sortKey: $sortKey, reverse: $reverse) {
-      ...productConnectionFields
+export const productsQuery = gql`
+  ${productsFragment}
+  query products($cursor: String, $query: String!, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
+    products(first: 5, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
+      ...products
     }
   }
 `;
 
-export const nextPageQuery = gql`
-  ${productConnectionFields}
-  query($cursor: String!, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
-    products(first: 3, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
-      ...productConnectionFields
-    }
-  }
-`;
-
-interface Args {
-  cursor?: string;
-  query: string;
-  sortKey: string;
-  reverse: boolean;
-}
-
-export function getFirstPage({ query, sortKey, reverse }: Args) {
+export function getFirstPage(variables: ProductsQueryVariables) {
   return async dispatch => {
     try {
       dispatch(actions.products.firstPageRequest());
 
       const { data } = await shopify.query({
-        query: firstPageQuery,
-        variables: {
-          query: query || '',
-          sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
-          reverse,
-        },
+        query: productsQuery,
+        variables
       });
 
-      const { hasNextPage } = data.products.pageInfo;
-      const items = data.products.edges.map(({ node, cursor }): object => ({ ...node, cursor }));
-
-      dispatch(actions.products.firstPageSuccess({ items, hasNextPage }));
+      dispatch(actions.products.firstPageSuccess({ data: data.products }));
     } catch (error) {
       dispatch(actions.products.firstPageFailure({ error }));
     }
   };
 }
 
-export function getNextPage({ cursor, query, sortKey, reverse }: Args) {
+export function getNextPage(variables: ProductsQueryVariables) {
   return async dispatch => {
     try {
       dispatch(actions.products.nextPageRequest());
 
       const { data } = await shopify.query({
-        query: nextPageQuery,
-        variables: {
-          cursor,
-          query,
-          sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
-          reverse,
-        },
+        query: productsQuery,
+        variables
       });
 
-      const { hasNextPage } = data.products.pageInfo;
-      const items = data.products.edges.map(edge => ({ ...edge.node, cursor: edge.cursor }));
-
-      dispatch(actions.products.nextPageSuccess({ items, hasNextPage }));
+      dispatch(actions.products.nextPageSuccess({ data: data.products }));
     } catch (error) {
       dispatch(actions.products.nextPageFailure({ error }));
     }

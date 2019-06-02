@@ -1,0 +1,21 @@
+{
+	"overwrite": true,
+	"generates": {
+		"types/shopify.type.ts": {
+			"schema": [
+				{
+					"https://maxvien-dev.myshopify.com/api/graphql": {
+						"headers": {
+							"X-Shopify-Storefront-Access-Token": "cb21e7484c255b384b9128ac6b696693"
+						}
+					}
+				}
+			],
+			"documents": "services/**/*.{ts,tsx}",
+			"plugins": [
+				"typescript",
+				"typescript-operations"
+			]
+		}
+	}
+}

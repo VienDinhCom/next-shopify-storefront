@@ -1,51 +1,52 @@
 import { createSlice } from 'redux-starter-kit';
+import { CheckoutFragment } from '../types'
 
 export interface CheckoutState {
   loading: boolean;
-  error: Error | null;
-  item: any
+  error: Error;
+  data: CheckoutFragment
 }
 
 interface CheckoutAction {
   payload: {
     error?: Error;
-    item?: any
+    data?: CheckoutFragment
   };
 }
 
-const initialState: CheckoutState = {
+const initialState = {
   loading: true,
   error: null,
-  item: {},
+  data: null,
 };
 
 export default createSlice({
   slice: 'checkout',
   initialState,
   reducers: {
-    request: (state: CheckoutState): void => {
+    request: (state: CheckoutState) => {
       state.loading = true;
       state.error = null;
     },
-    failure: (state: CheckoutState, { payload }: CheckoutAction): void => {
+    failure: (state: CheckoutState, { payload }: CheckoutAction) => {
       state.loading = false;
-      state.error = payload.error || null;
+      state.error = payload.error;
     },
-    success: (state: CheckoutState, { payload }: CheckoutAction): void => {
+    success: (state: CheckoutState, { payload }: CheckoutAction) => {
       state.loading = false;
-      state.item = payload.item || {};
+      state.data = payload.data;
     },
-    lineItemsReplaceRequest: (state: CheckoutState): void => {
+    lineItemsReplaceRequest: (state: CheckoutState) => {
       state.loading = true;
       state.error = null;
     },
-    lineItemsReplaceFailure: (state: CheckoutState, { payload }: CheckoutAction): void => {
+    lineItemReplaceFailure: (state: CheckoutState, { payload }: CheckoutAction) => {
       state.loading = false;
-      state.error = payload.error || null;
+      state.error = payload.error;
     },
-    lineItemsReplaceSuccess: (state: CheckoutState, { payload }: CheckoutAction): void => {
+    lineItemsReplaceSuccess: (state: CheckoutState, { payload }: CheckoutAction) => {
       state.loading = false;
-      state.item = payload.item || {};
+      state.data = payload.data;
     },
   },
 });

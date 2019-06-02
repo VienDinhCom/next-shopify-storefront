@@ -1,12 +1,13 @@
+import _ from 'lodash';
 import { gql } from 'apollo-boost';
 import { Request, Response } from 'express';
 import cookies from 'js-cookie';
-import _ from 'lodash';
 import { actions } from '../store';
 import { shopify } from './apis.service';
+import { CheckoutQueryVariables, CheckoutLineItemsReplaceMutationVariables } from '../types'
 
-export const checkoutFields = gql`
-  fragment checkoutFields on Checkout {
+export const checkoutFragment = gql`
+  fragment checkout on Checkout {
     id
     webUrl
     subtotalPriceV2 {
@@ -49,18 +50,18 @@ export const checkoutFields = gql`
 `;
 
 const checkoutQuery = gql`
-  ${checkoutFields}
-  query($checkoutId: ID!) {
+  ${checkoutFragment}
+  query checkout($checkoutId: ID!) {
     node(id: $checkoutId) {
       ... on Checkout {
-        ...checkoutFields
+        ...checkout
       }
     }
   }
 `;
 
 const checkoutCreateMutation = gql`
-  mutation {
+  mutation checkoutCreate {
     checkoutCreate(input: {}) {
       checkout {
         id
@@ -70,11 +71,11 @@ const checkoutCreateMutation = gql`
 `;
 
 const checkoutLineItemsReplaceMutation = gql`
-  ${checkoutFields}
-  mutation($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
+  ${checkoutFragment}
+  mutation checkoutLineItemsReplace($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
     checkoutLineItemsReplace(checkoutId: $checkoutId, lineItems: $lineItems) {
       checkout {
-        ...checkoutFields
+        ...checkout
       }
     }
   }
@@ -92,42 +93,35 @@ export function fetch(req: Request, res: Response) {
         res.cookie('checkoutId', checkoutId, { maxAge: 1000 * 60 * 60 * 24 * 7 }); // 7 days
       }
 
+      const variables: CheckoutQueryVariables = {
+        checkoutId
+      }
+
       const { data } = await shopify.query({
         query: checkoutQuery,
-        variables: {
-          checkoutId,
-        },
+        variables
       });
 
-      dispatch(actions.checkout.success({ item: data.node }));
+      dispatch(actions.checkout.success({ data: data.node }));
     } catch (error) {
       dispatch(actions.checkout.failure({ error }));
     }
   };
 }
 
-interface LineItem {
-  variantId: string;
-  quantity: number;
-}
-
-export function replaceLineItems(lineItems: LineItem[]) {
+export function replaceLineItems(variables: CheckoutLineItemsReplaceMutationVariables) {
   return async dispatch => {
     try {
       dispatch(actions.checkout.lineItemsReplaceRequest());
-      const checkoutId = cookies.get('checkoutId');
 
       const { data } = await shopify.mutate({
         mutation: checkoutLineItemsReplaceMutation,
-        variables: {
-          checkoutId,
-          lineItems,
-        },
+        variables
       });
 
       dispatch(
         actions.checkout.lineItemsReplaceSuccess({
-          item: data.checkoutLineItemsReplace.checkout,
+          data: data.checkoutLineItemsReplace.checkout,
         })
       );
     } catch (error) {
@@ -136,12 +130,18 @@ export function replaceLineItems(lineItems: LineItem[]) {
   };
 }
 
+interface LineItem {
+  variantId: string;
+  quantity: number
+}
+
 function getLineItems(lineItems): LineItem[] {
   return lineItems.map(({ node }): LineItem => ({ variantId: node.variant.id, quantity: node.quantity }));
 }
 
 export function addLineItem(variantId: string, quantity: number) {
   return async (dispatch, getState) => {
+    const checkoutId = cookies.get('checkoutId');
     const lineItems = getLineItems(getState().checkout.item.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
@@ -151,27 +151,30 @@ export function addLineItem(variantId: string, quantity: number) {
       lineItems.push({ variantId, quantity });
     }
 
-    dispatch(replaceLineItems(lineItems));
+
+    dispatch(replaceLineItems({checkoutId, lineItems}));
   };
 }
 
 export function updateQuantity(variantId: string, quantity: number) {
   return async (dispatch, getState) => {
+    const checkoutId = cookies.get('checkoutId');
     const lineItems = getLineItems(getState().checkout.item.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
     lineItems[lineItemIndex].quantity = quantity;
 
-    dispatch(replaceLineItems(lineItems));
+    dispatch(replaceLineItems({checkoutId, lineItems}));
   };
 }
 
 export function removeLineItem(variantId: string) {
   return async (dispatch, getState) => {
+    const checkoutId = cookies.get('checkoutId');
     let lineItems = getLineItems(getState().checkout.item.lineItems.edges);
 
-    lineItems = _.remove(lineItems, (lineItem: LineItem) => lineItem.variantId !== variantId);
+    lineItems = _.remove(lineItems, (lineItem) => lineItem.variantId !== variantId);
 
-    dispatch(replaceLineItems(lineItems));
+    dispatch(replaceLineItems({checkoutId, lineItems}));
   };
 }

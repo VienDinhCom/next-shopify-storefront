@@ -1,4 +1,5 @@
 dist
 .next
+types
 node_modules
 next.config.js
