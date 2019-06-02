@@ -5,8 +5,8 @@ import _ from 'lodash';
 import { actions } from '../store';
 import { shopify } from './apis.service';
 
-export const checkoutFields = gql`
-  fragment checkoutFields on Checkout {
+export const checkoutFragment = gql`
+  fragment checkout on Checkout {
     id
     webUrl
     subtotalPriceV2 {
@@ -49,11 +49,11 @@ export const checkoutFields = gql`
 `;
 
 const checkoutQuery = gql`
-  ${checkoutFields}
+  ${checkoutFragment}
   query checkout($checkoutId: ID!) {
     node(id: $checkoutId) {
       ... on Checkout {
-        ...checkoutFields
+        ...checkout
       }
     }
   }
@@ -70,11 +70,11 @@ const checkoutCreateMutation = gql`
 `;
 
 const checkoutLineItemsReplaceMutation = gql`
-  ${checkoutFields}
+  ${checkoutFragment}
   mutation checkoutLineItemsReplace($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
     checkoutLineItemsReplace(checkoutId: $checkoutId, lineItems: $lineItems) {
       checkout {
-        ...checkoutFields
+        ...checkout
       }
     }
   }
@@ -99,7 +99,7 @@ export function fetch(req: Request, res: Response) {
         },
       });
 
-      dispatch(actions.checkout.success({ item: data.node }));
+      dispatch(actions.checkout.success({ data: data.node }));
     } catch (error) {
       dispatch(actions.checkout.failure({ error }));
     }
@@ -127,7 +127,7 @@ export function replaceLineItems(lineItems: LineItem[]) {
 
       dispatch(
         actions.checkout.lineItemsReplaceSuccess({
-          item: data.checkoutLineItemsReplace.checkout,
+          data: data.checkoutLineItemsReplace.checkout,
         })
       );
     } catch (error) {

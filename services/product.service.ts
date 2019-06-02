@@ -3,35 +3,42 @@ import { actions } from '../store';
 import { shopify } from './apis.service';
 import { ProductQueryVariables } from '../types'
 
+const productFragment = gql`
+  fragment product on Product {
+    title
+    description
+    images(first: 1) {
+      edges {
+        node {
+          originalSrc
+        }
+      }
+    }
+    options {
+      id
+      name
+      values
+    }
+    variants(first: 250) {
+      edges {
+        node {
+          id
+          title
+          selectedOptions {
+            name
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const productQuery = gql`
+  ${productFragment}
   query product($handle: String!) {
     productByHandle(handle: $handle) {
-      title
-      description
-      images(first: 1) {
-        edges {
-          node {
-            originalSrc
-          }
-        }
-      }
-      options {
-        id
-        name
-        values
-      }
-      variants(first: 250) {
-        edges {
-          node {
-            id
-            title
-            selectedOptions {
-              name
-              value
-            }
-          }
-        }
-      }
+      ...product
     }
   }
 `;

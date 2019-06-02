@@ -4048,7 +4048,7 @@ export enum WeightUnit {
   /** Imperial system unit of mass. */
   Ounces = 'OUNCES'
 }
-export type CheckoutFieldsFragment = { __typename?: 'Checkout' } & Pick<Checkout, 'id' | 'webUrl'> & {
+export type CheckoutFragment = { __typename?: 'Checkout' } & Pick<Checkout, 'id' | 'webUrl'> & {
     subtotalPriceV2: { __typename?: 'MoneyV2' } & Pick<MoneyV2, 'amount' | 'currencyCode'>;
     totalTaxV2: { __typename?: 'MoneyV2' } & Pick<MoneyV2, 'amount' | 'currencyCode'>;
     totalPriceV2: { __typename?: 'MoneyV2' } & Pick<MoneyV2, 'amount' | 'currencyCode'>;
@@ -4093,7 +4093,7 @@ export type CheckoutQuery = { __typename?: 'QueryRoot' } & {
         | 'Page'
         | 'ShopPolicy'
         | 'Payment';
-    } & ({ __typename?: 'Checkout' } & CheckoutFieldsFragment)
+    } & ({ __typename?: 'Checkout' } & CheckoutFragment)
   >;
 };
 
@@ -4113,36 +4113,36 @@ export type CheckoutLineItemsReplaceMutationVariables = {
 export type CheckoutLineItemsReplaceMutation = { __typename?: 'Mutation' } & {
   checkoutLineItemsReplace: Maybe<
     { __typename?: 'CheckoutLineItemsReplacePayload' } & {
-      checkout: Maybe<{ __typename?: 'Checkout' } & CheckoutFieldsFragment>;
+      checkout: Maybe<{ __typename?: 'Checkout' } & CheckoutFragment>;
     }
   >;
 };
+
+export type ProductFragment = { __typename?: 'Product' } & Pick<Product, 'title' | 'description'> & {
+    images: { __typename?: 'ImageConnection' } & {
+      edges: Array<{ __typename?: 'ImageEdge' } & { node: { __typename?: 'Image' } & Pick<Image, 'originalSrc'> }>;
+    };
+    options: Array<{ __typename?: 'ProductOption' } & Pick<ProductOption, 'id' | 'name' | 'values'>>;
+    variants: { __typename?: 'ProductVariantConnection' } & {
+      edges: Array<
+        { __typename?: 'ProductVariantEdge' } & {
+          node: { __typename?: 'ProductVariant' } & Pick<ProductVariant, 'id' | 'title'> & {
+              selectedOptions: Array<{ __typename?: 'SelectedOption' } & Pick<SelectedOption, 'name' | 'value'>>;
+            };
+        }
+      >;
+    };
+  };
 
 export type ProductQueryVariables = {
   handle: Scalars['String'];
 };
 
 export type ProductQuery = { __typename?: 'QueryRoot' } & {
-  productByHandle: Maybe<
-    { __typename?: 'Product' } & Pick<Product, 'title' | 'description'> & {
-        images: { __typename?: 'ImageConnection' } & {
-          edges: Array<{ __typename?: 'ImageEdge' } & { node: { __typename?: 'Image' } & Pick<Image, 'originalSrc'> }>;
-        };
-        options: Array<{ __typename?: 'ProductOption' } & Pick<ProductOption, 'id' | 'name' | 'values'>>;
-        variants: { __typename?: 'ProductVariantConnection' } & {
-          edges: Array<
-            { __typename?: 'ProductVariantEdge' } & {
-              node: { __typename?: 'ProductVariant' } & Pick<ProductVariant, 'id' | 'title'> & {
-                  selectedOptions: Array<{ __typename?: 'SelectedOption' } & Pick<SelectedOption, 'name' | 'value'>>;
-                };
-            }
-          >;
-        };
-      }
-  >;
+  productByHandle: Maybe<{ __typename?: 'Product' } & ProductFragment>;
 };
 
-export type ProductConnectionFieldsFragment = { __typename?: 'ProductConnection' } & {
+export type ProductsFragment = { __typename?: 'ProductConnection' } & {
   edges: Array<
     { __typename?: 'ProductEdge' } & Pick<ProductEdge, 'cursor'> & {
         node: { __typename?: 'Product' } & Pick<Product, 'title' | 'handle' | 'description' | 'createdAt'> & {
@@ -4164,5 +4164,5 @@ export type ProductsQueryVariables = {
 };
 
 export type ProductsQuery = { __typename?: 'QueryRoot' } & {
-  products: { __typename?: 'ProductConnection' } & ProductConnectionFieldsFragment;
+  products: { __typename?: 'ProductConnection' } & ProductsFragment;
 };
