@@ -1,6 +1,7 @@
 import { gql } from 'apollo-boost';
 import { actions } from '../store';
 import { shopify } from './apis.service';
+import { ProductsQueryVariables } from '../types'
 
 const productConnectionFields = gql`
   fragment productConnectionFields on ProductConnection {
@@ -29,38 +30,22 @@ const productConnectionFields = gql`
   }
 `;
 
-export const firstPageQuery = gql`
+export const productsQuery = gql`
   ${productConnectionFields}
-  query($query: String!, $sortKey: ProductSortKeys, $reverse: Boolean) {
-    products(first: 5, query: $query, sortKey: $sortKey, reverse: $reverse) {
+  query products($cursor: String, $query: String!, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
+    products(first: 5, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
       ...productConnectionFields
     }
   }
 `;
 
-export const nextPageQuery = gql`
-  ${productConnectionFields}
-  query($cursor: String!, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {
-    products(first: 3, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
-      ...productConnectionFields
-    }
-  }
-`;
-
-interface Args {
-  cursor?: string;
-  query: string;
-  sortKey: string;
-  reverse: boolean;
-}
-
-export function getFirstPage({ query, sortKey, reverse }: Args) {
+export function getFirstPage({ query, sortKey, reverse }: ProductsQueryVariables) {
   return async dispatch => {
     try {
       dispatch(actions.products.firstPageRequest());
 
       const { data } = await shopify.query({
-        query: firstPageQuery,
+        query: productsQuery,
         variables: {
           query: query || '',
           sortKey: sortKey ? sortKey.toUpperCase() : 'BEST_SELLING',
@@ -78,13 +63,13 @@ export function getFirstPage({ query, sortKey, reverse }: Args) {
   };
 }
 
-export function getNextPage({ cursor, query, sortKey, reverse }: Args) {
+export function getNextPage({ cursor, query, sortKey, reverse }: ProductsQueryVariables) {
   return async dispatch => {
     try {
       dispatch(actions.products.nextPageRequest());
 
       const { data } = await shopify.query({
-        query: nextPageQuery,
+        query: productsQuery,
         variables: {
           cursor,
           query,

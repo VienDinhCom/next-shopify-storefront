@@ -50,7 +50,7 @@ export const checkoutFields = gql`
 
 const checkoutQuery = gql`
   ${checkoutFields}
-  query($checkoutId: ID!) {
+  query checkout($checkoutId: ID!) {
     node(id: $checkoutId) {
       ... on Checkout {
         ...checkoutFields
@@ -60,7 +60,7 @@ const checkoutQuery = gql`
 `;
 
 const checkoutCreateMutation = gql`
-  mutation {
+  mutation checkoutCreate {
     checkoutCreate(input: {}) {
       checkout {
         id
@@ -71,7 +71,7 @@ const checkoutCreateMutation = gql`
 
 const checkoutLineItemsReplaceMutation = gql`
   ${checkoutFields}
-  mutation($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
+  mutation checkoutLineItemsReplace($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
     checkoutLineItemsReplace(checkoutId: $checkoutId, lineItems: $lineItems) {
       checkout {
         ...checkoutFields

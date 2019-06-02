@@ -1,6 +1,7 @@
 import { gql } from 'apollo-boost';
 import { actions } from '../store';
 import { shopify } from './apis.service';
+import { ProductQueryVariables } from '../types'
 
 export const productQuery = gql`
   query product($handle: String!) {
@@ -35,7 +36,7 @@ export const productQuery = gql`
   }
 `;
 
-export function fetch({ handle }: { handle: string }) {
+export function fetch({ handle }: ProductQueryVariables) {
   return async dispatch => {
     try {
       dispatch(actions.product.request());
