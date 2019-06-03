@@ -1,9 +1,9 @@
 // props.dispatch(
-    //   services.products.getNextPage({
-    //     ...props.query,
-    //     cursor
-    //   })
-    // );
+//   services.products.getNextPage({
+//     ...props.query,
+//     cursor
+//   })
+// );
 
 function LoadMore(params:type) {
   return(<td colSpan={3} align="center">

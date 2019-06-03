@@ -5,17 +5,17 @@ interface LinkParams {
   params?: object;
 }
 
-function link({ path, params }: LinkParams) {
-  let str = '';
+function link(args: LinkParams) {
+  let params = '';
   let query = '';
 
-  for (const key in params) {
-    str = str + `/${params[key]}`;
-    query = query + `&${key}=${params[key]}`;
+  for (const key in args.params) {
+    params = params + `/${args.params[key]}`;
+    query = query + `&${key}=${args.params[key]}`;
   }
 
-  const href = `${path}?${query}`;
-  const as = `${path}${str}`;
+  const href = `${args.path}?${query}`;
+  const as = `${args.path}${params}`;
 
   Router.push(href, as);
 }

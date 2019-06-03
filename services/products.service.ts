@@ -41,7 +41,7 @@ const productsFragment = gql`
 export const productsQuery = gql`
   ${productsFragment}
   query products($cursor: String, $query: String!, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
-    products(first: 5, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
+    products(first: 12, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
       ...products
     }
   }
