@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { ProductState } from '../../store/product.slice';
-import * as services from '../../services';
+import services from '../../services';
 import Layout from '../Layout/Layout';
 import VariantSelector from './VariantSelector';
 

@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import React from 'react';
 import { connect } from 'react-redux';
-import * as services from '../../services';
+import services from '../../services';
 import { CheckoutState } from '../../store/checkout.slice';
 
 interface Props {

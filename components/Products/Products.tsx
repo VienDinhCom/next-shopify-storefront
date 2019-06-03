@@ -1,4 +1,3 @@
-import Router from 'next/router';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -42,9 +41,7 @@ const useStyles = makeStyles(theme => ({
 function Products(props: Props) {
   const { firstPage, nextPage, data } = props.products;
   const classes = useStyles();
-
   const theme = useTheme();
-
   let gridListCols = 4;
 
   if (useMediaQuery(theme.breakpoints.down('md'))) {
@@ -68,7 +65,7 @@ function Products(props: Props) {
       {firstPage.error && (<p>{firstPage.error.message}</p>)}
 
       {data && (
-        <GridList cellHeight={500} cols={gridListCols} spacing={10} >
+        <GridList cellHeight={500} cols={gridListCols} spacing={30} >
           {data.edges.map(({ node }) => (
             <GridListTile key={node.handle}>
               <img src={node.images.edges[0].node.transformedSrc} alt={node.images.edges[0].node.altText} />

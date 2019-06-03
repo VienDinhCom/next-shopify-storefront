@@ -42,12 +42,12 @@ function pushQueryString(queryStr) {
 }
 
 // function _sort(event) {
-  //   const sortIndex = event.target.value;
-  //   const { sortKey, reverse } = sortOpts[sortIndex];
-  //   const queryStr = queryString.stringify({ ...props.query, sortKey, reverse, sortIndex });
+//   const sortIndex = event.target.value;
+//   const { sortKey, reverse } = sortOpts[sortIndex];
+//   const queryStr = queryString.stringify({ ...props.query, sortKey, reverse, sortIndex });
 
-  //   pushQueryString(queryStr);
-  // }
+//   pushQueryString(queryStr);
+// }
 
 export default function Sort() {
   return(

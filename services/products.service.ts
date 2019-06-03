@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 import { actions } from '../store';
 import { shopify } from './apis.service';
-import { ProductsQueryVariables } from '../typings'
+import { ProductsQueryVariables } from '../models'
 
 const productsFragment = gql`
   fragment products on ProductConnection {
@@ -41,7 +41,7 @@ const productsFragment = gql`
 export const productsQuery = gql`
   ${productsFragment}
   query products($cursor: String, $query: String!, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
-    products(first: 5, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
+    products(first: 12, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
       ...products
     }
   }

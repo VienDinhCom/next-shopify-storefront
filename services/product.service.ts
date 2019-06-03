@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 import { actions } from '../store';
 import { shopify } from './apis.service';
-import { ProductQueryVariables } from '../typings'
+import { ProductQueryVariables } from '../models'
 
 const productFragment = gql`
   fragment product on Product {

@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit';
-import { CheckoutFragment } from '../typings'
+import { CheckoutFragment } from '../models'
 
 export interface CheckoutState {
   loading: boolean;

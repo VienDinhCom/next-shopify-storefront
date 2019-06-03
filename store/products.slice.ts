@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit';
-import { ProductsFragment } from '../typings'
+import { ProductsFragment } from '../models'
 
 export interface ProductsState {
   firstPage: {
