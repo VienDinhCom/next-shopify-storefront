@@ -1,11 +1,11 @@
 import Router from 'next/router'
 
-interface LinkParams {
+interface LinkArgs {
   path: string;
   params?: object;
 }
 
-function link(args: LinkParams) {
+function link(args: LinkArgs) {
   let params = '';
   let query = '';
 
