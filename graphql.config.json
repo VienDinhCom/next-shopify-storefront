@@ -1,7 +1,7 @@
 {
 	"overwrite": true,
 	"generates": {
-		"typings/shopify.types.ts": {
+		"models/shopify.model.ts": {
 			"schema": [
 				{
 					"https://graphql.myshopify.com/api/graphql": {

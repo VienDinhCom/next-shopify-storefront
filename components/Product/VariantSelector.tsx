@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { ProductOption, ProductVariant } from '../../typings'
+import { ProductOption, ProductVariant } from '../../models'
 
 interface Props {
   variants: {
