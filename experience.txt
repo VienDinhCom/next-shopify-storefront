@@ -1,0 +1,2 @@
+1. Using TypeScript static types for Component Props, Reducers, Actions & Services.
+2.
