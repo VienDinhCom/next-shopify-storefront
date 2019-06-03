@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Product from '../components/Product/Product';
-import * as services from '../services';
+import services from '../services';
 import { ProductState } from '../store/product.slice';
 import isServer from 'detect-node';
 

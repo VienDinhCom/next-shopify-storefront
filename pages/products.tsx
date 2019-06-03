@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Products from '../components/Products/Products';
-import * as services from '../services';
+import services from '../services';
 import { ProductsState } from '../store/products.slice';
 import isServer from 'detect-node';
 import { ProductSortKeys } from '../models'

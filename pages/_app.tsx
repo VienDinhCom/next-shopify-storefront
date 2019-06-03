@@ -1,7 +1,7 @@
 import App from 'next/app';
 import { withMuiApp } from '../hocs/withMui';
 import withRedux from '../hocs/withRedux';
-import * as services from '../services';
+import services from '../services';
 import isServer from 'detect-node';
 
 class MyApp extends App {

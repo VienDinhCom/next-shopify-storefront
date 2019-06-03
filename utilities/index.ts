@@ -1,5 +1,5 @@
 import link from './link.utility'
 
-export {
+export default {
   link
 }

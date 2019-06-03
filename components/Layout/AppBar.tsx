@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import * as utilities from '../../utilities'
+import utilities from '../../utilities'
 
 const useStyles = makeStyles(theme => ({
   grow: {
