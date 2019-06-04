@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit';
-import { ProductFragment } from '../models'
+import { ProductFragment } from '../models';
 
 export interface ProductState {
   loading: boolean;
@@ -17,7 +17,7 @@ interface CheckoutAction {
 const initialState = {
   loading: false,
   error: null,
-  data: null,
+  data: null
 };
 
 export default createSlice({
@@ -32,6 +32,6 @@ export default createSlice({
     success: (state: ProductState, { payload }: CheckoutAction) => {
       state.loading = false;
       state.data = payload.data;
-    },
-  },
+    }
+  }
 });

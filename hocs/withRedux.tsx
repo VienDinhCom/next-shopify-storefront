@@ -27,7 +27,7 @@ function withRedux(App) {
 
       return {
         ...initialProps,
-        initialState: store.getState(),
+        initialState: store.getState()
       };
     }
 

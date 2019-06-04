@@ -1,18 +1,11 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
   "extends": [
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/react"
+    "typescript",
+    "typescript/react",
+    "typescript/prettier",
+    "typescript/prettier-react"
   ],
   "rules": {
-    "indent": "off",
-    "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/explicit-function-return-type": "off"
   },
   "settings": {

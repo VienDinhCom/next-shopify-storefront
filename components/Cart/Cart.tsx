@@ -28,22 +28,20 @@ function Cart(props: Props) {
       </Button>
       <ul>
         {data.lineItems &&
-          data.lineItems.edges.map(
-            ({ node }) => (
-              <li key={node.id}>
-                {node.title} ({node.variant.title}){' '}
-                <input
-                  type="number"
-                  onChange={(event) =>
-                    props.dispatch(services.checkout.updateQuantity(node.variant.id, parseInt(event.target.value)))
-                  }
-                  min={1}
-                  defaultValue={`${node.quantity}`}
-                />{' '}
-                <button onClick={() => props.dispatch(services.checkout.removeLineItem(node.variant.id))}>Remove</button>
-              </li>
-            )
-          )}
+          data.lineItems.edges.map(({ node }) => (
+            <li key={node.id}>
+              {node.title} ({node.variant.title}){' '}
+              <input
+                type="number"
+                onChange={event =>
+                  props.dispatch(services.checkout.updateQuantity(node.variant.id, parseInt(event.target.value)))
+                }
+                min={1}
+                defaultValue={`${node.quantity}`}
+              />{' '}
+              <button onClick={() => props.dispatch(services.checkout.removeLineItem(node.variant.id))}>Remove</button>
+            </li>
+          ))}
       </ul>
     </>
   );

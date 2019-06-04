@@ -4,7 +4,7 @@ import Products from '../components/Products/Products';
 import services from '../services';
 import { ProductsState } from '../store/products.slice';
 import isServer from 'detect-node';
-import { ProductSortKeys } from '../models'
+import { ProductSortKeys } from '../models';
 
 interface Props {
   products: ProductsState;
@@ -12,7 +12,7 @@ interface Props {
   query: {
     query: string;
     reverse: boolean;
-    sortKey: string;
+    sortKey: ProductSortKeys;
     sortIndex: number;
   };
 }
@@ -26,6 +26,7 @@ ProductsPage.getInitialProps = async context => {
   const { query, sortKey, sortIndex, reverse } = context.query;
 
   const transformedQuery = {
+    ...query,
     query: query || '',
     sortKey: sortKey ? sortKey.toUpperCase() : ProductSortKeys.BestSelling,
     sortIndex: sortIndex ? parseInt(sortIndex) : 0,

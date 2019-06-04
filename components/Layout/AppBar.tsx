@@ -11,17 +11,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import utilities from '../../utilities'
+import utilities from '../../utilities';
 
 const useStyles = makeStyles(theme => ({
   grow: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   title: {
-    display: 'block',
+    display: 'block'
   },
   searchIcon: {
     width: theme.spacing(7),
@@ -30,31 +30,31 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   inputRoot: {
-    color: 'inherit',
+    color: 'inherit'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: 200,
-    },
+      width: 200
+    }
   },
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
+      display: 'flex'
+    }
   },
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
+      display: 'none'
+    }
+  }
 }));
 
 function PrimaryAppBar() {
@@ -79,12 +79,8 @@ function PrimaryAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={() => utilities.link({path: '/'})}>
-        Home
-      </MenuItem>
-      <MenuItem onClick={() => utilities.link({path: '/products'})}>
-        Products
-      </MenuItem>
+      <MenuItem onClick={() => utilities.link({ path: '/' })}>Home</MenuItem>
+      <MenuItem onClick={() => utilities.link({ path: '/products' })}>Products</MenuItem>
     </Menu>
   );
 
@@ -98,9 +94,13 @@ function PrimaryAppBar() {
             </Typography>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <Button color="inherit" onClick={() => utilities.link({path: '/'})}>Home</Button>
-              <Button color="inherit" onClick={() => utilities.link({path: '/products'})}>Products</Button>
-              <IconButton color="inherit" onClick={() => utilities.link({path: '/cart'})}>
+              <Button color="inherit" onClick={() => utilities.link({ path: '/' })}>
+                Home
+              </Button>
+              <Button color="inherit" onClick={() => utilities.link({ path: '/products' })}>
+                Products
+              </Button>
+              <IconButton color="inherit" onClick={() => utilities.link({ path: '/cart' })}>
                 <Badge badgeContent={17} color="secondary">
                   <ShoppingBasket />
                 </Badge>
@@ -110,7 +110,7 @@ function PrimaryAppBar() {
               <IconButton aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit">
                 <MoreIcon />
               </IconButton>
-              <IconButton color="inherit" onClick={() => utilities.link({path: '/cart'})}>
+              <IconButton color="inherit" onClick={() => utilities.link({ path: '/cart' })}>
                 <Badge badgeContent={17} color="secondary">
                   <ShoppingBasket />
                 </Badge>

@@ -7,5 +7,5 @@ export const shopify = new ApolloClient({
     uri: config.client.service.url,
     headers: config.client.service.headers
   }),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 });

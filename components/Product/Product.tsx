@@ -5,7 +5,6 @@ import services from '../../services';
 import Layout from '../Layout/Layout';
 import VariantSelector from './VariantSelector';
 
-
 interface Props {
   product: ProductState;
   dispatch: Function;
@@ -15,18 +14,18 @@ function Product(props: Props) {
   const { product } = props;
   const [values, setValues] = useState({
     variantId: '',
-    quantity: 1,
+    quantity: 1
   });
 
-  const variants = product.data.variants.edges.map(({node}) => {
-    return {id: node.id,
+  const variants = product.data.variants.edges.map(({ node }) => {
+    return {
+      id: node.id,
       title: node.title,
-      selectedOptions: node.selectedOptions.map(option => ({name: option.name, value: option.value}))
-    }
+      selectedOptions: node.selectedOptions.map(option => ({ name: option.name, value: option.value }))
+    };
   });
 
-  console.log(variants)
-
+  console.log(variants);
 
   return (
     <Layout>
@@ -36,7 +35,9 @@ function Product(props: Props) {
         <>
           <h1>{product.data.title}</h1>
           <p>{product.data.description}</p>
-          {product.data.images.edges[0] && <img src={product.data.images.edges[0].node.originalSrc} width={200} alt="" />}
+          {product.data.images.edges[0] && (
+            <img src={product.data.images.edges[0].node.originalSrc} width={200} alt="" />
+          )}
 
           {/* <VariantSelector
             // options={product.data.options}
@@ -50,7 +51,7 @@ function Product(props: Props) {
               min="1"
               type="number"
               value={values.quantity}
-              onChange={(event) => setValues({ ...values, quantity: parseInt(event.target.value) })}
+              onChange={event => setValues({ ...values, quantity: parseInt(event.target.value) })}
             />
           </label>
 
