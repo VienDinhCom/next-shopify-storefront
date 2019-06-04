@@ -1,3 +1,22 @@
+import React from 'react';
+import queryString from 'query-string';
+import Router from 'next/router';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { ProductSortKeys } from '../../models';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 80
+    }
+  })
+);
+
 const sortOpts = [
   {
     name: 'Best Selling',
@@ -36,27 +55,45 @@ const sortOpts = [
   }
 ];
 
-function pushQueryString(queryStr) {
-  const { router } = Router;
-  router.push(`${router.pathname}?${queryStr}`);
+interface Props {
+  query: {
+    query: string;
+    reverse: boolean;
+    sortKey: ProductSortKeys;
+    sortIndex: number;
+  };
 }
 
-// function _sort(event) {
-//   const sortIndex = event.target.value;
-//   const { sortKey, reverse } = sortOpts[sortIndex];
-//   const queryStr = queryString.stringify({ ...props.query, sortKey, reverse, sortIndex });
+function Sort(props: Props) {
+  const classes = useStyles();
 
-//   pushQueryString(queryStr);
-// }
+  function _sort(event) {
+    const { router } = Router;
+    const sortIndex = event.target.value;
+    const { sortKey, reverse } = sortOpts[sortIndex];
+    const queryStr = queryString.stringify({ ...props.query, sortKey, reverse, sortIndex });
 
-export default function Sort() {
+    router.push(`${router.pathname}?${queryStr}`);
+  }
+
   return (
-    <select onChange={_sort} name="sortIndex" value={props.query.sortIndex || 0}>
-      {sortOpts.map(({ name }, index) => (
-        <option key={name} value={index}>
-          {name}
-        </option>
-      ))}
-    </select>
+    <FormControl className={classes.formControl}>
+      <InputLabel htmlFor="sort-by">Sort by</InputLabel>
+      <Select
+        value={props.query.sortIndex}
+        onChange={_sort}
+        inputProps={{
+          id: 'sort-by'
+        }}
+      >
+        {sortOpts.map(({ name }, index) => (
+          <MenuItem key={name} value={index}>
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
+
+export default Sort;

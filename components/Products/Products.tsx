@@ -11,6 +11,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { ProductsState } from '../../store/products.slice';
 import Layout from '../Layout/Layout';
 import LoadMore from './LoadMore';
+import Sort from './Sort';
 import { ProductSortKeys } from '../../models';
 
 interface Props {
@@ -38,6 +39,15 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    alignItems: 'center'
+  },
+  title: {
+    margin: 0
   }
 }));
 
@@ -63,7 +73,10 @@ function Products({ products, query, dispatch }: Props) {
 
   return (
     <Layout>
-      <h1>Products</h1>
+      <header className={classes.header}>
+        <h1 className={classes.title}>Products</h1>
+        <Sort query={query} />
+      </header>
 
       {firstPage.loading && <p>Loading...</p>}
 
