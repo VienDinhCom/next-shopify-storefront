@@ -4,7 +4,7 @@ import Products from '../components/Products/Products';
 import services from '../services';
 import { ProductsState } from '../store/products.slice';
 import isServer from 'detect-node';
-import { ProductSortKeys } from '../models'
+import { ProductSortKeys } from '../models';
 
 interface Props {
   products: ProductsState;

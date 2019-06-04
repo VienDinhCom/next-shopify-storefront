@@ -1,5 +1,5 @@
-import link from './link.utility'
+import link from './link.utility';
 
 export default {
   link
-}
+};

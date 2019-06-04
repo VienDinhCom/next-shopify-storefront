@@ -1,1 +1,1 @@
-export * from './shopify.model'
+export * from './shopify.model';

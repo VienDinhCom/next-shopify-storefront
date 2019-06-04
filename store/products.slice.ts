@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit';
-import { ProductsFragment } from '../models'
+import { ProductsFragment } from '../models';
 
 export interface ProductsState {
   firstPage: {
@@ -23,11 +23,11 @@ interface ProductsAction {
 const initialState = {
   firstPage: {
     loading: true,
-    error: null,
+    error: null
   },
   nextPage: {
     loading: false,
-    error: null,
+    error: null
   },
   data: null
 };
@@ -59,7 +59,7 @@ export default createSlice({
     nextPageSuccess: (state: ProductsState, { payload }: ProductsAction) => {
       state.nextPage.loading = false;
       state.data.edges = state.data.edges.concat(payload.data.edges);
-      state.data.pageInfo.hasNextPage = payload.data.pageInfo.hasNextPage
-    },
-  },
+      state.data.pageInfo.hasNextPage = payload.data.pageInfo.hasNextPage;
+    }
+  }
 });

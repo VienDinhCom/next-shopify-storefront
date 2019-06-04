@@ -8,6 +8,6 @@
 //   timeoutID = setTimeout(() => pushQueryString(queryStr), 1000);
 // }
 
-function Search(params:type) {
-  return(<input type="text" name="query" defaultValue={props.query.query} onChange={_search} />)
+function Search(params: type) {
+  return <input type="text" name="query" defaultValue={props.query.query} onChange={_search} />;
 }

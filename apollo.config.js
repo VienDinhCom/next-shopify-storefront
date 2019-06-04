@@ -12,6 +12,6 @@ module.exports = {
       headers
     },
     excludes: ['**/node_modules/**/*'],
-    includes: ['**/*.{ts,tsx}'],
+    includes: ['**/*.{ts,tsx}']
   }
 };

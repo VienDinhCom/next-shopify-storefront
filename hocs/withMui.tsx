@@ -9,18 +9,18 @@ import flush from 'styled-jsx/server';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#556cd6',
+      main: '#556cd6'
     },
     secondary: {
-      main: '#19857b',
+      main: '#19857b'
     },
     error: {
-      main: red.A400,
+      main: red.A400
     },
     background: {
-      default: '#fff',
-    },
-  },
+      default: '#fff'
+    }
+  }
 });
 
 export function withMuiApp(App) {
@@ -53,7 +53,6 @@ export function withMuiApp(App) {
   };
 }
 
-
 export function withMuiDocument(Document) {
   return class DocumentWithMui extends Component {
     public static async getInitialProps(ctx) {
@@ -62,7 +61,7 @@ export function withMuiDocument(Document) {
 
       ctx.renderPage = () => {
         return originalRenderPage({
-          enhanceApp: App => props => sheets.collect(<App {...props} />),
+          enhanceApp: App => props => sheets.collect(<App {...props} />)
         });
       };
 
@@ -75,7 +74,7 @@ export function withMuiDocument(Document) {
             {sheets.getStyleElement()}
             {flush() || null}
           </>
-        ),
+        )
       };
     }
 

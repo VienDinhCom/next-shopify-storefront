@@ -9,6 +9,7 @@ import React from 'react';
 import InfoIcon from '@material-ui/icons/Info';
 import { ProductsState } from '../../store/products.slice';
 import Layout from '../Layout/Layout';
+import LoadMore from './LoadMore';
 
 interface Props {
   products: ProductsState;
@@ -27,15 +28,15 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
   },
   gridList: {
     width: 500,
-    height: 450,
+    height: 450
   },
   icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
+    color: 'rgba(255, 255, 255, 0.54)'
+  }
 }));
 
 function Products(props: Props) {
@@ -60,31 +61,37 @@ function Products(props: Props) {
     <Layout>
       <h1>Products</h1>
 
-      {firstPage.loading && (<p>Loading...</p>)}
+      {firstPage.loading && <p>Loading...</p>}
 
-      {firstPage.error && (<p>{firstPage.error.message}</p>)}
+      {firstPage.error && <p>{firstPage.error.message}</p>}
 
       {data && (
-        <GridList cellHeight={500} cols={gridListCols} spacing={30} >
-          {data.edges.map(({ node }) => (
-            <GridListTile key={node.handle}>
-              <img src={node.images.edges[0].node.transformedSrc} alt={node.images.edges[0].node.altText} />
-              <GridListTileBar
-                title={node.title}
-                subtitle={<span>{node.priceRange.minVariantPrice.amount} {node.priceRange.minVariantPrice.currencyCode}</span>}
-                actionIcon={
-                  <IconButton className={classes.icon}>
-                    <InfoIcon />
-                  </IconButton>
-                }
-              />
-            </GridListTile>
-          ))}
-        </GridList>
+        <>
+          <GridList cellHeight={500} cols={gridListCols} spacing={30}>
+            {data.edges.map(({ node }) => (
+              <GridListTile key={node.handle}>
+                <img src={node.images.edges[0].node.transformedSrc} alt={node.images.edges[0].node.altText} />
+                <GridListTileBar
+                  title={node.title}
+                  subtitle={
+                    <span>
+                      {node.priceRange.minVariantPrice.amount} {node.priceRange.minVariantPrice.currencyCode}
+                    </span>
+                  }
+                  actionIcon={
+                    <IconButton className={classes.icon}>
+                      <InfoIcon />
+                    </IconButton>
+                  }
+                />
+              </GridListTile>
+            ))}
+          </GridList>
+          <LoadMore />
+        </>
       )}
-
     </Layout>
-  )
+  );
 }
 
 export default Products;

@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import cookies from 'js-cookie';
 import { actions } from '../store';
 import { shopify } from './apis.service';
-import { CheckoutQueryVariables, CheckoutLineItemsReplaceMutationVariables } from '../models'
+import { CheckoutQueryVariables, CheckoutLineItemsReplaceMutationVariables } from '../models';
 
 export const checkoutFragment = gql`
   fragment checkout on Checkout {
@@ -95,7 +95,7 @@ export function fetch(req: Request, res: Response) {
 
       const variables: CheckoutQueryVariables = {
         checkoutId
-      }
+      };
 
       const { data } = await shopify.query({
         query: checkoutQuery,
@@ -121,7 +121,7 @@ export function replaceLineItems(variables: CheckoutLineItemsReplaceMutationVari
 
       dispatch(
         actions.checkout.lineItemsReplaceSuccess({
-          data: data.checkoutLineItemsReplace.checkout,
+          data: data.checkoutLineItemsReplace.checkout
         })
       );
     } catch (error) {
@@ -132,7 +132,7 @@ export function replaceLineItems(variables: CheckoutLineItemsReplaceMutationVari
 
 interface LineItem {
   variantId: string;
-  quantity: number
+  quantity: number;
 }
 
 function getLineItems(lineItems): LineItem[] {
@@ -151,8 +151,7 @@ export function addLineItem(variantId: string, quantity: number) {
       lineItems.push({ variantId, quantity });
     }
 
-
-    dispatch(replaceLineItems({checkoutId, lineItems}));
+    dispatch(replaceLineItems({ checkoutId, lineItems }));
   };
 }
 
@@ -164,7 +163,7 @@ export function updateQuantity(variantId: string, quantity: number) {
 
     lineItems[lineItemIndex].quantity = quantity;
 
-    dispatch(replaceLineItems({checkoutId, lineItems}));
+    dispatch(replaceLineItems({ checkoutId, lineItems }));
   };
 }
 
@@ -173,8 +172,8 @@ export function removeLineItem(variantId: string) {
     const checkoutId = cookies.get('checkoutId');
     let lineItems = getLineItems(getState().checkout.item.lineItems.edges);
 
-    lineItems = _.remove(lineItems, (lineItem) => lineItem.variantId !== variantId);
+    lineItems = _.remove(lineItems, lineItem => lineItem.variantId !== variantId);
 
-    dispatch(replaceLineItems({checkoutId, lineItems}));
+    dispatch(replaceLineItems({ checkoutId, lineItems }));
   };
 }
