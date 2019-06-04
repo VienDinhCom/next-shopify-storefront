@@ -36,8 +36,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper
   },
   gridList: {
-    width: 500,
-    height: 450
+    width: '100%'
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
@@ -99,7 +98,7 @@ function Products({ products, query, dispatch }: Props) {
       {data && (
         <>
           <div className={classes.products}>
-            <GridList cellHeight={500} cols={gridListCols} spacing={30}>
+            <GridList className={classes.gridList} cellHeight={500} cols={gridListCols} spacing={30}>
               {data.edges.map(({ node }) => (
                 <GridListTile key={node.handle}>
                   <img src={node.images.edges[0].node.transformedSrc} alt={node.images.edges[0].node.altText} />
