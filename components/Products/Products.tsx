@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -10,6 +11,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { ProductsState } from '../../store/products.slice';
 import Layout from '../Layout/Layout';
 import LoadMore from './LoadMore';
+import { ProductSortKeys } from '../../models';
 
 interface Props {
   products: ProductsState;
@@ -17,7 +19,7 @@ interface Props {
   query: {
     query: string;
     reverse: boolean;
-    sortKey: string;
+    sortKey: ProductSortKeys;
     sortIndex: number;
   };
 }
@@ -39,8 +41,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Products(props: Props) {
-  const { firstPage, nextPage, data } = props.products;
+function Products({ products, query, dispatch }: Props) {
+  const { firstPage, nextPage, data } = products;
+  const cursor = data ? _.last(data.edges).cursor : '';
+  const hasNextpage = data ? data.pageInfo.hasNextPage : false;
   const classes = useStyles();
   const theme = useTheme();
   let gridListCols = 4;
@@ -66,7 +70,7 @@ function Products(props: Props) {
       {firstPage.error && <p>{firstPage.error.message}</p>}
 
       {data && (
-        <>
+        <div className={classes.root}>
           <GridList cellHeight={500} cols={gridListCols} spacing={30}>
             {data.edges.map(({ node }) => (
               <GridListTile key={node.handle}>
@@ -87,8 +91,8 @@ function Products(props: Props) {
               </GridListTile>
             ))}
           </GridList>
-          <LoadMore />
-        </>
+          <LoadMore cursor={cursor} hasNextpage={hasNextpage} query={query} dispatch={dispatch} {...nextPage} />
+        </div>
       )}
     </Layout>
   );

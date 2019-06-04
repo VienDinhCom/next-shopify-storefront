@@ -12,7 +12,7 @@ interface Props {
   query: {
     query: string;
     reverse: boolean;
-    sortKey: string;
+    sortKey: ProductSortKeys;
     sortIndex: number;
   };
 }
