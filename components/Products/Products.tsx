@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper
   },
   gridList: {
-    width: '100%'
+    // width: '100%'
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
