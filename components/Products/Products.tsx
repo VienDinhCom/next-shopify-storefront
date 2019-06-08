@@ -15,6 +15,7 @@ import LoadMore from './LoadMore';
 import Sort from './Sort';
 import Search from './Search';
 import { ProductSortKeys } from '../../models';
+import utilities from '../../utilities';
 
 interface Props {
   products: ProductsState;
@@ -110,7 +111,17 @@ function Products({ products, query, dispatch }: Props) {
                       </span>
                     }
                     actionIcon={
-                      <IconButton className={classes.icon}>
+                      <IconButton
+                        className={classes.icon}
+                        onClick={() =>
+                          utilities.link({
+                            path: '/product',
+                            params: {
+                              handle: node.handle
+                            }
+                          })
+                        }
+                      >
                         <InfoIcon />
                       </IconButton>
                     }
