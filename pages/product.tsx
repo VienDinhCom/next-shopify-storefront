@@ -7,13 +7,11 @@ import isServer from 'detect-node';
 
 interface Props {
   product: ProductState;
-  query: {
-    handle: string;
-  };
+  dispatch: Function;
 }
 
-function ProductPage({ product }: Props) {
-  return <Product product={product} />;
+function ProductPage({ product, dispatch }: Props) {
+  return <Product product={product} dispatch={dispatch} />;
 }
 
 ProductPage.getInitialProps = async context => {

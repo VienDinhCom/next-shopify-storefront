@@ -1,9 +1,13 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { ProductOption, ProductVariant } from '../../models';
 
 interface Props {
-  variants: {
+  options: {
+    id: string;
+    name: string;
+    values: string[];
+  }[];
+  variants?: {
     id: string;
     title: string;
     selectedOptions: {
@@ -11,12 +15,11 @@ interface Props {
       value: string;
     }[];
   }[];
-  options?: Pick<ProductOption, 'id' | 'name' | 'values'>[];
-  getVariantId: (variantId: string) => void;
+  getVariantId?: (variantId: string) => void;
 }
 
-function VariantSelector(props: Props) {
-  const defaultSelectedOptions = props.variants[0].node.selectedOptions.reduce((options, { name, value }) => {
+function VariantSelector({ options, variants, getVariantId }: Props) {
+  const defaultSelectedOptions = variants[0].selectedOptions.reduce((options, { name, value }) => {
     return { ...options, [name]: value };
   }, {});
 
@@ -28,31 +31,35 @@ function VariantSelector(props: Props) {
   }
 
   useEffect(() => {
-    const selectedVariant = props.variants.edges.find(({ node }) => {
-      const _selectedOptions = node.selectedOptions.reduce((options, { name, value }) => {
+    const selectedVariant = variants.find(variant => {
+      const _selectedOptions = variant.selectedOptions.reduce((options, { name, value }) => {
         return { ...options, [name]: value };
       }, {});
 
       return _.isEqual(_selectedOptions, selectedOptions);
     });
 
-    props.getVariantId(selectedVariant ? selectedVariant.node.id : null);
+    getVariantId(selectedVariant ? selectedVariant.id : null);
   }, [selectedOptions]);
 
-  return props.options.map(({ name, values }) => (
-    <div key={name}>
-      <span>{name}: </span>
-      <select name={name} value={selectedOptions[name]} onChange={_onChange}>
-        {values.map(value => {
-          return (
-            <option value={value} key={value}>
-              {value}
-            </option>
-          );
-        })}
-      </select>
-    </div>
-  ));
+  return (
+    <>
+      {options.map(({ name, values }) => (
+        <div key={name}>
+          <span>{name}: </span>
+          <select name={name} value={selectedOptions[name]} onChange={_onChange}>
+            {values.map(value => {
+              return (
+                <option value={value} key={value}>
+                  {value}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      ))}
+    </>
+  );
 }
 
 export default VariantSelector;

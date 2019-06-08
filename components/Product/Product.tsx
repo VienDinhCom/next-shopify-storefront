@@ -1,69 +1,49 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import withLayout from '../../hocs/withLayout';
 import { ProductState } from '../../store/product.slice';
 import services from '../../services';
-import Layout from '../Layout/Layout';
 import VariantSelector from './VariantSelector';
+import QuantityInput from './QuantityInput';
 
 interface Props {
   product: ProductState;
   dispatch: Function;
 }
 
-function Product(props: Props) {
-  const { product } = props;
+function Product({ product, dispatch }: Props) {
+  const { loading, error, data } = product;
+
   const [values, setValues] = useState({
     variantId: '',
     quantity: 1
   });
 
-  const variants = product.data.variants.edges.map(({ node }) => {
-    return {
-      id: node.id,
-      title: node.title,
-      selectedOptions: node.selectedOptions.map(option => ({ name: option.name, value: option.value }))
-    };
-  });
+  if (loading) {
+    return <p>Loading ...</p>;
+  }
 
-  console.log(variants);
+  if (error) {
+    return <p>{error.message}</p>;
+  }
+
+  const variants = data.variants.edges.map(({ node }) => ({ ...node }));
 
   return (
-    <Layout>
-      {product.loading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <h1>{product.data.title}</h1>
-          <p>{product.data.description}</p>
-          {product.data.images.edges[0] && (
-            <img src={product.data.images.edges[0].node.originalSrc} width={200} alt="" />
-          )}
-
-          {/* <VariantSelector
-            // options={product.data.options}
-            variants={variants}
-            getVariantId={(variantId) => setValues({ ...values, variantId })}
-          /> */}
-
-          <label className="Product__option">
-            Quantity
-            <input
-              min="1"
-              type="number"
-              value={values.quantity}
-              onChange={event => setValues({ ...values, quantity: parseInt(event.target.value) })}
-            />
-          </label>
-
-          <br />
-
-          <button onClick={() => props.dispatch(services.checkout.addLineItem(values.variantId, values.quantity))}>
-            Add to Cart
-          </button>
-        </>
-      )}
-    </Layout>
+    <>
+      <h1>{data.title}</h1>
+      <p>{data.description}</p>
+      {data.images.edges[0] && <img src={data.images.edges[0].node.originalSrc} width={200} alt="" />}
+      <QuantityInput getQuantity={quantity => setValues({ ...values, quantity })} />
+      <VariantSelector
+        options={data.options}
+        variants={variants}
+        getVariantId={variantId => setValues({ ...values, variantId })}
+      />
+      <button onClick={() => dispatch(services.checkout.addLineItem(values.variantId, values.quantity))}>
+        Add to Cart
+      </button>
+    </>
   );
 }
 
-export default connect()(Product);
+export default withLayout(Product);

@@ -15,7 +15,7 @@ interface CheckoutAction {
 }
 
 const initialState = {
-  loading: false,
+  loading: true,
   error: null,
   data: null
 };

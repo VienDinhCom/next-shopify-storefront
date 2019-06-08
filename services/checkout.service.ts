@@ -49,22 +49,22 @@ export const checkoutFragment = gql`
   }
 `;
 
+const checkoutCreateMutation = gql`
+  mutation checkoutCreate {
+    checkoutCreate(input: {}) {
+      checkout {
+        id
+      }
+    }
+  }
+`;
+
 const checkoutQuery = gql`
   ${checkoutFragment}
   query checkout($checkoutId: ID!) {
     node(id: $checkoutId) {
       ... on Checkout {
         ...checkout
-      }
-    }
-  }
-`;
-
-const checkoutCreateMutation = gql`
-  mutation checkoutCreate {
-    checkoutCreate(input: {}) {
-      checkout {
-        id
       }
     }
   }
@@ -142,7 +142,7 @@ function getLineItems(lineItems): LineItem[] {
 export function addLineItem(variantId: string, quantity: number) {
   return async (dispatch, getState) => {
     const checkoutId = cookies.get('checkoutId');
-    const lineItems = getLineItems(getState().checkout.item.lineItems.edges);
+    const lineItems = getLineItems(getState().checkout.data.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
     if (lineItemIndex >= 0) {
@@ -158,7 +158,7 @@ export function addLineItem(variantId: string, quantity: number) {
 export function updateQuantity(variantId: string, quantity: number) {
   return async (dispatch, getState) => {
     const checkoutId = cookies.get('checkoutId');
-    const lineItems = getLineItems(getState().checkout.item.lineItems.edges);
+    const lineItems = getLineItems(getState().checkout.data.lineItems.edges);
     const lineItemIndex = _.findIndex(lineItems, { variantId });
 
     lineItems[lineItemIndex].quantity = quantity;
@@ -170,7 +170,7 @@ export function updateQuantity(variantId: string, quantity: number) {
 export function removeLineItem(variantId: string) {
   return async (dispatch, getState) => {
     const checkoutId = cookies.get('checkoutId');
-    let lineItems = getLineItems(getState().checkout.item.lineItems.edges);
+    let lineItems = getLineItems(getState().checkout.data.lineItems.edges);
 
     lineItems = _.remove(lineItems, lineItem => lineItem.variantId !== variantId);
 

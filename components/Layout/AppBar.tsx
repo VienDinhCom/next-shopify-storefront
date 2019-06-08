@@ -12,6 +12,8 @@ import Menu from '@material-ui/core/Menu';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import utilities from '../../utilities';
+import { connect } from 'react-redux';
+import { CheckoutState } from '../../store/checkout.slice';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -57,7 +59,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function PrimaryAppBar() {
+interface Props {
+  totalQuantity: number;
+}
+
+function PrimaryAppBar({ totalQuantity }: Props) {
   const classes = useStyles();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -101,7 +107,7 @@ function PrimaryAppBar() {
                 Products
               </Button>
               <IconButton color="inherit" onClick={() => utilities.link({ path: '/cart' })}>
-                <Badge badgeContent={17} color="secondary">
+                <Badge badgeContent={totalQuantity} color="secondary">
                   <ShoppingBasket />
                 </Badge>
               </IconButton>
@@ -111,7 +117,7 @@ function PrimaryAppBar() {
                 <MoreIcon />
               </IconButton>
               <IconButton color="inherit" onClick={() => utilities.link({ path: '/cart' })}>
-                <Badge badgeContent={17} color="secondary">
+                <Badge badgeContent={totalQuantity} color="secondary">
                   <ShoppingBasket />
                 </Badge>
               </IconButton>
@@ -124,4 +130,12 @@ function PrimaryAppBar() {
   );
 }
 
-export default PrimaryAppBar;
+function mapStateToProps({ checkout }: { checkout: CheckoutState }) {
+  const totalQuantity = checkout.data.lineItems.edges.reduce((total, lineItem) => {
+    return total + lineItem.node.quantity;
+  }, 0);
+
+  return { totalQuantity };
+}
+
+export default connect(mapStateToProps)(PrimaryAppBar);
