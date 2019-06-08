@@ -100,34 +100,42 @@ function Products({ products, query, dispatch }: Props) {
         <>
           <div className={classes.products}>
             <GridList className={classes.gridList} cellHeight={500} cols={gridListCols} spacing={30}>
-              {data.edges.map(({ node }) => (
-                <GridListTile key={node.handle}>
-                  <img src={node.images.edges[0].node.transformedSrc} alt={node.images.edges[0].node.altText} />
-                  <GridListTileBar
-                    title={node.title}
-                    subtitle={
-                      <span>
-                        {node.priceRange.minVariantPrice.amount} {node.priceRange.minVariantPrice.currencyCode}
-                      </span>
-                    }
-                    actionIcon={
-                      <IconButton
-                        className={classes.icon}
-                        onClick={() =>
-                          utilities.link({
-                            path: '/product',
-                            params: {
-                              handle: node.handle
-                            }
-                          })
-                        }
-                      >
-                        <InfoIcon />
-                      </IconButton>
-                    }
-                  />
-                </GridListTile>
-              ))}
+              {data.edges.map(({ node }) => {
+                const images = node.images.edges;
+                const imageSrc = images.length
+                  ? images[0].node.transformedSrc
+                  : 'http://www.netum.vn/public/default/img/icon/default-product-image.png';
+                const altText = images.length ? images[0].node.altText : '';
+
+                return (
+                  <GridListTile key={node.handle}>
+                    <img src={imageSrc} alt={altText} />
+                    <GridListTileBar
+                      title={node.title}
+                      subtitle={
+                        <span>
+                          {node.priceRange.minVariantPrice.amount} {node.priceRange.minVariantPrice.currencyCode}
+                        </span>
+                      }
+                      actionIcon={
+                        <IconButton
+                          className={classes.icon}
+                          onClick={() =>
+                            utilities.link({
+                              path: '/product',
+                              params: {
+                                handle: node.handle
+                              }
+                            })
+                          }
+                        >
+                          <InfoIcon />
+                        </IconButton>
+                      }
+                    />
+                  </GridListTile>
+                );
+              })}
             </GridList>
           </div>
           {data.edges.length > 0 && (
