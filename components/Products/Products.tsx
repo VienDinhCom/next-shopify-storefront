@@ -3,8 +3,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import React from 'react';
@@ -28,7 +27,7 @@ interface Props {
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   products: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -65,8 +64,8 @@ function Products({ products, query, dispatch }: Props) {
   const { firstPage, nextPage, data } = products;
   const cursor = data ? (data.edges.length ? _.last(data.edges).cursor : '') : '';
   const hasNextpage = data ? data.pageInfo.hasNextPage : false;
-  const classes = useStyles();
   const theme = useTheme();
+  const classes = useStyles(theme);
   let gridListCols = 4;
 
   if (useMediaQuery(theme.breakpoints.down('md'))) {
