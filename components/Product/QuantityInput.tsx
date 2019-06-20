@@ -1,15 +1,21 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
 
 interface Props {
   getQuantity: (quantity: number) => void;
+  className?: string;
 }
 
-function QuantityInput({ getQuantity }: Props) {
+function QuantityInput({ getQuantity, className }: Props) {
   return (
-    <label>
-      Quantity
-      <input min="1" type="number" defaultValue="1" onChange={event => getQuantity(parseInt(event.target.value))} />
-    </label>
+    <TextField
+      className={className}
+      id="product-quantity"
+      label="Quantity"
+      type="number"
+      defaultValue={1}
+      onChange={event => getQuantity(parseInt(event.target.value))}
+    />
   );
 }
 

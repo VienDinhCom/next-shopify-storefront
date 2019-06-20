@@ -21,9 +21,9 @@ export type Scalars = {
 /** Details about the gift card used on the checkout. */
 export type AppliedGiftCard = Node & {
   __typename?: 'AppliedGiftCard';
-  /** The amount that was used taken from the Gift Card by applying it. */
+  /** The amount that was taken from the Gift Card by applying it. */
   amountUsed: Scalars['Money'];
-  /** The amount that was used taken from the Gift Card by applying it. */
+  /** The amount that was taken from the Gift Card by applying it. */
   amountUsedV2: MoneyV2;
   /** The amount left on the Gift Card. */
   balance: Scalars['Money'];
@@ -33,6 +33,8 @@ export type AppliedGiftCard = Node & {
   id: Scalars['ID'];
   /** The last characters of the Gift Card code */
   lastCharacters: Scalars['String'];
+  /** The amount that was applied to the checkout in its currency. */
+  presentmentAmountUsed: MoneyV2;
 };
 
 export type Article = Node & {
@@ -3164,6 +3166,8 @@ export type Payment = Node & {
   __typename?: 'Payment';
   /** The amount of the payment. */
   amount: Scalars['Money'];
+  /** The amount of the payment. */
+  amountV2: MoneyV2;
   /** The billing address for the payment. */
   billingAddress?: Maybe<MailingAddress>;
   /** The checkout to which the payment belongs. */
@@ -3223,7 +3227,7 @@ export type PricingValue = PricingPercentageValue | MoneyV2;
 export type Product = Node &
   HasMetafields & {
     __typename?: 'Product';
-    /** Indicates if at least one product variant is available for sale. */
+    /** Whether the product is available on the Online Store channel and in stock. */
     availableForSale: Scalars['Boolean'];
     /** List of collections a product belongs to. */
     collections: CollectionConnection;
@@ -3251,6 +3255,8 @@ export type Product = Node &
     onlineStoreUrl?: Maybe<Scalars['URL']>;
     /** List of custom product options (maximum of 3 per product). */
     options: Array<ProductOption>;
+    /** List of price ranges in the presentment currencies for this shop. */
+    presentmentPriceRanges: ProductPriceRangeConnection;
     /** The price range. */
     priceRange: ProductPriceRange;
     /** A categorization that a product can be tagged with, commonly used for filtering and searching. */
@@ -3354,6 +3360,20 @@ export type ProductOptionsArgs = {
  * qualifies as a product, as do services (such as equipment rental, work for hire,
  * customization of another product or an extended warranty).
  */
+export type ProductPresentmentPriceRangesArgs = {
+  presentmentCurrencies?: Maybe<Array<CurrencyCode>>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  reverse: Scalars['Boolean'];
+};
+
+/** A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
+ * For example, a digital download (such as a movie, music or ebook file) also
+ * qualifies as a product, as do services (such as equipment rental, work for hire,
+ * customization of another product or an extended warranty).
+ */
 export type ProductVariantBySelectedOptionsArgs = {
   selectedOptions: Array<SelectedOptionInput>;
 };
@@ -3450,6 +3470,22 @@ export type ProductPriceRange = {
   minVariantPrice: MoneyV2;
 };
 
+export type ProductPriceRangeConnection = {
+  __typename?: 'ProductPriceRangeConnection';
+  /** A list of edges. */
+  edges: Array<ProductPriceRangeEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type ProductPriceRangeEdge = {
+  __typename?: 'ProductPriceRangeEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of ProductPriceRangeEdge. */
+  node: ProductPriceRange;
+};
+
 /** The set of valid sort keys for the products query. */
 export enum ProductSortKeys {
   /** Sort by the `title` value. */
@@ -3507,6 +3543,8 @@ export type ProductVariant = Node &
     priceV2: MoneyV2;
     /** The product object that the product variant belongs to. */
     product: Product;
+    /** Whether a customer needs to provide a shipping address when placing an order for the product variant. */
+    requiresShipping: Scalars['Boolean'];
     /** List of product options applied to the variant. */
     selectedOptions: Array<SelectedOption>;
     /** The SKU (stock keeping unit) associated with the variant. */
@@ -4003,6 +4041,8 @@ export type Transaction = {
   __typename?: 'Transaction';
   /** The amount of money that the transaction was for. */
   amount: Scalars['Money'];
+  /** The amount of money that the transaction was for. */
+  amountV2: MoneyV2;
   /** The kind of the transaction. */
   kind: TransactionKind;
   /** The status of the transaction. */
@@ -4069,6 +4109,14 @@ export type CheckoutFragment = { __typename?: 'Checkout' } & Pick<Checkout, 'id'
     };
   };
 
+export type CheckoutCreateMutationVariables = {};
+
+export type CheckoutCreateMutation = { __typename?: 'Mutation' } & {
+  checkoutCreate: Maybe<
+    { __typename?: 'CheckoutCreatePayload' } & { checkout: Maybe<{ __typename?: 'Checkout' } & Pick<Checkout, 'id'>> }
+  >;
+};
+
 export type CheckoutQueryVariables = {
   checkoutId: Scalars['ID'];
 };
@@ -4097,14 +4145,6 @@ export type CheckoutQuery = { __typename?: 'QueryRoot' } & {
   >;
 };
 
-export type CheckoutCreateMutationVariables = {};
-
-export type CheckoutCreateMutation = { __typename?: 'Mutation' } & {
-  checkoutCreate: Maybe<
-    { __typename?: 'CheckoutCreatePayload' } & { checkout: Maybe<{ __typename?: 'Checkout' } & Pick<Checkout, 'id'>> }
-  >;
-};
-
 export type CheckoutLineItemsReplaceMutationVariables = {
   checkoutId: Scalars['ID'];
   lineItems: Array<CheckoutLineItemInput>;
@@ -4121,7 +4161,7 @@ export type CheckoutLineItemsReplaceMutation = { __typename?: 'Mutation' } & {
 export type ProductFragment = { __typename?: 'Product' } & Pick<Product, 'title' | 'description'> & {
     images: { __typename?: 'ImageConnection' } & {
       edges: Array<
-        { __typename?: 'ImageEdge' } & { node: { __typename?: 'Image' } & Pick<Image, 'altText' | 'originalSrc'> }
+        { __typename?: 'ImageEdge' } & { node: { __typename?: 'Image' } & Pick<Image, 'altText' | 'transformedSrc'> }
       >;
     };
     options: Array<{ __typename?: 'ProductOption' } & Pick<ProductOption, 'id' | 'name' | 'values'>>;
