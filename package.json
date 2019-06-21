@@ -4,7 +4,6 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
-    "now-build": "npm run build",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
     "codegen": "graphql-codegen --config graphql.config.json"
