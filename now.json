@@ -1,3 +1,8 @@
 {
-  "name": "next-shopify-storefront"
+  "version": 2,
+  "alias": ["next-shopify-storefront.maxvien.now.sh"],
+  "name": "next-shopify-storefront",
+  "builds": [
+      { "src": "next.config.js", "use": "@now/next" }
+  ]
 }
