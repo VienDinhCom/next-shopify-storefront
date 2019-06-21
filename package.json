@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
-    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "start": "node dist/index.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
     "codegen": "graphql-codegen --config graphql.config.json"
   },
@@ -44,7 +44,6 @@
     "@types/react-dom": "16.8.4",
     "@types/react-redux": "^7.0.9",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
-    "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-config-typescript": "^2.0.0",
