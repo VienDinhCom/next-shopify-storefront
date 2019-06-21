@@ -6,6 +6,7 @@ import services from '../../services';
 import VariantSelector from './VariantSelector';
 import QuantityInput from './QuantityInput';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((them: Theme) => ({
@@ -15,6 +16,12 @@ const useStyles = makeStyles((them: Theme) => ({
   formControl: {
     marginBottom: 20,
     minWidth: 200
+  },
+  loader: {
+    display: 'block',
+    width: '100%',
+    textAlign: 'center',
+    marginBottom: 30
   }
 }));
 
@@ -34,7 +41,11 @@ function Product({ product, dispatch }: Props) {
   });
 
   if (loading) {
-    return <p>Loading ...</p>;
+    return (
+      <div className={classes.loader}>
+        <CircularProgress size={24} />
+      </div>
+    );
   }
 
   if (error) {

@@ -11,6 +11,9 @@ const useStyles = makeStyles((them: Theme) => ({
   },
   formControl: {
     minWidth: 200
+  },
+  formField: {
+    marginBottom: 20
   }
 }));
 
@@ -62,7 +65,7 @@ function VariantSelector({ options, variants, getVariantId, className }: Props) 
   return (
     <div className={className}>
       {options.map(({ name, values }) => (
-        <div key={name}>
+        <div key={name} className={classes.formField}>
           <InputLabel className={classes.formLabel} htmlFor={`product-option-${name}`}>
             {name}
           </InputLabel>
@@ -72,7 +75,7 @@ function VariantSelector({ options, variants, getVariantId, className }: Props) 
               value={selectedOptions[name]}
               onChange={_onChange}
               inputProps={{
-                name: { name },
+                name: name,
                 id: `product-option-${name}`
               }}
             >
