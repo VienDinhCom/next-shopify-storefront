@@ -14,12 +14,6 @@ const handle = app.getRequestHandler();
 
     server.use(cookieParser());
 
-    server.get('/collections/:id', (req, res) => {
-      const actualPage = '/collections';
-      const queryParams = { id: req.params.id };
-      app.render(req, res, actualPage, queryParams);
-    });
-
     server.get('/product/:handle', (req, res) => {
       const actualPage = '/product';
       const queryParams = { handle: req.params.handle };
