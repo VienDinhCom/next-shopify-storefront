@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    display: 'block'
+    display: 'block',
+    cursor: 'pointer'
   },
   searchIcon: {
     width: theme.spacing(7),
@@ -96,7 +97,7 @@ function PrimaryAppBar({ totalQuantity }: Props) {
       <AppBar position="fixed">
         <Container>
           <Toolbar disableGutters>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography onClick={() => utilities.link({ path: '/' })} className={classes.title} variant="h6" noWrap>
               Next Shopify Storefront
             </Typography>
             <div className={classes.grow} />
