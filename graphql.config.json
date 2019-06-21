@@ -4,9 +4,9 @@
 		"models/shopify.model.ts": {
 			"schema": [
 				{
-					"https://maxvien-dev.myshopify.com/api/graphql": {
+					"https://graphql.myshopify.com/api/graphql": {
 						"headers": {
-							"X-Shopify-Storefront-Access-Token": "cb21e7484c255b384b9128ac6b696693"
+							"X-Shopify-Storefront-Access-Token": "dd4d4dc146542ba7763305d71d1b3d38"
 						}
 					}
 				}
