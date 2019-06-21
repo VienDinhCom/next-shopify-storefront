@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -64,7 +64,8 @@ interface Props {
 }
 
 function PrimaryAppBar({ totalQuantity }: Props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -131,9 +132,13 @@ function PrimaryAppBar({ totalQuantity }: Props) {
 }
 
 function mapStateToProps({ checkout }: { checkout: CheckoutState }) {
-  const totalQuantity = checkout.data.lineItems.edges.reduce((total, lineItem) => {
-    return total + lineItem.node.quantity;
-  }, 0);
+  let totalQuantity = 0;
+
+  if (checkout.data) {
+    totalQuantity = checkout.data.lineItems.edges.reduce((total, lineItem) => {
+      return total + lineItem.node.quantity;
+    }, 0);
+  }
 
   return { totalQuantity };
 }
