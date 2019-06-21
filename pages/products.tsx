@@ -26,7 +26,6 @@ ProductsPage.getInitialProps = async context => {
   const { query, sortKey, sortIndex, reverse } = context.query;
 
   const transformedQuery = {
-    ...query,
     query: query || '',
     sortKey: sortKey ? sortKey.toUpperCase() : ProductSortKeys.BestSelling,
     sortIndex: sortIndex ? parseInt(sortIndex) : 0,

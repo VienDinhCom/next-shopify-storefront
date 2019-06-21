@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,6 +12,8 @@ import Menu from '@material-ui/core/Menu';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import utilities from '../../utilities';
+import { connect } from 'react-redux';
+import { CheckoutState } from '../../store/checkout.slice';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -21,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    display: 'block'
+    display: 'block',
+    cursor: 'pointer'
   },
   searchIcon: {
     width: theme.spacing(7),
@@ -57,8 +60,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function PrimaryAppBar() {
-  const classes = useStyles();
+interface Props {
+  totalQuantity: number;
+}
+
+function PrimaryAppBar({ totalQuantity }: Props) {
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -89,7 +97,7 @@ function PrimaryAppBar() {
       <AppBar position="fixed">
         <Container>
           <Toolbar disableGutters>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography onClick={() => utilities.link({ path: '/' })} className={classes.title} variant="h6" noWrap>
               Next Shopify Storefront
             </Typography>
             <div className={classes.grow} />
@@ -101,7 +109,7 @@ function PrimaryAppBar() {
                 Products
               </Button>
               <IconButton color="inherit" onClick={() => utilities.link({ path: '/cart' })}>
-                <Badge badgeContent={17} color="secondary">
+                <Badge badgeContent={totalQuantity} color="secondary">
                   <ShoppingBasket />
                 </Badge>
               </IconButton>
@@ -111,7 +119,7 @@ function PrimaryAppBar() {
                 <MoreIcon />
               </IconButton>
               <IconButton color="inherit" onClick={() => utilities.link({ path: '/cart' })}>
-                <Badge badgeContent={17} color="secondary">
+                <Badge badgeContent={totalQuantity} color="secondary">
                   <ShoppingBasket />
                 </Badge>
               </IconButton>
@@ -124,4 +132,16 @@ function PrimaryAppBar() {
   );
 }
 
-export default PrimaryAppBar;
+function mapStateToProps({ checkout }: { checkout: CheckoutState }) {
+  let totalQuantity = 0;
+
+  if (checkout.data) {
+    totalQuantity = checkout.data.lineItems.edges.reduce((total, lineItem) => {
+      return total + lineItem.node.quantity;
+    }, 0);
+  }
+
+  return { totalQuantity };
+}
+
+export default connect(mapStateToProps)(PrimaryAppBar);

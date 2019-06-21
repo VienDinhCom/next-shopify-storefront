@@ -5,3 +5,4 @@
 - GraphQL with Apollo Client (SSR mode)
 - Apollo VSCode extension
 - GraphQL Code Generator to gen shopify GraphQL model for TypeScript
+- Deploy with Now.sh

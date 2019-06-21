@@ -78,7 +78,7 @@ function Sort(props: Props) {
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel htmlFor="sort-by">Sort by</InputLabel>
+      <InputLabel htmlFor="sort-by">Sort By</InputLabel>
       <Select
         value={props.query.sortIndex}
         onChange={_sort}

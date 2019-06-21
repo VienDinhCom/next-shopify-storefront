@@ -11,7 +11,7 @@ const productFragment = gql`
       edges {
         node {
           altText
-          originalSrc
+          transformedSrc
         }
       }
     }

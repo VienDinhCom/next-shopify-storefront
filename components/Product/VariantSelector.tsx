@@ -1,9 +1,29 @@
 import _ from 'lodash';
+import Select from '@material-ui/core/Select';
 import React, { useEffect, useState } from 'react';
-import { ProductOption, ProductVariant } from '../../models';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((them: Theme) => ({
+  formLabel: {
+    fontSize: '1em'
+  },
+  formControl: {
+    minWidth: 200
+  },
+  formField: {
+    marginBottom: 20
+  }
+}));
 
 interface Props {
-  variants: {
+  options: {
+    id: string;
+    name: string;
+    values: string[];
+  }[];
+  variants?: {
     id: string;
     title: string;
     selectedOptions: {
@@ -11,12 +31,12 @@ interface Props {
       value: string;
     }[];
   }[];
-  options?: Pick<ProductOption, 'id' | 'name' | 'values'>[];
-  getVariantId: (variantId: string) => void;
+  getVariantId?: (variantId: string) => void;
+  className?: string;
 }
 
-function VariantSelector(props: Props) {
-  const defaultSelectedOptions = props.variants[0].node.selectedOptions.reduce((options, { name, value }) => {
+function VariantSelector({ options, variants, getVariantId, className }: Props) {
+  const defaultSelectedOptions = variants[0].selectedOptions.reduce((options, { name, value }) => {
     return { ...options, [name]: value };
   }, {});
 
@@ -28,31 +48,50 @@ function VariantSelector(props: Props) {
   }
 
   useEffect(() => {
-    const selectedVariant = props.variants.edges.find(({ node }) => {
-      const _selectedOptions = node.selectedOptions.reduce((options, { name, value }) => {
+    const selectedVariant = variants.find(variant => {
+      const _selectedOptions = variant.selectedOptions.reduce((options, { name, value }) => {
         return { ...options, [name]: value };
       }, {});
 
       return _.isEqual(_selectedOptions, selectedOptions);
     });
 
-    props.getVariantId(selectedVariant ? selectedVariant.node.id : null);
+    getVariantId(selectedVariant ? selectedVariant.id : null);
   }, [selectedOptions]);
 
-  return props.options.map(({ name, values }) => (
-    <div key={name}>
-      <span>{name}: </span>
-      <select name={name} value={selectedOptions[name]} onChange={_onChange}>
-        {values.map(value => {
-          return (
-            <option value={value} key={value}>
-              {value}
-            </option>
-          );
-        })}
-      </select>
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
+  return (
+    <div className={className}>
+      {options.map(({ name, values }) => (
+        <div key={name} className={classes.formField}>
+          <InputLabel className={classes.formLabel} htmlFor={`product-option-${name}`}>
+            {name}
+          </InputLabel>
+          <FormControl className={classes.formControl}>
+            <Select
+              native
+              value={selectedOptions[name]}
+              onChange={_onChange}
+              inputProps={{
+                name: name,
+                id: `product-option-${name}`
+              }}
+            >
+              {values.map(value => {
+                return (
+                  <option value={value} key={value}>
+                    {value}
+                  </option>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </div>
+      ))}
     </div>
-  ));
+  );
 }
 
 export default VariantSelector;

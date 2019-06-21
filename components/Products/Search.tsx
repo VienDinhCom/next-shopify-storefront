@@ -1,13 +1,31 @@
-// let timeoutID;
+import React from 'react';
+import queryString from 'query-string';
+import Router from 'next/router';
+import TextField from '@material-ui/core/TextField';
+import { ProductSortKeys } from '../../models';
 
-// function _search(event) {
-//   const query = event.target.value;
-//   const queryStr = queryString.stringify({ ...props.query, query });
-
-//   clearTimeout(timeoutID);
-//   timeoutID = setTimeout(() => pushQueryString(queryStr), 1000);
-// }
-
-function Search(params: type) {
-  return <input type="text" name="query" defaultValue={props.query.query} onChange={_search} />;
+interface Props {
+  query: {
+    query: string;
+    reverse: boolean;
+    sortKey: ProductSortKeys;
+    sortIndex: number;
+  };
 }
+
+let timeoutID;
+
+function Search(props: Props) {
+  function _search(event) {
+    const { router } = Router;
+    const query = event.target.value;
+    const queryStr = queryString.stringify({ ...props.query, query });
+
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(() => router.push(`${router.pathname}?${queryStr}`), 1000);
+  }
+
+  return <TextField label="Search" defaultValue={props.query.query} onChange={_search} margin="normal" />;
+}
+
+export default Search;
