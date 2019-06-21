@@ -3,6 +3,7 @@ import 'isomorphic-unfetch';
 import config from '../apollo.config';
 
 export const shopify = new ApolloClient({
+  ssrMode: true,
   link: new HttpLink({
     uri: config.client.service.url,
     headers: config.client.service.headers
