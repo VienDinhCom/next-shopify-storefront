@@ -13,7 +13,7 @@ const useStyles = makeStyles((them: Theme) => ({
     margin: '0 auto 20px auto'
   },
   button: {
-    margin: '0 10px'
+    margin: '0 10px 15px 10px'
   }
 }));
 
@@ -30,19 +30,19 @@ function Home() {
       </p>
       <Button
         variant="contained"
-        className={classes.button}
-        target="_blank"
-        href="https://github.com/Maxvien/next-shopify-storefront"
-      >
-        Get Source Code
-      </Button>
-      <Button
-        variant="contained"
         color="primary"
         className={classes.button}
         onClick={() => utilities.link({ path: '/products' })}
       >
         Browse Products
+      </Button>
+      <Button
+        variant="contained"
+        className={classes.button}
+        target="_blank"
+        href="https://github.com/Maxvien/next-shopify-storefront"
+      >
+        Get Source Code
       </Button>
     </section>
   );
