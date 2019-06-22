@@ -1,6 +1,13 @@
 {
   "name": "next-shopify-storefront",
+  "description": "A shopping cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL, ... and Material UI.",
   "version": "2.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Vien Dinh",
+    "email": "maxvien@gmail.com",
+    "url": "https://github.com/maxvien"
+  },
   "scripts": {
     "dev": "nodemon",
     "build": "NODE_ENV=development next build && tsc --project tsconfig.server.json",
