@@ -53,10 +53,19 @@ interface Props {
   dispatch?: Function;
 }
 
+let timeoutID;
+
 function Cart(props: Props) {
   const { loading, error, data } = props.checkout;
   const theme = useTheme();
   const classes = useStyles(theme);
+
+  function _updateQuantity(variantId: string, quantity: number) {
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(() => {
+      props.dispatch(services.checkout.updateQuantity(variantId, quantity));
+    }, 2000);
+  }
 
   if (loading) {
     return (
@@ -96,9 +105,10 @@ function Cart(props: Props) {
                   <TextField
                     className={classes.quantityInput}
                     defaultValue={node.quantity}
-                    onChange={event =>
-                      props.dispatch(services.checkout.updateQuantity(node.variant.id, parseInt(event.target.value)))
-                    }
+                    onChange={event => {
+                      const quantity = parseInt(event.target.value || '1');
+                      _updateQuantity(node.variant.id, quantity);
+                    }}
                     type="number"
                     margin="normal"
                   />
