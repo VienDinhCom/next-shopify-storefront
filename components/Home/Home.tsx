@@ -1,8 +1,51 @@
-import React, { ReactElement } from 'react';
-import Layout from '../Layout/Layout';
+import React from 'react';
+import withLayout from '../../hocs/withLayout';
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import utilities from '../../utilities';
 
-function Home(): ReactElement {
-  return <Layout>Home</Layout>;
+const useStyles = makeStyles((them: Theme) => ({
+  root: {
+    textAlign: 'center'
+  },
+  description: {
+    maxWidth: 500,
+    margin: '0 auto 20px auto'
+  },
+  button: {
+    margin: '0 10px'
+  }
+}));
+
+function Home() {
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
+  return (
+    <section className={classes.root}>
+      <h1>Next Shopify Storefront</h1>
+      <p className={classes.description}>
+        A shopping cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL, ... and
+        Material UI.
+      </p>
+      <Button
+        variant="contained"
+        className={classes.button}
+        target="_blank"
+        href="https://github.com/Maxvien/next-shopify-storefront"
+      >
+        Get Source Code
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={() => utilities.link({ path: '/products' })}
+      >
+        Browse Products
+      </Button>
+    </section>
+  );
 }
 
-export default Home;
+export default withLayout(Home);

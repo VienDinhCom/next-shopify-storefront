@@ -102,8 +102,6 @@ export function fetch(req: Request, res: Response) {
         variables
       });
 
-      console.log({ data });
-
       dispatch(actions.checkout.success({ data: data.node }));
     } catch (error) {
       dispatch(actions.checkout.failure({ error }));
