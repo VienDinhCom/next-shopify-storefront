@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -99,6 +100,9 @@ function Products({ query }: Props) {
       {data && (
         <>
           <div className={classes.products}>
+            <Head>
+              <title>Products - Next Shopify Storefront</title>
+            </Head>
             <GridList className={classes.gridList} cellHeight={500} cols={gridListCols} spacing={30}>
               {data.edges.map(({ node }) => {
                 const images = node.images.edges;

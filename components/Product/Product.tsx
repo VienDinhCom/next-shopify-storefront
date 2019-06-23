@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../../hocs/withLayout';
@@ -59,6 +60,9 @@ function Product() {
 
   return (
     <>
+      <Head>
+        <title>{data.title} - Next Shopify Storefront</title>
+      </Head>
       <br />
       <Grid container spacing={3}>
         <Grid item xs={12} sm={5} md={3}>

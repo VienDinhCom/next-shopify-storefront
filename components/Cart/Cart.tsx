@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -80,6 +81,9 @@ function Cart() {
 
   return (
     <div className={classes.root}>
+      <Head>
+        <title>Your Cart - Next Shopify Storefront</title>
+      </Head>
       <h1>Your Cart</h1>
       <Paper className={classes.paper}>
         <Table className={classes.table}>
