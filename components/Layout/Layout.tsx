@@ -17,6 +17,10 @@ function Layout({ children }: Props) {
         <link rel="icon" href="https://reactjs.org/favicon.ico" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         <title>Next Shopify Storefront</title>
+        <meta
+          name="description"
+          content="A shopping cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL, ... and Material UI."
+        />
       </Head>
       <AppBar />
       <br />
