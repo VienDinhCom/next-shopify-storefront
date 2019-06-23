@@ -4,6 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStyles, Theme, makeStyles, useTheme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
-import { connect } from 'react-redux';
 import services from '../../services';
 import { CheckoutState } from '../../store/checkout.slice';
 import withLayout from '../../hocs/withLayout';
@@ -48,23 +48,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface Props {
-  checkout?: CheckoutState;
-  dispatch?: Function;
-}
-
 let timeoutID;
 
-function Cart(props: Props) {
-  const { loading, error, data } = props.checkout;
+function Cart() {
+  const dispatch = useDispatch();
+  const { loading, error, data }: CheckoutState = useSelector(({ checkout }) => checkout);
+
   const theme = useTheme();
   const classes = useStyles(theme);
 
   function _updateQuantity(variantId: string, quantity: number) {
     clearTimeout(timeoutID);
-    timeoutID = setTimeout(() => {
-      props.dispatch(services.checkout.updateQuantity(variantId, quantity));
-    }, 2000);
+    timeoutID = setTimeout(() => dispatch(services.checkout.updateQuantity(variantId, quantity)), 2000);
   }
 
   if (loading) {
@@ -114,7 +109,7 @@ function Cart(props: Props) {
                   />
                 </TableCell>
                 <TableCell align="right">
-                  <IconButton onClick={() => props.dispatch(services.checkout.removeLineItem(node.variant.id))}>
+                  <IconButton onClick={() => dispatch(services.checkout.removeLineItem(node.variant.id))}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -137,8 +132,4 @@ function Cart(props: Props) {
   );
 }
 
-function mapStateToProps(state) {
-  return { checkout: state.checkout };
-}
-
-export default connect(mapStateToProps)(withLayout(Cart));
+export default withLayout(Cart);

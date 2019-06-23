@@ -1,14 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Products from '../components/Products/Products';
 import services from '../services';
-import { ProductsState } from '../store/products.slice';
 import isServer from 'detect-node';
 import { ProductSortKeys } from '../models';
 
 interface Props {
-  products: ProductsState;
-  dispatch: Function;
   query: {
     query: string;
     reverse: boolean;
@@ -17,8 +13,8 @@ interface Props {
   };
 }
 
-function ProductsPage({ products, query, dispatch }: Props) {
-  return <Products products={products} query={query} dispatch={dispatch} />;
+function ProductsPage({ query }: Props) {
+  return <Products query={query} />;
 }
 
 ProductsPage.getInitialProps = async context => {
@@ -41,8 +37,4 @@ ProductsPage.getInitialProps = async context => {
   return { query: transformedQuery, dispatch: store.dispatch };
 };
 
-function mapStateToProps({ products }: { products: ProductsState }) {
-  return { products };
-}
-
-export default connect(mapStateToProps)(ProductsPage);
+export default ProductsPage;
