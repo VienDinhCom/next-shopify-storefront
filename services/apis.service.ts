@@ -8,5 +8,18 @@ export const shopify = new ApolloClient({
     uri: config.client.service.url,
     headers: config.client.service.headers
   }),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore'
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all'
+    },
+    mutate: {
+      errorPolicy: 'all'
+    }
+  }
 });
