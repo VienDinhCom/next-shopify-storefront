@@ -1,17 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Product from '../components/Product/Product';
 import services from '../services';
-import { ProductState } from '../store/product.slice';
 import isServer from 'detect-node';
 
-interface Props {
-  product: ProductState;
-  dispatch: Function;
-}
-
-function ProductPage({ product, dispatch }: Props) {
-  return <Product product={product} dispatch={dispatch} />;
+function ProductPage() {
+  return <Product />;
 }
 
 ProductPage.getInitialProps = async context => {
@@ -26,8 +19,4 @@ ProductPage.getInitialProps = async context => {
   return {};
 };
 
-function mapStateToProps({ product }: { product: ProductState }) {
-  return { product };
-}
-
-export default connect(mapStateToProps)(ProductPage);
+export default ProductPage;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import withLayout from '../../hocs/withLayout';
 import { ProductState } from '../../store/product.slice';
@@ -25,13 +26,10 @@ const useStyles = makeStyles((them: Theme) => ({
   }
 }));
 
-interface Props {
-  product: ProductState;
-  dispatch: Function;
-}
+function Product() {
+  const dispatch = useDispatch();
+  const { loading, error, data }: ProductState = useSelector(({ product }) => product);
 
-function Product({ product, dispatch }: Props) {
-  const { loading, error, data } = product;
   const theme = useTheme();
   const classes = useStyles(theme);
 

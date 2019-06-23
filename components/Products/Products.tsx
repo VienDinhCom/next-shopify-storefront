@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -8,17 +9,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import React from 'react';
 import InfoIcon from '@material-ui/icons/Info';
-import { ProductsState } from '../../store/products.slice';
 import Layout from '../Layout/Layout';
 import LoadMore from './LoadMore';
 import Sort from './Sort';
 import Search from './Search';
 import { ProductSortKeys } from '../../models';
 import utilities from '../../utilities';
+import { ProductsState } from '../../store/products.slice';
 
 interface Props {
-  products: ProductsState;
-  dispatch: Function;
   query: {
     query: string;
     reverse: boolean;
@@ -60,10 +59,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-function Products({ products, query, dispatch }: Props) {
-  const { firstPage, nextPage, data } = products;
+function Products({ query }: Props) {
+  const dispatch = useDispatch();
+  const { firstPage, nextPage, data }: ProductsState = useSelector(({ products }) => products);
   const cursor = data ? (data.edges.length ? _.last(data.edges).cursor : '') : '';
   const hasNextpage = data ? data.pageInfo.hasNextPage : false;
+
   const theme = useTheme();
   const classes = useStyles(theme);
   let gridListCols = 4;

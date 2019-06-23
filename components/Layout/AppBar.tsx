@@ -12,8 +12,7 @@ import Menu from '@material-ui/core/Menu';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import utilities from '../../utilities';
-import { connect } from 'react-redux';
-import { CheckoutState } from '../../store/checkout.slice';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -60,15 +59,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-interface Props {
-  totalQuantity: number;
-}
+function PrimaryAppBar() {
+  const totalQuantity: number = useSelector(({ checkout }) => {
+    let totalQuantity = 0;
 
-function PrimaryAppBar({ totalQuantity }: Props) {
+    if (checkout.data) {
+      totalQuantity = checkout.data.lineItems.edges.reduce((total, lineItem) => {
+        return total + lineItem.node.quantity;
+      }, 0);
+    }
+
+    return totalQuantity;
+  });
+
   const theme = useTheme();
   const classes = useStyles(theme);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   function handleMobileMenuClose() {
@@ -132,16 +138,4 @@ function PrimaryAppBar({ totalQuantity }: Props) {
   );
 }
 
-function mapStateToProps({ checkout }: { checkout: CheckoutState }) {
-  let totalQuantity = 0;
-
-  if (checkout.data) {
-    totalQuantity = checkout.data.lineItems.edges.reduce((total, lineItem) => {
-      return total + lineItem.node.quantity;
-    }, 0);
-  }
-
-  return { totalQuantity };
-}
-
-export default connect(mapStateToProps)(PrimaryAppBar);
+export default PrimaryAppBar;
