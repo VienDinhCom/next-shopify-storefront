@@ -116,11 +116,7 @@ function Products({ query }: Props) {
                     <img src={imageSrc} alt={altText} />
                     <GridListTileBar
                       title={node.title}
-                      subtitle={
-                        <span>
-                          {node.priceRange.minVariantPrice.amount} {node.priceRange.minVariantPrice.currencyCode}
-                        </span>
-                      }
+                      subtitle={<span>${node.priceRange.minVariantPrice.amount}</span>}
                       actionIcon={
                         <IconButton
                           className={classes.icon}
