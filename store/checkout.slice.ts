@@ -24,9 +24,8 @@ export default createSlice({
   slice: 'checkout',
   initialState,
   reducers: {
-    request: (state: CheckoutState) => {
-      state.loading = true;
-      state.error = null;
+    request: () => {
+      return initialState;
     },
     failure: (state: CheckoutState, { payload }: CheckoutAction) => {
       state.loading = false;

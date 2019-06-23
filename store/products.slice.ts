@@ -36,9 +36,8 @@ export default createSlice({
   slice: 'products',
   initialState,
   reducers: {
-    firstPageRequest: (state: ProductsState) => {
-      state.firstPage.loading = true;
-      state.firstPage.error = null;
+    firstPageRequest: () => {
+      return initialState;
     },
     firstPageFailure: (state: ProductsState, { payload }: ProductsAction) => {
       state.firstPage.loading = false;
