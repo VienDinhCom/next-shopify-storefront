@@ -34,7 +34,7 @@ ProductsPage.getInitialProps = async context => {
     store.dispatch(services.products.getFirstPage(transformedQuery));
   }
 
-  return { query: transformedQuery, dispatch: store.dispatch };
+  return { query: transformedQuery };
 };
 
 export default ProductsPage;
