@@ -25,8 +25,8 @@ function Home() {
     <section className={classes.root}>
       <h1>Next Shopify Storefront</h1>
       <p className={classes.description}>
-        A shopping cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL, ... and
-        Material UI.
+        A Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ...
+        and Material UI.
       </p>
       <Button
         variant="contained"
