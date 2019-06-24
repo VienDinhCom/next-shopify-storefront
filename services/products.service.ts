@@ -50,16 +50,16 @@ export const productsQuery = gql`
 export function getFirstPage(variables: ProductsQueryVariables) {
   return async dispatch => {
     try {
-      dispatch(actions.products.firstPageRequest());
+      dispatch(actions.products.getFirstPageRequest());
 
       const { data } = await shopify.query({
         query: productsQuery,
         variables
       });
 
-      dispatch(actions.products.firstPageSuccess({ data: data.products }));
+      dispatch(actions.products.getFirstPageSuccess({ data: data.products }));
     } catch (error) {
-      dispatch(actions.products.firstPageFailure({ error }));
+      dispatch(actions.products.getFirstPageFailure({ error }));
     }
   };
 }
@@ -67,16 +67,16 @@ export function getFirstPage(variables: ProductsQueryVariables) {
 export function getNextPage(variables: ProductsQueryVariables) {
   return async dispatch => {
     try {
-      dispatch(actions.products.nextPageRequest());
+      dispatch(actions.products.getNextPageRequest());
 
       const { data } = await shopify.query({
         query: productsQuery,
         variables
       });
 
-      dispatch(actions.products.nextPageSuccess({ data: data.products }));
+      dispatch(actions.products.getNextPageSuccess({ data: data.products }));
     } catch (error) {
-      dispatch(actions.products.nextPageFailure({ error }));
+      dispatch(actions.products.getNextPageFailure({ error }));
     }
   };
 }

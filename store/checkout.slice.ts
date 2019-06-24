@@ -24,14 +24,14 @@ export default createSlice({
   slice: 'checkout',
   initialState,
   reducers: {
-    request: () => {
+    getRequest: () => {
       return initialState;
     },
-    failure: (state: CheckoutState, { payload }: CheckoutAction) => {
+    getFailure: (state: CheckoutState, { payload }: CheckoutAction) => {
       state.loading = false;
       state.error = payload.error;
     },
-    success: (state: CheckoutState, { payload }: CheckoutAction) => {
+    getSuccess: (state: CheckoutState, { payload }: CheckoutAction) => {
       state.loading = false;
       state.data = payload.data;
     },
