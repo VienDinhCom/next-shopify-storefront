@@ -19,7 +19,7 @@ function Layout({ children }: Props) {
         <title>Next Shopify Storefront</title>
         <meta
           name="description"
-          content="A shopping cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL, ... and Material UI."
+          content="A Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ... and Material UI."
         />
       </Head>
       <AppBar />

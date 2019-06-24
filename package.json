@@ -1,6 +1,6 @@
 {
   "name": "next-shopify-storefront",
-  "description": "A shopping cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL, ... and Material UI.",
+  "description": "A Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ... and Material UI.",
   "version": "2.0.0",
   "license": "MIT",
   "author": {
