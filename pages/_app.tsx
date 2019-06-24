@@ -9,7 +9,7 @@ class MyApp extends App {
     const { req, res, store } = ctx;
     const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
 
-    if (isServer) await store.dispatch(services.checkout.fetch(req, res));
+    if (isServer) await store.dispatch(services.checkout.get(req, res));
 
     return { pageProps };
   }

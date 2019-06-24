@@ -11,9 +11,9 @@ ProductPage.getInitialProps = async context => {
   const { store, query } = context;
 
   if (isServer) {
-    await store.dispatch(services.product.fetch({ handle: query.handle }));
+    await store.dispatch(services.product.get({ handle: query.handle }));
   } else {
-    store.dispatch(services.product.fetch({ handle: query.handle }));
+    store.dispatch(services.product.get({ handle: query.handle }));
   }
 
   return {};

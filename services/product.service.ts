@@ -44,19 +44,19 @@ export const productQuery = gql`
   }
 `;
 
-export function fetch(variables: ProductQueryVariables) {
+export function get(variables: ProductQueryVariables) {
   return async dispatch => {
     try {
-      dispatch(actions.product.request());
+      dispatch(actions.product.getRequest());
 
       const { data } = await shopify.query({
         query: productQuery,
         variables
       });
 
-      dispatch(actions.product.success({ data: data.productByHandle }));
+      dispatch(actions.product.getSuccess({ data: data.productByHandle }));
     } catch (error) {
-      dispatch(actions.product.failure({ error }));
+      dispatch(actions.product.getFailure({ error }));
     }
   };
 }

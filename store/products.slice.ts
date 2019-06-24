@@ -36,26 +36,26 @@ export default createSlice({
   slice: 'products',
   initialState,
   reducers: {
-    firstPageRequest: () => {
+    getFirstPageRequest: () => {
       return initialState;
     },
-    firstPageFailure: (state: ProductsState, { payload }: ProductsAction) => {
+    getFirstPageFailure: (state: ProductsState, { payload }: ProductsAction) => {
       state.firstPage.loading = false;
       state.firstPage.error = payload.error;
     },
-    firstPageSuccess: (state: ProductsState, { payload }: ProductsAction) => {
+    getFirstPageSuccess: (state: ProductsState, { payload }: ProductsAction) => {
       state.firstPage.loading = false;
       state.data = payload.data;
     },
-    nextPageRequest: (state: ProductsState) => {
+    getNextPageRequest: (state: ProductsState) => {
       state.nextPage.loading = true;
       state.nextPage.error = null;
     },
-    nextPageFailure: (state: ProductsState, { payload }: ProductsAction) => {
+    getNextPageFailure: (state: ProductsState, { payload }: ProductsAction) => {
       state.nextPage.loading = false;
       state.nextPage.error = payload.error;
     },
-    nextPageSuccess: (state: ProductsState, { payload }: ProductsAction) => {
+    getNextPageSuccess: (state: ProductsState, { payload }: ProductsAction) => {
       state.nextPage.loading = false;
       state.data.edges = state.data.edges.concat(payload.data.edges);
       state.data.pageInfo.hasNextPage = payload.data.pageInfo.hasNextPage;

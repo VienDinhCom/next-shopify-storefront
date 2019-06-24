@@ -81,10 +81,10 @@ const checkoutLineItemsReplaceMutation = gql`
   }
 `;
 
-export function fetch(req: Request, res: Response) {
+export function get(req: Request, res: Response) {
   return async dispatch => {
     try {
-      dispatch(actions.checkout.request());
+      dispatch(actions.checkout.getRequest());
       let { checkoutId } = req.cookies;
 
       if (!checkoutId) {
@@ -102,9 +102,9 @@ export function fetch(req: Request, res: Response) {
         variables
       });
 
-      dispatch(actions.checkout.success({ data: data.node }));
+      dispatch(actions.checkout.getSuccess({ data: data.node }));
     } catch (error) {
-      dispatch(actions.checkout.failure({ error }));
+      dispatch(actions.checkout.getFailure({ error }));
     }
   };
 }
@@ -125,7 +125,7 @@ export function replaceLineItems(variables: CheckoutLineItemsReplaceMutationVari
         })
       );
     } catch (error) {
-      dispatch(actions.checkout.failure({ error }));
+      dispatch(actions.checkout.lineItemReplaceFailure({ error }));
     }
   };
 }
