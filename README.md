@@ -12,4 +12,5 @@ A shopping cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shop
 * Working with GraphQL tags faster with [Apollo GraphQL for VS Code](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo) extension.
 * Making [Apollo Client](https://www.apollographql.com/docs/react/essentials/get-started/) working with NextJS including server side and client side.
 * Making [Material UI](https://material-ui.com/) working with NextJS with [withMui.tsx](https://github.com/Maxvien/next-shopify-storefront/blob/master/hocs/withMui.tsx) higher order component.
+* Configuring [Eslint](https://eslint.org/) & [Prettier](https://prettier.io/) to lint and format the source code.
 * Deploying NodeJS applications on [Heroku](https://heroku.com/).
