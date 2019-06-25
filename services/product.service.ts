@@ -3,7 +3,7 @@ import { actions } from '../store';
 import { shopify } from './apis.service';
 import { ProductQueryVariables } from '../models';
 
-const productFragment = gql`
+const PRODUCT_FRAGMENT = gql`
   fragment product on Product {
     title
     description
@@ -35,8 +35,8 @@ const productFragment = gql`
   }
 `;
 
-export const productQuery = gql`
-  ${productFragment}
+export const PRODUCT_QUERY = gql`
+  ${PRODUCT_FRAGMENT}
   query product($handle: String!) {
     productByHandle(handle: $handle) {
       ...product
@@ -50,7 +50,7 @@ export function get(variables: ProductQueryVariables) {
       dispatch(actions.product.getRequest());
 
       const { data } = await shopify.query({
-        query: productQuery,
+        query: PRODUCT_QUERY,
         variables
       });
 
