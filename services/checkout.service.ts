@@ -6,7 +6,7 @@ import { actions } from '../store';
 import { shopify } from './apis.service';
 import { CheckoutQueryVariables, CheckoutLineItemsReplaceMutationVariables } from '../models';
 
-export const checkoutFragment = gql`
+export const CHECKOUT_FRAGMENT = gql`
   fragment checkout on Checkout {
     id
     webUrl
@@ -49,7 +49,7 @@ export const checkoutFragment = gql`
   }
 `;
 
-const checkoutCreateMutation = gql`
+const CHECKOUT_CREATE_MUTATION = gql`
   mutation checkoutCreate {
     checkoutCreate(input: {}) {
       checkout {
@@ -59,8 +59,8 @@ const checkoutCreateMutation = gql`
   }
 `;
 
-const checkoutQuery = gql`
-  ${checkoutFragment}
+const CHECKOUT_QUERY = gql`
+  ${CHECKOUT_FRAGMENT}
   query checkout($checkoutId: ID!) {
     node(id: $checkoutId) {
       ... on Checkout {
@@ -70,8 +70,8 @@ const checkoutQuery = gql`
   }
 `;
 
-const checkoutLineItemsReplaceMutation = gql`
-  ${checkoutFragment}
+const CHECKOUT_LINE_ITEMS_REPLACE_MUTATION = gql`
+  ${CHECKOUT_FRAGMENT}
   mutation checkoutLineItemsReplace($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
     checkoutLineItemsReplace(checkoutId: $checkoutId, lineItems: $lineItems) {
       checkout {
@@ -88,7 +88,7 @@ export function get(req: Request, res: Response) {
       let { checkoutId } = req.cookies;
 
       if (!checkoutId) {
-        const { data } = await shopify.mutate({ mutation: checkoutCreateMutation });
+        const { data } = await shopify.mutate({ mutation: CHECKOUT_CREATE_MUTATION });
         checkoutId = data.checkoutCreate.checkout.id;
         res.cookie('checkoutId', checkoutId, { maxAge: 1000 * 60 * 60 * 24 * 7 }); // 7 days
       }
@@ -98,7 +98,7 @@ export function get(req: Request, res: Response) {
       };
 
       const { data } = await shopify.query({
-        query: checkoutQuery,
+        query: CHECKOUT_QUERY,
         variables
       });
 
@@ -115,7 +115,7 @@ export function replaceLineItems(variables: CheckoutLineItemsReplaceMutationVari
       dispatch(actions.checkout.lineItemsReplaceRequest());
 
       const { data } = await shopify.mutate({
-        mutation: checkoutLineItemsReplaceMutation,
+        mutation: CHECKOUT_LINE_ITEMS_REPLACE_MUTATION,
         variables
       });
 

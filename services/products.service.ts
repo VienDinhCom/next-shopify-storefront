@@ -3,7 +3,7 @@ import { actions } from '../store';
 import { shopify } from './apis.service';
 import { ProductsQueryVariables } from '../models';
 
-const productsFragment = gql`
+const PRODUCTS_FRAGMENT = gql`
   fragment products on ProductConnection {
     edges {
       node {
@@ -38,8 +38,8 @@ const productsFragment = gql`
   }
 `;
 
-export const productsQuery = gql`
-  ${productsFragment}
+export const PRODUCTS_QUERY = gql`
+  ${PRODUCTS_FRAGMENT}
   query products($cursor: String, $query: String!, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
     products(first: 12, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
       ...products
@@ -53,7 +53,7 @@ export function getFirstPage(variables: ProductsQueryVariables) {
       dispatch(actions.products.getFirstPageRequest());
 
       const { data } = await shopify.query({
-        query: productsQuery,
+        query: PRODUCTS_QUERY,
         variables
       });
 
@@ -70,7 +70,7 @@ export function getNextPage(variables: ProductsQueryVariables) {
       dispatch(actions.products.getNextPageRequest());
 
       const { data } = await shopify.query({
-        query: productsQuery,
+        query: PRODUCTS_QUERY,
         variables
       });
 
