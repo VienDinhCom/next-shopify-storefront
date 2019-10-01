@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import services from '../../services';
 import { ProductSortKeys } from '../../models';
@@ -27,7 +27,8 @@ interface Props {
 }
 
 function LoadMore({ cursor, hasNextpage, loading, error, dispatch, query }: Props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   function _load() {
     dispatch(

@@ -1,6 +1,7 @@
 import React from 'react';
 import queryString from 'query-string';
 import Router from 'next/router';
+import { useTheme } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -65,7 +66,8 @@ interface Props {
 }
 
 function Sort(props: Props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   function _sort(event) {
     const { router } = Router;
