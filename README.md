@@ -2,8 +2,10 @@
 
 A real-world Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ... and Material UI.
 
+| ☝️ See my [Bootstrap Shopify Theme](http://bit.ly/bootstrap-shopify-theme). It's a free Shopify Theme built with Bootstrap, BEM, Theme Tools, Swiper, Gulp, Parcel, Liquid, SASS, PostCSS, ESNext, ... and Passion.. |
+|-|
 
-## Experience
+## Experiences
 
 * Using [React Hooks](https://reactjs.org/docs/hooks-intro.html) instead of React.Component to create stateful components.
 * Using [Redux Starter Kit](https://github.com/reduxjs/redux-starter-kit) to do more work with less code.
