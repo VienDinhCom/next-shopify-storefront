@@ -22565,43 +22565,35 @@ export type DeliveryProfileUpdatePayload = {
   userErrors: Array<UserError>;
 };
 
-export type CreateCollectionMutationVariables = Exact<{
-  input: CollectionInput;
-}>;
+export type GetShopQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CreateCollectionMutation = (
-  { __typename?: 'Mutation' }
-  & { collectionCreate?: Maybe<(
-    { __typename?: 'CollectionCreatePayload' }
-    & { collection?: Maybe<(
-      { __typename?: 'Collection' }
-      & Pick<Collection, 'id' | 'title'>
-    )> }
-  )> }
+export type GetShopQuery = (
+  { __typename?: 'QueryRoot' }
+  & { shop: (
+    { __typename?: 'Shop' }
+    & Pick<Shop, 'name'>
+  ) }
 );
 
 
-export const CreateCollectionDocument = gql`
-    mutation createCollection($input: CollectionInput!) {
-  collectionCreate(input: $input) {
-    collection {
-      id
-      title
-    }
+export const GetShopDocument = gql`
+    query getShop {
+  shop {
+    name
   }
 }
     `;
 
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
 
-const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    createCollection(variables: CreateCollectionMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateCollectionMutation> {
-      return withWrapper(() => client.request<CreateCollectionMutation>(CreateCollectionDocument, variables, requestHeaders));
+    getShop(variables?: GetShopQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetShopQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetShopQuery>(GetShopDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getShop');
     }
   };
 }
