@@ -2,5 +2,6 @@
   "editor.tabSize": 2,
   "prettier.enable": true,
   "editor.formatOnSave": true,
-  "emmet.triggerExpansionOnTab": true
+  "emmet.triggerExpansionOnTab": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
