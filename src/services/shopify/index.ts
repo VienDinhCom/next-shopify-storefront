@@ -3,13 +3,11 @@ import { GraphQLClient } from 'graphql-request';
 
 import { getSdk } from './generated';
 
-const endpoint = envKit.get("SHOPIFY_API_ENDPOINT") + "/graphql.json";
-const accessToken = envKit.get('SHOPIFY_ACCESS_TOKEN') as string;
+const endpoint = envKit.get('SHOPIFY_STOREFRONT_API_ENDPOINT');
+const accessToken = envKit.get('SHOPIFY_STOREFRONT_ACCESS_TOKEN');
 
 const client = new GraphQLClient(endpoint, {
-  headers: {
-    'X-Shopify-Access-Token': accessToken,
-  },
+  headers: { 'X-Shopify-Access-Token': accessToken },
 });
 
 export const shopify = getSdk(client);
