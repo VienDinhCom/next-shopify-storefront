@@ -10,9 +10,9 @@ const documents = path.join(__dirname, 'graphql/**/*.gql');
 module.exports = {
   client: {
     service: {
-      name: 'shopify',
+      name: 'Shopify Storefront API',
       url: endpoint,
-      headers: { 'X-Shopify-Access-Token': accessToken },
+      headers: { 'X-Shopify-Storefront-Access-Token': accessToken },
     },
     excludes: [generated],
     includes: [documents],
