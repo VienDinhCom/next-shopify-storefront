@@ -8,18 +8,29 @@
 # testing
 /coverage
 
+# next.js
+/.next/
+/out/
+
 # production
-/.next
-/dist
+/build
+/public/sw.js
+/public/workbox-*.js
 
 # misc
-.firebase
 .DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# vercel
+.vercel
