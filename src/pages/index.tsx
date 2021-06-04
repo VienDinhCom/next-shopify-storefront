@@ -1,31 +1,27 @@
-import { useQuery } from 'react-query';
-import { GetServerSideProps } from 'next';
-import { shopifyService, GetShopQuery } from '@app/services/shopify.service';
+import Link from 'next/link';
+import { shopService, GetShopQuery } from '@app/services/shop.service';
 
 interface Props {
-  initialData: GetShopQuery;
+  data: GetShopQuery;
+  error: Error;
 }
 
-function getShop() {
-  return shopifyService.getShop();
+export default function Page({ data, error }: Props) {
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h1>{data.shop.name}</h1>
+      <Link href="/about">
+        <a>About</a>
+      </Link>
+    </div>
+  );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  return {
-    props: {
-      initialData: await getShop(),
-    },
-  };
+Page.getInitialProps = async () => {
+  return shopService
+    .get()
+    .then((data) => ({ data }))
+    .catch((error) => ({ error }));
 };
-
-export default function Page({ initialData }: Props) {
-  const { data, isError, isFetching, isSuccess } = useQuery(['getShop'], getShop, {
-    initialData,
-  });
-
-  if (isSuccess) return <h1>{data.shop.name}</h1>;
-
-  if (isFetching) return 'Loading...';
-
-  if (isError) return 'Error...';
-}
