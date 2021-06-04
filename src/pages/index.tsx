@@ -3,12 +3,9 @@ import { shopService, GetShopQuery } from '@app/services/shop.service';
 
 interface Props {
   data: GetShopQuery;
-  error: Error;
 }
 
-export default function Page({ data, error }: Props) {
-  if (error) return <p>Error: {error.message}</p>;
-
+export default function Page({ data }: Props) {
   return (
     <div>
       <h1>{data.shop.name}</h1>
@@ -20,8 +17,5 @@ export default function Page({ data, error }: Props) {
 }
 
 Page.getInitialProps = async () => {
-  return shopService
-    .get()
-    .then((data) => ({ data }))
-    .catch((error) => ({ error }));
+  return { data: await shopService.get() };
 };
