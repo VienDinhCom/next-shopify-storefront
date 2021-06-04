@@ -1,17 +1,13 @@
-export default function Error({ statusCode }) {
-  if (statusCode === 404) {
-    return <h1>Error: 404</h1>;
-  }
+import { envService } from '@app/services/env.service';
 
-  if (statusCode === 500) {
-    return <h1>Error: 500</h1>;
+export default function Error({ isServer }) {
+  if (isServer) {
+    return <h1>Error: Server</h1>;
   }
 
   return <h1>Error: Client</h1>;
 }
 
-Error.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-
-  return { statusCode };
+Error.getInitialProps = ({ err }) => {
+  return { isServer: envService.isServer() };
 };
