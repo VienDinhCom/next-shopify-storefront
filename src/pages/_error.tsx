@@ -8,6 +8,6 @@ export default function Error({ isServer }) {
   return <h1>Error: Client</h1>;
 }
 
-Error.getInitialProps = ({ err }) => {
+Error.getInitialProps = () => {
   return { isServer: envService.isServer() };
 };
