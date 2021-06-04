@@ -1,6 +1,6 @@
 import { envService } from '@app/services/env.service';
 
-export default function Error({ isServer }) {
+export default function Page({ isServer }) {
   if (isServer) {
     return <h1>Error: Server</h1>;
   }
@@ -8,6 +8,6 @@ export default function Error({ isServer }) {
   return <h1>Error: Client</h1>;
 }
 
-Error.getInitialProps = () => {
+Page.getInitialProps = () => {
   return { isServer: envService.isServer() };
 };
