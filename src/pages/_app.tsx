@@ -1,4 +1,5 @@
 // import App from 'next/app'
+import NextNprogress from 'nextjs-progressbar';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient({
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
+      <NextNprogress color="#29D" startPosition={0.3} stopDelayMs={200} height={3} />
     </QueryClientProvider>
   );
 }
