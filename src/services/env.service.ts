@@ -1,4 +1,4 @@
-export namespace envService {
+export namespace EnvService {
   export function isServer() {
     return !process.browser;
   }

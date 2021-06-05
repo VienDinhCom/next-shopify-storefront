@@ -1,14 +1,14 @@
 import last from 'lodash/last';
 import { useInfiniteQuery, UseInfiniteQueryOptions } from 'react-query';
-import { shopifyService, GetProductListQueryVariables, GetProductListQuery } from './shopify.service';
+import { ShopifyService, GetProductListQueryVariables, GetProductListQuery } from './shopify.service';
 
-export namespace productService {
+export namespace ProductService {
   interface GetListInput {
     variables?: GetProductListQueryVariables;
   }
 
   export function getList({ variables }: GetListInput) {
-    return shopifyService.getProductList(variables);
+    return ShopifyService.getProductList(variables);
   }
 
   interface UseListInput extends GetListInput {

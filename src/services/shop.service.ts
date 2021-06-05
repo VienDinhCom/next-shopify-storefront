@@ -1,8 +1,8 @@
-import { shopifyService } from './shopify.service';
+import { ShopifyService } from './shopify.service';
 
-export namespace shopService {
+export namespace ShopService {
   export function get() {
-    return shopifyService.getShop();
+    return ShopifyService.getShop();
   }
 }
 

@@ -8,6 +8,6 @@ export const client = new GraphQLClient(endpoint, {
   headers: { 'X-Shopify-Storefront-Access-Token': accessToken },
 });
 
-export const shopifyService = getSdk(client);
+export const ShopifyService = getSdk(client);
 
 export * from './shopify/generated';
