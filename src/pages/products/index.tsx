@@ -1,15 +1,19 @@
 import { Fragment } from 'react';
-import { productService } from '@app/services/product.service';
+import { productService, GetProductListQuery, InfiniteData } from '@app/services/product.service';
 
-export default function Page() {
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = productService.useList();
+interface Props {
+  initialData: InfiniteData<GetProductListQuery>;
+}
 
-  console.log(data);
+export default function Page({ initialData }: Props) {
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = productService.useList({
+    options: { initialData, refetchOnMount: false },
+  });
 
   return status === 'loading' ? (
     <p>Loading...</p>
   ) : status === 'error' ? (
-    <p>Error: {(error as Error).message}</p>
+    <p>Error: {error.message}</p>
   ) : (
     <>
       <ul>
@@ -30,3 +34,14 @@ export default function Page() {
     </>
   );
 }
+
+Page.getInitialProps = async (): Promise<Props> => {
+  const firstPage = await productService.getList({});
+
+  return {
+    initialData: {
+      pages: [firstPage],
+      pageParams: [undefined],
+    },
+  };
+};
