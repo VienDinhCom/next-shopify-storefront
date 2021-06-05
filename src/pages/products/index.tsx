@@ -7,7 +7,7 @@ interface Props {
 }
 
 Page.getInitialProps = async (): Promise<Props> => {
-  const firstPage = await ProductService.getList({});
+  const firstPage = await ProductService.getList();
 
   return {
     initialData: { pages: [firstPage], pageParams: [null] },

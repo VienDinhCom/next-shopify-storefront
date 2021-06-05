@@ -7,22 +7,22 @@ export namespace ProductService {
     variables?: GetProductListQueryVariables;
   }
 
-  export function getList({ variables }: GetListInput) {
-    return ShopifyService.getProductList(variables);
+  export function getList(input?: GetListInput) {
+    return ShopifyService.getProductList(input?.variables);
   }
 
   interface UseListInput extends GetListInput {
     options?: UseInfiniteQueryOptions<GetProductListQuery, Error>;
   }
 
-  export function useList({ variables, options }: UseListInput) {
+  export function useList(input?: UseListInput) {
     return useInfiniteQuery(
-      ['product-list', variables],
+      ['product-list', input?.variables],
       ({ pageParam }) => {
         return getList({ variables: { after: pageParam } });
       },
       {
-        ...options,
+        ...input?.options,
         getNextPageParam: (lastPage) => {
           if (lastPage.products.pageInfo.hasNextPage) {
             return last(lastPage.products.edges).cursor;
