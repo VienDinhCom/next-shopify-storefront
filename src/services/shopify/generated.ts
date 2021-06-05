@@ -22565,6 +22565,29 @@ export type DeliveryProfileUpdatePayload = {
   userErrors: Array<UserError>;
 };
 
+export type GetProductListQueryVariables = Exact<{
+  after?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetProductListQuery = (
+  { __typename?: 'QueryRoot' }
+  & { products: (
+    { __typename?: 'ProductConnection' }
+    & { edges: Array<(
+      { __typename?: 'ProductEdge' }
+      & Pick<ProductEdge, 'cursor'>
+      & { node: (
+        { __typename?: 'Product' }
+        & Pick<Product, 'id' | 'title'>
+      ) }
+    )>, pageInfo: (
+      { __typename?: 'PageInfo' }
+      & Pick<PageInfo, 'hasNextPage'>
+    ) }
+  ) }
+);
+
 export type GetShopQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -22577,6 +22600,22 @@ export type GetShopQuery = (
 );
 
 
+export const GetProductListDocument = gql`
+    query getProductList($after: String) {
+  products(first: 20, after: $after) {
+    edges {
+      node {
+        id
+        title
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}
+    `;
 export const GetShopDocument = gql`
     query getShop {
   shop {
@@ -22592,6 +22631,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    getProductList(variables?: GetProductListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductListQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductListQuery>(GetProductListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductList');
+    },
     getShop(variables?: GetShopQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetShopQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetShopQuery>(GetShopDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getShop');
     }
