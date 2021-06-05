@@ -16,6 +16,9 @@ export default function Page({ data }: Props) {
       <Link href="/about">
         <a>About</a>
       </Link>
+      <Link href="/products">
+        <a>Products</a>
+      </Link>
     </div>
   );
 }
