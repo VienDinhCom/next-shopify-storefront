@@ -1,4 +1,12 @@
-import { envService } from '@app/services/env.service';
+import { EnvService } from '@app/services/env.service';
+
+interface Props {
+  isServer: boolean;
+}
+
+Page.getInitialProps = async (): Promise<Props> => {
+  return { isServer: EnvService.isServer() };
+};
 
 export default function Page({ isServer }) {
   if (isServer) {
@@ -7,7 +15,3 @@ export default function Page({ isServer }) {
 
   return <h1>Error: Client</h1>;
 }
-
-Page.getInitialProps = () => {
-  return { isServer: envService.isServer() };
-};
