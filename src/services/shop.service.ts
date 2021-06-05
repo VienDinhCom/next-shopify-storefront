@@ -1,8 +1,13 @@
+import { useQuery } from 'react-query';
 import { ShopifyService } from './shopify.service';
 
 export namespace ShopService {
-  export function get() {
+  export function getData() {
     return ShopifyService.getShop();
+  }
+
+  export function useData() {
+    return useQuery('shop', getData);
   }
 }
 
