@@ -7,12 +7,18 @@ interface Props {
   initialData: InfiniteData<GetProductListQuery>;
 }
 
+Page.getInitialProps = async (): Promise<Props> => {
+  const firstPage = await productService.getList({});
+
+  return {
+    initialData: { pages: [firstPage], pageParams: [undefined] },
+  };
+};
+
 export default function Page({ initialData }: Props) {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = productService.useList({
     options: { initialData, refetchOnMount: false },
   });
-
-  console.log({ isFetching, isFetchingNextPage });
 
   return status === 'loading' ? (
     <p>Loading...</p>
@@ -34,14 +40,3 @@ export default function Page({ initialData }: Props) {
     </>
   );
 }
-
-Page.getInitialProps = async (): Promise<Props> => {
-  const firstPage = await productService.getList({});
-
-  return {
-    initialData: {
-      pages: [firstPage],
-      pageParams: [undefined],
-    },
-  };
-};
