@@ -33,5 +33,4 @@ export namespace productService {
   }
 }
 
-export type { InfiniteData } from 'react-query';
-export type { GetProductListQuery } from './shopify.service';
+export * from './shopify/generated';

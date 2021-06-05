@@ -6,4 +6,4 @@ export namespace shopService {
   }
 }
 
-export type { GetShopQuery } from './shopify.service';
+export * from './shopify/generated';
