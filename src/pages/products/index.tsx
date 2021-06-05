@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
-import { productService, GetProductListQuery, InfiniteData } from '@app/services/product.service';
+import { InfiniteData } from 'react-query';
+import { productService, GetProductListQuery } from '@app/services/product.service';
+import { InfiniteButton } from '@app/components/buttons/infinite-button';
 
 interface Props {
   initialData: InfiniteData<GetProductListQuery>;
@@ -9,6 +11,8 @@ export default function Page({ initialData }: Props) {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = productService.useList({
     options: { initialData, refetchOnMount: false },
   });
+
+  console.log({ isFetching, isFetchingNextPage });
 
   return status === 'loading' ? (
     <p>Loading...</p>
@@ -25,11 +29,7 @@ export default function Page({ initialData }: Props) {
           </Fragment>
         ))}
       </ul>
-      <div>
-        <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
-          {isFetchingNextPage ? 'Loading more...' : hasNextPage ? 'Load More' : 'Nothing more to load'}
-        </button>
-      </div>
+      <InfiniteButton fetchNextPage={fetchNextPage} hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage} />
       <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
     </>
   );
