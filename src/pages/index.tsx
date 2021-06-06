@@ -6,7 +6,7 @@ interface Props {
 }
 
 Page.getInitialProps = async (): Promise<Props> => {
-  return { data: await ShopService.getData() };
+  return { data: await ShopService.getIt() };
 };
 
 export default function Page({ data }: Props) {
