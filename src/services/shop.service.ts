@@ -8,7 +8,7 @@ export namespace ShopService {
   }
 
   export function useIt() {
-    return useQuery(SHOP_QUERY, getIt);
+    return useQuery([SHOP_QUERY], getIt);
   }
 }
 

@@ -1,2 +1,2 @@
-export const SHOP_QUERY = 'SHOP_QUERY';
-export const PRODUCT_LIST_QUERY = 'PRODUCT_LIST_QUERY';
+export const SHOP_QUERY = 'Shop';
+export const PRODUCT_LIST_QUERY = 'Product List';
