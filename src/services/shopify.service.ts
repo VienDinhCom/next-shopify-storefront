@@ -4,8 +4,6 @@ import { getSdk } from './shopify/generated';
 const endpoint = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_ENDPOINT;
 const accessToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
-console.log({ endpoint, accessToken });
-
 export const client = new GraphQLClient(endpoint, {
   headers: { 'X-Shopify-Storefront-Access-Token': accessToken },
 });
