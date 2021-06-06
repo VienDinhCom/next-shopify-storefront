@@ -1,15 +1,15 @@
 import { EnvService } from '@app/services/env.service';
 
 interface Props {
-  isServer: boolean;
+  isNode: boolean;
 }
 
 Page.getInitialProps = async (): Promise<Props> => {
-  return { isServer: EnvService.isServer() };
+  return { isNode: EnvService.isNode() };
 };
 
-export default function Page({ isServer }) {
-  if (isServer) {
+export default function Page({ isNode }: Props) {
+  if (isNode) {
     return <h1>Error: Server</h1>;
   }
 
