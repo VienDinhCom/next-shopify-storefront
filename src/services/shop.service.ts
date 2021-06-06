@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { SHOP_QUERY } from '@app/constants/query.constant';
 import { ShopifyService } from './shopify.service';
 
 export namespace ShopService {
@@ -7,7 +8,7 @@ export namespace ShopService {
   }
 
   export function useIt() {
-    return useQuery('shop', getIt);
+    return useQuery(SHOP_QUERY, getIt);
   }
 }
 

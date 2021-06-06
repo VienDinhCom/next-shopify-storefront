@@ -1,6 +1,6 @@
-import { getSdk } from './shopify/generated';
 import { GraphQLClient } from 'graphql-request';
-import { EnvService } from '@app/services/env.service';
+import { EnvService } from './env.service';
+import { getSdk } from './shopify/generated';
 
 const endpoint = EnvService.get('NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_ENDPOINT');
 const accessToken = EnvService.get('NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN');
