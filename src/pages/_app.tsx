@@ -26,7 +26,13 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </AppProvider>
       <ReactQueryDevtools initialIsOpen={false} />
-      <NextNprogress color="#29D" startPosition={0.3} stopDelayMs={200} height={3} />
+      <NextNprogress
+        color="#64943E"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={3}
+        options={{ showSpinner: false }}
+      />
     </QueryClientProvider>
   );
 }
