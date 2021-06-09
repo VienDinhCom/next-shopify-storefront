@@ -6,12 +6,14 @@ import '@shopify/polaris/dist/styles.css';
 import { AppProvider } from '@shopify/polaris';
 import enTranslations from '@shopify/polaris/locales/en.json';
 
+import { EnvService } from '@app/services/env.service';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: false,
-      refetchIntervalInBackground: false,
-      refetchOnWindowFocus: false,
+      retry: EnvService.isProd(),
+      refetchIntervalInBackground: EnvService.isProd(),
+      refetchOnWindowFocus: EnvService.isProd(),
     },
   },
 });
@@ -27,17 +29,5 @@ function MyApp({ Component, pageProps }) {
     </QueryClientProvider>
   );
 }
-
-// Only uncomment this method if you have blocking data requirements for
-// every single page in your application. This disables the ability to
-// perform automatic static optimization, causing every page in your app to
-// be server-side rendered.
-//
-// MyApp.getInitialProps = async (appContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-//
-//   return { ...appProps }
-// }
 
 export default MyApp;
