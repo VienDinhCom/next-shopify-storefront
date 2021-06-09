@@ -16,14 +16,15 @@
     "codegen": "graphql-codegen -c src/services/shopify/codegen.config.js"
   },
   "dependencies": {
+    "@shopify/polaris": "^6.5.0",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
+    "lodash": "^4.17.21",
     "next": "^10.2.3",
+    "nextjs-progressbar": "^0.0.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-query": "^3.16.0",
-    "lodash": "^4.17.21",
-    "nextjs-progressbar": "^0.0.10"
+    "react-query": "^3.16.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.21.5",
