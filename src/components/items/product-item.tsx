@@ -16,6 +16,7 @@ const ProductItem: React.FC<Props> = ({ handle, title, description, image, price
 
   return (
     <MediaCard
+      size="small"
       title={title}
       description={description}
       primaryAction={{
@@ -35,6 +36,7 @@ const ProductItem: React.FC<Props> = ({ handle, title, description, image, price
           objectFit: 'cover',
           objectPosition: 'center',
         }}
+        onClick={() => router.push(`/products/${handle}`)}
       />
     </MediaCard>
   );
