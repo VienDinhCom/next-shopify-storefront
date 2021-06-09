@@ -4,8 +4,7 @@ export const theme: ThemeConfig = {
   logo: {
     url: '/',
     width: 32,
-    topBarSource: '/images/light-logo.png',
-    contextualSaveBarSource: '/images/dark-logo.png',
+    topBarSource: '/images/logo.png',
     accessibilityLabel: 'Next Shopify Storefront',
   },
 };
