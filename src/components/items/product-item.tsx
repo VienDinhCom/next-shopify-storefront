@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { MediaCard } from '@shopify/polaris';
 import { MoneyV2 } from '@app/services/shopify.service';
@@ -13,6 +13,7 @@ type Props = {
 
 const ProductItem: React.FC<Props> = ({ handle, title, description, image, price }: Props) => {
   const router = useRouter();
+  const onClick = useCallback(() => router.push(`/products/${handle}`), [router, handle]);
 
   return (
     <MediaCard
@@ -21,10 +22,12 @@ const ProductItem: React.FC<Props> = ({ handle, title, description, image, price
       description={description}
       primaryAction={{
         content: 'View',
-        onAction: () => router.push(`/products/${handle}`),
+        onAction: onClick,
       }}
       secondaryAction={{
-        content: `${price.amount} ${price.currencyCode}`,
+        content: new Intl.NumberFormat('en-US', { style: 'currency', currency: price.currencyCode }).format(
+          price.amount
+        ),
       }}
     >
       <img
@@ -36,7 +39,7 @@ const ProductItem: React.FC<Props> = ({ handle, title, description, image, price
           objectFit: 'cover',
           objectPosition: 'center',
         }}
-        onClick={() => router.push(`/products/${handle}`)}
+        onClick={onClick}
       />
     </MediaCard>
   );
