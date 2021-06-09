@@ -35,6 +35,7 @@
     "@types/react": "^17.0.9",
     "env-kit": "^2.0.0",
     "eslint-config-next-app": "^2.0.0",
+    "sass": "^1.34.1",
     "typescript": "^4.3.2"
   },
   "prettier": {
