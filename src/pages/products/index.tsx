@@ -3,13 +3,16 @@ import { ProductList } from '@app/components/lists/product-list';
 import { Page as PolarisPage, Layout, Card } from '@shopify/polaris';
 import { DefaultLayout } from '@app/components/layouts/default-layout';
 import { ProductService, GetProductListQuery } from '@app/services/product.service';
+import { EnvService } from '@app/services/env.service';
 
 interface Props {
-  initialData: InfiniteData<GetProductListQuery>;
+  initialData?: InfiniteData<GetProductListQuery>;
 }
 
 Page.getInitialProps = async (): Promise<Props> => {
   const firstPage = await ProductService.getList();
+
+  if (EnvService.isBrowser()) return {};
 
   return {
     initialData: { pages: [firstPage], pageParams: [null] },
@@ -17,7 +20,7 @@ Page.getInitialProps = async (): Promise<Props> => {
 };
 
 export default function Page({ initialData }: Props) {
-  const productList = ProductService.useList({ options: { initialData, refetchOnMount: false } });
+  const productList = ProductService.useList({ options: { initialData } });
 
   return (
     <DefaultLayout>
