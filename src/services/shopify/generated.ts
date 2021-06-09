@@ -22579,7 +22579,23 @@ export type GetProductListQuery = (
       & Pick<ProductEdge, 'cursor'>
       & { node: (
         { __typename?: 'Product' }
-        & Pick<Product, 'id' | 'title'>
+        & Pick<Product, 'id' | 'handle' | 'title' | 'description'>
+        & { priceRange: (
+          { __typename?: 'ProductPriceRange' }
+          & { minVariantPrice: (
+            { __typename?: 'MoneyV2' }
+            & Pick<MoneyV2, 'amount' | 'currencyCode'>
+          ) }
+        ), images: (
+          { __typename?: 'ImageConnection' }
+          & { edges: Array<(
+            { __typename?: 'ImageEdge' }
+            & { node: (
+              { __typename?: 'Image' }
+              & Pick<Image, 'id' | 'altText' | 'transformedSrc'>
+            ) }
+          )> }
+        ) }
       ) }
     )>, pageInfo: (
       { __typename?: 'PageInfo' }
@@ -22602,11 +22618,33 @@ export type GetShopQuery = (
 
 export const GetProductListDocument = gql`
     query getProductList($after: String) {
-  products(first: 20, after: $after) {
+  products(first: 10, after: $after) {
     edges {
       node {
         id
+        handle
         title
+        description(truncateAt: 120)
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 1) {
+          edges {
+            node {
+              id
+              altText
+              transformedSrc(
+                maxWidth: 480
+                maxHeight: 360
+                crop: CENTER
+                preferredContentType: JPG
+              )
+            }
+          }
+        }
       }
       cursor
     }

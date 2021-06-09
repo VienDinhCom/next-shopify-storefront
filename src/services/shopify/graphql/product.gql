@@ -1,9 +1,26 @@
 query getProductList($after: String) {
-  products(first: 20, after: $after) {
+  products(first: 10, after: $after) {
     edges {
       node {
         id
+        handle
         title
+        description(truncateAt: 120)
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 1) {
+          edges {
+            node {
+              id
+              altText
+              transformedSrc(maxWidth: 480, maxHeight: 360, crop: CENTER, preferredContentType: JPG)
+            }
+          }
+        }
       }
       cursor
     }
