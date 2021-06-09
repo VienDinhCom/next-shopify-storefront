@@ -22624,7 +22624,7 @@ export const GetProductListDocument = gql`
         id
         handle
         title
-        description(truncateAt: 120)
+        description(truncateAt: 200)
         priceRange {
           minVariantPrice {
             amount
