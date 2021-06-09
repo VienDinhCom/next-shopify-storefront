@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ShopService, GetShopQuery } from '@app/services/shop.service';
+import { DefaultLayout } from '@app/components/layouts/default-layout';
 
 interface Props {
   data: GetShopQuery;
@@ -11,7 +12,7 @@ Page.getInitialProps = async (): Promise<Props> => {
 
 export default function Page({ data }: Props) {
   return (
-    <div>
+    <DefaultLayout>
       <h1>{data.shop.name}</h1>
       <Link href="/about">
         <a>About</a>
@@ -19,6 +20,6 @@ export default function Page({ data }: Props) {
       <Link href="/products">
         <a>Products</a>
       </Link>
-    </div>
+    </DefaultLayout>
   );
 }
