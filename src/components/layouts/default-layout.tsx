@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import React, { ReactNode, useState, useCallback } from 'react';
 import { Frame, TopBar, Navigation } from '@shopify/polaris';
+import React, { ReactNode, useState, useCallback, useRef } from 'react';
 import {
   HomeMajor,
   CollectionsMajor,
@@ -15,8 +15,9 @@ type Props = {
   children: ReactNode;
 };
 
-const DefaultLayout: React.FC<Props> = () => {
+const DefaultLayout: React.FC<Props> = (props) => {
   const router = useRouter();
+  const skipToContentRef = useRef(null);
 
   const [mobileNavigationActive, setMobileNavigationActive] = useState(false);
 
@@ -54,7 +55,7 @@ const DefaultLayout: React.FC<Props> = () => {
             onClick: () => router.push('/collections'),
           },
           {
-            label: 'Catalog',
+            label: 'All Products',
             icon: ProductsMajor,
             onClick: () => router.push('/products'),
           },
@@ -83,6 +84,10 @@ const DefaultLayout: React.FC<Props> = () => {
     </Navigation>
   );
 
+  const skipToContentTarget = (
+    <a id="SkipToContentTarget" ref={skipToContentRef} tabIndex={-1} /> // eslint-disable-line
+  );
+
   return (
     <Frame
       topBar={topBarMarkup}
@@ -90,8 +95,8 @@ const DefaultLayout: React.FC<Props> = () => {
       showMobileNavigation={mobileNavigationActive}
       onNavigationDismiss={toggleMobileNavigationActive}
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae voluptates et reprehenderit aut est sequi
-      minima, consequatur, nisi sed error neque impedit explicabo. Sequi, vitae et cumque aspernatur sit atque!
+      {skipToContentTarget}
+      {props.children}
     </Frame>
   );
 };
