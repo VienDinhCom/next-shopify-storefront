@@ -2,7 +2,7 @@
 
 A real-world Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ... and Material UI.
 
-> I'm Building Version 2 at https://github.com/Maxvien/next-shopify-storefront/tree/dev
+> I'm Building Version 2 at https://github.com/maxvien/next-shopify-storefront/tree/dev
 
 ## Experience
 
