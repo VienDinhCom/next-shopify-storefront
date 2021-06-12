@@ -3,6 +3,6 @@
 In this version, I'm going to use:
 
 - Shopify Polaris to build UI.
-- React Query to manage global state.
+- React Query to cahce data & manage global state.
 - GraphQL Request to interact with Shopify Storefront API
 - GraphQL Codegen to create TypeScript clients
