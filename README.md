@@ -19,7 +19,7 @@ A real-world Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo C
 * Configuring [Eslint](https://eslint.org/) & [Prettier](https://prettier.io/) to lint and format the source code.
 * Deploying NodeJS applications on [Heroku](https://heroku.com/).
 
-Hit the **Star** button if you love this project ⭐️
+If you love the project, hit the **STAR** button to bookmark it ⭐️
 
 ## Demo
 You can visit here to see the demo: [https://next-shopify-storefront.herokuapp.com/](https://next-shopify-storefront.herokuapp.com/)
