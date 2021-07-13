@@ -45,5 +45,4 @@ npm start
 ## Related Projects
 
 * **[Bootstrap Shopify Theme](https://github.com/Maxvien/bootstrap-shopify-theme)** • A free Shopify Theme built with Bootstrap, BEM, Theme Tools, Swiper, Gulp, Parcel, Liquid, SASS, PostCSS, ESNext, ... and Passion.
-* **[Shopify Theme Customizer](https://github.com/Maxvien/shopify-theme-customizer)** • An effective development tool for customizing existing Shopify themes. It's built with Gulp, Theme Kit, Theme Check, BrowserSync, ... and Passion.
 * **[Shopify Data Faker](https://github.com/Maxvien/shopify-data-faker)** • A Shopify development tool for generating dummy store data.
