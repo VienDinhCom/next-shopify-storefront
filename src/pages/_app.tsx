@@ -1,12 +1,9 @@
+import Head from 'next/head';
+import type { AppProps } from 'next/app';
 import NextNprogress from 'nextjs-progressbar';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import '@shopify/polaris/dist/styles.css';
-import { AppProvider } from '@shopify/polaris';
-import enTranslations from '@shopify/polaris/locales/en.json';
-
-import { theme } from '@app/theme';
 import { EnvService } from '@app/services/env.service';
 
 const queryClient = new QueryClient({
@@ -19,12 +16,13 @@ const queryClient = new QueryClient({
   },
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppProvider theme={theme} i18n={enTranslations}>
-        <Component {...pageProps} />
-      </AppProvider>
+      <Head>
+        <title>Next Shopify Storefront</title>
+      </Head>
+      <Component {...pageProps} />
       <ReactQueryDevtools initialIsOpen={false} />
       <NextNprogress
         color="#64943E"
