@@ -26,7 +26,7 @@ export namespace ProductService {
         ...input?.options,
         getNextPageParam: (lastPage) => {
           if (lastPage.products.pageInfo.hasNextPage) {
-            return last(lastPage.products.edges).cursor;
+            return last(lastPage.products.edges)?.cursor;
           }
         },
       }
