@@ -1,5 +1,4 @@
 {
-  "name": "next-shopify-storefront",
   "description": "Next Shopify PWA Storefront",
   "version": "2.0.0",
   "license": "MIT",
@@ -8,44 +7,22 @@
     "email": "maxvien@gmail.com",
     "url": "https://github.com/maxvien"
   },
+  "repository": "https://github.com/maxvien/next-shopify-storefront.git",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src",
-    "codegen": "graphql-codegen -c src/services/shopify/codegen.config.js"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@shopify/polaris": "^6.5.0",
-    "graphql": "^15.5.0",
-    "graphql-request": "^3.4.0",
-    "lodash": "^4.17.21",
-    "next": "^10.2.3",
-    "nextjs-progressbar": "^0.0.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-query": "^3.16.0"
+    "next": "11.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.21.5",
-    "@graphql-codegen/typescript": "^1.22.1",
-    "@graphql-codegen/typescript-graphql-request": "^3.2.1",
-    "@graphql-codegen/typescript-operations": "^1.18.0",
-    "@types/lodash": "^4.14.170",
-    "@types/react": "^17.0.9",
-    "env-kit": "^2.0.0",
-    "eslint-config-next-app": "^2.0.0",
-    "sass": "^1.34.1",
-    "typescript": "^4.3.2"
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "semi": true,
-    "printWidth": 120,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "eslintConfig": {
-    "extends": "next-app"
+    "@types/react": "17.0.14",
+    "eslint": "7.30.0",
+    "eslint-config-next": "11.0.1",
+    "typescript": "4.3.5"
   }
 }
