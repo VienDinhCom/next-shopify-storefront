@@ -1,4 +1,5 @@
 {
+  "name": "next-shopify-storefront",
   "description": "Next Shopify PWA Storefront",
   "version": "2.0.0",
   "license": "MIT",
