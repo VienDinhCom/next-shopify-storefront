@@ -33,7 +33,8 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
                 cursor: 'pointer',
               }}
               href="/"
-              onClick={() => {
+              onClick={(event) => {
+                event.preventDefault();
                 router.push('/');
               }}
             >
