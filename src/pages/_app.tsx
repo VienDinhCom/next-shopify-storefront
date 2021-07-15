@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import NextNprogress from 'nextjs-progressbar';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { EnvService } from '@app/services/env.service';
 
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Next Shopify Storefront</title>
       </Head>
+      <CssBaseline />
       <Component {...pageProps} />
       <ReactQueryDevtools initialIsOpen={false} />
       <NextNprogress
