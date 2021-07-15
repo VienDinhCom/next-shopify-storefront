@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import NextNprogress from 'nextjs-progressbar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { EnvService } from '@app/services/env.service';
 
