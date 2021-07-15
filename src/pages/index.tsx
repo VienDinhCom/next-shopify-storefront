@@ -1,4 +1,5 @@
 import { ShopService, GetShopQuery } from '@app/services/shop.service';
+import { DefaultLayout } from '@app/components/layouts/default-layout';
 
 interface Props {
   data: GetShopQuery;
@@ -9,5 +10,5 @@ Page.getInitialProps = async (): Promise<Props> => {
 };
 
 export default function Page({ data }: Props) {
-  return <h1>Home</h1>;
+  return <DefaultLayout>Home</DefaultLayout>;
 }

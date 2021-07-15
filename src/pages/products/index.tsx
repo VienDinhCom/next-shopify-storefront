@@ -1,4 +1,5 @@
 import { InfiniteData } from 'react-query';
+import { DefaultLayout } from '@app/components/layouts/default-layout';
 import { ProductService, GetProductListQuery } from '@app/services/product.service';
 
 interface Props {
@@ -16,5 +17,5 @@ Page.getInitialProps = async (): Promise<Props> => {
 export default function Page({ initialData }: Props) {
   const productList = ProductService.useList({ options: { initialData } });
 
-  return <h1>Product List</h1>;
+  return <DefaultLayout>Products</DefaultLayout>;
 }
