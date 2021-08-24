@@ -12,7 +12,7 @@ export interface ProductItemProps {
   description: string;
   image: {
     src: string;
-    alt?: string;
+    alt: string;
   };
 }
 
@@ -29,7 +29,12 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
           router.push(url);
         }}
       >
-        <CardMedia sx={{ height: 350 }} image={props.image.src} title={props.image.alt} />
+        <CardMedia
+          sx={{ height: 350, objectFit: 'contain' }}
+          image={props.image.src}
+          alt={props.image.alt}
+          component="img"
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {props.title}

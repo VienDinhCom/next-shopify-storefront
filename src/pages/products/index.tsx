@@ -27,7 +27,7 @@ export default function Page({ initialData }: Props) {
         description: product.node.description,
         image: {
           src: product.node.images.edges[0].node.transformedSrc as string,
-          alt: product.node.images.edges[0].node.altText || undefined,
+          alt: product.node.images.edges[0].node.altText || '',
         },
       };
     });

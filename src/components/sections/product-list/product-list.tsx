@@ -1,4 +1,5 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
 import { ProductItemProps, ProductItem } from '@app/components/snippets/product-item';
 
 interface ProductItem extends ProductItemProps {
@@ -11,10 +12,12 @@ export interface ProductListProps {
 
 export const ProductList: React.FC<ProductListProps> = (props) => {
   return (
-    <React.Fragment>
+    <Grid container spacing={3}>
       {props.products.map((props) => (
-        <ProductItem key={props.id} {...props} />
+        <Grid item xs={3} key={props.id}>
+          <ProductItem {...props} />
+        </Grid>
       ))}
-    </React.Fragment>
+    </Grid>
   );
 };
