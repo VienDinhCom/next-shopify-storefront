@@ -22580,7 +22580,7 @@ export type GetShopQuery = { __typename?: 'QueryRoot', shop: { __typename?: 'Sho
 
 export const GetProductListDocument = gql`
     query getProductList($after: String) {
-  products(first: 10, after: $after) {
+  products(first: 12, after: $after) {
     edges {
       node {
         id
