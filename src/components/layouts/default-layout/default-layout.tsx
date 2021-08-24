@@ -58,7 +58,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
                 router.push('/cart');
               }}
             >
-              <Badge color="secondary" badgeContent={1}>
+              <Badge color="error" badgeContent={1}>
                 <CartIcon />
               </Badge>
             </IconButton>

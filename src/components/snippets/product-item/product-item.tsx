@@ -38,7 +38,7 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
           <Typography gutterBottom variant="h5" component="h3">
             {props.title}
           </Typography>
-          <Typography sx={{ color: 'darkred' }} gutterBottom variant="body2" component="div">
+          <Typography sx={{ color: '#d32f2f' }} gutterBottom variant="body2" component="div">
             {new Intl.NumberFormat('en-US', { style: 'currency', currency: props.price.currencyCode }).format(
               props.price.amount
             )}
