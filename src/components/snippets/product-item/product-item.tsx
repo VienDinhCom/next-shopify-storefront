@@ -25,7 +25,7 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
   const url = `/products/${props.handle}`;
 
   return (
-    <Card>
+    <Card sx={{ height: '100%' }}>
       <CardActionArea
         href={url}
         onClick={(event) => {
