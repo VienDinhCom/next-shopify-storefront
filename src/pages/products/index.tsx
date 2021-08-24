@@ -29,6 +29,10 @@ export default function Page({ initialData }: Props) {
           src: product.node.images.edges[0].node.transformedSrc as string,
           alt: product.node.images.edges[0].node.altText || '',
         },
+        price: {
+          amount: product.node.priceRange.minVariantPrice.amount,
+          currencyCode: product.node.priceRange.minVariantPrice.currencyCode,
+        },
       };
     });
   });

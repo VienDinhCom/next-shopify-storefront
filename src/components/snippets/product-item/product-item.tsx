@@ -14,6 +14,10 @@ export interface ProductItemProps {
     src: string;
     alt: string;
   };
+  price: {
+    amount: number;
+    currencyCode: string;
+  };
 }
 
 export const ProductItem: React.FC<ProductItemProps> = (props) => {
@@ -31,8 +35,13 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
       >
         <CardMedia height={500} image={props.image.src} alt={props.image.alt} component="img" />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="h3">
             {props.title}
+          </Typography>
+          <Typography sx={{ color: 'darkred' }} gutterBottom variant="body2" component="div">
+            {new Intl.NumberFormat('en-US', { style: 'currency', currency: props.price.currencyCode }).format(
+              props.price.amount
+            )}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {props.description}
