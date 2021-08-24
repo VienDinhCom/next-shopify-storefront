@@ -14,7 +14,7 @@ export const ProductList: React.FC<ProductListProps> = (props) => {
   return (
     <Grid container spacing={3}>
       {props.products.map((props) => (
-        <Grid item xs={3} key={props.id}>
+        <Grid item xs={12} sm={6} md={4} lg={3} key={props.id}>
           <ProductItem {...props} />
         </Grid>
       ))}

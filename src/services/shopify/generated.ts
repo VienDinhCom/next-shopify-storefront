@@ -22570,50 +22570,12 @@ export type GetProductListQueryVariables = Exact<{
 }>;
 
 
-export type GetProductListQuery = (
-  { __typename?: 'QueryRoot' }
-  & { products: (
-    { __typename?: 'ProductConnection' }
-    & { edges: Array<(
-      { __typename?: 'ProductEdge' }
-      & Pick<ProductEdge, 'cursor'>
-      & { node: (
-        { __typename?: 'Product' }
-        & Pick<Product, 'id' | 'handle' | 'title' | 'description'>
-        & { priceRange: (
-          { __typename?: 'ProductPriceRange' }
-          & { minVariantPrice: (
-            { __typename?: 'MoneyV2' }
-            & Pick<MoneyV2, 'amount' | 'currencyCode'>
-          ) }
-        ), images: (
-          { __typename?: 'ImageConnection' }
-          & { edges: Array<(
-            { __typename?: 'ImageEdge' }
-            & { node: (
-              { __typename?: 'Image' }
-              & Pick<Image, 'id' | 'altText' | 'transformedSrc'>
-            ) }
-          )> }
-        ) }
-      ) }
-    )>, pageInfo: (
-      { __typename?: 'PageInfo' }
-      & Pick<PageInfo, 'hasNextPage'>
-    ) }
-  ) }
-);
+export type GetProductListQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', id: string, handle: string, title: string, description: string, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: any } }> } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } } };
 
 export type GetShopQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetShopQuery = (
-  { __typename?: 'QueryRoot' }
-  & { shop: (
-    { __typename?: 'Shop' }
-    & Pick<Shop, 'name'>
-  ) }
-);
+export type GetShopQuery = { __typename?: 'QueryRoot', shop: { __typename?: 'Shop', name: string } };
 
 
 export const GetProductListDocument = gql`
@@ -22624,7 +22586,7 @@ export const GetProductListDocument = gql`
         id
         handle
         title
-        description(truncateAt: 200)
+        description(truncateAt: 120)
         priceRange {
           minVariantPrice {
             amount
@@ -22637,8 +22599,8 @@ export const GetProductListDocument = gql`
               id
               altText
               transformedSrc(
-                maxWidth: 480
-                maxHeight: 360
+                maxWidth: 768
+                maxHeight: 1024
                 crop: CENTER
                 preferredContentType: JPG
               )
