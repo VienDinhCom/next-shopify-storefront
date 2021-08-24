@@ -13,7 +13,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen -c src/services/shopify/codegen.config.js"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
@@ -33,6 +34,10 @@
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.3.0",
+    "@graphql-codegen/cli": "^2.1.1",
+    "@graphql-codegen/typescript": "^2.1.1",
+    "@graphql-codegen/typescript-graphql-request": "^4.1.1",
+    "@graphql-codegen/typescript-operations": "^2.1.1",
     "@types/lodash": "^4.14.171",
     "@types/react": "17.0.14",
     "eslint": "7.30.0",
