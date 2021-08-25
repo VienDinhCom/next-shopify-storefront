@@ -29,3 +29,27 @@ query getProductList($after: String) {
     }
   }
 }
+
+query getProductDetail($handle: String!) {
+  productByHandle(handle: $handle) {
+    title
+    description
+    variants {
+      edges {
+        node {
+          id
+          title
+          priceV2 {
+            amount
+            currencyCode
+          }
+          image {
+            id
+            altText
+            transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
+          }
+        }
+      }
+    }
+  }
+}
