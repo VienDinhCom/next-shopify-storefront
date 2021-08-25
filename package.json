@@ -10,13 +10,10 @@
   },
   "repository": "https://github.com/maxvien/next-shopify-storefront.git",
   "scripts": {
+    "dev": "nps -s dev",
+    "build": "nps -s build",
     "start": "next start",
-    "build": "next build",
-    "lint": "next lint",
-    "dev": "run-p dev:*",
-    "dev:next": "next dev",
-    "dev:codegen": "npm run codegen -- --watch",
-    "codegen": "graphql-codegen -c src/services/shopify/codegen.config.js"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
@@ -45,9 +42,11 @@
     "@types/lodash": "^4.14.171",
     "@types/react": "17.0.14",
     "@types/title": "^3.4.1",
+    "apollo": "^2.33.6",
     "eslint": "7.30.0",
     "eslint-config-next": "11.0.1",
-    "npm-run-all": "^4.1.5",
+    "nps": "^5.10.0",
+    "nps-utils": "^1.7.0",
     "typescript": "4.3.5"
   }
 }
