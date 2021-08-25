@@ -1,4 +1,5 @@
 import React from 'react';
+import title from 'title';
 import { useRouter } from 'next/router';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -35,8 +36,8 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
       >
         <CardMedia height={500} image={props.image.src} alt={props.image.alt} component="img" />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h3">
-            {props.title}
+          <Typography gutterBottom variant="h6" component="h3">
+            {title(props.title)}
           </Typography>
           <Typography sx={{ color: '#d32f2f' }} gutterBottom variant="body2" component="div">
             {new Intl.NumberFormat('en-US', { style: 'currency', currency: props.price.currencyCode }).format(
