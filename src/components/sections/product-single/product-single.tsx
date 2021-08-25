@@ -1,24 +1,23 @@
 import React from 'react';
 import title from 'title';
-import { useRouter } from 'next/router';
 import Card from '@material-ui/core/Card';
 
-export interface ProductDetailProps {
+export interface ProductSingleProps {
   title: string;
   description: string;
   variants: {
-    images: {
-      src: string;
-      alt: string;
-    }[];
     price: {
       amount: number;
       currencyCode: string;
     };
+    image?: {
+      src: string;
+      alt: string;
+    };
   }[];
 }
 
-export const ProductDetail: React.FC<ProductDetailProps> = (props) => {
+export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
   return (
     <Card>
       <h1>{title(props.title)}</h1>

@@ -1,7 +1,12 @@
 import last from 'lodash/last';
 import { useInfiniteQuery, UseInfiniteQueryOptions } from 'react-query';
 import { PRODUCT_LIST_QUERY } from '@app/constants/query.constant';
-import { ShopifyService, GetProductListQueryVariables, GetProductListQuery } from './shopify.service';
+import {
+  ShopifyService,
+  GetProductListQueryVariables,
+  GetProductListQuery,
+  GetProductSingleQueryVariables,
+} from './shopify.service';
 
 export namespace ProductService {
   interface GetListInput {
@@ -19,9 +24,7 @@ export namespace ProductService {
   export function useList(input?: UseListInput) {
     return useInfiniteQuery(
       [PRODUCT_LIST_QUERY, input?.variables],
-      ({ pageParam }) => {
-        return getList({ variables: { after: pageParam } });
-      },
+      ({ pageParam }) => getList({ variables: { after: pageParam } }),
       {
         ...input?.options,
         getNextPageParam: (lastPage) => {
@@ -31,6 +34,14 @@ export namespace ProductService {
         },
       }
     );
+  }
+
+  interface GetSingleInput {
+    variables: GetProductSingleQueryVariables;
+  }
+
+  export function getSingle(input: GetSingleInput) {
+    return ShopifyService.getProductSingle(input.variables);
   }
 }
 

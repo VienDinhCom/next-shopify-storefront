@@ -5065,12 +5065,12 @@ export type GetProductListQueryVariables = Exact<{
 
 export type GetProductListQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', id: string, handle: string, title: string, description: string, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: any } }> } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } } };
 
-export type GetProductDetailQueryVariables = Exact<{
+export type GetProductSingleQueryVariables = Exact<{
   handle: Scalars['String'];
 }>;
 
 
-export type GetProductDetailQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', title: string, description: string, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: any }> } }> } }> };
+export type GetProductSingleQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', title: string, description: string, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: any }> } }> } }> };
 
 export type GetShopQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5116,12 +5116,12 @@ export const GetProductListDocument = gql`
   }
 }
     `;
-export const GetProductDetailDocument = gql`
-    query getProductDetail($handle: String!) {
+export const GetProductSingleDocument = gql`
+    query getProductSingle($handle: String!) {
   productByHandle(handle: $handle) {
     title
     description
-    variants {
+    variants(first: 250) {
       edges {
         node {
           id
@@ -5164,8 +5164,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getProductList(variables?: GetProductListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductListQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductListQuery>(GetProductListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductList');
     },
-    getProductDetail(variables: GetProductDetailQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductDetailQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetProductDetailQuery>(GetProductDetailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductDetail');
+    getProductSingle(variables: GetProductSingleQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductSingleQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductSingleQuery>(GetProductSingleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductSingle');
     },
     getShop(variables?: GetShopQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetShopQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetShopQuery>(GetShopDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getShop');

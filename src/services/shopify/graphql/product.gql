@@ -30,11 +30,11 @@ query getProductList($after: String) {
   }
 }
 
-query getProductDetail($handle: String!) {
+query getProductSingle($handle: String!) {
   productByHandle(handle: $handle) {
     title
     description
-    variants {
+    variants(first: 250) {
       edges {
         node {
           id
