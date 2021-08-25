@@ -1,9 +1,8 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { styled } from '@material-ui/system';
 import { UseInfiniteQueryResult } from 'react-query';
-import { ProductItemProps, ProductItem } from '@app/components/snippets/product-item';
 import { PageLoader } from '@app/components/snippets/page-loader';
+import { ProductItemProps, ProductItem } from '@app/components/snippets/product-item';
 
 interface ProductItem extends ProductItemProps {
   id: string;
