@@ -39,7 +39,7 @@ export default function Page({ initialData }: Props) {
 
   return (
     <DefaultLayout>
-      <ProductList products={products} />
+      <ProductList products={products} pagination={productList} />
     </DefaultLayout>
   );
 }

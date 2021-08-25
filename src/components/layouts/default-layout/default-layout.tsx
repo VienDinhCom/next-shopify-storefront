@@ -65,8 +65,8 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Toolbar sx={{ marginBottom: '20px' }} />
-      <Container>{children}</Container>
+      <Toolbar />
+      <Container sx={{ padding: '20px 0 30px 0' }}>{children}</Container>
     </div>
   );
 };

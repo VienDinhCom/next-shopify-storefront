@@ -21,6 +21,7 @@
     "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^5.0.0-beta.0",
     "@material-ui/icons": "^5.0.0-beta.0",
+    "@material-ui/lab": "^5.0.0-alpha.43",
     "env-kit": "^2.0.4",
     "graphql": "^15.5.1",
     "graphql-request": "^3.4.0",
