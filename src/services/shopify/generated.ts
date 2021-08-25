@@ -5070,7 +5070,7 @@ export type GetProductSingleQueryVariables = Exact<{
 }>;
 
 
-export type GetProductSingleQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', title: string, description: string, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: any }> } }> } }> };
+export type GetProductSingleQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', title: string, description: string, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: any } }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string> }> } }> } }> };
 
 export type GetShopQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5121,6 +5121,20 @@ export const GetProductSingleDocument = gql`
   productByHandle(handle: $handle) {
     title
     description
+    images(first: 250) {
+      edges {
+        node {
+          id
+          altText
+          transformedSrc(
+            maxWidth: 768
+            maxHeight: 1024
+            crop: CENTER
+            preferredContentType: JPG
+          )
+        }
+      }
+    }
     variants(first: 250) {
       edges {
         node {
@@ -5132,13 +5146,6 @@ export const GetProductSingleDocument = gql`
           }
           image {
             id
-            altText
-            transformedSrc(
-              maxWidth: 768
-              maxHeight: 1024
-              crop: CENTER
-              preferredContentType: JPG
-            )
           }
         }
       }

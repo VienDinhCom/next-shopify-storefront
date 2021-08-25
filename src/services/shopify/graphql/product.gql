@@ -34,6 +34,15 @@ query getProductSingle($handle: String!) {
   productByHandle(handle: $handle) {
     title
     description
+    images(first: 250) {
+      edges {
+        node {
+          id
+          altText
+          transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
+        }
+      }
+    }
     variants(first: 250) {
       edges {
         node {
@@ -45,8 +54,6 @@ query getProductSingle($handle: String!) {
           }
           image {
             id
-            altText
-            transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
           }
         }
       }

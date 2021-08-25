@@ -18,16 +18,18 @@ const Wrapper = styled('div')(({ theme }) => ({
 export interface ProductSingleProps {
   title: string;
   description: string;
+  images: {
+    id: string;
+    src: string;
+    alt: string;
+  }[];
   variants: {
     id: string;
     title: string;
+    image?: string | null;
     price: {
       amount: number;
       currencyCode: string;
-    };
-    image?: {
-      src: string;
-      alt: string;
     };
   }[];
 }
@@ -38,13 +40,11 @@ export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
       <Grid container>
         <Grid item xs={12} sm={5}>
           <Swiper>
-            {props.variants
-              .filter(({ image }) => image)
-              .map(({ id, image }) => (
-                <SwiperSlide key={id}>
-                  <Image src={image!.src} alt={image!.alt} width="768" height="1024" layout="responsive" />
-                </SwiperSlide>
-              ))}
+            {props.images.map(({ id, src, alt }) => (
+              <SwiperSlide key={id}>
+                <Image src={src} alt={alt} width="768" height="1024" layout="responsive" />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Grid>
         <Grid item xs={12} sm={7}>
@@ -61,9 +61,14 @@ export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
                 label="Variants"
                 // onChange={handleChange}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {props.variants.map(({ id, title, price }) => (
+                  <MenuItem key={id} value={10}>
+                    {title} -{' '}
+                    {new Intl.NumberFormat('en-US', { style: 'currency', currency: price.currencyCode }).format(
+                      price.amount
+                    )}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Wrapper>
