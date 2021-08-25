@@ -33,6 +33,7 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
           event.preventDefault();
           router.push(url);
         }}
+        sx={{ display: 'block', height: '100%' }}
       >
         <CardMedia height={500} image={props.image.src} alt={props.image.alt} component="img" />
         <CardContent>
