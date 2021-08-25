@@ -25,6 +25,8 @@ export default function Page({ data }: Props) {
     description,
     variants: variants.edges.map(({ node }) => {
       return {
+        id: node.id,
+        title: node.title,
         price: {
           amount: node.priceV2.amount,
           currencyCode: node.priceV2.currencyCode as string,

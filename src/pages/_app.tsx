@@ -5,6 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+import 'swiper/swiper.min.css';
+
 import { EnvService } from '@app/services/env.service';
 
 const queryClient = new QueryClient({
