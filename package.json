@@ -10,10 +10,12 @@
   },
   "repository": "https://github.com/maxvien/next-shopify-storefront.git",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
     "start": "next start",
+    "build": "next build",
     "lint": "next lint",
+    "dev": "run-p dev:*",
+    "dev:next": "next dev",
+    "dev:codegen": "npm run codegen -- --watch",
     "codegen": "graphql-codegen -c src/services/shopify/codegen.config.js"
   },
   "dependencies": {
@@ -45,6 +47,7 @@
     "@types/title": "^3.4.1",
     "eslint": "7.30.0",
     "eslint-config-next": "11.0.1",
+    "npm-run-all": "^4.1.5",
     "typescript": "4.3.5"
   }
 }
