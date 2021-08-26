@@ -2925,7 +2925,7 @@ type CustomerAddressUpdatePayload {
   userErrors: [UserError!]! @deprecated(reason: "Use `customerUserErrors` instead")
 }
 
-"""Specifies the fields required to create a new customer."""
+"""The fields required to create a new customer."""
 input CustomerCreateInput {
   """The customer’s first name."""
   firstName: String
