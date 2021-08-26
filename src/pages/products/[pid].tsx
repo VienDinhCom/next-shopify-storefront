@@ -31,15 +31,17 @@ export default function Page({ data }: Props) {
       };
     }),
     variants: variants.edges.map(({ node }) => {
-      return {
+      const variant: ProductSingleProps['variants'][0] = {
         id: node.id,
         title: node.title,
-        image: node.image?.id,
+        image: node.image?.id!,
         price: {
           amount: node.priceV2.amount,
           currencyCode: node.priceV2.currencyCode as string,
         },
       };
+
+      return variant;
     }),
   };
 
