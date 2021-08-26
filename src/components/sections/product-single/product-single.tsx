@@ -103,6 +103,10 @@ export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
               {title(props.title)}
             </Typography>
 
+            <Typography sx={{ marginBottom: '16px' }} gutterBottom variant="body2" component="div">
+              <b>Price</b>: <span css={{ color: '#d32f2f' }}>{IntlService.formatCurrency(state.variant.price)}</span>
+            </Typography>
+
             <FormControl fullWidth size="small">
               <InputLabel id="product-variants-label">Variants</InputLabel>
               <Select
