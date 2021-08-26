@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CardActionArea } from '@material-ui/core';
+import { IntlService } from '@app/services/intl.service';
 
 export interface ProductItemProps {
   handle: string;
@@ -41,9 +42,7 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
             {title(props.title)}
           </Typography>
           <Typography sx={{ color: '#d32f2f' }} gutterBottom variant="body2" component="div">
-            {new Intl.NumberFormat('en-US', { style: 'currency', currency: props.price.currencyCode }).format(
-              props.price.amount
-            )}
+            {IntlService.formatCurrency(props.price)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {props.description}

@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import { styled } from '@material-ui/system';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Typography from '@material-ui/core/Typography';
+import { IntlService } from '@app/services/intl.service';
 
 const Wrapper = styled('div')(({ theme }) => ({
   padding: '16px',
@@ -61,12 +62,9 @@ export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
                 label="Variants"
                 // onChange={handleChange}
               >
-                {props.variants.map(({ id, title, price }) => (
-                  <MenuItem key={id} value={10}>
-                    {title} -{' '}
-                    {new Intl.NumberFormat('en-US', { style: 'currency', currency: price.currencyCode }).format(
-                      price.amount
-                    )}
+                {props.variants.map((variant) => (
+                  <MenuItem key={variant.id} value={10}>
+                    {variant.title} - {IntlService.formatCurrency(variant.price)}
                   </MenuItem>
                 ))}
               </Select>
