@@ -103,8 +103,17 @@ export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
               {title(props.title)}
             </Typography>
 
-            <Typography sx={{ marginBottom: '16px' }} gutterBottom variant="body2" component="div">
-              <b>Price</b>: <span css={{ color: '#d32f2f' }}>{IntlService.formatCurrency(state.variant.price)}</span>
+            <Typography
+              sx={{
+                marginBottom: '16px',
+                color: '#d32f2f',
+                fontWeight: 'bold',
+              }}
+              gutterBottom
+              variant="body2"
+              component="div"
+            >
+              {IntlService.formatCurrency(state.variant.price)}
             </Typography>
 
             <FormControl fullWidth size="small">
