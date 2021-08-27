@@ -2,7 +2,7 @@ import { useQuery, UseQueryOptions } from 'react-query';
 import { CART_QUERY, CART_ITEM_COUNT_QUERY } from '@app/constants/query.constant';
 import { ShopifyService, GetCartQueryVariables, AddCartItemsMutationVariables } from '@app/services/shopify.service';
 
-const CHECKOUT_ID = 'checkout-id';
+const CHECKOUT_ID = 'CHECKOUT_ID';
 
 export namespace CartService {
   type GetItInput = GetCartQueryVariables;
