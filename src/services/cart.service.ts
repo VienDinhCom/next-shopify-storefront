@@ -5,20 +5,19 @@ import { ShopifyService, GetCartQueryVariables, AddCartItemsMutationVariables } 
 const CHECKOUT_ID = 'checkout-id';
 
 export namespace CartService {
-  interface GetItInput {
-    variables: GetCartQueryVariables;
-  }
+  type GetItInput = GetCartQueryVariables;
 
   export function getIt(input: GetItInput) {
-    return ShopifyService.getCart(input.variables);
+    return ShopifyService.getCart(input);
   }
 
-  interface UseItInput extends GetItInput {
+  interface UseItInput {
+    input: GetItInput;
     options?: UseQueryOptions;
   }
 
   export function useIt(input: UseItInput) {
-    return useQuery([CART_QUERY, input], () => getIt(input), input.options);
+    return useQuery([CART_QUERY, input], () => getIt(input.input), input.options);
   }
 }
 
