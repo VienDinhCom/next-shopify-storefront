@@ -1,6 +1,8 @@
 import { useQuery, UseQueryOptions } from 'react-query';
 import { CART_QUERY, CART_ITEM_COUNT_QUERY } from '@app/constants/query.constant';
-import { ShopifyService, GetCartQueryVariables } from '@app/services/shopify.service';
+import { ShopifyService, GetCartQueryVariables, AddCartItemsMutationVariables } from '@app/services/shopify.service';
+
+const CHECKOUT_ID = 'checkout-id';
 
 export namespace CartService {
   interface GetItInput {
@@ -23,7 +25,7 @@ export namespace CartService {
 export namespace CartService {
   export async function getItemCount() {
     let count: number = 0;
-    const checkoutId = localStorage.getItem('checkout-id');
+    const checkoutId = localStorage.getItem(CHECKOUT_ID);
 
     if (checkoutId) {
       const { node } = await ShopifyService.getCartItemCount({ checkoutId });
@@ -47,4 +49,18 @@ export namespace CartService {
   }
 }
 
-export namespace CartService {}
+export namespace CartService {
+  type AddItemsInput = AddCartItemsMutationVariables['lineItems'];
+
+  export async function addItems(input: AddItemsInput) {
+    try {
+      const checkoutId = localStorage.getItem(CHECKOUT_ID)!;
+
+      return ShopifyService.addCartItems({ checkoutId, lineItems: input });
+    } catch (error) {
+      const { checkoutCreate } = await ShopifyService.createCart({ input: { lineItems: [input].flat() } });
+
+      localStorage.setItem(CHECKOUT_ID, checkoutCreate?.checkout?.id!)!;
+    }
+  }
+}

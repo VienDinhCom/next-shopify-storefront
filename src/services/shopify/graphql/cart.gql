@@ -26,15 +26,15 @@ query getCartItemCount($checkoutId: ID!) {
   }
 }
 
-mutation createEmptyCart {
-  checkoutCreate(input: {}) {
+mutation createCart($input: CheckoutCreateInput!) {
+  checkoutCreate(input: $input) {
     checkout {
       id
     }
   }
 }
 
-mutation addItemsCart($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
+mutation addCartItems($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
   checkoutLineItemsAdd(lineItems: $lineItems, checkoutId: $checkoutId) {
     checkout {
       id
