@@ -18,7 +18,9 @@ export namespace CartService {
   export function useIt(input: UseItInput) {
     return useQuery([CART_QUERY, input], () => getIt(input), input.options);
   }
+}
 
+export namespace CartService {
   export async function getItemCount() {
     let count: number = 0;
     const checkoutId = localStorage.getItem('checkout-id');
@@ -44,3 +46,5 @@ export namespace CartService {
     return useQuery([CART_ITEM_COUNT_QUERY, input], () => getItemCount(), input?.options);
   }
 }
+
+export namespace CartService {}
