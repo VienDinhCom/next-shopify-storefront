@@ -1,2 +1,6 @@
 export const SHOP_QUERY = 'SHOP_QUERY';
+
 export const PRODUCT_LIST_QUERY = 'PRODUCT_LIST_QUERY';
+
+export const CART_QUERY = 'CART_QUERY';
+export const CART_ITEM_COUNT_QUERY = 'CART_ITEM_COUNT_QUERY';

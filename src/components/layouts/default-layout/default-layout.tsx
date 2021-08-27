@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import CartIcon from '@material-ui/icons/ShoppingBasket';
+import { CartService } from '@app/services/cart.service';
 
 interface Props {
   children: ReactNode;
@@ -15,6 +16,7 @@ interface Props {
 
 const DefaultLayout: React.FC<Props> = ({ children }) => {
   const router = useRouter();
+  const cartItemCount = CartService.useItemCount();
 
   return (
     <div>
@@ -51,14 +53,14 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
               Products
             </Button>
             <IconButton
-              color="inherit"
+              color={cartItemCount.isFetching ? 'warning' : 'inherit'}
               href="/cart"
               onClick={(event) => {
                 event.preventDefault();
                 router.push('/cart');
               }}
             >
-              <Badge color="error" badgeContent={1}>
+              <Badge color="error" badgeContent={cartItemCount.data || 0}>
                 <CartIcon />
               </Badge>
             </IconButton>
