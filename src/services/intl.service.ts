@@ -1,13 +1,13 @@
 export namespace IntlService {
-  interface CurrencyFormatInput {
+  interface Price {
     amount: number;
     currencyCode: string;
     locales?: string | string[];
   }
 
-  export function formatPrice(input: CurrencyFormatInput) {
-    return new Intl.NumberFormat(input.locales, { style: 'currency', currency: input.currencyCode }).format(
-      input.amount
+  export function formatPrice(price: Price) {
+    return new Intl.NumberFormat(price.locales, { style: 'currency', currency: price.currencyCode }).format(
+      price.amount
     );
   }
 }
