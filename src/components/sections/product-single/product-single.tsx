@@ -21,36 +21,18 @@ import Alert from '@material-ui/core/Alert';
 import { CART_ITEM_COUNT_QUERY } from '@app/constants/query.constant';
 import { IntlService } from '@app/services/intl.service';
 import { CartService } from '@app/services/cart.service';
+import { ProductService } from '@app/services/product.service';
 
-interface Variant {
-  id: string;
-  title: string;
-  image?: string;
-  price: {
-    amount: number;
-    currencyCode: string;
-  };
-}
+type Props = ProductService.Single;
 
-export interface ProductSingleProps {
-  title: string;
-  description: string;
-  images: {
-    id: string;
-    src: string;
-    alt: string;
-  }[];
-  variants: Variant[];
-}
-
-interface ProductSingleState {
-  variant: Variant;
+interface State {
+  variant: ProductService.Single['variants'][0];
   quantity: number;
 }
 
-export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
+export const ProductSingle: React.FC<Props> = (props) => {
   const [swiper, setSwiper] = useState<Swiper>();
-  const [state, setState] = useImmer<ProductSingleState>({ variant: props.variants[0], quantity: 1 });
+  const [state, setState] = useImmer<State>({ variant: props.variants[0], quantity: 1 });
 
   const queryClient = useQueryClient();
   const addItems = useMutation(CartService.addItems, {

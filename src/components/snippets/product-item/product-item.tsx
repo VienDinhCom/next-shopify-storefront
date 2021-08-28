@@ -7,22 +7,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CardActionArea } from '@material-ui/core';
 import { IntlService } from '@app/services/intl.service';
+import { ProductService } from '@app/services/product.service';
 
-export interface ProductItemProps {
-  handle: string;
-  title: string;
-  description: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  price: {
-    amount: number;
-    currencyCode: string;
-  };
-}
+type Props = ProductService.ListItem;
 
-export const ProductItem: React.FC<ProductItemProps> = (props) => {
+export const ProductItem: React.FC<Props> = (props) => {
   const router = useRouter();
   const url = `/products/${props.handle}`;
 
