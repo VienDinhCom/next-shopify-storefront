@@ -76,7 +76,7 @@ export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
                 {title(props.title)}
               </Typography>
 
-              <Typography sx={{ marginBottom: '16px' }} variant="body2" color="text.secondary">
+              <Typography sx={{ marginBottom: '15px' }} variant="body2" color="text.secondary">
                 {truncate(props.description, { length: 120 })}
               </Typography>
 
