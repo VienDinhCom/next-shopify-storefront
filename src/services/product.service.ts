@@ -21,7 +21,7 @@ export namespace ProductService {
     }[];
   }
 
-  export async function getSingle(handle: string) {
+  export async function getSingle(handle: string): Promise<Single> {
     const { productByHandle } = await ShopifyService.getProductSingle({ handle });
     const { title, description, images, variants } = productByHandle!;
 
@@ -73,7 +73,7 @@ export namespace ProductService {
     pageInfo: GetProductListQuery['products']['pageInfo'];
   }
 
-  export async function getList(variables?: GetProductListQueryVariables) {
+  export async function getList(variables?: GetProductListQueryVariables): Promise<List> {
     const {
       products: { edges, pageInfo },
     } = await ShopifyService.getProductList(variables);

@@ -1,13 +1,12 @@
 import { ShopifyService, GetCartQueryVariables, AddCartItemsMutationVariables } from '@app/services/shopify.service';
 
+const CHECKOUT_ID = 'CHECKOUT_ID';
 export namespace CartService {
-  const CHECKOUT_ID = 'CHECKOUT_ID';
-
   export function get(input: GetCartQueryVariables) {
     return ShopifyService.getCart(input);
   }
 
-  export async function getItemCount() {
+  export async function getItemCount(): Promise<number> {
     let count: number = 0;
     const checkoutId = localStorage.getItem(CHECKOUT_ID);
 
@@ -24,7 +23,7 @@ export namespace CartService {
     return count;
   }
 
-  export async function addItems(lineItems: AddCartItemsMutationVariables['lineItems']) {
+  export async function addItems(lineItems: AddCartItemsMutationVariables['lineItems']): Promise<void> {
     try {
       const checkoutId = localStorage.getItem(CHECKOUT_ID)!;
       await ShopifyService.addCartItems({ checkoutId, lineItems });

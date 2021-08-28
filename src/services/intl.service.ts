@@ -5,7 +5,7 @@ export namespace IntlService {
     locales?: string | string[];
   }
 
-  export function formatPrice(price: Price) {
+  export function formatPrice(price: Price): string {
     return new Intl.NumberFormat(price.locales, { style: 'currency', currency: price.currencyCode }).format(
       price.amount
     );
