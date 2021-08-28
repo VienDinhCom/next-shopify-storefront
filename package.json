@@ -27,7 +27,7 @@
     "graphql-tag": "^2.12.5",
     "immer": "^9.0.5",
     "lodash": "^4.17.21",
-    "next": "11.0.1",
+    "next": "^11.1.0",
     "nextjs-progressbar": "^0.0.11",
     "react": "17.0.2",
     "react-dom": "17.0.2",
