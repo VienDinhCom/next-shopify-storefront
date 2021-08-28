@@ -1,11 +1,6 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { styled } from '@material-ui/system';
+import { Button } from '@material-ui/core';
 import { UseInfiniteQueryResult } from 'react-query';
-
-const Wrapper = styled('div')(({ theme }) => ({
-  textAlign: 'center',
-}));
 
 export type PageLoaderProps = Pick<
   UseInfiniteQueryResult,
@@ -14,7 +9,7 @@ export type PageLoaderProps = Pick<
 
 export const PageLoader: React.FC<PageLoaderProps> = (props) => {
   return (
-    <Wrapper>
+    <div css={{ textAlign: 'center' }}>
       {(() => {
         if (props.isFetchingNextPage) {
           return <Button color="warning">Loading...</Button>;
@@ -34,6 +29,6 @@ export const PageLoader: React.FC<PageLoaderProps> = (props) => {
 
         return <Button disabled>Nothing more to load</Button>;
       })()}
-    </Wrapper>
+    </div>
   );
 };

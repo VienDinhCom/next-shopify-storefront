@@ -1,11 +1,8 @@
 import React from 'react';
 import title from 'title';
 import { useRouter } from 'next/router';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import { CardActionArea } from '@material-ui/core';
+import { Card, CardContent, CardMedia, Typography, CardActionArea } from '@material-ui/core';
+
 import { IntlService } from '@app/services/intl.service';
 import { ProductService } from '@app/services/product.service';
 

@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import title from 'title';
 import Image from 'next/image';
+import { useImmer } from 'use-immer';
 import truncate from 'lodash/truncate';
 import { useQueryClient, useMutation } from 'react-query';
-import { useImmer } from 'use-immer';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { Swiper } from 'swiper';
 import { Swiper as SwiperSlider, SwiperSlide } from 'swiper/react';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import LoadingButton from '@material-ui/lab/LoadingButton';
-import Alert from '@material-ui/core/Alert';
+import { LoadingButton } from '@material-ui/lab';
+import {
+  Card,
+  CardContent,
+  Grid,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Typography,
+  TextField,
+  Alert,
+} from '@material-ui/core';
 
 import { CART_ITEM_COUNT_QUERY } from '@app/constants/query.constant';
 import { IntlService } from '@app/services/intl.service';
@@ -31,7 +33,7 @@ interface State {
 }
 
 export const ProductSingle: React.FC<Props> = (props) => {
-  const [swiper, setSwiper] = useState<Swiper>();
+  const [swiper, setSwiper] = React.useState<Swiper>();
   const [state, setState] = useImmer<State>({ variant: props.variants[0], quantity: 1 });
 
   const queryClient = useQueryClient();

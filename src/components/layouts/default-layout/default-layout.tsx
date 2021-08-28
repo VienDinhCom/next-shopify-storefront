@@ -1,22 +1,14 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
-
-import Link from '@material-ui/core/Link';
-import Badge from '@material-ui/core/Badge';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
-import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
-import CartIcon from '@material-ui/icons/ShoppingBasket';
+import { ShoppingBasket } from '@material-ui/icons';
+import { Link, Badge, AppBar, Button, Toolbar, Container, IconButton } from '@material-ui/core';
 
 import { CartService } from '@app/services/cart.service';
-
 import { CART_ITEM_COUNT_QUERY } from '@app/constants/query.constant';
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const DefaultLayout: React.FC<Props> = ({ children }) => {
@@ -66,7 +58,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
               }}
             >
               <Badge color="error" badgeContent={itemCount.data || 0}>
-                <CartIcon />
+                <ShoppingBasket />
               </Badge>
             </IconButton>
           </Toolbar>
