@@ -1,48 +1,34 @@
-# Next Shopify Storefront
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-A real-world Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ... and Material UI.
+## Getting Started
 
-> I'm Building Version 2 at https://github.com/maxvien/next-shopify-storefront/tree/v2
+First, run the development server:
 
-## Experience
-
-* Using [React Hooks](https://reactjs.org/docs/hooks-intro.html) instead of React.Component to create stateful components.
-* Using [Redux Starter Kit](https://github.com/reduxjs/redux-starter-kit) to do more work with less code.
-* Making [Redux](https://github.com/reduxjs/redux) working with [NextJS](https://nextjs.org/) with [withRedux.tsx](https://github.com/Maxvien/next-shopify-storefront/blob/master/hocs/withRedux.tsx) higher order component.
-* Using `react-redux` [hooks](https://react-redux.js.org/api/hooks) instead of `react-redux` [connect](https://react-redux.js.org/api/connect) to read and update the store's state.
-* Using TypeScript static types for Component Props, Reducers, Actions & Services.
-* Using [GraphQL Code Generator](https://graphql-code-generator.com/) to generate models for TypeScript.
-* Working with GraphQL tags faster with [Apollo GraphQL for VS Code](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo) extension.
-* Making [Apollo Client](https://www.apollographql.com/docs/react/essentials/get-started/) working with NextJS including server side and client side.
-* Working with [Shopify Storefront GraphQL API](https://help.shopify.com/en/api/storefront-api/getting-started).
-* Making [Material UI](https://material-ui.com/) working with [NextJS](https://nextjs.org/) with [withMui.tsx](https://github.com/Maxvien/next-shopify-storefront/blob/master/hocs/withMui.tsx) higher order component.
-* Configuring [Eslint](https://eslint.org/) & [Prettier](https://prettier.io/) to lint and format the source code.
-* Deploying NodeJS applications on [Heroku](https://heroku.com/).
-
-If you love the project, hit the **STAR** button to bookmark it ⭐️
-
-## Demo
-You can visit here to see the demo: [https://next-shopify-storefront.herokuapp.com/](https://next-shopify-storefront.herokuapp.com/)
-
-## Usage
-
-Install dependencies
-```
-npm install
-```
-
-For development
-```
+```bash
 npm run dev
+# or
+yarn dev
 ```
 
-For production
-```
-npm run build
-npm start
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Related Projects
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-* **[Bootstrap Shopify Theme](https://github.com/Maxvien/bootstrap-shopify-theme)** • A free Shopify Theme built with Bootstrap, BEM, Theme Tools, Swiper, Gulp, Parcel, Liquid, SASS, PostCSS, ESNext, ... and Passion.
-* **[Shopify Data Faker](https://github.com/Maxvien/shopify-data-faker)** • A Shopify development tool for generating dummy store data.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

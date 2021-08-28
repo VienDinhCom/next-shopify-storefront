@@ -1,11 +1,6 @@
 {
   "editor.tabSize": 2,
-  "editor.formatOnSave": false,
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+  "prettier.enable": true,
+  "editor.formatOnSave": true,
+  "emmet.triggerExpansionOnTab": true
 }

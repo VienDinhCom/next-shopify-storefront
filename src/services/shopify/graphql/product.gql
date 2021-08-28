@@ -1,0 +1,62 @@
+query getProductList($after: String) {
+  products(first: 12, after: $after) {
+    edges {
+      node {
+        id
+        handle
+        title
+        description(truncateAt: 120)
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 1) {
+          edges {
+            node {
+              id
+              altText
+              transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
+            }
+          }
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}
+
+query getProductSingle($handle: String!) {
+  productByHandle(handle: $handle) {
+    title
+    description
+    images(first: 250) {
+      edges {
+        node {
+          id
+          altText
+          transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
+        }
+      }
+    }
+    variants(first: 250) {
+      edges {
+        node {
+          id
+          title
+          priceV2 {
+            amount
+            currencyCode
+          }
+          image {
+            id
+          }
+        }
+      }
+    }
+  }
+}

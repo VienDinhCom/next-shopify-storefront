@@ -1,0 +1,44 @@
+query getCart($checkoutId: ID!) {
+  node(id: $checkoutId) {
+    ... on Checkout {
+      lineItems(first: 250) {
+        edges {
+          node {
+            quantity
+          }
+        }
+      }
+    }
+  }
+}
+
+query getCartItemCount($checkoutId: ID!) {
+  node(id: $checkoutId) {
+    ... on Checkout {
+      __typename
+      lineItems(first: 250) {
+        edges {
+          node {
+            quantity
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation createCart($input: CheckoutCreateInput!) {
+  checkoutCreate(input: $input) {
+    checkout {
+      id
+    }
+  }
+}
+
+mutation addCartItems($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
+  checkoutLineItemsAdd(lineItems: $lineItems, checkoutId: $checkoutId) {
+    checkout {
+      id
+    }
+  }
+}

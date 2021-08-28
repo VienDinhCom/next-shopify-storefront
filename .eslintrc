@@ -1,20 +1,3 @@
 {
-  "extends": [
-    "typescript",
-    "typescript/react",
-    "typescript/prettier",
-    "typescript/prettier-react"
-  ],
-  "rules": {
-    "@typescript-eslint/explicit-function-return-type": "off"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "env": {
-    "browser": true,
-    "node": true
-  }
+  "extends": ["next", "next/core-web-vitals"]
 }
