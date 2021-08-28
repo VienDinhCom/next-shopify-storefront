@@ -58,7 +58,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
               Products
             </Button>
             <IconButton
-              color={itemCount.isFetching ? 'warning' : 'inherit'}
+              color="inherit"
               href="/cart"
               onClick={(event) => {
                 event.preventDefault();
