@@ -36,12 +36,8 @@ export namespace ProductService {
     );
   }
 
-  interface GetSingleInput {
-    variables: GetProductSingleQueryVariables;
-  }
-
-  export function getSingle(input: GetSingleInput) {
-    return ShopifyService.getProductSingle(input.variables);
+  export function getSingle(handle: GetProductSingleQueryVariables['handle']) {
+    return ShopifyService.getProductSingle({ handle });
   }
 }
 

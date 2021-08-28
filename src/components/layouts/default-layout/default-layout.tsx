@@ -1,14 +1,19 @@
-import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
+import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
+
+import Link from '@material-ui/core/Link';
 import Badge from '@material-ui/core/Badge';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
 import CartIcon from '@material-ui/icons/ShoppingBasket';
+
 import { CartService } from '@app/services/cart.service';
+
+import { CART_ITEM_COUNT_QUERY } from '@app/constants/query.constant';
 
 interface Props {
   children: ReactNode;
@@ -16,7 +21,7 @@ interface Props {
 
 const DefaultLayout: React.FC<Props> = ({ children }) => {
   const router = useRouter();
-  const cartItemCount = CartService.useItemCount();
+  const itemCount = useQuery(CART_ITEM_COUNT_QUERY, CartService.getItemCount);
 
   return (
     <div>
@@ -53,14 +58,14 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
               Products
             </Button>
             <IconButton
-              color={cartItemCount.isFetching ? 'warning' : 'inherit'}
+              color={itemCount.isFetching ? 'warning' : 'inherit'}
               href="/cart"
               onClick={(event) => {
                 event.preventDefault();
                 router.push('/cart');
               }}
             >
-              <Badge color="error" badgeContent={cartItemCount.data || 0}>
+              <Badge color="error" badgeContent={itemCount.data || 0}>
                 <CartIcon />
               </Badge>
             </IconButton>

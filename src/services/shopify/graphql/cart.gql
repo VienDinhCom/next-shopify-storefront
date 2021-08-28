@@ -15,6 +15,7 @@ query getCart($checkoutId: ID!) {
 query getCartItemCount($checkoutId: ID!) {
   node(id: $checkoutId) {
     ... on Checkout {
+      __typename
       lineItems(first: 250) {
         edges {
           node {

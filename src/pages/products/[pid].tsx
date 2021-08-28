@@ -10,9 +10,7 @@ interface Props {
 Page.getInitialProps = async ({ query }: NextPageContext): Promise<Props> => {
   const handle = query.pid as string;
 
-  const data = await ProductService.getSingle({
-    variables: { handle },
-  });
+  const data = await ProductService.getSingle(handle);
 
   return { data };
 };
