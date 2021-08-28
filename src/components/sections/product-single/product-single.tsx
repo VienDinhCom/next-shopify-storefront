@@ -115,7 +115,7 @@ export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
                 >
                   {props.variants.map((variant) => (
                     <MenuItem key={variant.id} value={variant.id}>
-                      {variant.title} - {IntlService.formatCurrency(variant.price)}
+                      {variant.title} - {IntlService.formatPrice(variant.price)}
                     </MenuItem>
                   ))}
                 </Select>

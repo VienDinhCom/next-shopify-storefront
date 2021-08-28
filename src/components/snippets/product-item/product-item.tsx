@@ -42,7 +42,7 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
             {title(props.title)}
           </Typography>
           <Typography sx={{ color: '#d32f2f' }} gutterBottom variant="body2" component="div">
-            {IntlService.formatCurrency(props.price)}
+            {IntlService.formatPrice(props.price)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {props.description}
