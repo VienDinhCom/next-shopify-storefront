@@ -90,7 +90,7 @@ export const ProductSingle: React.FC<ProductSingleProps> = (props) => {
                 variant="h6"
                 component="div"
               >
-                {IntlService.formatCurrency(state.variant.price)}
+                {IntlService.formatPrice(state.variant.price)}
               </Typography>
 
               <FormControl fullWidth size="small" sx={{ marginBottom: '20px' }}>
