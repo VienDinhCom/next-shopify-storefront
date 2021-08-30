@@ -11,6 +11,9 @@ module.exports = {
       schema,
       documents,
       plugins: ['typescript', 'typescript-operations', 'typescript-graphql-request'],
+      config: {
+        scalars: { DateTime: 'string', Decimal: 'number', HTML: 'string', Money: 'number', URL: 'string' },
+      },
     },
   },
 };
