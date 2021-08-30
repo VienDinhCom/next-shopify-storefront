@@ -25,16 +25,18 @@ import { IntlService } from '@app/services/intl.service';
 import { CartService } from '@app/services/cart.service';
 import { ProductService } from '@app/services/product.service';
 
-type Props = ProductService.Single;
+interface Props {
+  product: ProductService.Single;
+}
 
 interface State {
   variant: ProductService.Single['variants'][0];
   quantity: number;
 }
 
-export const ProductSingle: React.FC<Props> = (props) => {
+export const ProductSingle: React.FC<Props> = ({ product }) => {
   const [swiper, setSwiper] = React.useState<Swiper>();
-  const [state, setState] = useImmer<State>({ variant: props.variants[0], quantity: 1 });
+  const [state, setState] = useImmer<State>({ variant: product.variants[0], quantity: 1 });
 
   const queryClient = useQueryClient();
   const addItems = useMutation(CartService.addItems, {
@@ -47,7 +49,7 @@ export const ProductSingle: React.FC<Props> = (props) => {
         <Grid container>
           <Grid item xs={12} sm={5}>
             <SwiperSlider onSwiper={setSwiper}>
-              {props.images.map(({ id, src, alt }) => (
+              {product.images.map(({ id, src, alt }) => (
                 <SwiperSlide key={id}>
                   <Image src={src} alt={alt} width="768" height="1024" layout="responsive" />
                 </SwiperSlide>
@@ -57,11 +59,11 @@ export const ProductSingle: React.FC<Props> = (props) => {
           <Grid item xs={12} sm={7}>
             <div css={{ padding: '20px' }}>
               <Typography sx={{ marginBottom: '20px' }} gutterBottom variant="h5" component="h1">
-                {title(props.title)}
+                {title(product.title)}
               </Typography>
 
               <Typography sx={{ marginBottom: '15px' }} variant="body2" color="text.secondary">
-                {truncate(props.description, { length: 120 })}
+                {truncate(product.description, { length: 120 })}
               </Typography>
 
               <Typography
@@ -85,8 +87,8 @@ export const ProductSingle: React.FC<Props> = (props) => {
                   disabled={addItems.isLoading}
                   value={state.variant.id}
                   onChange={(event) => {
-                    const variant = props.variants.find(({ id }) => id === event.target.value);
-                    const slideIndex = props.images.findIndex((image) => image.id === variant?.image);
+                    const variant = product.variants.find(({ id }) => id === event.target.value);
+                    const slideIndex = product.images.findIndex((image) => image.id === variant?.image);
 
                     if (slideIndex !== -1) {
                       swiper?.slideTo(slideIndex);
@@ -97,7 +99,7 @@ export const ProductSingle: React.FC<Props> = (props) => {
                     });
                   }}
                 >
-                  {props.variants.map((variant) => (
+                  {product.variants.map((variant) => (
                     <MenuItem key={variant.id} value={variant.id}>
                       {variant.title} - {IntlService.formatPrice(variant.price)}
                     </MenuItem>
@@ -158,7 +160,7 @@ export const ProductSingle: React.FC<Props> = (props) => {
             Description
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {props.description}
+            {product.description}
           </Typography>
         </CardContent>
       </Card>

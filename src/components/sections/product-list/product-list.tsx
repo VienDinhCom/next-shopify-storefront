@@ -10,17 +10,17 @@ export interface Props {
   pagination: Pick<UseInfiniteQueryResult, 'fetchNextPage' | 'hasNextPage' | 'isFetchingNextPage' | 'error'>;
 }
 
-export const ProductList: React.FC<Props> = (props) => {
+export const ProductList: React.FC<Props> = ({ products, pagination }) => {
   return (
     <div>
       <Grid container spacing={3} sx={{ marginBottom: '20px' }}>
-        {props.products.map((props) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={props.id}>
-            <ProductItem {...props} />
+        {products.map((product) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+            <ProductItem product={product} />
           </Grid>
         ))}
       </Grid>
-      <PageLoader {...props.pagination} />
+      <PageLoader {...pagination} />
     </div>
   );
 };

@@ -6,11 +6,13 @@ import { Card, CardContent, CardMedia, Typography, CardActionArea } from '@mater
 import { IntlService } from '@app/services/intl.service';
 import { ProductService } from '@app/services/product.service';
 
-type Props = ProductService.ListItem;
+interface Props {
+  product: ProductService.ListItem;
+}
 
-export const ProductItem: React.FC<Props> = (props) => {
+export const ProductItem: React.FC<Props> = ({ product }) => {
   const router = useRouter();
-  const url = `/products/${props.handle}`;
+  const url = `/products/${product.handle}`;
 
   return (
     <Card sx={{ height: '100%' }}>
@@ -22,16 +24,16 @@ export const ProductItem: React.FC<Props> = (props) => {
         }}
         sx={{ display: 'block', height: '100%' }}
       >
-        <CardMedia height={500} image={props.image.src} alt={props.image.alt} component="img" />
+        <CardMedia height={500} image={product.image.src} alt={product.image.alt} component="img" />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h3">
-            {title(props.title)}
+            {title(product.title)}
           </Typography>
           <Typography sx={{ color: '#d32f2f' }} gutterBottom variant="body2" component="div">
-            {IntlService.formatPrice(props.price)}
+            {IntlService.formatPrice(product.price)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {props.description}
+            {product.description}
           </Typography>
         </CardContent>
       </CardActionArea>

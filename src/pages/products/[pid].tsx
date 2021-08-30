@@ -17,7 +17,7 @@ Page.getInitialProps = async ({ query }: NextPageContext): Promise<Props> => {
 export default function Page({ product }: Props) {
   return (
     <DefaultLayout>
-      <ProductSingle {...product} />
+      <ProductSingle product={product} />
     </DefaultLayout>
   );
 }

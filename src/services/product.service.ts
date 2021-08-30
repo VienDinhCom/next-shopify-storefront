@@ -1,5 +1,5 @@
 import { Merge } from 'type-fest';
-import { ShopifyService, GetProductListQuery, GetProductListQueryVariables } from './shopify.service';
+import { ShopifyService, GetProductListQuery, GetProductListQueryVariables, CurrencyCode } from './shopify.service';
 
 export namespace ProductService {
   export interface Single {
@@ -16,7 +16,7 @@ export namespace ProductService {
       image?: string;
       price: {
         amount: number;
-        currencyCode: string;
+        currencyCode: CurrencyCode;
       };
     }[];
   }
@@ -42,7 +42,7 @@ export namespace ProductService {
           image: node.image?.id!,
           price: {
             amount: node.priceV2.amount,
-            currencyCode: node.priceV2.currencyCode as string,
+            currencyCode: node.priceV2.currencyCode,
           },
         };
 
@@ -64,7 +64,7 @@ export namespace ProductService {
     };
     price: {
       amount: number;
-      currencyCode: string;
+      currencyCode: CurrencyCode;
     };
   }
 
