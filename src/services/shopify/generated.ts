@@ -5063,7 +5063,7 @@ export type GetCartQueryVariables = Exact<{
 }>;
 
 
-export type GetCartQuery = { __typename?: 'QueryRoot', node?: Maybe<{ __typename?: 'AppliedGiftCard' } | { __typename?: 'Article' } | { __typename?: 'Blog' } | { __typename?: 'Checkout', lineItems: { __typename?: 'CheckoutLineItemConnection', edges: Array<{ __typename?: 'CheckoutLineItemEdge', node: { __typename?: 'CheckoutLineItem', quantity: number } }> } } | { __typename?: 'CheckoutLineItem' } | { __typename?: 'Collection' } | { __typename?: 'Comment' } | { __typename?: 'ExternalVideo' } | { __typename?: 'MailingAddress' } | { __typename?: 'MediaImage' } | { __typename?: 'Metafield' } | { __typename?: 'Model3d' } | { __typename?: 'Order' } | { __typename?: 'Page' } | { __typename?: 'Payment' } | { __typename?: 'Product' } | { __typename?: 'ProductOption' } | { __typename?: 'ProductVariant' } | { __typename?: 'ShopPolicy' } | { __typename?: 'Video' }> };
+export type GetCartQuery = { __typename?: 'QueryRoot', node?: Maybe<{ __typename?: 'AppliedGiftCard' } | { __typename?: 'Article' } | { __typename?: 'Blog' } | { __typename: 'Checkout', webUrl: any, subtotalPriceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalTaxV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, totalPriceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, lineItems: { __typename?: 'CheckoutLineItemConnection', edges: Array<{ __typename?: 'CheckoutLineItemEdge', node: { __typename?: 'CheckoutLineItem', id: string, title: string, quantity: number, variant?: Maybe<{ __typename?: 'ProductVariant', id: string, title: string, image?: Maybe<{ __typename?: 'Image', altText?: Maybe<string>, transformedSrc: any }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } }> } }> } } | { __typename?: 'CheckoutLineItem' } | { __typename?: 'Collection' } | { __typename?: 'Comment' } | { __typename?: 'ExternalVideo' } | { __typename?: 'MailingAddress' } | { __typename?: 'MediaImage' } | { __typename?: 'Metafield' } | { __typename?: 'Model3d' } | { __typename?: 'Order' } | { __typename?: 'Page' } | { __typename?: 'Payment' } | { __typename?: 'Product' } | { __typename?: 'ProductOption' } | { __typename?: 'ProductVariant' } | { __typename?: 'ShopPolicy' } | { __typename?: 'Video' }> };
 
 export type GetCartItemCountQueryVariables = Exact<{
   checkoutId: Scalars['ID'];
@@ -5111,9 +5111,42 @@ export const GetCartDocument = gql`
     query getCart($checkoutId: ID!) {
   node(id: $checkoutId) {
     ... on Checkout {
+      __typename
+      webUrl
+      subtotalPriceV2 {
+        amount
+        currencyCode
+      }
+      totalTaxV2 {
+        amount
+        currencyCode
+      }
+      totalPriceV2 {
+        amount
+        currencyCode
+      }
       lineItems(first: 250) {
         edges {
           node {
+            id
+            title
+            variant {
+              id
+              title
+              image {
+                altText
+                transformedSrc(
+                  maxWidth: 300
+                  maxHeight: 400
+                  crop: CENTER
+                  preferredContentType: JPG
+                )
+              }
+              priceV2 {
+                amount
+                currencyCode
+              }
+            }
             quantity
           }
         }

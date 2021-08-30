@@ -1,9 +1,37 @@
 query getCart($checkoutId: ID!) {
   node(id: $checkoutId) {
     ... on Checkout {
+      __typename
+      webUrl
+      subtotalPriceV2 {
+        amount
+        currencyCode
+      }
+      totalTaxV2 {
+        amount
+        currencyCode
+      }
+      totalPriceV2 {
+        amount
+        currencyCode
+      }
       lineItems(first: 250) {
         edges {
           node {
+            id
+            title
+            variant {
+              id
+              title
+              image {
+                altText
+                transformedSrc(maxWidth: 300, maxHeight: 400, crop: CENTER, preferredContentType: JPG)
+              }
+              priceV2 {
+                amount
+                currencyCode
+              }
+            }
             quantity
           }
         }

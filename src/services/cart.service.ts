@@ -1,14 +1,62 @@
-import { ShopifyService, GetCartQueryVariables, AddCartItemsMutationVariables } from '@app/services/shopify.service';
+import nookies from 'nookies';
+import { NextPageContext } from 'next';
+import { ShopifyService, AddCartItemsMutationVariables, CurrencyCode } from '@app/services/shopify.service';
 
 const CHECKOUT_ID = 'CHECKOUT_ID';
 export namespace CartService {
-  export function get(input: GetCartQueryVariables) {
-    return ShopifyService.getCart(input);
+  export interface CartItem {
+    id: string;
+    title: string;
+    quantity: number;
+    image: {
+      src: string;
+      alt: string;
+    };
+    price: {
+      amount: number;
+      currencyCode: CurrencyCode;
+    };
   }
 
-  export async function getItemCount(): Promise<number> {
+  export type Cart = {
+    items: CartItem[];
+  };
+
+  export async function getCart(context?: NextPageContext): Promise<Cart | undefined> {
+    const checkoutId = nookies.get(context, CHECKOUT_ID).CHECKOUT_ID;
+
+    if (checkoutId) {
+      const { node } = await ShopifyService.getCart({ checkoutId });
+
+      if (node?.__typename === 'Checkout') {
+        const items: CartItem[] = node.lineItems.edges.map(({ node }) => {
+          const item: CartItem = {
+            id: node.id,
+            title: node.title,
+            quantity: node.quantity,
+            image: {
+              src: node.variant?.image?.transformedSrc,
+              alt: node.variant?.image?.altText || '',
+            },
+            price: {
+              amount: node.variant?.priceV2.amount,
+              currencyCode: node.variant?.priceV2.currencyCode!,
+            },
+          };
+
+          return item;
+        });
+
+        return {
+          items,
+        };
+      }
+    }
+  }
+
+  export async function getItemCount(context?: NextPageContext): Promise<number> {
     let count: number = 0;
-    const checkoutId = localStorage.getItem(CHECKOUT_ID);
+    const checkoutId = nookies.get(context, CHECKOUT_ID).CHECKOUT_ID;
 
     if (checkoutId) {
       const { node } = await ShopifyService.getCartItemCount({ checkoutId });
@@ -23,13 +71,16 @@ export namespace CartService {
     return count;
   }
 
-  export async function addItems(lineItems: AddCartItemsMutationVariables['lineItems']): Promise<void> {
+  export async function addItems(
+    lineItems: AddCartItemsMutationVariables['lineItems'],
+    context?: NextPageContext
+  ): Promise<void> {
     try {
-      const checkoutId = localStorage.getItem(CHECKOUT_ID)!;
+      const checkoutId = nookies.get(context, CHECKOUT_ID).CHECKOUT_ID;
       await ShopifyService.addCartItems({ checkoutId, lineItems });
     } catch (error) {
       const { checkoutCreate } = await ShopifyService.createCart({ input: { lineItems: [lineItems].flat() } });
-      localStorage.setItem(CHECKOUT_ID, checkoutCreate?.checkout?.id!)!;
+      nookies.set(context, CHECKOUT_ID, checkoutCreate?.checkout?.id!, { maxAge: 30 * 24 * 60 * 60 });
     }
   }
 }
