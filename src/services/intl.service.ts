@@ -1,13 +1,15 @@
+import { CurrencyCode } from '@app/services/shopify.service';
 export namespace IntlService {
   interface Price {
     amount: number;
-    currencyCode: string;
+    currencyCode: CurrencyCode;
     locales?: string | string[];
   }
 
-  export function formatPrice(price: Price): string {
-    return new Intl.NumberFormat(price.locales, { style: 'currency', currency: price.currencyCode }).format(
-      price.amount
-    );
+  export function formatPrice({ amount, currencyCode, locales }: Price): string {
+    return new Intl.NumberFormat(locales, {
+      style: 'currency',
+      currency: currencyCode,
+    }).format(amount);
   }
 }
