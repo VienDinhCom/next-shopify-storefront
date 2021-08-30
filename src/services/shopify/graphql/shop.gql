@@ -1,5 +1,0 @@
-query getShop {
-  shop {
-    name
-  }
-}

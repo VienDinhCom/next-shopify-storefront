@@ -5101,11 +5101,6 @@ export type GetProductSingleQueryVariables = Exact<{
 
 export type GetProductSingleQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', title: string, description: string, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: any } }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string> }> } }> } }> };
 
-export type GetShopQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetShopQuery = { __typename?: 'QueryRoot', shop: { __typename?: 'Shop', name: string } };
-
 
 export const GetCartDocument = gql`
     query getCart($checkoutId: ID!) {
@@ -5264,13 +5259,6 @@ export const GetProductSingleDocument = gql`
   }
 }
     `;
-export const GetShopDocument = gql`
-    query getShop {
-  shop {
-    name
-  }
-}
-    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
@@ -5296,9 +5284,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getProductSingle(variables: GetProductSingleQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductSingleQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductSingleQuery>(GetProductSingleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductSingle');
-    },
-    getShop(variables?: GetShopQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetShopQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetShopQuery>(GetShopDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getShop');
     }
   };
 }

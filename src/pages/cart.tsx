@@ -14,5 +14,5 @@ Page.getInitialProps = async (context: NextPageContext): Promise<Props> => {
 };
 
 export default function Page({ cart }: Props) {
-  return <DefaultLayout>{cart && <Cart cart={cart}></Cart>}</DefaultLayout>;
+  return <DefaultLayout>{cart && <Cart cart={cart} />}</DefaultLayout>;
 }

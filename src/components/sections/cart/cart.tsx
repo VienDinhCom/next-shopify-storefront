@@ -16,8 +16,6 @@ interface Props {
 interface State {}
 
 export const Cart: React.FC<Props> = ({ cart }) => {
-  console.log(cart.items);
-
   return (
     <TableContainer component={Card}>
       <Table>
