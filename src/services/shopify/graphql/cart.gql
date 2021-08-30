@@ -20,19 +20,18 @@ query getCart($checkoutId: ID!) {
           node {
             id
             title
+            quantity
             variant {
-              id
               title
-              image {
-                altText
-                transformedSrc(maxWidth: 300, maxHeight: 400, crop: CENTER, preferredContentType: JPG)
-              }
               priceV2 {
                 amount
                 currencyCode
               }
+              image {
+                altText
+                transformedSrc(maxWidth: 300, maxHeight: 400, crop: CENTER, preferredContentType: JPG)
+              }
             }
-            quantity
           }
         }
       }

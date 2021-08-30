@@ -8,13 +8,16 @@ export namespace CartService {
     id: string;
     title: string;
     quantity: number;
-    image: {
-      src: string;
-      alt: string;
-    };
-    price: {
-      amount: number;
-      currencyCode: CurrencyCode;
+    variant: {
+      title: string;
+      price: {
+        amount: number;
+        currencyCode: CurrencyCode;
+      };
+      image: {
+        src: string;
+        alt: string;
+      };
     };
   }
 
@@ -34,13 +37,16 @@ export namespace CartService {
             id: node.id,
             title: node.title,
             quantity: node.quantity,
-            image: {
-              src: node.variant?.image?.transformedSrc,
-              alt: node.variant?.image?.altText || '',
-            },
-            price: {
-              amount: node.variant?.priceV2.amount,
-              currencyCode: node.variant?.priceV2.currencyCode!,
+            variant: {
+              title: node.variant?.title!,
+              price: {
+                amount: Number(node.variant?.priceV2?.amount),
+                currencyCode: node.variant?.priceV2?.currencyCode!,
+              },
+              image: {
+                src: node.variant?.image?.transformedSrc!,
+                alt: node.variant?.image?.altText || '',
+              },
             },
           };
 

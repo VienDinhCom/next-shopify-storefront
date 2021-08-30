@@ -41,7 +41,7 @@ export namespace ProductService {
           title: node.title,
           image: node.image?.id!,
           price: {
-            amount: node.priceV2.amount,
+            amount: Number(node.priceV2.amount),
             currencyCode: node.priceV2.currencyCode,
           },
         };
@@ -90,7 +90,7 @@ export namespace ProductService {
           alt: node.images.edges[0].node.altText || '',
         },
         price: {
-          amount: node.priceRange.minVariantPrice.amount,
+          amount: Number(node.priceRange.minVariantPrice.amount),
           currencyCode: node.priceRange.minVariantPrice.currencyCode,
         },
       };
