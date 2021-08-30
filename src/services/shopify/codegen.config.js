@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const path = require('path');
 
 const schema = path.join(__dirname, 'schema.gql');
@@ -12,7 +13,13 @@ module.exports = {
       documents,
       plugins: ['typescript', 'typescript-operations', 'typescript-graphql-request'],
       config: {
-        scalars: { DateTime: 'string', Decimal: 'number', HTML: 'string', Money: 'number', URL: 'string' },
+        scalars: {
+          DateTime: 'string',
+          Decimal: 'string',
+          HTML: 'string',
+          Money: 'string',
+          URL: 'string',
+        },
       },
     },
   },
