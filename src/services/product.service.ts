@@ -55,7 +55,7 @@ export namespace ProductService {
 
   export interface ListItem {
     id: string;
-    handle: string;
+    url: string;
     title: string;
     description: string;
     image: {
@@ -82,7 +82,7 @@ export namespace ProductService {
       return {
         id: node.id,
         cursor: cursor,
-        handle: node.handle,
+        url: `/products/${node.handle}`,
         title: node.title,
         description: node.description,
         image: {

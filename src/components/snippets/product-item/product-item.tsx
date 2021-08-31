@@ -12,15 +12,14 @@ interface Props {
 
 export const ProductItem: React.FC<Props> = ({ product }) => {
   const router = useRouter();
-  const url = `/products/${product.handle}`;
 
   return (
     <Card sx={{ height: '100%' }}>
       <CardActionArea
-        href={url}
+        href={product.url}
         onClick={(event) => {
           event.preventDefault();
-          router.push(url);
+          router.push(product.url);
         }}
         sx={{ display: 'block', height: '100%' }}
       >
