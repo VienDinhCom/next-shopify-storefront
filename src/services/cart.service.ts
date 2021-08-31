@@ -1,6 +1,11 @@
 import nookies from 'nookies';
 import { NextPageContext } from 'next';
-import { ShopifyService, CheckoutLineItemInput, CheckoutLineItemUpdateInput, CurrencyCode } from '@app/services/shopify.service';
+import {
+  ShopifyService,
+  CheckoutLineItemInput,
+  CheckoutLineItemUpdateInput,
+  CurrencyCode,
+} from '@app/services/shopify.service';
 
 const CHECKOUT_ID = 'CHECKOUT_ID';
 export namespace CartService {
@@ -25,6 +30,19 @@ export namespace CartService {
 
   export type Cart = {
     items: CartItem[];
+    subtotal: {
+      amount: number;
+      currencyCode: CurrencyCode;
+    };
+    tax: {
+      amount: number;
+      currencyCode: CurrencyCode;
+    };
+    total: {
+      amount: number;
+      currencyCode: CurrencyCode;
+    };
+    url: string;
   };
 
   export async function getCart(context?: NextPageContext): Promise<Cart | undefined> {
@@ -59,6 +77,19 @@ export namespace CartService {
 
         return {
           items,
+          url: node.webUrl,
+          subtotal: {
+            amount: Number(node.subtotalPriceV2.amount),
+            currencyCode: node.subtotalPriceV2.currencyCode,
+          },
+          tax: {
+            amount: Number(node.totalTaxV2.amount),
+            currencyCode: node.totalTaxV2.currencyCode,
+          },
+          total: {
+            amount: Number(node.totalPriceV2.amount),
+            currencyCode: node.totalPriceV2.currencyCode,
+          },
         };
       }
     }
@@ -81,10 +112,7 @@ export namespace CartService {
     return count;
   }
 
-  export async function addItem(
-    lineItem: CheckoutLineItemInput,
-    context?: NextPageContext
-  ): Promise<void> {
+  export async function addItem(lineItem: CheckoutLineItemInput, context?: NextPageContext): Promise<void> {
     try {
       const checkoutId = nookies.get(context, CHECKOUT_ID).CHECKOUT_ID;
       await ShopifyService.addCartItem({ checkoutId, lineItem });
@@ -94,10 +122,7 @@ export namespace CartService {
     }
   }
 
-  export async function updateItem(
-    lineItem: CheckoutLineItemUpdateInput,
-    context?: NextPageContext
-  ): Promise<void> {
+  export async function updateItem(lineItem: CheckoutLineItemUpdateInput, context?: NextPageContext): Promise<void> {
     const checkoutId = nookies.get(context, CHECKOUT_ID).CHECKOUT_ID;
     await ShopifyService.updateCartItem({ checkoutId, lineItem });
   }

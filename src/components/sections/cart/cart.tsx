@@ -1,49 +1,54 @@
 import React from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Card from '@material-ui/core/Card';
+import { Card, TableContainer, Typography, Table, TableBody, TableRow, TableCell, Button } from '@material-ui/core';
+
+import { CartList } from '@app/components/snippets/cart-list';
+
 import { CartService } from '@app/services/cart.service';
-import { CartItem } from '@app/components/snippets/cart-item';
+import { IntlService } from '@app/services/intl.service';
 
 interface Props {
   cart: CartService.Cart;
 }
 
-interface State {}
-
 export const Cart: React.FC<Props> = ({ cart }) => {
   return (
-    <TableContainer component={Card}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ fontWeight: 'bold' }}>Image</TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }} align="center">
-              Quantity
-            </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }} align="center">
-              Unit Price
-            </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }} align="center">
-              Total Price
-            </TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }} align="right">
-              Remove
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {cart.items.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))}
-        </TableBody>
-      </Table>
-      <br />
-    </TableContainer>
+    <section>
+      <Typography sx={{ marginBottom: '20px' }} gutterBottom variant="h5" component="h1">
+        Cart
+      </Typography>
+      <TableContainer sx={{ marginBottom: '20px' }} component={Card}>
+        <CartList items={cart.items}></CartList>
+      </TableContainer>
+      <TableContainer component={Card}>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell
+                sx={{ whiteSpace: 'nowrap', display: { xs: 'none', sm: 'table-cell' } }}
+                align="right"
+                width="100%"
+              >
+                Subtotal is <span css={{ color: '#d32f2f' }}>{IntlService.formatPrice(cart.subtotal)}</span>
+              </TableCell>
+              <TableCell
+                sx={{ whiteSpace: 'nowrap', display: { xs: 'none', sm: 'table-cell' } }}
+                align="right"
+                width="100%"
+              >
+                Tax is <span css={{ color: '#d32f2f' }}>{IntlService.formatPrice(cart.tax)}</span>
+              </TableCell>
+              <TableCell sx={{ whiteSpace: 'nowrap', fontWeight: 'bold' }} align="right" width="100%">
+                Total is <span css={{ color: '#d32f2f' }}>{IntlService.formatPrice(cart.total)}</span>
+              </TableCell>
+              <TableCell align="right">
+                <Button href={cart.url} target="_blank" variant="contained">
+                  Checkout
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </section>
   );
 };

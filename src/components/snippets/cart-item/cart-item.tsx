@@ -5,12 +5,8 @@ import { useImmer } from 'use-immer';
 import { useDebounce } from 'react-use';
 import { useQueryClient, useMutation } from 'react-query';
 
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
-
+import { Delete } from '@material-ui/icons';
+import { TableCell, TableRow, IconButton, TextField } from '@material-ui/core';
 import { TextLink } from '@app/components/snippets/text-link';
 
 import { CART_ITEM_COUNT_QUERY, CART_QUERY } from '@app/constants/query.constant';
@@ -57,9 +53,11 @@ export const CartItem: React.FC<Props> = ({ item }) => {
     () => {
       updateQuantity.mutateAsync(state.quantity);
     },
-    1000,
+    2000,
     [state.quantity]
   );
+
+  const disabled = updateQuantity.isLoading || remove.isLoading;
 
   return (
     <TableRow key={item.id}>
@@ -69,7 +67,7 @@ export const CartItem: React.FC<Props> = ({ item }) => {
         </TextLink>
       </TableCell>
       <TableCell component="th" scope="row">
-        <TextLink href={item.variant.url}>
+        <TextLink href={item.variant.url} sx={{ whiteSpace: 'nowrap' }}>
           {title(item.title)} ({item.variant.title})
         </TextLink>
       </TableCell>
@@ -78,6 +76,7 @@ export const CartItem: React.FC<Props> = ({ item }) => {
           sx={{ width: '80px' }}
           type="number"
           size="small"
+          disabled={disabled}
           value={state.quantity}
           onChange={(event) => {
             setState((draft) => {
@@ -94,8 +93,8 @@ export const CartItem: React.FC<Props> = ({ item }) => {
         })}
       </TableCell>
       <TableCell align="right">
-        <IconButton onClick={() => remove.mutateAsync(item.id)}>
-          <DeleteIcon />
+        <IconButton disabled={disabled} onClick={() => remove.mutateAsync(item.id)}>
+          <Delete />
         </IconButton>
       </TableCell>
     </TableRow>
