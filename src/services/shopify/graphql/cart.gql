@@ -22,6 +22,7 @@ query getCart($checkoutId: ID!) {
             title
             quantity
             variant {
+              id
               title
               product {
                 handle
@@ -65,8 +66,24 @@ mutation createCart($input: CheckoutCreateInput!) {
   }
 }
 
-mutation addCartItems($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
-  checkoutLineItemsAdd(lineItems: $lineItems, checkoutId: $checkoutId) {
+mutation addCartItem($checkoutId: ID!, $lineItem: CheckoutLineItemInput!) {
+  checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: [$lineItem]) {
+    checkout {
+      id
+    }
+  }
+}
+
+mutation updateCartItem($checkoutId: ID!, $lineItem: CheckoutLineItemUpdateInput!) {
+  checkoutLineItemsUpdate(checkoutId: $checkoutId, lineItems: [$lineItem]) {
+    checkout {
+      id
+    }
+  }
+}
+
+mutation removeCartItem($checkoutId: ID!, $lineItemId: ID!) {
+  checkoutLineItemsRemove(checkoutId: $checkoutId, lineItemIds: [$lineItemId]) {
     checkout {
       id
     }

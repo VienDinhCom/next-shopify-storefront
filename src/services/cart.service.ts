@@ -1,6 +1,6 @@
 import nookies from 'nookies';
 import { NextPageContext } from 'next';
-import { ShopifyService, AddCartItemsMutationVariables, CurrencyCode } from '@app/services/shopify.service';
+import { ShopifyService, CheckoutLineItemInput, CheckoutLineItemUpdateInput, CurrencyCode } from '@app/services/shopify.service';
 
 const CHECKOUT_ID = 'CHECKOUT_ID';
 export namespace CartService {
@@ -9,6 +9,7 @@ export namespace CartService {
     title: string;
     quantity: number;
     variant: {
+      id: string;
       title: string;
       url: string;
       price: {
@@ -39,6 +40,7 @@ export namespace CartService {
             title: node.title,
             quantity: node.quantity,
             variant: {
+              id: node.variant?.id!,
               title: node.variant?.title!,
               url: `/products/${node.variant?.product.handle}`,
               price: {
@@ -79,16 +81,29 @@ export namespace CartService {
     return count;
   }
 
-  export async function addItems(
-    lineItems: AddCartItemsMutationVariables['lineItems'],
+  export async function addItem(
+    lineItem: CheckoutLineItemInput,
     context?: NextPageContext
   ): Promise<void> {
     try {
       const checkoutId = nookies.get(context, CHECKOUT_ID).CHECKOUT_ID;
-      await ShopifyService.addCartItems({ checkoutId, lineItems });
+      await ShopifyService.addCartItem({ checkoutId, lineItem });
     } catch (error) {
-      const { checkoutCreate } = await ShopifyService.createCart({ input: { lineItems: [lineItems].flat() } });
+      const { checkoutCreate } = await ShopifyService.createCart({ input: { lineItems: [lineItem] } });
       nookies.set(context, CHECKOUT_ID, checkoutCreate?.checkout?.id!, { maxAge: 30 * 24 * 60 * 60 });
     }
+  }
+
+  export async function updateItem(
+    lineItem: CheckoutLineItemUpdateInput,
+    context?: NextPageContext
+  ): Promise<void> {
+    const checkoutId = nookies.get(context, CHECKOUT_ID).CHECKOUT_ID;
+    await ShopifyService.updateCartItem({ checkoutId, lineItem });
+  }
+
+  export async function removeItem(lineItemId: string, context?: NextPageContext): Promise<void> {
+    const checkoutId = nookies.get(context, CHECKOUT_ID).CHECKOUT_ID;
+    await ShopifyService.removeCartItem({ checkoutId, lineItemId });
   }
 }

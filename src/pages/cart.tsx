@@ -1,18 +1,18 @@
-import { NextPageContext } from 'next';
+import { useQuery } from 'react-query';
 import { Cart } from '@app/components/sections/cart';
 import { DefaultLayout } from '@app/components/layouts/default-layout';
 import { CartService } from '@app/services/cart.service';
+import { CART_QUERY } from '@app/constants/query.constant';
 
-interface Props {
-  cart?: CartService.Cart;
-}
+export default function Page() {
+  const cart = useQuery(CART_QUERY, () => {
+    return CartService.getCart();
+  });
 
-Page.getInitialProps = async (context: NextPageContext): Promise<Props> => {
-  const cart = await CartService.getCart(context);
-
-  return { cart };
-};
-
-export default function Page({ cart }: Props) {
-  return <DefaultLayout>{cart && <Cart cart={cart} />}</DefaultLayout>;
+  return (
+    <DefaultLayout>
+      {cart.isFetching && <p>Loadding...</p>}
+      {cart.data && <Cart cart={cart.data} />}
+    </DefaultLayout>
+  );
 }

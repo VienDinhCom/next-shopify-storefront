@@ -5063,7 +5063,7 @@ export type GetCartQueryVariables = Exact<{
 }>;
 
 
-export type GetCartQuery = { __typename?: 'QueryRoot', node?: Maybe<{ __typename?: 'AppliedGiftCard' } | { __typename?: 'Article' } | { __typename?: 'Blog' } | { __typename: 'Checkout', webUrl: string, subtotalPriceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, totalTaxV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, totalPriceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, lineItems: { __typename?: 'CheckoutLineItemConnection', edges: Array<{ __typename?: 'CheckoutLineItemEdge', node: { __typename?: 'CheckoutLineItem', id: string, title: string, quantity: number, variant?: Maybe<{ __typename?: 'ProductVariant', title: string, product: { __typename?: 'Product', handle: string }, priceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', altText?: Maybe<string>, transformedSrc: string }> }> } }> } } | { __typename?: 'CheckoutLineItem' } | { __typename?: 'Collection' } | { __typename?: 'Comment' } | { __typename?: 'ExternalVideo' } | { __typename?: 'MailingAddress' } | { __typename?: 'MediaImage' } | { __typename?: 'Metafield' } | { __typename?: 'Model3d' } | { __typename?: 'Order' } | { __typename?: 'Page' } | { __typename?: 'Payment' } | { __typename?: 'Product' } | { __typename?: 'ProductOption' } | { __typename?: 'ProductVariant' } | { __typename?: 'ShopPolicy' } | { __typename?: 'Video' }> };
+export type GetCartQuery = { __typename?: 'QueryRoot', node?: Maybe<{ __typename?: 'AppliedGiftCard' } | { __typename?: 'Article' } | { __typename?: 'Blog' } | { __typename: 'Checkout', webUrl: string, subtotalPriceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, totalTaxV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, totalPriceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, lineItems: { __typename?: 'CheckoutLineItemConnection', edges: Array<{ __typename?: 'CheckoutLineItemEdge', node: { __typename?: 'CheckoutLineItem', id: string, title: string, quantity: number, variant?: Maybe<{ __typename?: 'ProductVariant', id: string, title: string, product: { __typename?: 'Product', handle: string }, priceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', altText?: Maybe<string>, transformedSrc: string }> }> } }> } } | { __typename?: 'CheckoutLineItem' } | { __typename?: 'Collection' } | { __typename?: 'Comment' } | { __typename?: 'ExternalVideo' } | { __typename?: 'MailingAddress' } | { __typename?: 'MediaImage' } | { __typename?: 'Metafield' } | { __typename?: 'Model3d' } | { __typename?: 'Order' } | { __typename?: 'Page' } | { __typename?: 'Payment' } | { __typename?: 'Product' } | { __typename?: 'ProductOption' } | { __typename?: 'ProductVariant' } | { __typename?: 'ShopPolicy' } | { __typename?: 'Video' }> };
 
 export type GetCartItemCountQueryVariables = Exact<{
   checkoutId: Scalars['ID'];
@@ -5079,13 +5079,29 @@ export type CreateCartMutationVariables = Exact<{
 
 export type CreateCartMutation = { __typename?: 'Mutation', checkoutCreate?: Maybe<{ __typename?: 'CheckoutCreatePayload', checkout?: Maybe<{ __typename?: 'Checkout', id: string }> }> };
 
-export type AddCartItemsMutationVariables = Exact<{
+export type AddCartItemMutationVariables = Exact<{
   checkoutId: Scalars['ID'];
-  lineItems: Array<CheckoutLineItemInput> | CheckoutLineItemInput;
+  lineItem: CheckoutLineItemInput;
 }>;
 
 
-export type AddCartItemsMutation = { __typename?: 'Mutation', checkoutLineItemsAdd?: Maybe<{ __typename?: 'CheckoutLineItemsAddPayload', checkout?: Maybe<{ __typename?: 'Checkout', id: string }> }> };
+export type AddCartItemMutation = { __typename?: 'Mutation', checkoutLineItemsAdd?: Maybe<{ __typename?: 'CheckoutLineItemsAddPayload', checkout?: Maybe<{ __typename?: 'Checkout', id: string }> }> };
+
+export type UpdateCartItemMutationVariables = Exact<{
+  checkoutId: Scalars['ID'];
+  lineItem: CheckoutLineItemUpdateInput;
+}>;
+
+
+export type UpdateCartItemMutation = { __typename?: 'Mutation', checkoutLineItemsUpdate?: Maybe<{ __typename?: 'CheckoutLineItemsUpdatePayload', checkout?: Maybe<{ __typename?: 'Checkout', id: string }> }> };
+
+export type RemoveCartItemMutationVariables = Exact<{
+  checkoutId: Scalars['ID'];
+  lineItemId: Scalars['ID'];
+}>;
+
+
+export type RemoveCartItemMutation = { __typename?: 'Mutation', checkoutLineItemsRemove?: Maybe<{ __typename?: 'CheckoutLineItemsRemovePayload', checkout?: Maybe<{ __typename?: 'Checkout', id: string }> }> };
 
 export type GetProductListQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
@@ -5127,6 +5143,7 @@ export const GetCartDocument = gql`
             title
             quantity
             variant {
+              id
               title
               product {
                 handle
@@ -5177,9 +5194,27 @@ export const CreateCartDocument = gql`
   }
 }
     `;
-export const AddCartItemsDocument = gql`
-    mutation addCartItems($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
-  checkoutLineItemsAdd(lineItems: $lineItems, checkoutId: $checkoutId) {
+export const AddCartItemDocument = gql`
+    mutation addCartItem($checkoutId: ID!, $lineItem: CheckoutLineItemInput!) {
+  checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: [$lineItem]) {
+    checkout {
+      id
+    }
+  }
+}
+    `;
+export const UpdateCartItemDocument = gql`
+    mutation updateCartItem($checkoutId: ID!, $lineItem: CheckoutLineItemUpdateInput!) {
+  checkoutLineItemsUpdate(checkoutId: $checkoutId, lineItems: [$lineItem]) {
+    checkout {
+      id
+    }
+  }
+}
+    `;
+export const RemoveCartItemDocument = gql`
+    mutation removeCartItem($checkoutId: ID!, $lineItemId: ID!) {
+  checkoutLineItemsRemove(checkoutId: $checkoutId, lineItemIds: [$lineItemId]) {
     checkout {
       id
     }
@@ -5278,8 +5313,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     createCart(variables: CreateCartMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateCartMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateCartMutation>(CreateCartDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createCart');
     },
-    addCartItems(variables: AddCartItemsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AddCartItemsMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<AddCartItemsMutation>(AddCartItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'addCartItems');
+    addCartItem(variables: AddCartItemMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AddCartItemMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AddCartItemMutation>(AddCartItemDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'addCartItem');
+    },
+    updateCartItem(variables: UpdateCartItemMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateCartItemMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateCartItemMutation>(UpdateCartItemDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateCartItem');
+    },
+    removeCartItem(variables: RemoveCartItemMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RemoveCartItemMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<RemoveCartItemMutation>(RemoveCartItemDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'removeCartItem');
     },
     getProductList(variables?: GetProductListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductListQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductListQuery>(GetProductListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductList');
