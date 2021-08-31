@@ -39,7 +39,7 @@ export const ProductSingle: React.FC<Props> = ({ product }) => {
   const [state, setState] = useImmer<State>({ variant: product.variants[0], quantity: 1 });
 
   const queryClient = useQueryClient();
-  const addItems = useMutation(CartService.addItems, {
+  const addItem = useMutation(CartService.addItem, {
     onSuccess: () => queryClient.invalidateQueries(CART_ITEM_COUNT_QUERY),
   });
 
@@ -84,7 +84,7 @@ export const ProductSingle: React.FC<Props> = ({ product }) => {
                 <Select
                   label="Variants"
                   labelId="product-variants-label"
-                  disabled={addItems.isLoading}
+                  disabled={addItem.isLoading}
                   value={state.variant.id}
                   onChange={(event) => {
                     const variant = product.variants.find(({ id }) => id === event.target.value);
@@ -113,7 +113,7 @@ export const ProductSingle: React.FC<Props> = ({ product }) => {
                 type="number"
                 size="small"
                 fullWidth
-                disabled={addItems.isLoading}
+                disabled={addItem.isLoading}
                 value={state.quantity}
                 InputLabelProps={{
                   shrink: true,
@@ -125,7 +125,7 @@ export const ProductSingle: React.FC<Props> = ({ product }) => {
                 }}
               />
 
-              {addItems.isError && (
+              {addItem.isError && (
                 <Alert sx={{ marginBottom: '20px' }} severity="error">
                   Could not add product items into your cart. Please try again!
                 </Alert>
@@ -136,9 +136,9 @@ export const ProductSingle: React.FC<Props> = ({ product }) => {
                 variant="contained"
                 size="large"
                 fullWidth
-                loading={addItems.isLoading}
+                loading={addItem.isLoading}
                 onClick={async () => {
-                  await addItems.mutateAsync({
+                  await addItem.mutateAsync({
                     variantId: state.variant.id,
                     quantity: state.quantity,
                   });
