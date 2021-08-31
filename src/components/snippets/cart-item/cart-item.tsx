@@ -57,7 +57,7 @@ export const CartItem: React.FC<Props> = ({ item }) => {
     () => {
       updateQuantity.mutateAsync(state.quantity);
     },
-    2000,
+    1000,
     [state.quantity]
   );
 
@@ -73,11 +73,11 @@ export const CartItem: React.FC<Props> = ({ item }) => {
           {title(item.title)} ({item.variant.title})
         </TextLink>
       </TableCell>
-      <TableCell align="right">
+      <TableCell align="center">
         <TextField
+          sx={{ width: '80px' }}
           type="number"
           size="small"
-          inputProps={{ min: 1 }}
           value={state.quantity}
           onChange={(event) => {
             setState((draft) => {
@@ -86,8 +86,8 @@ export const CartItem: React.FC<Props> = ({ item }) => {
           }}
         />
       </TableCell>
-      <TableCell align="right">{IntlService.formatPrice(item.variant.price)}</TableCell>
-      <TableCell align="right">
+      <TableCell align="center">{IntlService.formatPrice(item.variant.price)}</TableCell>
+      <TableCell align="center">
         {IntlService.formatPrice({
           amount: item.variant.price.amount * item.quantity,
           currencyCode: item.variant.price.currencyCode,

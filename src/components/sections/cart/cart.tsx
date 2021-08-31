@@ -23,13 +23,13 @@ export const Cart: React.FC<Props> = ({ cart }) => {
           <TableRow>
             <TableCell sx={{ fontWeight: 'bold' }}>Image</TableCell>
             <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }} align="right">
+            <TableCell sx={{ fontWeight: 'bold' }} align="center">
               Quantity
             </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }} align="right">
+            <TableCell sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }} align="center">
               Unit Price
             </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }} align="right">
+            <TableCell sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }} align="center">
               Total Price
             </TableCell>
             <TableCell sx={{ fontWeight: 'bold' }} align="right">
