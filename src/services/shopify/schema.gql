@@ -73,7 +73,7 @@ type AppliedGiftCard implements Node {
   """The amount left on the gift card."""
   balanceV2: MoneyV2!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The last characters of the gift card."""
@@ -135,7 +135,7 @@ type Article implements Node {
   """
   handle: String!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The image associated with the article."""
@@ -346,7 +346,7 @@ type Blog implements Node {
   """
   handle: String!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The blogs’s title."""
@@ -468,7 +468,7 @@ type Checkout implements Node {
   """The email attached to this checkout."""
   email: String
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """
@@ -1072,7 +1072,7 @@ type CheckoutLineItem implements Node {
   """
   discountAllocations: [DiscountAllocation!]!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The quantity of the line item."""
@@ -1257,7 +1257,7 @@ type Collection implements Node {
   """
   handle: String!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """Image associated with the collection."""
@@ -1364,7 +1364,7 @@ type Comment implements Node {
   """The content of the comment, complete with HTML formatting."""
   contentHtml: HTML!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 }
 
@@ -3306,7 +3306,7 @@ type ExternalVideo implements Node & Media {
   """The URL."""
   embeddedUrl: URL!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The media content type."""
@@ -3561,7 +3561,7 @@ type MailingAddress implements Node {
   """A comma-separated list of the values for city, province, and country."""
   formattedArea: String
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The last name of the customer."""
@@ -3737,7 +3737,7 @@ type MediaImage implements Node & Media {
   """A word or phrase to share the nature or contents of a media."""
   alt: String
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The image for the media."""
@@ -3761,7 +3761,7 @@ type Metafield implements Node {
   """The description of a metafield."""
   description: String
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The key name for a metafield."""
@@ -3823,7 +3823,7 @@ type Model3d implements Node & Media {
   """A word or phrase to share the nature or contents of a media."""
   alt: String
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The media content type."""
@@ -4297,7 +4297,7 @@ type Mutation {
 
 """An object with an ID to support global identification."""
 interface Node {
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 }
 
@@ -4369,7 +4369,7 @@ type Order implements Node {
   """The fulfillment status for the order."""
   fulfillmentStatus: OrderFulfillmentStatus!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """List of the order’s line items."""
@@ -4646,7 +4646,7 @@ type Page implements Node {
   """
   handle: String!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The title of the page."""
@@ -4729,7 +4729,7 @@ type Payment implements Node {
   """
   errorMessage: String
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """
@@ -4857,7 +4857,7 @@ type Product implements Node & HasMetafields {
   """
   handle: String!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """List of images associated with the product."""
@@ -5123,7 +5123,7 @@ Variants are selected based on permutations of these options.
 255 characters limit each.
 """
 type ProductOption implements Node {
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The product option’s name."""
@@ -5223,7 +5223,7 @@ type ProductVariant implements Node & HasMetafields {
   """
   currentlyNotInStock: Boolean!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """
@@ -5981,7 +5981,7 @@ type ShopPolicy implements Node {
   """Policy’s handle."""
   handle: String!
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """Policy’s title."""
@@ -6259,7 +6259,7 @@ type Video implements Node & Media {
   """A word or phrase to share the nature or contents of a media."""
   alt: String
 
-  """Globally unique identifier."""
+  """A globally-unique identifier."""
   id: ID!
 
   """The media content type."""

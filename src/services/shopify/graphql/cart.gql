@@ -23,6 +23,9 @@ query getCart($checkoutId: ID!) {
             quantity
             variant {
               title
+              product {
+                handle
+              }
               priceV2 {
                 amount
                 currencyCode

@@ -10,6 +10,7 @@ export namespace CartService {
     quantity: number;
     variant: {
       title: string;
+      url: string;
       price: {
         amount: number;
         currencyCode: CurrencyCode;
@@ -39,6 +40,7 @@ export namespace CartService {
             quantity: node.quantity,
             variant: {
               title: node.variant?.title!,
+              url: `/products/${node.variant?.product.handle}`,
               price: {
                 amount: Number(node.variant?.priceV2?.amount),
                 currencyCode: node.variant?.priceV2?.currencyCode!,
