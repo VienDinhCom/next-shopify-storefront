@@ -56,7 +56,7 @@ Run the project in development mode.
 yarn dev
 ```
 
-## Start
+## Build
 
 Build the project in production mode.
 
@@ -64,7 +64,7 @@ Build the project in production mode.
 yarn build
 ```
 
-## Build
+## Start
 
 Start the project in production mode.
 
