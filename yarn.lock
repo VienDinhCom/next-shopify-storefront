@@ -3493,9 +3493,9 @@ ecdsa-sig-formatter@1.0.11:
     safe-buffer "^5.0.1"
 
 electron-to-chromium@^1.3.723, electron-to-chromium@^1.3.811:
-  version "1.3.825"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.825.tgz#5d361eeaaf591bb2ce06cfeff86354b429d662b8"
-  integrity sha512-BO3FfWVeH8GQ0DBbi4HCL09OPgvN+0goqWlgKOCmCXcnrlgL5GA69nb7ZyjpWgpFUacBftg8BrXU2WLOSuHAxQ==
+  version "1.3.826"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.826.tgz#dbe356b1546b39d83bcd47e675a9c5f61dadaed2"
+  integrity sha512-bpLc4QU4B8PYmdO4MSu2ZBTMD8lAaEXRS43C09lB31BvYwuk9UxgBRXbY5OJBw7VuMGcg2MZG5FyTaP9u4PQnw==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
