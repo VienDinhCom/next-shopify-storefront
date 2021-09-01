@@ -1,6 +1,6 @@
 import React from 'react';
+import NextLink from 'next/link';
 import NProgress from 'nprogress';
-import { useRouter } from 'next/router';
 import { ShoppingBasket } from '@material-ui/icons';
 import { useQuery, UseBaseQueryResult } from 'react-query';
 import { Link, Badge, AppBar, Button, Toolbar, Container, IconButton, Alert } from '@material-ui/core';
@@ -14,7 +14,6 @@ interface Props {
 }
 
 const DefaultLayout: React.FC<Props> = ({ query, children }) => {
-  const router = useRouter();
   const itemCount = useQuery(CART_ITEM_COUNT_QUERY, () => CartService.getItemCount());
 
   React.useEffect(() => {
@@ -30,47 +29,34 @@ const DefaultLayout: React.FC<Props> = ({ query, children }) => {
       <AppBar position="fixed">
         <Container>
           <Toolbar sx={{ padding: '0px !important' }}>
-            <Link
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{
-                flexGrow: 1,
-                display: 'block',
-                color: '#fff',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-              href="/"
-              onClick={(event) => {
-                event.preventDefault();
-                router.push('/');
-              }}
-            >
-              Next Shopify Storefront
-            </Link>
-            <Button
-              color="inherit"
-              href="/products"
-              onClick={(event) => {
-                event.preventDefault();
-                router.push('/products');
-              }}
-            >
-              Products
-            </Button>
-            <IconButton
-              color="inherit"
-              href="/cart"
-              onClick={(event) => {
-                event.preventDefault();
-                router.push('/cart');
-              }}
-            >
-              <Badge color="error" badgeContent={itemCount.data}>
-                <ShoppingBasket />
-              </Badge>
-            </IconButton>
+            <NextLink href="/" passHref>
+              <Link
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{
+                  flexGrow: 1,
+                  display: 'block',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                Next Shopify Storefront
+              </Link>
+            </NextLink>
+
+            <NextLink href="/products" passHref>
+              <Button color="inherit">Products</Button>
+            </NextLink>
+
+            <NextLink href="/cart" passHref>
+              <IconButton color="inherit">
+                <Badge color="error" badgeContent={itemCount.data}>
+                  <ShoppingBasket />
+                </Badge>
+              </IconButton>
+            </NextLink>
           </Toolbar>
         </Container>
       </AppBar>
