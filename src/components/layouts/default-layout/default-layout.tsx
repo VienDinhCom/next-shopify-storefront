@@ -1,19 +1,30 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, UseBaseQueryResult } from 'react-query';
 import { useRouter } from 'next/router';
 import { ShoppingBasket } from '@material-ui/icons';
-import { Link, Badge, AppBar, Button, Toolbar, Container, IconButton } from '@material-ui/core';
+import {
+  Link,
+  Badge,
+  AppBar,
+  Button,
+  Toolbar,
+  Container,
+  IconButton,
+  Alert,
+  CircularProgress,
+} from '@material-ui/core';
 
 import { CartService } from '@app/services/cart.service';
 import { CART_ITEM_COUNT_QUERY } from '@app/constants/query.constant';
 
 interface Props {
+  query?: UseBaseQueryResult;
   children: React.ReactNode;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children }) => {
+const DefaultLayout: React.FC<Props> = ({ query, children }) => {
   const router = useRouter();
-  const itemCount = useQuery(CART_ITEM_COUNT_QUERY, CartService.getItemCount);
+  const itemCount = useQuery(CART_ITEM_COUNT_QUERY, () => CartService.getItemCount());
 
   return (
     <div>
@@ -57,7 +68,7 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
                 router.push('/cart');
               }}
             >
-              <Badge color="error" badgeContent={itemCount.data || 0}>
+              <Badge color="error" badgeContent={itemCount.data}>
                 <ShoppingBasket />
               </Badge>
             </IconButton>
@@ -65,7 +76,35 @@ const DefaultLayout: React.FC<Props> = ({ children }) => {
         </Container>
       </AppBar>
       <Toolbar />
-      <Container sx={{ padding: '20px 0 30px 0' }}>{children}</Container>
+      <Container sx={{ padding: { xs: '20px 12px 30px 12px', sm: '20px 24px 30px 24px' } }}>
+        {(() => {
+          if (query?.isError) {
+            return (
+              <Alert
+                variant="filled"
+                severity="error"
+                action={
+                  <Button color="inherit" size="small" onClick={() => query?.refetch()}>
+                    Refetch
+                  </Button>
+                }
+              >
+                Could not load the page!
+              </Alert>
+            );
+          }
+
+          if (query?.isFetching) {
+            return (
+              <div css={{ textAlign: 'center' }}>
+                <CircularProgress size={20} />
+              </div>
+            );
+          }
+
+          return children;
+        })()}
+      </Container>
     </div>
   );
 };

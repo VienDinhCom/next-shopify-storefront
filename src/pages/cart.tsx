@@ -10,9 +10,8 @@ export default function Page() {
   });
 
   return (
-    <DefaultLayout>
-      {cart.isFetching && <p>Loadding...</p>}
-      {cart.data && <Cart cart={cart.data} />}
+    <DefaultLayout query={cart}>
+      <Cart cart={cart.data!} />
     </DefaultLayout>
   );
 }

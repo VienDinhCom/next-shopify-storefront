@@ -25,15 +25,17 @@ export const CartItem: React.FC<Props> = ({ item }) => {
   const queryClient = useQueryClient();
   const [state, setState] = useImmer<State>({ quantity: item.quantity });
 
+  function refetchCart() {
+    queryClient.invalidateQueries(CART_QUERY);
+    queryClient.invalidateQueries(CART_ITEM_COUNT_QUERY);
+  }
+
   const updateQuantity = useMutation(
     (quantity: number) => {
       return CartService.updateItem({ id: item.id, quantity });
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries(CART_QUERY);
-        queryClient.invalidateQueries(CART_ITEM_COUNT_QUERY);
-      },
+      onSuccess: refetchCart,
       onError: () => {
         setState((draft) => {
           draft.quantity = item.quantity;
@@ -43,18 +45,17 @@ export const CartItem: React.FC<Props> = ({ item }) => {
   );
 
   const remove = useMutation(CartService.removeItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(CART_QUERY);
-      queryClient.invalidateQueries(CART_ITEM_COUNT_QUERY);
-    },
+    onSuccess: refetchCart,
   });
 
   useDebounce(
     () => {
-      updateQuantity.mutateAsync(state.quantity);
+      if (item.quantity !== state.quantity) {
+        updateQuantity.mutateAsync(state.quantity);
+      }
     },
     2000,
-    [state.quantity]
+    [state.quantity, item.quantity]
   );
 
   const disabled = updateQuantity.isLoading || remove.isLoading;
