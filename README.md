@@ -50,7 +50,7 @@ You can follow the [Shopify Storefront GraphQL API](https://shopify.dev/api/stor
 
 ### Develop
 
-Run the project in development mode.
+Develop the project in development mode.
 
 ```bash
 yarn dev
