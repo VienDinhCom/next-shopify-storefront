@@ -46,6 +46,7 @@
     "@graphql-codegen/typescript-graphql-request": "^4.1.2",
     "@graphql-codegen/typescript-operations": "^2.1.2",
     "@types/lodash": "^4.14.172",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.19",
     "@types/title": "^3.4.1",
     "apollo": "^2.33.6",
