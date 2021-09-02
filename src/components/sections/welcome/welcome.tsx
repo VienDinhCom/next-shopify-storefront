@@ -15,8 +15,8 @@ export const Welcome: React.FC = () => {
           variant="body2"
           component="p"
         >
-          A <b>Shopping Cart</b> built with <b>TypeScript</b>, <b>Next.js</b>, <b>React.js</b>, <b>React Query</b>,{' '}
-          <b>Shopify Storefront GraphQL API</b>, ... and <b>Material UI</b>.
+          A <b>Shopping Cart</b> built with <b>TypeScript</b>, <b>Emotion</b>, <b>Next.js</b>, <b>React.js</b>,{' '}
+          <b>React Query</b>, <b>Shopify Storefront GraphQL API</b>, ... and <b>Material UI</b>.
         </Typography>
 
         <div css={{ marginBottom: '20px' }}>

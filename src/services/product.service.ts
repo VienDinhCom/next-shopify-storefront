@@ -1,10 +1,15 @@
 import { Merge } from 'type-fest';
+import truncate from 'lodash/truncate';
 import { ShopifyService, GetProductListQuery, GetProductListQueryVariables, CurrencyCode } from './shopify.service';
 
 export namespace ProductService {
   export interface Single {
     title: string;
     description: string;
+    seo: {
+      title: string;
+      description: string;
+    }
     images: {
       id: string;
       src: string;
@@ -23,11 +28,15 @@ export namespace ProductService {
 
   export async function getSingle(handle: string): Promise<Single> {
     const { productByHandle } = await ShopifyService.getProductSingle({ handle });
-    const { title, description, images, variants } = productByHandle!;
+    const { title, description, seo, images, variants } = productByHandle!;
 
     const product: Single = {
       title,
       description,
+      seo: {
+        title: seo.title || title,
+        description: seo.description || truncate(description, { length: 256 })
+      },
       images: images.edges.map(({ node }) => {
         return {
           id: node.id as string,

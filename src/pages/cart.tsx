@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo';
 import { useQuery } from 'react-query';
 import { Cart } from '@app/components/sections/cart';
 import { DefaultLayout } from '@app/components/layouts/default-layout';
@@ -11,6 +12,7 @@ export default function Page() {
 
   return (
     <DefaultLayout query={cart}>
+      <NextSeo title="Cart" description="Your Shopping Cart" />
       <Cart cart={cart.data!} />
     </DefaultLayout>
   );

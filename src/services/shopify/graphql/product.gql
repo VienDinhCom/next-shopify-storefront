@@ -34,6 +34,10 @@ query getProductSingle($handle: String!) {
   productByHandle(handle: $handle) {
     title
     description
+    seo {
+      title
+      description
+    }
     images(first: 250) {
       edges {
         node {

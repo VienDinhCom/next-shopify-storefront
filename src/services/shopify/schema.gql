@@ -10,6 +10,17 @@ directive @accessRestricted(
 ) on FIELD_DEFINITION | OBJECT
 
 """
+Contextualizes data based on the additional information provided by the directive. For example, you can use the `@inContext(country: CA)` directive to query the price of a product in a storefront within the context of Canada.
+"""
+directive @inContext(
+  """The country code for context. For example, `CA`."""
+  country: CountryCode
+
+  """The identifier of the customer's preferred location."""
+  preferredLocationId: ID
+) on QUERY | MUTATION
+
+"""
 Direct the client to resolve this field locally, either from the cache or local resolvers.
 """
 directive @client(
@@ -84,7 +95,7 @@ type AppliedGiftCard implements Node {
 }
 
 """An article in an online store blog."""
-type Article implements Node {
+type Article implements Node & HasMetafields {
   """The article's author."""
   author: ArticleAuthor! @deprecated(reason: "Use `authorV2` instead")
 
@@ -160,6 +171,36 @@ type Article implements Node {
     """
     scale: Int = 1
   ): Image
+
+  """Returns a metafield found by namespace and key."""
+  metafield(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String!
+
+    """Identifier for the metafield (maximum of 30 characters)."""
+    key: String!
+  ): Metafield
+
+  """A paginated list of metafields associated with the resource."""
+  metafields(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String
+
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): MetafieldConnection!
 
   """The date and time when the article was published."""
   publishedAt: DateTime!
@@ -297,7 +338,7 @@ type AvailableShippingRates {
 }
 
 """An online store blog."""
-type Blog implements Node {
+type Blog implements Node & HasMetafields {
   """Find an article by its handle."""
   articleByHandle(
     """The handle of the article."""
@@ -348,6 +389,39 @@ type Blog implements Node {
 
   """A globally-unique identifier."""
   id: ID!
+
+  """Returns a metafield found by namespace and key."""
+  metafield(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String!
+
+    """Identifier for the metafield (maximum of 30 characters)."""
+    key: String!
+  ): Metafield
+
+  """A paginated list of metafields associated with the resource."""
+  metafields(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String
+
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): MetafieldConnection!
+
+  """The blog's SEO information."""
+  seo: SEO
 
   """The blogs’s title."""
   title: String!
@@ -431,6 +505,9 @@ type Checkout implements Node {
   the shipping address is valid.
   """
   availableShippingRates: AvailableShippingRates
+
+  """The identity of the customer associated with the checkout."""
+  buyerIdentity: CheckoutBuyerIdentity!
 
   """The date and time when the checkout was completed."""
   completedAt: DateTime
@@ -555,6 +632,9 @@ type Checkout implements Node {
   """
   taxesIncluded: Boolean!
 
+  """The sum of all the duties applied to the line items in the checkout."""
+  totalDuties: MoneyV2
+
   """
   The sum of all the prices of all the items in the checkout, taxes and discounts included.
   """
@@ -642,6 +722,22 @@ type CheckoutAttributesUpdateV2Payload {
 
   """The list of errors that occurred from executing the mutation."""
   userErrors: [UserError!]! @deprecated(reason: "Use `checkoutUserErrors` instead")
+}
+
+"""The identity of the customer associated with the checkout."""
+type CheckoutBuyerIdentity {
+  """The country code for the checkout. For example, `CA`."""
+  countryCode: CountryCode
+}
+
+"""Specifies the identity of the customer associated with the checkout."""
+input CheckoutBuyerIdentityInput {
+  """
+  The country code of one of the shop's
+  [enabled countries](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency/setup).
+  For example, `CA`. Including this field creates a checkout in the specified country's currency.
+  """
+  countryCode: CountryCode!
 }
 
 """Return type for `checkoutCompleteFree` mutation."""
@@ -766,6 +862,9 @@ input CheckoutCreateInput {
    This argument is deprecated: Use `country` field instead.
   """
   presentmentCurrencyCode: CurrencyCode
+
+  """The identity of the customer associated with the checkout."""
+  buyerIdentity: CheckoutBuyerIdentityInput
 }
 
 """Return type for `checkoutCreate` mutation."""
@@ -775,6 +874,9 @@ type CheckoutCreatePayload {
 
   """The list of errors that occurred from executing the mutation."""
   checkoutUserErrors: [CheckoutUserError!]!
+
+  """The checkout queue token. Available only to selected stores."""
+  queueToken: String
 
   """The list of errors that occurred from executing the mutation."""
   userErrors: [UserError!]! @deprecated(reason: "Use `checkoutUserErrors` instead")
@@ -1010,6 +1112,18 @@ enum CheckoutErrorCode {
 
   """Discount already applied."""
   DISCOUNT_ALREADY_APPLIED
+
+  """Throttled during checkout."""
+  THROTTLED_DURING_CHECKOUT
+
+  """Queue token has expired."""
+  EXPIRED_QUEUE_TOKEN
+
+  """Queue token is invalid."""
+  INVALID_QUEUE_TOKEN
+
+  """Cannot specify country and presentment currency code."""
+  INVALID_COUNTRY_AND_CURRENCY
 }
 
 """Return type for `checkoutGiftCardApply` mutation."""
@@ -1239,7 +1353,7 @@ type CheckoutUserError implements DisplayableError {
 """
 A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse.
 """
-type Collection implements Node {
+type Collection implements Node & HasMetafields {
   """
   Stripped description of the collection, single line with HTML tags removed.
   """
@@ -1282,6 +1396,36 @@ type Collection implements Node {
     """
     scale: Int = 1
   ): Image
+
+  """Returns a metafield found by namespace and key."""
+  metafield(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String!
+
+    """Identifier for the metafield (maximum of 30 characters)."""
+    key: String!
+  ): Metafield
+
+  """A paginated list of metafields associated with the resource."""
+  metafields(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String
+
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): MetafieldConnection!
 
   """List of products in the collection."""
   products(
@@ -1395,6 +1539,21 @@ type CommentEdge {
 
   """The item at the end of CommentEdge."""
   node: Comment!
+}
+
+"""A country."""
+type Country {
+  """The currency of the country."""
+  currency: Currency!
+
+  """The ISO code of the country."""
+  isoCode: CountryCode!
+
+  """The name of the country."""
+  name: String!
+
+  """The unit system used in the country."""
+  unitSystem: UnitSystem!
 }
 
 """ISO 3166-1 alpha-2 country codes with some differences."""
@@ -2130,6 +2289,9 @@ enum CountryCode {
 
   """Zimbabwe."""
   ZW
+
+  """Unknown Region."""
+  ZZ
 }
 
 """Credit card information used for a payment."""
@@ -2221,6 +2383,18 @@ enum CropRegion {
 
   """Keep the right of the image."""
   RIGHT
+}
+
+"""A currency."""
+type Currency {
+  """The ISO code of the currency."""
+  isoCode: CurrencyCode!
+
+  """The name of the currency."""
+  name: String!
+
+  """The symbol of the currency."""
+  symbol: String!
 }
 
 """Currency codes."""
@@ -2645,6 +2819,9 @@ enum CurrencyCode {
   """Zambian Kwacha (ZMW)."""
   ZMW
 
+  """Belarusian Ruble (BYN)."""
+  BYN
+
   """Belarusian Ruble (BYR)."""
   BYR @deprecated(reason: "`BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead.")
 
@@ -2695,12 +2872,15 @@ enum CurrencyCode {
 
   """Venezuelan Bolivares (VES)."""
   VES
+
+  """Unrecognized currency."""
+  XXX
 }
 
 """
 A customer represents a customer account with the shop. Customer accounts store contact information for the customer, saving logged-in customers the trouble of having to provide it at every checkout.
 """
-type Customer {
+type Customer implements HasMetafields {
   """
   Indicates whether the customer has consented to be sent marketing material via email.
   """
@@ -2747,6 +2927,36 @@ type Customer {
 
   """The customer’s last name."""
   lastName: String
+
+  """Returns a metafield found by namespace and key."""
+  metafield(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String!
+
+    """Identifier for the metafield (maximum of 30 characters)."""
+    key: String!
+  ): Metafield
+
+  """A paginated list of metafields associated with the resource."""
+  metafields(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String
+
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): MetafieldConnection!
 
   """The orders associated with the customer."""
   orders(
@@ -3306,6 +3516,9 @@ type ExternalVideo implements Node & Media {
   """The URL."""
   embeddedUrl: URL!
 
+  """The host of the external video."""
+  host: MediaHost!
+
   """A globally-unique identifier."""
   id: ID!
 
@@ -3391,6 +3604,15 @@ type FulfillmentTrackingInfo {
   url: URL
 }
 
+"""Used to specify a geographical location."""
+input GeoCoordinateInput {
+  """The coordinate's latitude value."""
+  latitude: Float!
+
+  """The coordinate's longitude value."""
+  longitude: Float!
+}
+
 """
 A string containing HTML code. Example value: `"<p>Grey cotton knit sweater.</p>"`.
 """
@@ -3436,6 +3658,11 @@ type Image {
   """A word or phrase to share the nature or contents of an image."""
   altText: String
 
+  """
+  The original height of the image in pixels. Returns `null` if the image is not hosted by Shopify.
+  """
+  height: Int
+
   """A unique identifier for the image."""
   id: ID
 
@@ -3475,6 +3702,11 @@ type Image {
     """
     preferredContentType: ImageContentType
   ): URL!
+
+  """
+  The original width of the image in pixels. Returns `null` if the image is not hosted by Shopify.
+  """
+  width: Int
 }
 
 """An auto-generated type for paginating through multiple Images."""
@@ -3507,6 +3739,106 @@ type ImageEdge {
 
   """The item at the end of ImageEdge."""
   node: Image!
+}
+
+"""Information about the localized experiences configured for the shop."""
+type Localization {
+  """List of countries with enabled localized experiences."""
+  availableCountries: [Country!]!
+
+  """
+  The country of the active localized experience. Use the `@inContext` directive to change this value.
+  """
+  country: Country!
+}
+
+"""Represents a location where product inventory is held."""
+type Location implements Node {
+  """The address of the location."""
+  address: LocationAddress!
+
+  """A globally-unique identifier."""
+  id: ID!
+
+  """The name of the location."""
+  name: String!
+}
+
+"""Represents the address of the location."""
+type LocationAddress {
+  """The first line of the address for the location."""
+  address1: String
+
+  """The second line of the address for the location."""
+  address2: String
+
+  """The city of the location."""
+  city: String
+
+  """The country of the location."""
+  country: String
+
+  """The two-letter country code of the location."""
+  countryCode: String
+
+  """A formatted version of the location address."""
+  formatted: [String!]!
+
+  """The latitude coordinates of the location."""
+  latitude: Float
+
+  """The longitude coordinates of the location."""
+  longitude: Float
+
+  """The phone number of the location."""
+  phone: String
+
+  """The province of the location."""
+  province: String
+
+  """
+  The code for the region of the address, such as the province, state, or district.
+  For example QC for Quebec, Canada.
+  """
+  provinceCode: String
+
+  """The ZIP code of the location."""
+  zip: String
+}
+
+"""An auto-generated type for paginating through multiple Locations."""
+type LocationConnection {
+  """A list of edges."""
+  edges: [LocationEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one Location and a cursor during pagination.
+"""
+type LocationEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of LocationEdge."""
+  node: Location!
+}
+
+"""The set of valid sort keys for the Location query."""
+enum LocationSortKeys {
+  """Sort by the `id` value."""
+  ID
+
+  """Sort by the `name` value."""
+  NAME
+
+  """Sort by the `city` value."""
+  CITY
+
+  """Sort by the `distance` value."""
+  DISTANCE
 }
 
 """Represents a mailing address for customers and shipping."""
@@ -3732,6 +4064,15 @@ type MediaEdge {
   node: Media!
 }
 
+"""Host for a Media Resource."""
+enum MediaHost {
+  """Host for YouTube embedded videos."""
+  YOUTUBE
+
+  """Host for Vimeo embedded videos."""
+  VIMEO
+}
+
 """Represents a Shopify hosted image."""
 type MediaImage implements Node & Media {
   """A word or phrase to share the nature or contents of a media."""
@@ -3773,6 +4114,12 @@ type Metafield implements Node {
   """The parent object that the metafield belongs to."""
   parentResource: MetafieldParentResource!
 
+  """
+  The type name of the metafield.
+  See the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
+  """
+  type: String!
+
   """The date and time when the storefront metafield was updated."""
   updatedAt: DateTime!
 
@@ -3804,7 +4151,7 @@ type MetafieldEdge {
 }
 
 """A resource that the metafield belongs to."""
-union MetafieldParentResource = Product | ProductVariant
+union MetafieldParentResource = Article | Blog | Collection | Customer | Order | Page | Product | ProductVariant | Shop
 
 """Metafield value types."""
 enum MetafieldValueType {
@@ -3977,6 +4324,9 @@ type Mutation {
   checkoutCreate(
     """The fields used to create a checkout."""
     input: CheckoutCreateInput!
+
+    """The checkout queue token. Available only to selected stores."""
+    queueToken: String
   ): CheckoutCreatePayload
 
   """Associates a customer to the checkout."""
@@ -4304,7 +4654,7 @@ interface Node {
 """
 An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information.
 """
-type Order implements Node {
+type Order implements Node & HasMetafields {
   """
   The reason for the order's cancellation. Returns `null` if the order wasn't canceled.
   """
@@ -4322,6 +4672,9 @@ type Order implements Node {
   The subtotal of line items and their discounts, excluding line items that have been removed. Does not contain order-level discounts, duties, shipping costs, or shipping discounts. Taxes are not included unless the order is a taxes-included order.
   """
   currentSubtotalPrice: MoneyV2!
+
+  """The total cost of duties for the order, including refunds."""
+  currentTotalDuties: MoneyV2
 
   """
   The total amount of the order, including duties, taxes and discounts, minus amounts for line items that have been removed.
@@ -4390,6 +4743,36 @@ type Order implements Node {
     reverse: Boolean = false
   ): OrderLineItemConnection!
 
+  """Returns a metafield found by namespace and key."""
+  metafield(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String!
+
+    """Identifier for the metafield (maximum of 30 characters)."""
+    key: String!
+  ): Metafield
+
+  """A paginated list of metafields associated with the resource."""
+  metafields(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String
+
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): MetafieldConnection!
+
   """
   Unique identifier for the order that appears on the order.
   For example, _#1000_ or _Store1001.
@@ -4400,6 +4783,9 @@ type Order implements Node {
   A unique numeric identifier for the order for use by shop owner and customer.
   """
   orderNumber: Int!
+
+  """The total cost of duties charged at checkout."""
+  originalTotalDuties: MoneyV2
 
   """The total price of the order before any applied edits."""
   originalTotalPrice: MoneyV2!
@@ -4550,6 +4936,12 @@ enum OrderFulfillmentStatus {
 
   """Displayed as **In progress**."""
   IN_PROGRESS
+
+  """Displayed as **On hold**."""
+  ON_HOLD
+
+  """Displayed as **Scheduled**."""
+  SCHEDULED
 }
 
 """
@@ -4631,7 +5023,7 @@ enum OrderSortKeys {
 """
 Shopify merchants can create pages to hold static HTML content. Each Page object represents a custom page on the online store.
 """
-type Page implements Node {
+type Page implements Node & HasMetafields {
   """The description of the page, complete with HTML formatting."""
   body: HTML!
 
@@ -4648,6 +5040,39 @@ type Page implements Node {
 
   """A globally-unique identifier."""
   id: ID!
+
+  """Returns a metafield found by namespace and key."""
+  metafield(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String!
+
+    """Identifier for the metafield (maximum of 30 characters)."""
+    key: String!
+  ): Metafield
+
+  """A paginated list of metafields associated with the resource."""
+  metafields(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String
+
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): MetafieldConnection!
+
+  """The page's SEO information."""
+  seo: SEO
 
   """The title of the page."""
   title: String!
@@ -4917,6 +5342,9 @@ type Product implements Node & HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
+
+    """Sort the underlying list by the given key."""
+    sortKey: ProductMediaSortKeys = POSITION
   ): MediaConnection!
 
   """Returns a metafield found by namespace and key."""
@@ -4991,6 +5419,32 @@ type Product implements Node & HasMetafields {
 
   """The date and time when the product was published to the channel."""
   publishedAt: DateTime!
+
+  """Whether the product can only be purchased with a selling plan."""
+  requiresSellingPlan: Boolean!
+
+  """
+  A list of a product's available selling plan groups. A selling plan group represents a selling method. For example, 'Subscribe and save' is a selling method where customers pay for goods or services per delivery. A selling plan group contains individual selling plans.
+  """
+  sellingPlanGroups(
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): SellingPlanGroupConnection!
+
+  """The product's SEO information."""
+  seo: SEO!
 
   """
   A comma separated list of tags that have been added to the product.
@@ -5103,6 +5557,22 @@ enum ProductImageSortKeys {
   """Sort by the `created_at` value."""
   CREATED_AT
 
+  """Sort by the `position` value."""
+  POSITION
+
+  """Sort by the `id` value."""
+  ID
+
+  """
+  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
+  results by relevance to the search term(s). When no search query is specified, this sort key is not
+  deterministic and should not be used.
+  """
+  RELEVANCE
+}
+
+"""The set of valid sort keys for the ProductMedia query."""
+enum ProductMediaSortKeys {
   """Sort by the `position` value."""
   POSITION
 
@@ -5345,8 +5815,46 @@ type ProductVariant implements Node & HasMetafields {
   """List of product options applied to the variant."""
   selectedOptions: [SelectedOption!]!
 
+  """
+  Represents an association between a variant and a selling plan. Selling plan allocations describe which selling plans are available for each variant, and what their impact is on pricing.
+  """
+  sellingPlanAllocations(
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): SellingPlanAllocationConnection!
+
   """The SKU (stock keeping unit) associated with the variant."""
   sku: String
+
+  """The in-store pickup availability of this variant by location."""
+  storeAvailability(
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): StoreAvailabilityConnection!
 
   """The product variant’s title."""
   title: String!
@@ -5564,6 +6072,37 @@ type QueryRoot {
     customerAccessToken: String!
   ): Customer
 
+  """Returns the localized experiences configured for the shop."""
+  localization: Localization!
+
+  """
+  List of the shop's locations that support in-store pickup.
+  
+  When sorting by distance, you must specify a location via the `near` argument.
+  """
+  locations(
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+
+    """Sort the underlying list by the given key."""
+    sortKey: LocationSortKeys = ID
+
+    """Used to sort results based on proximity to the provided location."""
+    near: GeoCoordinateInput
+  ): LocationConnection!
+
   """Returns a specific node by ID."""
   node(
     """The ID of the Node to return."""
@@ -5750,6 +6289,243 @@ input SelectedOptionInput {
   value: String!
 }
 
+"""Represents how products and variants can be sold and purchased."""
+type SellingPlan {
+  """The description of the selling plan."""
+  description: String
+
+  """A globally-unique identifier."""
+  id: ID!
+
+  """
+  The name of the selling plan. For example, '6 weeks of prepaid granola, delivered weekly'.
+  """
+  name: String!
+
+  """
+  Represents the selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product.
+  """
+  options: [SellingPlanOption!]!
+
+  """
+  Represents how a selling plan affects pricing when a variant is purchased with a selling plan.
+  """
+  priceAdjustments: [SellingPlanPriceAdjustment!]!
+
+  """
+  Whether purchasing the selling plan will result in multiple deliveries.
+  """
+  recurringDeliveries: Boolean!
+}
+
+"""
+Represents an association between a variant and a selling plan. Selling plan allocations describe the options offered for each variant, and the price of the variant when purchased with a selling plan.
+"""
+type SellingPlanAllocation {
+  """
+  A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders.
+  """
+  priceAdjustments: [SellingPlanAllocationPriceAdjustment!]!
+
+  """
+  A representation of how products and variants can be sold and purchased. For example, an individual selling plan could be '6 weeks of prepaid granola, delivered weekly'.
+  """
+  sellingPlan: SellingPlan!
+}
+
+"""
+An auto-generated type for paginating through multiple SellingPlanAllocations.
+"""
+type SellingPlanAllocationConnection {
+  """A list of edges."""
+  edges: [SellingPlanAllocationEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one SellingPlanAllocation and a cursor during pagination.
+"""
+type SellingPlanAllocationEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of SellingPlanAllocationEdge."""
+  node: SellingPlanAllocation!
+}
+
+"""
+The resulting prices for variants when they're purchased with a specific selling plan.
+"""
+type SellingPlanAllocationPriceAdjustment {
+  """
+  The price of the variant when it's purchased without a selling plan for the same number of deliveries. For example, if a customer purchases 6 deliveries of $10.00 granola separately, then the price is 6 x $10.00 = $60.00.
+  """
+  compareAtPrice: MoneyV2!
+
+  """
+  The effective price for a single delivery. For example, for a prepaid subscription plan that includes 6 deliveries at the price of $48.00, the per delivery price is $8.00.
+  """
+  perDeliveryPrice: MoneyV2!
+
+  """
+  The price of the variant when it's purchased with a selling plan For example, for a prepaid subscription plan that includes 6 deliveries of $10.00 granola, where the customer gets 20% off, the price is 6 x $10.00 x 0.80 = $48.00.
+  """
+  price: MoneyV2!
+
+  """
+  The resulting price per unit for the variant associated with the selling plan. If the variant isn't sold by quantity or measurement, then this field returns `null`.
+  """
+  unitPrice: MoneyV2
+}
+
+"""An auto-generated type for paginating through multiple SellingPlans."""
+type SellingPlanConnection {
+  """A list of edges."""
+  edges: [SellingPlanEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one SellingPlan and a cursor during pagination.
+"""
+type SellingPlanEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of SellingPlanEdge."""
+  node: SellingPlan!
+}
+
+"""
+A fixed amount that's deducted from the original variant price. For example, $10.00 off.
+"""
+type SellingPlanFixedAmountPriceAdjustment {
+  """The money value of the price adjustment."""
+  adjustmentAmount: MoneyV2!
+}
+
+"""
+A fixed price adjustment for a variant that's purchased with a selling plan.
+"""
+type SellingPlanFixedPriceAdjustment {
+  """A new price of the variant when it's purchased with the selling plan."""
+  price: MoneyV2!
+}
+
+"""
+Represents a selling method. For example, 'Subscribe and save' is a selling method where customers pay for goods or services per delivery. A selling plan group contains individual selling plans.
+"""
+type SellingPlanGroup {
+  """
+  A display friendly name for the app that created the selling plan group.
+  """
+  appName: String
+
+  """The name of the selling plan group."""
+  name: String!
+
+  """
+  Represents the selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product.
+  """
+  options: [SellingPlanGroupOption!]!
+
+  """
+  A list of selling plans in a selling plan group. A selling plan is a representation of how products and variants can be sold and purchased. For example, an individual selling plan could be '6 weeks of prepaid granola, delivered weekly'.
+  """
+  sellingPlans(
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): SellingPlanConnection!
+}
+
+"""
+An auto-generated type for paginating through multiple SellingPlanGroups.
+"""
+type SellingPlanGroupConnection {
+  """A list of edges."""
+  edges: [SellingPlanGroupEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one SellingPlanGroup and a cursor during pagination.
+"""
+type SellingPlanGroupEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of SellingPlanGroupEdge."""
+  node: SellingPlanGroup!
+}
+
+"""
+Represents an option on a selling plan group that's available in the drop-down list in the storefront.
+"""
+type SellingPlanGroupOption {
+  """The name of the option. For example, 'Delivery every'."""
+  name: String!
+
+  """
+  The values for the options specified by the selling plans in the selling plan group. For example, '1 week', '2 weeks', '3 weeks'.
+  """
+  values: [String!]!
+}
+
+"""An option provided by a Selling Plan."""
+type SellingPlanOption {
+  """The name of the option (ie "Delivery every")."""
+  name: String
+
+  """The value of the option (ie "Month")."""
+  value: String
+}
+
+"""
+A percentage amount that's deducted from the original variant price. For example, 10% off.
+"""
+type SellingPlanPercentagePriceAdjustment {
+  """The percentage value of the price adjustment."""
+  adjustmentPercentage: Int!
+}
+
+"""
+Represents by how much the price of a variant associated with a selling plan is adjusted. Each variant can have up to two price adjustments.
+"""
+type SellingPlanPriceAdjustment {
+  """
+  The type of price adjustment. An adjustment value can have one of three types: percentage, amount off, or a new price.
+  """
+  adjustmentValue: SellingPlanPriceAdjustmentValue!
+
+  """
+  The number of orders that the price adjustment applies to If the price adjustment always applies, then this field is `null`.
+  """
+  orderCount: Int
+}
+
+"""
+Represents by how much the price of a variant associated with a selling plan is adjusted. Each variant can have up to two price adjustments.
+"""
+union SellingPlanPriceAdjustmentValue = SellingPlanFixedAmountPriceAdjustment | SellingPlanFixedPriceAdjustment | SellingPlanPercentagePriceAdjustment
+
 """A shipping rate to be applied to a checkout."""
 type ShippingRate {
   """Human-readable unique identifier for this shipping rate."""
@@ -5768,7 +6544,7 @@ type ShippingRate {
 """
 Shop represents a collection of the general settings and information about the shop.
 """
-type Shop {
+type Shop implements HasMetafields {
   """List of the shop' articles."""
   articles(
     """Returns up to the first `n` elements from the list."""
@@ -5880,6 +6656,36 @@ type Shop {
   """A description of the shop."""
   description: String
 
+  """Returns a metafield found by namespace and key."""
+  metafield(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String!
+
+    """Identifier for the metafield (maximum of 30 characters)."""
+    key: String!
+  ): Metafield
+
+  """A paginated list of metafields associated with the resource."""
+  metafields(
+    """Container for a set of metafields (maximum of 20 characters)."""
+    namespace: String
+
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+  ): MetafieldConnection!
+
   """
   A string representing the way currency is formatted when the currency isn’t specified.
   """
@@ -5989,6 +6795,44 @@ type ShopPolicy implements Node {
 
   """Public URL to the policy."""
   url: URL!
+}
+
+"""
+Describes the availability of a product variant at a particular location.
+"""
+type StoreAvailability {
+  """Whether or not this product variant is in-stock at this location."""
+  available: Boolean!
+
+  """The location where this product variant is stocked at."""
+  location: Location!
+
+  """
+  Returns the estimated amount of time it takes for pickup to be ready (Example: Usually ready in 24 hours).
+  """
+  pickUpTime: String!
+}
+
+"""
+An auto-generated type for paginating through multiple StoreAvailabilities.
+"""
+type StoreAvailabilityConnection {
+  """A list of edges."""
+  edges: [StoreAvailabilityEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one StoreAvailability and a cursor during pagination.
+"""
+type StoreAvailabilityEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of StoreAvailabilityEdge."""
+  node: StoreAvailability!
 }
 
 """An auto-generated type for paginating through multiple Strings."""
@@ -6243,6 +7087,15 @@ enum UnitPriceMeasurementMeasuredUnit {
 
   """Metric system unit of area."""
   M2
+}
+
+"""Systems of weights and measures."""
+enum UnitSystem {
+  """Imperial system of weights and measures."""
+  IMPERIAL_SYSTEM
+
+  """Metric system of weights and measures."""
+  METRIC_SYSTEM
 }
 
 """Represents an error in the input of a mutation."""
