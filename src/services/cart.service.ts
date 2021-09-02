@@ -9,6 +9,7 @@ import {
 } from '@app/services/shopify.service';
 
 const CHECKOUT_ID = 'CHECKOUT_ID';
+
 export namespace CartService {
   export interface CartItem {
     id: string;

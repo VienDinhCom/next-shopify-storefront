@@ -1,4 +1,5 @@
 import { CurrencyCode } from '@app/services/shopify.service';
+
 export namespace IntlService {
   interface Price {
     amount: number;
