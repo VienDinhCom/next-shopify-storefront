@@ -6,7 +6,7 @@ A **[Shopping Cart](https://github.com/maxvien/next-shopify-storefront)** built 
 
 These are my experience when I have been working on this project:
 
-- Designing & Building the [Store](https://github.com/maxvien/next-shopify-storefront) from Scratch.
+- Designing & Building the [Storefront](https://github.com/maxvien/next-shopify-storefront) from Scratch.
 - Using [Emotion](https://emotion.sh/) to Write Component-scoped Styles.
 - Using [TypeScript](https://www.typescriptlang.org/) to Create Type-safe React Components.
 - Using [React Query](https://react-query.tanstack.com/) to Fetch, Cache and, Update Data.
@@ -51,13 +51,13 @@ You can follow the [Shopify Storefront GraphQL API](https://shopify.dev/api/stor
 
 ### Develop
 
-Run the project in development mode.
+Develop the project in development mode.
 
 ```bash
 yarn dev
 ```
 
-## Start
+### Build
 
 Build the project in production mode.
 
@@ -65,7 +65,7 @@ Build the project in production mode.
 yarn build
 ```
 
-## Build
+### Start
 
 Start the project in production mode.
 
@@ -100,5 +100,5 @@ To speed up your productivity, you can install these extensions:
 ## Related Projects
 
 - **[Shopify Data Faker](https://github.com/Maxvien/shopify-data-faker)** • A Shopify development tool for generating dummy store data.
-- **[Bootstrap Shopify Theme](https://github.com/Maxvien/bootstrap-shopify-theme)** • A free Shopify Theme built with Bootstrap, BEM, Theme Tools, Swiper, Gulp, Parcel, Liquid, SASS, PostCSS, ESNext, ... and Passion.
+- **[Bootstrap Shopify Theme](https://github.com/Maxvien/bootstrap-shopify-theme)** • A free Shopify Theme built with Bootstrap, BEM, Liquid, Sass, ESNext, Theme Tools, ... and Webpack.
 - **[Next Shopify Storefront (v1)](https://github.com/Maxvien/next-shopify-storefront/tree/v1)** • A Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ... and Material UI.
