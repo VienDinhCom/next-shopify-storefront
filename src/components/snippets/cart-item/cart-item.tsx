@@ -1,5 +1,4 @@
 import React from 'react';
-import title from 'title';
 import Image from 'next/image';
 import { useImmer } from 'use-immer';
 import { useDebounce } from 'react-use';
@@ -69,7 +68,7 @@ export const CartItem: React.FC<Props> = ({ item }) => {
       </TableCell>
       <TableCell component="th" scope="row">
         <TextLink href={item.variant.url} sx={{ whiteSpace: 'nowrap' }}>
-          {title(item.title)} ({item.variant.title})
+          {item.title} ({item.variant.title})
         </TextLink>
       </TableCell>
       <TableCell align="center">

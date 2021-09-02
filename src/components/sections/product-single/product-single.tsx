@@ -1,5 +1,4 @@
 import React from 'react';
-import title from 'title';
 import Image from 'next/image';
 import { useImmer } from 'use-immer';
 import truncate from 'lodash/truncate';
@@ -59,7 +58,7 @@ export const ProductSingle: React.FC<Props> = ({ product }) => {
           <Grid item xs={12} sm={7}>
             <div css={{ padding: '20px' }}>
               <Typography sx={{ marginBottom: '20px' }} gutterBottom variant="h5" component="h1">
-                {title(product.title)}
+                {product.title}
               </Typography>
 
               <Typography sx={{ marginBottom: '15px' }} variant="body2" color="text.secondary">
