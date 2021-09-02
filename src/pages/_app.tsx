@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import NextNprogress from 'nextjs-progressbar';
@@ -9,6 +8,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import 'swiper/swiper.min.css';
 
 import { EnvService } from '@app/services/env.service';
+import { AnalyticService } from '@app/services/analytic.service';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +21,8 @@ const queryClient = new QueryClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  AnalyticService.useTracker();
+
   return (
     <QueryClientProvider client={queryClient}>
       <DefaultSeo
