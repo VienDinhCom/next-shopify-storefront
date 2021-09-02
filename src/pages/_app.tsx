@@ -1,4 +1,3 @@
-import { useMount } from 'react-use';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import NextNprogress from 'nextjs-progressbar';
