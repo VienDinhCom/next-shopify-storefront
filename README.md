@@ -1,13 +1,13 @@
 # 🛍 Next Shopify Storefront
 
-A **[Shopping Cart](https://github.com/maxvien/next-shopify-storefront)** built with [TypeScript](https://www.typescriptlang.org/), [Emotion](https://emotion.sh/docs/introduction), [Next.js](https://nextjs.org/), [React.js](https://reactjs.org/), [React Query](https://react-query.tanstack.com/), [Shopify Storefront GraphQL API](https://shopify.dev/api/storefront), ... and [Material UI](https://material-ui.com/).
+A **[Shopping Cart](https://github.com/maxvien/next-shopify-storefront)** built with [TypeScript](https://www.typescriptlang.org/), [Emotion](https://emotion.sh/), [Next.js](https://nextjs.org/), [React.js](https://reactjs.org/), [React Query](https://react-query.tanstack.com/), [Shopify Storefront GraphQL API](https://shopify.dev/api/storefront), ... and [Material UI](https://material-ui.com/).
 
 ## Experience
 
 These are my experience when I have been working on this project:
 
-- Designing & Building the [Store](https://github.com/maxvien/next-shopify-storefront) from Scratch.
-- Using [Emotion](https://emotion.sh/docs/introduction) to Write Component-scoped Styles.
+- Designing & Building the [Storefront](https://github.com/maxvien/next-shopify-storefront) from Scratch.
+- Using [Emotion](https://emotion.sh/) to Write Component-scoped Styles.
 - Using [TypeScript](https://www.typescriptlang.org/) to Create Type-safe React Components.
 - Using [Next.js](https://nextjs.org/) for Static Generation and Server-Side Rendering.
 - Using [React Query](https://react-query.tanstack.com/) to Fetch, Cache and, Update Data.
