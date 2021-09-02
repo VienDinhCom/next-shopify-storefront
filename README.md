@@ -1,21 +1,22 @@
 # 🛍 Next Shopify Storefront
 
-A **[Shopping Cart](https://github.com/maxvien/next-shopify-storefront)** built with [TypeScript](https://www.typescriptlang.org/), [Emotion](https://emotion.sh/docs/introduction), [Next.js](https://nextjs.org/), [React.js](https://reactjs.org/), [React Query](https://react-query.tanstack.com/), [Shopify Storefront GraphQL API](https://shopify.dev/api/storefront), ... and [Material UI](https://material-ui.com/).
+A **[Shopping Cart](https://github.com/maxvien/next-shopify-storefront)** built with [TypeScript](https://www.typescriptlang.org/), [Emotion](https://emotion.sh/), [Next.js](https://nextjs.org/), [React.js](https://reactjs.org/), [React Query](https://react-query.tanstack.com/), [Shopify Storefront GraphQL API](https://shopify.dev/api/storefront), ... and [Material UI](https://material-ui.com/).
 
 ## Experience
 
 These are my experience when I have been working on this project:
 
 - Designing & Building the [Store](https://github.com/maxvien/next-shopify-storefront) from Scratch.
-- Using [Emotion](https://emotion.sh/docs/introduction) to Write Component-scoped Styles.
+- Using [Emotion](https://emotion.sh/) to Write Component-scoped Styles.
 - Using [TypeScript](https://www.typescriptlang.org/) to Create Type-safe React Components.
-- Using [Next.js](https://nextjs.org/) for Static Generation and Server-Side Rendering.
 - Using [React Query](https://react-query.tanstack.com/) to Fetch, Cache and, Update Data.
+- Using [Next.js](https://nextjs.org/) for Static Generation and Server-Side Rendering.
+- Using [Next SEO](https://www.npmjs.com/package/next-seo) to Manage Search Engine Optimization More Easily.
 - Using [Material UI](https://material-ui.com/) to Create a Beautiful User Interface.
 - Using [Swiper](https://swiperjs.com/) to Create Beautiful, Touchable, Responsive Sliders.
 - Using [React Use](https://github.com/streamich/react-use) Hooks to Speed Up Component Development.
 - Using [CSS Media Queries](https://www.w3schools.com/css/css_rwd_mediaqueries.asp) to Create a Mobile-First and Responsive Design.
-- Using [GraphQL Request](https://github.com/prisma-labs/graphql-request) to Interact with Shopify Storefront GraphQL API.
+- Using [GraphQL Request](https://www.npmjs.com/package/graphql-request) to Interact with Shopify Storefront GraphQL API.
 - Using [GraphQL Code Generator](https://www.graphql-code-generator.com/) to Generate TypeScript GraphQL Clients.
 - Using [ESlint](https://eslint.org/), [Prettier](https://prettier.io/), [Web Vitals](https://web.dev/learn-web-vitals/) to Follow Next.js Best Practices.
 

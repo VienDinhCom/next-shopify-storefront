@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import NextNprogress from 'nextjs-progressbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -22,9 +23,11 @@ const queryClient = new QueryClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Head>
-        <title>Next Shopify Storefront</title>
-      </Head>
+      <DefaultSeo
+        defaultTitle="Next Shopify Storefront"
+        titleTemplate="%s • Next Shopify Storefront"
+        description="🛍 A Shopping Cart built with TypeScript, Emotion, Next.js, React.js, React Query, Shopify Storefront GraphQL API, ... and Material UI."
+      />
       <CssBaseline />
       <Component {...pageProps} />
       <ReactQueryDevtools initialIsOpen={false} />

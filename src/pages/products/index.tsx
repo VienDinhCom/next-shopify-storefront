@@ -1,4 +1,5 @@
 import last from 'lodash/last';
+import { NextSeo } from 'next-seo';
 import { InfiniteData, useInfiniteQuery } from 'react-query';
 import { ProductList } from '@app/components/sections/product-list';
 import { DefaultLayout } from '@app/components/layouts/default-layout/default-layout';
@@ -34,6 +35,7 @@ export default function Page({ initialData }: Props) {
 
   return (
     <DefaultLayout>
+      <NextSeo title="Products" description="All Products from Next Shopify Storefront" />
       <ProductList products={productList.data?.pages.flatMap(({ products }) => products)!} pagination={productList} />
     </DefaultLayout>
   );

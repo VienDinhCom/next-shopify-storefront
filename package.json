@@ -28,6 +28,7 @@
     "immer": "^9.0.5",
     "lodash": "^4.17.21",
     "next": "^11.1.0",
+    "next-seo": "^4.26.0",
     "nextjs-progressbar": "^0.0.11",
     "nookies": "^2.5.2",
     "react": "17.0.2",

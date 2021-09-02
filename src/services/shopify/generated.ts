@@ -5737,7 +5737,7 @@ export type GetProductSingleQueryVariables = Exact<{
 }>;
 
 
-export type GetProductSingleQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', title: string, description: string, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: string } }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string> }> } }> } }> };
+export type GetProductSingleQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', title: string, description: string, seo: { __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string> }, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: string } }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string> }> } }> } }> };
 
 
 export const GetCartDocument = gql`
@@ -5886,6 +5886,10 @@ export const GetProductSingleDocument = gql`
   productByHandle(handle: $handle) {
     title
     description
+    seo {
+      title
+      description
+    }
     images(first: 250) {
       edges {
         node {

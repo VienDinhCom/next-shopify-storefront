@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo';
 import { NextPageContext } from 'next';
 import { DefaultLayout } from '@app/components/layouts/default-layout/default-layout';
 import { ProductService } from '@app/services/product.service';
@@ -17,6 +18,7 @@ Page.getInitialProps = async ({ query }: NextPageContext): Promise<Props> => {
 export default function Page({ product }: Props) {
   return (
     <DefaultLayout>
+      <NextSeo title={product.seo.title} description={product.seo.description} />
       <ProductSingle product={product} />
     </DefaultLayout>
   );
