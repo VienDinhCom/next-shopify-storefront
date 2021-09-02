@@ -9,7 +9,7 @@ export namespace ProductService {
     seo: {
       title: string;
       description: string;
-    }
+    };
     images: {
       id: string;
       src: string;
@@ -35,7 +35,7 @@ export namespace ProductService {
       description,
       seo: {
         title: seo.title || title,
-        description: seo.description || truncate(description, { length: 256 })
+        description: seo.description || truncate(description, { length: 256 }),
       },
       images: images.edges.map(({ node }) => {
         return {
