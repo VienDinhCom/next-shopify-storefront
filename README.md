@@ -84,7 +84,7 @@ yarn lint
 Automatically fix problems.
 
 ```bash
-yarn lint --fix
+yarn fix
 ```
 
 ## Visual Studio Code Extensions
