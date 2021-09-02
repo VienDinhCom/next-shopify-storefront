@@ -21,21 +21,25 @@ export default function Page() {
           return <Cart cart={cart.data} />;
         }
 
-        return (
-          <Alert
-            variant="filled"
-            severity="warning"
-            action={
-              <NextLink href="/products" passHref>
-                <Button color="inherit" size="small">
-                  Shop Now
-                </Button>
-              </NextLink>
-            }
-          >
-            Your Cart is empty.
-          </Alert>
-        );
+        if (cart.isSuccess) {
+          return (
+            <Alert
+              variant="filled"
+              severity="warning"
+              action={
+                <NextLink href="/products" passHref>
+                  <Button color="inherit" size="small">
+                    Shop Now
+                  </Button>
+                </NextLink>
+              }
+            >
+              Your Cart is empty.
+            </Alert>
+          );
+        }
+
+        return '';
       })()}
     </DefaultLayout>
   );
