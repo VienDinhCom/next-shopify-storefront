@@ -1,3 +1,4 @@
+import formatTitle from 'title';
 import { Merge } from 'type-fest';
 import truncate from 'lodash/truncate';
 import { ShopifyService, GetProductListQuery, GetProductListQueryVariables, CurrencyCode } from './shopify.service';
@@ -31,10 +32,10 @@ export namespace ProductService {
     const { title, description, seo, images, variants } = productByHandle!;
 
     const product: Single = {
-      title,
+      title: formatTitle(title),
       description,
       seo: {
-        title: seo.title || title,
+        title: formatTitle(seo.title || title),
         description: seo.description || truncate(description, { length: 256 }),
       },
       images: images.edges.map(({ node }) => {
@@ -92,7 +93,7 @@ export namespace ProductService {
         id: node.id,
         cursor: cursor,
         url: `/products/${node.handle}`,
-        title: node.title,
+        title: formatTitle(node.title),
         description: node.description,
         image: {
           src: node.images.edges[0].node.transformedSrc,

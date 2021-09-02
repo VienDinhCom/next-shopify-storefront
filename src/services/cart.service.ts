@@ -1,4 +1,5 @@
 import nookies from 'nookies';
+import formatTitle from 'title';
 import { NextPageContext } from 'next';
 import {
   ShopifyService,
@@ -55,7 +56,7 @@ export namespace CartService {
         const items: CartItem[] = node.lineItems.edges.map(({ node }) => {
           const item: CartItem = {
             id: node.id,
-            title: node.title,
+            title: formatTitle(node.title),
             quantity: node.quantity,
             variant: {
               id: node.variant?.id!,
