@@ -18,7 +18,7 @@ These are my experience when I have been working on this project:
 - Using [CSS Media Queries](https://www.w3schools.com/css/css_rwd_mediaqueries.asp) to Create a Mobile-First and Responsive Design.
 - Using [GraphQL Request](https://www.npmjs.com/package/graphql-request) to Interact with Shopify Storefront GraphQL API.
 - Using [GraphQL Code Generator](https://www.graphql-code-generator.com/) to Generate TypeScript GraphQL Clients.
-- Using [ESlint](https://eslint.org/), [Prettier](https://prettier.io/), [Web Vitals](https://web.dev/learn-web-vitals/) to Follow Next.js Best Practices.
+- Using [ESlint](https://eslint.org/), [Prettier](https://prettier.io/) to Follow Next.js Best Practices.
 
 If you like this project, hit the **STAR** button to bookmark it ⭐️
 
