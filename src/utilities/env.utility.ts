@@ -1,4 +1,4 @@
-export namespace EnvService {
+export namespace EnvUtility {
   export function isNode(): boolean {
     return !process.browser;
   }

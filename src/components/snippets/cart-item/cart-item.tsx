@@ -10,7 +10,7 @@ import { TextLink } from '@app/components/snippets/text-link';
 
 import { CART_ITEM_COUNT_QUERY, CART_QUERY } from '@app/constants/query.constant';
 import { CartService } from '@app/services/cart.service';
-import { IntlService } from '@app/services/intl.service';
+import { IntlUtility } from '@app/utilities/intl.utility';
 
 interface Props {
   item: CartService.CartItem;
@@ -85,9 +85,9 @@ export const CartItem: React.FC<Props> = ({ item }) => {
           }}
         />
       </TableCell>
-      <TableCell align="center">{IntlService.formatPrice(item.variant.price)}</TableCell>
+      <TableCell align="center">{IntlUtility.formatPrice(item.variant.price)}</TableCell>
       <TableCell align="center">
-        {IntlService.formatPrice({
+        {IntlUtility.formatPrice({
           amount: item.variant.price.amount * item.quantity,
           currencyCode: item.variant.price.currencyCode,
         })}

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID;
 
-export namespace AnalyticService {
+export namespace AnalyticUtility {
   export function initialize() {
     if (TRACKING_ID) {
       ReactGA.initialize(TRACKING_ID);
