@@ -7,21 +7,21 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import 'swiper/swiper.min.css';
 
-import { EnvService } from '@app/services/env.service';
-import { AnalyticService } from '@app/services/analytic.service';
+import { EnvUtility } from '@app/utilities/env.utility';
+import { AnalyticUtility } from '@app/utilities/analytic.utility';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: EnvService.isProd(),
-      refetchIntervalInBackground: EnvService.isProd(),
-      refetchOnWindowFocus: EnvService.isProd(),
+      retry: EnvUtility.isProd(),
+      refetchIntervalInBackground: EnvUtility.isProd(),
+      refetchOnWindowFocus: EnvUtility.isProd(),
     },
   },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  AnalyticService.useTracker();
+  AnalyticUtility.useTracker();
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -1,6 +1,6 @@
 import { CurrencyCode } from '@app/services/shopify.service';
 
-export namespace IntlService {
+export namespace IntlUtility {
   interface Price {
     amount: number;
     currencyCode: CurrencyCode;

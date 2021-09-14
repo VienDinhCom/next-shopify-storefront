@@ -2,7 +2,7 @@ import React from 'react';
 import NextLink from 'next/link';
 import { Card, CardContent, CardMedia, Typography, CardActionArea } from '@material-ui/core';
 
-import { IntlService } from '@app/services/intl.service';
+import { IntlUtility } from '@app/utilities/intl.utility';
 import { ProductService } from '@app/services/product.service';
 
 interface Props {
@@ -20,7 +20,7 @@ export const ProductItem: React.FC<Props> = ({ product }) => {
               {product.title}
             </Typography>
             <Typography sx={{ color: '#d32f2f' }} gutterBottom variant="body2" component="div">
-              {IntlService.formatPrice(product.price)}
+              {IntlUtility.formatPrice(product.price)}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {product.description}

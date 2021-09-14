@@ -20,7 +20,7 @@ import {
 } from '@material-ui/core';
 
 import { CART_ITEM_COUNT_QUERY } from '@app/constants/query.constant';
-import { IntlService } from '@app/services/intl.service';
+import { IntlUtility } from '@app/utilities/intl.utility';
 import { CartService } from '@app/services/cart.service';
 import { ProductService } from '@app/services/product.service';
 
@@ -75,7 +75,7 @@ export const ProductSingle: React.FC<Props> = ({ product }) => {
                 variant="h6"
                 component="div"
               >
-                {IntlService.formatPrice(state.variant.price)}
+                {IntlUtility.formatPrice(state.variant.price)}
               </Typography>
 
               <FormControl fullWidth size="small" sx={{ marginBottom: '20px' }}>
@@ -100,7 +100,7 @@ export const ProductSingle: React.FC<Props> = ({ product }) => {
                 >
                   {product.variants.map((variant) => (
                     <MenuItem key={variant.id} value={variant.id}>
-                      {variant.title} - {IntlService.formatPrice(variant.price)}
+                      {variant.title} - {IntlUtility.formatPrice(variant.price)}
                     </MenuItem>
                   ))}
                 </Select>
