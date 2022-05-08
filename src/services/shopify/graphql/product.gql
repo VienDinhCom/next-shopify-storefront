@@ -70,7 +70,7 @@ query getProductSingle($handle: String!) {
 }
 
 query getCollections($after: String) {
-  collections(first: 20, after: $after) {
+  collections(first: 12, after: $after) {
     edges {
       node {
         id
