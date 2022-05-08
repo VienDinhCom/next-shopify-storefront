@@ -1,7 +1,13 @@
 import formatTitle from 'title';
 import { Merge } from 'type-fest';
 import truncate from 'lodash/truncate';
-import { ShopifyService, GetProductListQuery, GetProductListQueryVariables, CurrencyCode } from './shopify.service';
+import {
+  ShopifyService,
+  GetProductListQuery,
+  GetProductListQueryVariables,
+  CurrencyCode,
+  PaginatedProductListFragment,
+} from './shopify.service';
 
 export namespace ProductService {
   export interface Single {
@@ -83,11 +89,8 @@ export namespace ProductService {
     pageInfo: GetProductListQuery['products']['pageInfo'];
   }
 
-  export async function getList(variables?: GetProductListQueryVariables): Promise<List> {
-    const {
-      products: { edges, pageInfo },
-    } = await ShopifyService.getProductList(variables);
-
+  export function getListFromPaginatedProductPage(fragment: PaginatedProductListFragment): List {
+    const { edges, pageInfo } = fragment;
     const products: List['products'] = edges.map(({ node, cursor }) => {
       return {
         id: node.id,
@@ -107,5 +110,10 @@ export namespace ProductService {
     });
 
     return { products, pageInfo };
+  }
+
+  export async function getList(variables?: GetProductListQueryVariables): Promise<List> {
+    const { products } = await ShopifyService.getProductList(variables);
+    return getListFromPaginatedProductPage(products);
   }
 }
