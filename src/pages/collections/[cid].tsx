@@ -16,7 +16,7 @@ interface Props {
 
 Page.getInitialProps = async ({ query }: NextPageContext): Promise<Props> => {
   const handle = query.cid as string;
-  const collection = await CollectionService.getCollection(handle);
+  const collection = await CollectionService.getSingle(handle);
 
   return {
     handle,
@@ -28,7 +28,7 @@ Page.getInitialProps = async ({ query }: NextPageContext): Promise<Props> => {
 export default function Page({ initialData, handle, collection }: Props) {
   const productList = useInfiniteQuery(
     COLLECTION_PRODUCT_LIST_QUERY,
-    ({ pageParam }) => CollectionService.getCollection(handle, pageParam).then((c) => c.products),
+    ({ pageParam }) => CollectionService.getSingle(handle, pageParam).then((c) => c.products),
     {
       initialData,
       getNextPageParam: (lastPage) => {

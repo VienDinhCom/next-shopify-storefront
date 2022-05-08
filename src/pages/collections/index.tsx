@@ -12,7 +12,7 @@ interface Props {
 }
 
 Page.getInitialProps = async (): Promise<Props> => {
-  const firstPage = await CollectionService.getCollections();
+  const firstPage = await CollectionService.getList();
 
   return {
     initialData: { pages: [firstPage], pageParams: [null] },
@@ -22,7 +22,7 @@ Page.getInitialProps = async (): Promise<Props> => {
 export default function Page({ initialData }: Props) {
   const collectionList = useInfiniteQuery(
     COLLECTION_LIST_QUERY,
-    ({ pageParam }) => CollectionService.getCollections({ after: pageParam }),
+    ({ pageParam }) => CollectionService.getList({ after: pageParam }),
     {
       initialData,
       getNextPageParam: (lastPage) => {

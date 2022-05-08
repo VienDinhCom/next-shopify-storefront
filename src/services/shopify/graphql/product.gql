@@ -69,7 +69,7 @@ query getProductSingle($handle: String!) {
   }
 }
 
-query getCollections($after: String) {
+query getCollectionList($after: String) {
   collections(first: 12, after: $after) {
     edges {
       node {
@@ -91,7 +91,7 @@ query getCollections($after: String) {
   }
 }
 
-query getCollection($handle: String!, $after: String) {
+query getCollectionSingle($handle: String!, $productsAfter: String) {
   collection(handle: $handle) {
     id
     handle
@@ -101,7 +101,7 @@ query getCollection($handle: String!, $after: String) {
       title
       description
     }
-    products(first: 12, after: $after) {
+    products(first: 12, after: $productsAfter) {
       ...PaginatedProductList
     }
   }
