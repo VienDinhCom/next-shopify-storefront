@@ -50,6 +50,10 @@ const DefaultLayout: React.FC<Props> = ({ query, children }) => {
               <Button color="inherit">Products</Button>
             </NextLink>
 
+            <NextLink href="/collections" passHref>
+              <Button color="inherit">Collections</Button>
+            </NextLink>
+
             <NextLink href="/cart" passHref>
               <IconButton color="inherit">
                 <Badge color="error" badgeContent={itemCount.data}>
