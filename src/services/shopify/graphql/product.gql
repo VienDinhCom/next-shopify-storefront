@@ -1,32 +1,36 @@
-query getProductList($after: String) {
-  products(first: 12, after: $after) {
-    edges {
-      node {
-        id
-        handle
-        title
-        description(truncateAt: 120)
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
+fragment PaginatedProductList on ProductConnection {
+  edges {
+    node {
+      id
+      handle
+      title
+      description(truncateAt: 120)
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
         }
-        images(first: 1) {
-          edges {
-            node {
-              id
-              altText
-              transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
-            }
+      }
+      images(first: 1) {
+        edges {
+          node {
+            id
+            altText
+            transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
           }
         }
       }
-      cursor
     }
-    pageInfo {
-      hasNextPage
-    }
+    cursor
+  }
+  pageInfo {
+    hasNextPage
+  }
+}
+
+query getProductList($after: String) {
+  products(first: 12, after: $after) {
+    ...PaginatedProductList
   }
 }
 
@@ -61,6 +65,44 @@ query getProductSingle($handle: String!) {
           }
         }
       }
+    }
+  }
+}
+
+query getCollections($after: String) {
+  collections(first: 20, after: $after) {
+    edges {
+      node {
+        id
+        handle
+        title
+        description
+        image {
+          id
+          url
+          altText
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}
+
+query getCollection($handle: String!, $after: String) {
+  collection(handle: $handle) {
+    id
+    handle
+    title
+    description
+    seo {
+      title
+      description
+    }
+    products(first: 12, after: $after) {
+      ...PaginatedProductList
     }
   }
 }
