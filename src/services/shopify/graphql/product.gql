@@ -79,7 +79,7 @@ query getCollectionList($after: String) {
         description
         image {
           id
-          url
+          transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
           altText
         }
       }
@@ -92,15 +92,11 @@ query getCollectionList($after: String) {
 }
 
 query getCollectionSingle($handle: String!, $productsAfter: String) {
-  collection(handle: $handle) {
+  collectionByHandle(handle: $handle) {
     id
     handle
     title
     description
-    seo {
-      title
-      description
-    }
     products(first: 12, after: $productsAfter) {
       ...PaginatedProductList
     }

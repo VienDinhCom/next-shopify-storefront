@@ -16,16 +16,16 @@ export namespace CollectionService {
   }
 
   export async function getSingle(handle: string, productsAfter?: string): Promise<SingleCollection> {
-    const { collection } = await ShopifyService.getCollectionSingle({ handle, productsAfter });
+    const { collectionByHandle } = await ShopifyService.getCollectionSingle({ handle, productsAfter });
 
-    const { title, description, seo, products } = collection!;
+    const { title, description, products } = collectionByHandle!;
 
     let singleCollection: SingleCollection = {
       title: formatTitle(title),
       description,
       seo: {
-        title: formatTitle(seo.title || title),
-        description: seo.description || truncate(description, { length: 256 }),
+        title: formatTitle(title),
+        description: truncate(description, { length: 256 }),
       },
       products: ProductService.getListFromPaginatedProductPage(products),
     };
@@ -64,7 +64,7 @@ export namespace CollectionService {
         title: formatTitle(node.title),
         description: node.description,
         image: {
-          src: node.image?.url ?? '',
+          src: node.image?.transformedSrc ?? '',
           alt: node.image?.altText ?? '',
         },
       };
