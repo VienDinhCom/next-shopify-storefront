@@ -12,18 +12,33 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** An ISO-8601 encoded UTC date time string. Example value: `"2019-07-03T20:47:55Z"`. */
+  /**
+   * Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.
+   * For example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
+   * represented as `"2019-09-07T15:50:00Z`".
+   */
   DateTime: string;
-  /** A signed decimal number, which supports arbitrary precision and is serialized as a string. Example value: `"29.99"`. */
+  /**
+   * A signed decimal number, which supports arbitrary precision and is serialized as a string.
+   *
+   * Example values: `"29.99"`, `"29.999"`.
+   */
   Decimal: string;
-  /** A string containing HTML code. Example value: `"<p>Grey cotton knit sweater.</p>"`. */
+  /**
+   * A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a
+   * complete list of HTML elements.
+   *
+   * Example value: `"<p>Grey cotton knit sweater.</p>"`.
+   */
   HTML: string;
-  /** A monetary value string. Example value: `"100.57"`. */
+  /** A monetary value string without a currency symbol or code. Example value: `"100.57"`. */
   Money: string;
   /**
-   * An RFC 3986 and RFC 3987 compliant URI string.
+   * Represents an [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986) and
+   * [RFC 3987](https://datatracker.ietf.org/doc/html/rfc3987)-compliant URI string.
    *
-   * Example value: `"https://johns-apparel.myshopify.com"`.
+   * For example, `"https://johns-apparel.myshopify.com"` is a valid URL. It includes a scheme (`https`) and a host
+   * (`johns-apparel.myshopify.com`).
    */
   URL: string;
 };
@@ -33,14 +48,17 @@ export type Scalars = {
 
 
 
-/** A version of the API. */
+/**
+ * A version of the API, as defined by [Shopify API versioning](https://shopify.dev/api/usage/versioning).
+ * Versions are commonly referred to by their handle (for example, `2021-10`).
+ */
 export type ApiVersion = {
   __typename?: 'ApiVersion';
   /** The human-readable name of the version. */
   displayName: Scalars['String'];
   /** The unique identifier of an ApiVersion. All supported API versions have a date-based (YYYY-MM) or `unstable` handle. */
   handle: Scalars['String'];
-  /** Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/concepts/about-apis/versioning). */
+  /** Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/api/usage/versioning). */
   supported: Scalars['Boolean'];
 };
 
@@ -70,7 +88,7 @@ export type AppliedGiftCard = Node & {
 };
 
 /** An article in an online store blog. */
-export type Article = Node & HasMetafields & {
+export type Article = HasMetafields & Node & {
   __typename?: 'Article';
   /**
    * The article's author.
@@ -99,7 +117,11 @@ export type Article = Node & HasMetafields & {
   image?: Maybe<Image>;
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
   /** The date and time when the article was published. */
   publishedAt: Scalars['DateTime'];
@@ -109,7 +131,10 @@ export type Article = Node & HasMetafields & {
   tags: Array<Scalars['String']>;
   /** The article’s name. */
   title: Scalars['String'];
-  /** The url pointing to the article accessible from the web. */
+  /**
+   * The url pointing to the article accessible from the web.
+   * @deprecated Use `onlineStoreUrl` instead
+   */
   url: Scalars['URL'];
 };
 
@@ -210,9 +235,8 @@ export enum ArticleSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
@@ -263,7 +287,7 @@ export type AvailableShippingRates = {
 };
 
 /** An online store blog. */
-export type Blog = Node & HasMetafields & {
+export type Blog = HasMetafields & Node & {
   __typename?: 'Blog';
   /** Find an article by its handle. */
   articleByHandle?: Maybe<Article>;
@@ -277,13 +301,20 @@ export type Blog = Node & HasMetafields & {
   id: Scalars['ID'];
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
   /** The blog's SEO information. */
   seo?: Maybe<Seo>;
   /** The blogs’s title. */
   title: Scalars['String'];
-  /** The url pointing to the blog accessible from the web. */
+  /**
+   * The url pointing to the blog accessible from the web.
+   * @deprecated Use `onlineStoreUrl` instead
+   */
   url: Scalars['URL'];
 };
 
@@ -350,9 +381,8 @@ export enum BlogSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
@@ -390,7 +420,7 @@ export type Checkout = Node & {
   completedAt?: Maybe<Scalars['DateTime']>;
   /** The date and time when the checkout was created. */
   createdAt: Scalars['DateTime'];
-  /** The currency code for the Checkout. */
+  /** The currency code for the checkout. */
   currencyCode: CurrencyCode;
   /** A list of extra information that is added to the checkout. */
   customAttributes: Array<Attribute>;
@@ -444,9 +474,9 @@ export type Checkout = Node & {
   subtotalPrice: Scalars['Money'];
   /** Price of the checkout before duties, shipping and taxes. */
   subtotalPriceV2: MoneyV2;
-  /** Specifies if the Checkout is tax exempt. */
+  /** Whether the checkout is tax exempt. */
   taxExempt: Scalars['Boolean'];
-  /** Specifies if taxes are included in the line item and shipping line prices. */
+  /** Whether taxes are included in the line item and shipping line prices. */
   taxesIncluded: Scalars['Boolean'];
   /** The sum of all the duties applied to the line items in the checkout. */
   totalDuties?: Maybe<MoneyV2>;
@@ -829,7 +859,7 @@ export type CheckoutEmailUpdateV2Payload = {
   userErrors: Array<UserError>;
 };
 
-/** Possible error codes that could be returned by CheckoutUserError. */
+/** Possible error codes that can be returned by `CheckoutUserError`. */
 export enum CheckoutErrorCode {
   /** The input value is blank. */
   Blank = 'BLANK',
@@ -1137,7 +1167,7 @@ export type CheckoutUserError = DisplayableError & {
 };
 
 /** A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse. */
-export type Collection = Node & HasMetafields & {
+export type Collection = HasMetafields & Node & {
   __typename?: 'Collection';
   /** Stripped description of the collection, single line with HTML tags removed. */
   description: Scalars['String'];
@@ -1154,7 +1184,11 @@ export type Collection = Node & HasMetafields & {
   image?: Maybe<Image>;
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
   /** List of products in the collection. */
   products: ProductConnection;
@@ -1235,9 +1269,8 @@ export enum CollectionSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
@@ -1301,7 +1334,12 @@ export type Country = {
   unitSystem: UnitSystem;
 };
 
-/** ISO 3166-1 alpha-2 country codes with some differences. */
+/**
+ * The code designating a country/region, which generally follows ISO 3166-1 alpha-2 guidelines.
+ * If a territory doesn't have a country code value in the `CountryCode` enum, it might be considered a subdivision
+ * of another country. For example, the territories associated with Spain are represented by the country code `ES`,
+ * and the territories associated with the United States of America are represented by the country code `US`.
+ */
 export enum CountryCode {
   /** Afghanistan. */
   Af = 'AF',
@@ -1823,7 +1861,7 @@ export type CreditCard = {
 export type CreditCardPaymentInput = {
   /** The amount of the payment. */
   amount: Scalars['Money'];
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
@@ -1840,7 +1878,7 @@ export type CreditCardPaymentInput = {
 export type CreditCardPaymentInputV2 = {
   /** The amount and currency of the payment. */
   paymentAmount: MoneyInput;
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
@@ -1875,7 +1913,10 @@ export type Currency = {
   symbol: Scalars['String'];
 };
 
-/** Currency codes. */
+/**
+ * The three-letter currency codes that represent the world currencies used in stores. These include standard ISO 4217 codes, legacy codes,
+ * and non-standard codes.
+ */
 export enum CurrencyCode {
   /** United States Dollars (USD). */
   Usd = 'USD',
@@ -2093,8 +2134,6 @@ export enum CurrencyCode {
   Wst = 'WST',
   /** Saudi Riyal (SAR). */
   Sar = 'SAR',
-  /** Sao Tome And Principe Dobra (STD). */
-  Std = 'STD',
   /** Serbian dinar (RSD). */
   Rsd = 'RSD',
   /** Seychellois Rupee (SCR). */
@@ -2185,6 +2224,8 @@ export enum CurrencyCode {
   Shp = 'SHP',
   /** Somali Shilling (SOS). */
   Sos = 'SOS',
+  /** Sao Tome And Principe Dobra (STD). */
+  Std = 'STD',
   /** Tajikistani Somoni (TJS). */
   Tjs = 'TJS',
   /** Tongan Pa'anga (TOP). */
@@ -2222,7 +2263,11 @@ export type Customer = HasMetafields & {
   lastName?: Maybe<Scalars['String']>;
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
   /** The orders associated with the customer. */
   orders: OrderConnection;
@@ -2462,7 +2507,7 @@ export type CustomerDefaultAddressUpdatePayload = {
   userErrors: Array<UserError>;
 };
 
-/** Possible error codes that could be returned by CustomerUserError. */
+/** Possible error codes that can be returned by `CustomerUserError`. */
 export enum CustomerErrorCode {
   /** The input value is blank. */
   Blank = 'BLANK',
@@ -2665,13 +2710,15 @@ export type DiscountApplicationEdge = {
 };
 
 /**
- * Which lines on the order that the discount is allocated over, of the type
- * defined by the Discount Application's target_type.
+ * The lines on the order to which the discount is applied, of the type defined by
+ * the discount application's `targetType`. For example, the value `ENTITLED`, combined with a `targetType` of
+ * `LINE_ITEM`, applies the discount on all line items that are entitled to the discount.
+ * The value `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the discount on all shipping lines.
  */
 export enum DiscountApplicationTargetSelection {
   /** The discount is allocated onto all the lines. */
   All = 'ALL',
-  /** The discount is allocated onto only the lines it is entitled for. */
+  /** The discount is allocated onto only the lines that it's entitled for. */
   Entitled = 'ENTITLED',
   /** The discount is allocated onto explicitly chosen lines. */
   Explicit = 'EXPLICIT'
@@ -2725,11 +2772,14 @@ export type Domain = {
 };
 
 /** Represents a video hosted outside of Shopify. */
-export type ExternalVideo = Node & Media & {
+export type ExternalVideo = Media & Node & {
   __typename?: 'ExternalVideo';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>;
-  /** The URL. */
+  /**
+   * The URL.
+   * @deprecated Use `originUrl` instead
+   */
   embeddedUrl: Scalars['URL'];
   /** The host of the external video. */
   host: MediaHost;
@@ -2820,7 +2870,11 @@ export type GeoCoordinateInput = {
 export type HasMetafields = {
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
 };
 
@@ -2855,52 +2909,12 @@ export type Image = {
    * The location of the original image as a URL.
    *
    * If there are any existing transformations in the original source URL, they will remain and not be stripped.
+   * @deprecated Use `url` instead
    */
   originalSrc: Scalars['URL'];
   /**
    * The location of the image as a URL.
-   * @deprecated Previously an image had a single `src` field. This could either return the original image
-   * location or a URL that contained transformations such as sizing or scale.
-   *
-   * These transformations were specified by arguments on the parent field.
-   *
-   * Now an image has two distinct URL fields: `originalSrc` and `transformedSrc`.
-   *
-   * * `originalSrc` - the original unmodified image URL
-   * * `transformedSrc` - the image URL with the specified transformations included
-   *
-   * To migrate to the new fields, image transformations should be moved from the parent field to `transformedSrc`.
-   *
-   * Before:
-   * ```graphql
-   * {
-   *   shop {
-   *     productImages(maxWidth: 200, scale: 2) {
-   *       edges {
-   *         node {
-   *           src
-   *         }
-   *       }
-   *     }
-   *   }
-   * }
-   * ```
-   *
-   * After:
-   * ```graphql
-   * {
-   *   shop {
-   *     productImages {
-   *       edges {
-   *         node {
-   *           transformedSrc(maxWidth: 200, scale: 2)
-   *         }
-   *       }
-   *     }
-   *   }
-   * }
-   * ```
-   *
+   * @deprecated Use `url` instead
    */
   src: Scalars['URL'];
   /**
@@ -2908,6 +2922,7 @@ export type Image = {
    *
    * All transformation arguments are considered "best-effort". If they can be applied to an image, they will be.
    * Otherwise any transformations which an image type does not support will be ignored.
+   * @deprecated Use `url(transform:)` instead
    */
   transformedSrc: Scalars['URL'];
   /** The original width of the image in pixels. Returns `null` if the image is not hosted by Shopify. */
@@ -2955,7 +2970,7 @@ export type ImageEdge = {
 /** Information about the localized experiences configured for the shop. */
 export type Localization = {
   __typename?: 'Localization';
-  /** List of countries with enabled localized experiences. */
+  /** The list of countries with enabled localized experiences. */
   availableCountries: Array<Country>;
   /** The country of the active localized experience. Use the `@inContext` directive to change this value. */
   country: Country;
@@ -2972,7 +2987,7 @@ export type Location = Node & {
   name: Scalars['String'];
 };
 
-/** Represents the address of the location. */
+/** Represents the address of a location. */
 export type LocationAddress = {
   __typename?: 'LocationAddress';
   /** The first line of the address for the location. */
@@ -2983,9 +2998,9 @@ export type LocationAddress = {
   city?: Maybe<Scalars['String']>;
   /** The country of the location. */
   country?: Maybe<Scalars['String']>;
-  /** The two-letter country code of the location. */
+  /** The country code of the location. */
   countryCode?: Maybe<Scalars['String']>;
-  /** A formatted version of the location address. */
+  /** A formatted version of the address for the location. */
   formatted: Array<Scalars['String']>;
   /** The latitude coordinates of the location. */
   latitude?: Maybe<Scalars['Float']>;
@@ -2995,10 +3010,7 @@ export type LocationAddress = {
   phone?: Maybe<Scalars['String']>;
   /** The province of the location. */
   province?: Maybe<Scalars['String']>;
-  /**
-   * The code for the region of the address, such as the province, state, or district.
-   * For example QC for Quebec, Canada.
-   */
+  /** The code for the province, state, or district of the address of the location. */
   provinceCode?: Maybe<Scalars['String']>;
   /** The ZIP code of the location. */
   zip?: Maybe<Scalars['String']>;
@@ -3213,7 +3225,7 @@ export enum MediaHost {
 }
 
 /** Represents a Shopify hosted image. */
-export type MediaImage = Node & Media & {
+export type MediaImage = Media & Node & {
   __typename?: 'MediaImage';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>;
@@ -3289,11 +3301,13 @@ export enum MetafieldValueType {
   /** An integer metafield. */
   Integer = 'INTEGER',
   /** A json string metafield. */
-  JsonString = 'JSON_STRING'
+  JsonString = 'JSON_STRING',
+  /** A boolean metafield. */
+  Boolean = 'BOOLEAN'
 }
 
 /** Represents a Shopify hosted 3D model. */
-export type Model3d = Node & Media & {
+export type Model3d = Media & Node & {
   __typename?: 'Model3d';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>;
@@ -3373,7 +3387,7 @@ export type Mutation = {
    * @deprecated Use `checkoutCompleteWithCreditCardV2` instead
    */
   checkoutCompleteWithCreditCard?: Maybe<CheckoutCompleteWithCreditCardPayload>;
-  /** Completes a checkout using a credit card token from Shopify's card vault. Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, you need to  [_request payment processing_](https://help.shopify.com/api/guides/sales-channel-sdk/getting-started#request-payment-processing). */
+  /** Completes a checkout using a credit card token from Shopify's card vault. Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, you need to  [_request payment processing_](https://shopify.dev/apps/channels/getting-started#request-payment-processing). */
   checkoutCompleteWithCreditCardV2?: Maybe<CheckoutCompleteWithCreditCardV2Payload>;
   /**
    * Completes a checkout with a tokenized payment.
@@ -3410,7 +3424,7 @@ export type Mutation = {
   checkoutDiscountCodeApply?: Maybe<CheckoutDiscountCodeApplyPayload>;
   /** Applies a discount to an existing checkout using a discount code. */
   checkoutDiscountCodeApplyV2?: Maybe<CheckoutDiscountCodeApplyV2Payload>;
-  /** Removes the applied discount from an existing checkout. */
+  /** Removes the applied discounts from an existing checkout. */
   checkoutDiscountCodeRemove?: Maybe<CheckoutDiscountCodeRemovePayload>;
   /**
    * Updates the email on an existing checkout.
@@ -3793,14 +3807,19 @@ export type MutationCustomerUpdateArgs = {
   customer: CustomerUpdateInput;
 };
 
-/** An object with an ID to support global identification. */
+/**
+ * An object with an ID field to support global identification, in accordance with the
+ * [Relay specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface).
+ * This interface is used by the [node](https://shopify.dev/api/admin-graphql/unstable/queries/node)
+ * and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) queries.
+ */
 export type Node = {
   /** A globally-unique identifier. */
   id: Scalars['ID'];
 };
 
 /** An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information. */
-export type Order = Node & HasMetafields & {
+export type Order = HasMetafields & Node & {
   __typename?: 'Order';
   /** The reason for the order's cancellation. Returns `null` if the order wasn't canceled. */
   cancelReason?: Maybe<OrderCancelReason>;
@@ -3836,7 +3855,11 @@ export type Order = Node & HasMetafields & {
   lineItems: OrderLineItemConnection;
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
   /**
    * Unique identifier for the order that appears on the order.
@@ -3996,25 +4019,25 @@ export enum OrderFinancialStatus {
   Refunded = 'REFUNDED'
 }
 
-/** Represents the order's current fulfillment status. */
+/** Represents the order's aggregated fulfillment status for display purposes. */
 export enum OrderFulfillmentStatus {
-  /** Displayed as **Unfulfilled**. */
+  /** Displayed as **Unfulfilled**. None of the items in the order have been fulfilled. */
   Unfulfilled = 'UNFULFILLED',
-  /** Displayed as **Partially fulfilled**. */
+  /** Displayed as **Partially fulfilled**. Some of the items in the order have been fulfilled. */
   PartiallyFulfilled = 'PARTIALLY_FULFILLED',
-  /** Displayed as **Fulfilled**. */
+  /** Displayed as **Fulfilled**. All of the items in the order have been fulfilled. */
   Fulfilled = 'FULFILLED',
-  /** Displayed as **Restocked**. */
+  /** Displayed as **Restocked**. All of the items in the order have been restocked. Replaced by "UNFULFILLED" status. */
   Restocked = 'RESTOCKED',
-  /** Displayed as **Pending fulfillment**. */
+  /** Displayed as **Pending fulfillment**. A request for fulfillment of some items awaits a response from the fulfillment service. Replaced by "IN_PROGRESS" status. */
   PendingFulfillment = 'PENDING_FULFILLMENT',
-  /** Displayed as **Open**. */
+  /** Displayed as **Open**. None of the items in the order have been fulfilled. Replaced by "UNFULFILLED" status. */
   Open = 'OPEN',
-  /** Displayed as **In progress**. */
+  /** Displayed as **In progress**. Some of the items in the order have been fulfilled, or a request for fulfillment has been sent to the fulfillment service. */
   InProgress = 'IN_PROGRESS',
-  /** Displayed as **On hold**. */
+  /** Displayed as **On hold**. All of the unfulfilled items in this order are on hold. */
   OnHold = 'ON_HOLD',
-  /** Displayed as **Scheduled**. */
+  /** Displayed as **Scheduled**. All of the unfulfilled items in this order are scheduled for fulfillment at later time. */
   Scheduled = 'SCHEDULED'
 }
 
@@ -4066,15 +4089,14 @@ export enum OrderSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
 
 /** Shopify merchants can create pages to hold static HTML content. Each Page object represents a custom page on the online store. */
-export type Page = Node & HasMetafields & {
+export type Page = HasMetafields & Node & {
   __typename?: 'Page';
   /** The description of the page, complete with HTML formatting. */
   body: Scalars['HTML'];
@@ -4088,7 +4110,11 @@ export type Page = Node & HasMetafields & {
   id: Scalars['ID'];
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
   /** The page's SEO information. */
   seo?: Maybe<Seo>;
@@ -4096,7 +4122,10 @@ export type Page = Node & HasMetafields & {
   title: Scalars['String'];
   /** The timestamp of the latest page update. */
   updatedAt: Scalars['DateTime'];
-  /** The url pointing to the page accessible from the web. */
+  /**
+   * The url pointing to the page accessible from the web.
+   * @deprecated Use `onlineStoreUrl` instead
+   */
   url: Scalars['URL'];
 };
 
@@ -4136,12 +4165,15 @@ export type PageEdge = {
   node: Page;
 };
 
-/** Information about pagination in a connection. */
+/**
+ * Returns information about pagination in a connection, in accordance with the
+ * [Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
+ */
 export type PageInfo = {
   __typename?: 'PageInfo';
-  /** Indicates if there are more pages to fetch. */
+  /** Whether there are more pages to fetch following the current page. */
   hasNextPage: Scalars['Boolean'];
-  /** Indicates if there are any pages prior to the current page. */
+  /** Whether there are any pages prior to the current page. */
   hasPreviousPage: Scalars['Boolean'];
 };
 
@@ -4154,9 +4186,8 @@ export enum PageSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
@@ -4184,7 +4215,7 @@ export type Payment = Node & {
   /**
    * A client-side generated token to identify a payment and perform idempotent operations.
    * For more information, refer to
-   * [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+   * [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
    */
   idempotencyKey?: Maybe<Scalars['String']>;
   /** The URL where the customer needs to be redirected so they can complete the 3D Secure payment flow. */
@@ -4242,7 +4273,7 @@ export type PricingValue = MoneyV2 | PricingPercentageValue;
  * A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
  * For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
  */
-export type Product = Node & HasMetafields & {
+export type Product = HasMetafields & Node & {
   __typename?: 'Product';
   /** Indicates if at least one product variant is available for sale. */
   availableForSale: Scalars['Boolean'];
@@ -4269,9 +4300,13 @@ export type Product = Node & HasMetafields & {
   media: MediaConnection;
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
-  /** The URL used for viewing the resource on the shop's Online Store. May be null if the resource is currently not published to the Online Store sales channel. */
+  /** The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel. */
   onlineStoreUrl?: Maybe<Scalars['URL']>;
   /** List of product options. */
   options: Array<ProductOption>;
@@ -4348,16 +4383,16 @@ export type ProductDescriptionArgs = {
  * For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
  */
 export type ProductImagesArgs = {
+  maxWidth?: Maybe<Scalars['Int']>;
+  maxHeight?: Maybe<Scalars['Int']>;
+  crop?: Maybe<CropRegion>;
+  scale?: Maybe<Scalars['Int']>;
   first?: Maybe<Scalars['Int']>;
   after?: Maybe<Scalars['String']>;
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   reverse?: Maybe<Scalars['Boolean']>;
   sortKey?: Maybe<ProductImageSortKeys>;
-  maxWidth?: Maybe<Scalars['Int']>;
-  maxHeight?: Maybe<Scalars['Int']>;
-  crop?: Maybe<CropRegion>;
-  scale?: Maybe<Scalars['Int']>;
 };
 
 
@@ -4474,9 +4509,8 @@ export enum ProductCollectionSortKeys {
   /** Sort by the `collection-default` value. */
   CollectionDefault = 'COLLECTION_DEFAULT',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
@@ -4508,9 +4542,8 @@ export enum ProductImageSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
@@ -4522,9 +4555,8 @@ export enum ProductMediaSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
@@ -4590,15 +4622,14 @@ export enum ProductSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
 
 /** A product variant represents a different version of a product, such as differing sizes or differing colors. */
-export type ProductVariant = Node & HasMetafields & {
+export type ProductVariant = HasMetafields & Node & {
   __typename?: 'ProductVariant';
   /**
    * Indicates if the product variant is in stock.
@@ -4622,7 +4653,11 @@ export type ProductVariant = Node & HasMetafields & {
   image?: Maybe<Image>;
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
   /**
    * List of prices and compare-at prices in the presentment currencies for this shop.
@@ -4792,9 +4827,8 @@ export enum ProductVariantSortKeys {
   /** Sort by the `id` value. */
   Id = 'ID',
   /**
-   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-   * results by relevance to the search term(s). When no search query is specified, this sort key is not
-   * deterministic and should not be used.
+   * Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+   * Don't use this sort key when no search query is specified.
    */
   Relevance = 'RELEVANCE'
 }
@@ -4804,11 +4838,17 @@ export type QueryRoot = {
   __typename?: 'QueryRoot';
   /** List of the shop's articles. */
   articles: ArticleConnection;
-  /** Find a blog by its handle. */
+  /**
+   * Find a blog by its handle.
+   * @deprecated Use `blog` instead
+   */
   blogByHandle?: Maybe<Blog>;
   /** List of the shop's blogs. */
   blogs: BlogConnection;
-  /** Find a collection by its handle. */
+  /**
+   * Find a collection by its handle.
+   * @deprecated Use `collection` instead
+   */
   collectionByHandle?: Maybe<Collection>;
   /** List of the shop’s collections. */
   collections: CollectionConnection;
@@ -4826,11 +4866,17 @@ export type QueryRoot = {
   node?: Maybe<Node>;
   /** Returns the list of nodes with the given IDs. */
   nodes: Array<Maybe<Node>>;
-  /** Find a page by its handle. */
+  /**
+   * Find a page by its handle.
+   * @deprecated Use `page` instead
+   */
   pageByHandle?: Maybe<Page>;
   /** List of the shop's pages. */
   pages: PageConnection;
-  /** Find a product by its handle. */
+  /**
+   * Find a product by its handle.
+   * @deprecated Use `product` instead
+   */
   productByHandle?: Maybe<Product>;
   /**
    * Find recommended products related to a given `product_id`.
@@ -5046,9 +5092,9 @@ export type SellingPlan = {
   id: Scalars['ID'];
   /** The name of the selling plan. For example, '6 weeks of prepaid granola, delivered weekly'. */
   name: Scalars['String'];
-  /** Represents the selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product. */
+  /** The selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product. */
   options: Array<SellingPlanOption>;
-  /** Represents how a selling plan affects pricing when a variant is purchased with a selling plan. */
+  /** The price adjustments that a selling plan makes when a variant is purchased with a selling plan. */
   priceAdjustments: Array<SellingPlanPriceAdjustment>;
   /** Whether purchasing the selling plan will result in multiple deliveries. */
   recurringDeliveries: Scalars['Boolean'];
@@ -5057,7 +5103,7 @@ export type SellingPlan = {
 /** Represents an association between a variant and a selling plan. Selling plan allocations describe the options offered for each variant, and the price of the variant when purchased with a selling plan. */
 export type SellingPlanAllocation = {
   __typename?: 'SellingPlanAllocation';
-  /** A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders. */
+  /** A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders. A price adjustment represents how a selling plan affects pricing when a variant is purchased with a selling plan. Prices display in the customer's currency if the shop is configured for it. */
   priceAdjustments: Array<SellingPlanAllocationPriceAdjustment>;
   /** A representation of how products and variants can be sold and purchased. For example, an individual selling plan could be '6 weeks of prepaid granola, delivered weekly'. */
   sellingPlan: SellingPlan;
@@ -5252,7 +5298,11 @@ export type Shop = HasMetafields & {
   description?: Maybe<Scalars['String']>;
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
-  /** A paginated list of metafields associated with the resource. */
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
   metafields: MetafieldConnection;
   /** A string representing the way currency is formatted when the currency isn’t specified. */
   moneyFormat: Scalars['String'];
@@ -5405,7 +5455,10 @@ export type ShopPolicy = Node & {
   url: Scalars['URL'];
 };
 
-/** Describes the availability of a product variant at a particular location. */
+/**
+ * The availability of a product variant at a particular location.
+ * Local pick-up must be enabled in the  store's shipping settings, otherwise this will return an empty result.
+ */
 export type StoreAvailability = {
   __typename?: 'StoreAvailability';
   /** Whether or not this product variant is in-stock at this location. */
@@ -5434,7 +5487,7 @@ export type StoreAvailabilityEdge = {
   node: StoreAvailability;
 };
 
-/** An auto-generated type for paginating through multiple Strings. */
+/** An auto-generated type for paginating through a list of Strings. */
 export type StringConnection = {
   __typename?: 'StringConnection';
   /** A list of edges. */
@@ -5459,7 +5512,7 @@ export type StringEdge = {
 export type TokenizedPaymentInput = {
   /** The amount of the payment. */
   amount: Scalars['Money'];
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
@@ -5480,7 +5533,7 @@ export type TokenizedPaymentInput = {
 export type TokenizedPaymentInputV2 = {
   /** The amount and currency of the payment. */
   paymentAmount: MoneyInput;
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
@@ -5501,7 +5554,7 @@ export type TokenizedPaymentInputV2 = {
 export type TokenizedPaymentInputV3 = {
   /** The amount and currency of the payment. */
   paymentAmount: MoneyInput;
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
@@ -5639,7 +5692,7 @@ export type UserError = DisplayableError & {
 };
 
 /** Represents a Shopify hosted video. */
-export type Video = Node & Media & {
+export type Video = Media & Node & {
   __typename?: 'Video';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>;
@@ -5725,6 +5778,8 @@ export type RemoveCartItemMutationVariables = Exact<{
 
 export type RemoveCartItemMutation = { __typename?: 'Mutation', checkoutLineItemsRemove?: Maybe<{ __typename?: 'CheckoutLineItemsRemovePayload', checkout?: Maybe<{ __typename?: 'Checkout', id: string }> }> };
 
+export type PaginatedProductListFragment = { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', id: string, handle: string, title: string, description: string, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: string } }> } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } };
+
 export type GetProductListQueryVariables = Exact<{
   after?: Maybe<Scalars['String']>;
 }>;
@@ -5739,7 +5794,57 @@ export type GetProductSingleQueryVariables = Exact<{
 
 export type GetProductSingleQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', title: string, description: string, seo: { __typename?: 'SEO', title?: Maybe<string>, description?: Maybe<string> }, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: string } }> }, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, priceV2: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode }, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string> }> } }> } }> };
 
+export type GetCollectionListQueryVariables = Exact<{
+  after?: Maybe<Scalars['String']>;
+}>;
 
+
+export type GetCollectionListQuery = { __typename?: 'QueryRoot', collections: { __typename?: 'CollectionConnection', edges: Array<{ __typename?: 'CollectionEdge', cursor: string, node: { __typename?: 'Collection', id: string, handle: string, title: string, description: string, image?: Maybe<{ __typename?: 'Image', id?: Maybe<string>, transformedSrc: string, altText?: Maybe<string> }>, products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', node: { __typename?: 'Product', id: string } }> } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } } };
+
+export type GetCollectionSingleQueryVariables = Exact<{
+  handle: Scalars['String'];
+  productsAfter?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetCollectionSingleQuery = { __typename?: 'QueryRoot', collectionByHandle?: Maybe<{ __typename?: 'Collection', id: string, handle: string, title: string, description: string, products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', id: string, handle: string, title: string, description: string, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: string, currencyCode: CurrencyCode } }, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', id?: Maybe<string>, altText?: Maybe<string>, transformedSrc: string } }> } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } } }> };
+
+export const PaginatedProductListFragmentDoc = gql`
+    fragment PaginatedProductList on ProductConnection {
+  edges {
+    node {
+      id
+      handle
+      title
+      description(truncateAt: 120)
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      images(first: 1) {
+        edges {
+          node {
+            id
+            altText
+            transformedSrc(
+              maxWidth: 768
+              maxHeight: 1024
+              crop: CENTER
+              preferredContentType: JPG
+            )
+          }
+        }
+      }
+    }
+    cursor
+  }
+  pageInfo {
+    hasNextPage
+  }
+}
+    `;
 export const GetCartDocument = gql`
     query getCart($checkoutId: ID!) {
   node(id: $checkoutId) {
@@ -5846,41 +5951,10 @@ export const RemoveCartItemDocument = gql`
 export const GetProductListDocument = gql`
     query getProductList($after: String) {
   products(first: 12, after: $after) {
-    edges {
-      node {
-        id
-        handle
-        title
-        description(truncateAt: 120)
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-        images(first: 1) {
-          edges {
-            node {
-              id
-              altText
-              transformedSrc(
-                maxWidth: 768
-                maxHeight: 1024
-                crop: CENTER
-                preferredContentType: JPG
-              )
-            }
-          }
-        }
-      }
-      cursor
-    }
-    pageInfo {
-      hasNextPage
-    }
+    ...PaginatedProductList
   }
 }
-    `;
+    ${PaginatedProductListFragmentDoc}`;
 export const GetProductSingleDocument = gql`
     query getProductSingle($handle: String!) {
   productByHandle(handle: $handle) {
@@ -5922,6 +5996,54 @@ export const GetProductSingleDocument = gql`
   }
 }
     `;
+export const GetCollectionListDocument = gql`
+    query getCollectionList($after: String) {
+  collections(first: 12, after: $after) {
+    edges {
+      node {
+        id
+        handle
+        title
+        description
+        image {
+          id
+          transformedSrc(
+            maxWidth: 768
+            maxHeight: 1024
+            crop: CENTER
+            preferredContentType: JPG
+          )
+          altText
+        }
+        products(first: 1) {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}
+    `;
+export const GetCollectionSingleDocument = gql`
+    query getCollectionSingle($handle: String!, $productsAfter: String) {
+  collectionByHandle(handle: $handle) {
+    id
+    handle
+    title
+    description
+    products(first: 12, after: $productsAfter) {
+      ...PaginatedProductList
+    }
+  }
+}
+    ${PaginatedProductListFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
@@ -5953,6 +6075,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getProductSingle(variables: GetProductSingleQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductSingleQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductSingleQuery>(GetProductSingleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductSingle');
+    },
+    getCollectionList(variables?: GetCollectionListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCollectionListQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetCollectionListQuery>(GetCollectionListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCollectionList');
+    },
+    getCollectionSingle(variables: GetCollectionSingleQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCollectionSingleQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetCollectionSingleQuery>(GetCollectionSingleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCollectionSingle');
     }
   };
 }

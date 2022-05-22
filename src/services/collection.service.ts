@@ -55,20 +55,24 @@ export namespace CollectionService {
       collections: { edges, pageInfo },
     } = await ShopifyService.getCollectionList(variables);
 
-    const collections: CollectionList['collections'] = edges.map(({ node, cursor }) => {
-      return {
-        id: node.id,
-        cursor: cursor,
-        handle: node.handle,
-        url: `/collections/${node.handle}`,
-        title: formatTitle(node.title),
-        description: node.description,
-        image: {
-          src: node.image?.transformedSrc ?? '',
-          alt: node.image?.altText ?? '',
-        },
-      };
-    });
+    const collections: CollectionList['collections'] = edges
+      .filter(({ node }) => {
+        return node.products.edges.length;
+      })
+      .map(({ node, cursor }) => {
+        return {
+          id: node.id,
+          cursor: cursor,
+          handle: node.handle,
+          url: `/collections/${node.handle}`,
+          title: formatTitle(node.title),
+          description: node.description,
+          image: {
+            src: node.image?.transformedSrc ?? '',
+            alt: node.image?.altText ?? '',
+          },
+        };
+      });
 
     return { collections, pageInfo };
   }

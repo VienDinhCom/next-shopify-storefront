@@ -10,7 +10,7 @@ directive @accessRestricted(
 ) on FIELD_DEFINITION | OBJECT
 
 """
-Contextualizes data based on the additional information provided by the directive. For example, you can use the `@inContext(country: CA)` directive to query the price of a product in a storefront within the context of Canada.
+Contextualizes data based on the additional information provided by the directive. For example, you can use the `@inContext(country: CA)` directive to [query a product's price](https://shopify.dev/api/examples/international-pricing#query-product-prices) in a storefront within the context of Canada.
 """
 directive @inContext(
   """The country code for context. For example, `CA`."""
@@ -54,7 +54,10 @@ directive @connection(
   filter: [String!]
 ) on FIELD
 
-"""A version of the API."""
+"""
+A version of the API, as defined by [Shopify API versioning](https://shopify.dev/api/usage/versioning).
+Versions are commonly referred to by their handle (for example, `2021-10`).
+"""
 type ApiVersion {
   """The human-readable name of the version."""
   displayName: String!
@@ -65,7 +68,7 @@ type ApiVersion {
   handle: String!
 
   """
-  Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/concepts/about-apis/versioning).
+  Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/api/usage/versioning).
   """
   supported: Boolean!
 }
@@ -95,7 +98,7 @@ type AppliedGiftCard implements Node {
 }
 
 """An article in an online store blog."""
-type Article implements Node & HasMetafields {
+type Article implements HasMetafields & Node {
   """The article's author."""
   author: ArticleAuthor! @deprecated(reason: "Use `authorV2` instead")
 
@@ -200,7 +203,7 @@ type Article implements Node & HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """The date and time when the article was published."""
   publishedAt: DateTime!
@@ -215,7 +218,7 @@ type Article implements Node & HasMetafields {
   title: String!
 
   """The url pointing to the article accessible from the web."""
-  url: URL!
+  url: URL! @deprecated(reason: "Use `onlineStoreUrl` instead")
 }
 
 """The author of an article."""
@@ -277,9 +280,8 @@ enum ArticleSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -338,7 +340,7 @@ type AvailableShippingRates {
 }
 
 """An online store blog."""
-type Blog implements Node & HasMetafields {
+type Blog implements HasMetafields & Node {
   """Find an article by its handle."""
   articleByHandle(
     """The handle of the article."""
@@ -371,9 +373,10 @@ type Blog implements Node & HasMetafields {
      - `blog_title`
      - `created_at`
      - `tag`
+     - `tag_not`
      - `updated_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -418,7 +421,7 @@ type Blog implements Node & HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """The blog's SEO information."""
   seo: SEO
@@ -427,7 +430,7 @@ type Blog implements Node & HasMetafields {
   title: String!
 
   """The url pointing to the blog accessible from the web."""
-  url: URL!
+  url: URL! @deprecated(reason: "Use `onlineStoreUrl` instead")
 }
 
 """An auto-generated type for paginating through multiple Blogs."""
@@ -462,9 +465,8 @@ enum BlogSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -515,7 +517,7 @@ type Checkout implements Node {
   """The date and time when the checkout was created."""
   createdAt: DateTime!
 
-  """The currency code for the Checkout."""
+  """The currency code for the checkout."""
   currencyCode: CurrencyCode!
 
   """A list of extra information that is added to the checkout."""
@@ -624,12 +626,10 @@ type Checkout implements Node {
   """Price of the checkout before duties, shipping and taxes."""
   subtotalPriceV2: MoneyV2!
 
-  """Specifies if the Checkout is tax exempt."""
+  """Whether the checkout is tax exempt."""
   taxExempt: Boolean!
 
-  """
-  Specifies if taxes are included in the line item and shipping line prices.
-  """
+  """Whether taxes are included in the line item and shipping line prices."""
   taxesIncluded: Boolean!
 
   """The sum of all the duties applied to the line items in the checkout."""
@@ -993,7 +993,7 @@ type CheckoutEmailUpdateV2Payload {
   userErrors: [UserError!]! @deprecated(reason: "Use `checkoutUserErrors` instead")
 }
 
-"""Possible error codes that could be returned by CheckoutUserError."""
+"""Possible error codes that can be returned by `CheckoutUserError`."""
 enum CheckoutErrorCode {
   """The input value is blank."""
   BLANK
@@ -1353,7 +1353,7 @@ type CheckoutUserError implements DisplayableError {
 """
 A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse.
 """
-type Collection implements Node & HasMetafields {
+type Collection implements HasMetafields & Node {
   """
   Stripped description of the collection, single line with HTML tags removed.
   """
@@ -1425,7 +1425,7 @@ type Collection implements Node & HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """List of products in the collection."""
   products(
@@ -1487,9 +1487,8 @@ enum CollectionSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -1556,7 +1555,12 @@ type Country {
   unitSystem: UnitSystem!
 }
 
-"""ISO 3166-1 alpha-2 country codes with some differences."""
+"""
+The code designating a country/region, which generally follows ISO 3166-1 alpha-2 guidelines.
+If a territory doesn't have a country code value in the `CountryCode` enum, it might be considered a subdivision
+of another country. For example, the territories associated with Spain are represented by the country code `ES`,
+and the territories associated with the United States of America are represented by the country code `US`.
+"""
 enum CountryCode {
   """Afghanistan."""
   AF
@@ -2330,7 +2334,7 @@ input CreditCardPaymentInput {
   amount: Money!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -2353,7 +2357,7 @@ input CreditCardPaymentInputV2 {
   paymentAmount: MoneyInput!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -2397,7 +2401,10 @@ type Currency {
   symbol: String!
 }
 
-"""Currency codes."""
+"""
+The three-letter currency codes that represent the world currencies used in stores. These include standard ISO 4217 codes, legacy codes,
+and non-standard codes.
+"""
 enum CurrencyCode {
   """United States Dollars (USD)."""
   USD
@@ -2723,9 +2730,6 @@ enum CurrencyCode {
   """Saudi Riyal (SAR)."""
   SAR
 
-  """Sao Tome And Principe Dobra (STD)."""
-  STD
-
   """Serbian dinar (RSD)."""
   RSD
 
@@ -2861,6 +2865,9 @@ enum CurrencyCode {
   """Somali Shilling (SOS)."""
   SOS
 
+  """Sao Tome And Principe Dobra (STD)."""
+  STD @deprecated(reason: "`STD` is deprecated. Use `STN` available from version `2022-07` onwards instead.")
+
   """Tajikistani Somoni (TJS)."""
   TJS
 
@@ -2956,7 +2963,7 @@ type Customer implements HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """The orders associated with the customer."""
   orders(
@@ -2982,7 +2989,7 @@ type Customer implements HasMetafields {
     Supported filter parameters:
      - `processed_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -3186,7 +3193,7 @@ type CustomerDefaultAddressUpdatePayload {
   userErrors: [UserError!]! @deprecated(reason: "Use `customerUserErrors` instead")
 }
 
-"""Possible error codes that could be returned by CustomerUserError."""
+"""Possible error codes that can be returned by `CustomerUserError`."""
 enum CustomerErrorCode {
   """The input value is blank."""
   BLANK
@@ -3342,12 +3349,16 @@ type CustomerUserError implements DisplayableError {
 }
 
 """
-An ISO-8601 encoded UTC date time string. Example value: `"2019-07-03T20:47:55Z"`.
+Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.
+For example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
+represented as `"2019-09-07T15:50:00Z`".
 """
 scalar DateTime
 
 """
-A signed decimal number, which supports arbitrary precision and is serialized as a string. Example value: `"29.99"`.
+A signed decimal number, which supports arbitrary precision and is serialized as a string.
+
+Example values: `"29.99"`, `"29.999"`.
 """
 scalar Decimal
 
@@ -3434,14 +3445,16 @@ type DiscountApplicationEdge {
 }
 
 """
-Which lines on the order that the discount is allocated over, of the type
-defined by the Discount Application's target_type.
+The lines on the order to which the discount is applied, of the type defined by
+the discount application's `targetType`. For example, the value `ENTITLED`, combined with a `targetType` of
+`LINE_ITEM`, applies the discount on all line items that are entitled to the discount.
+The value `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the discount on all shipping lines.
 """
 enum DiscountApplicationTargetSelection {
   """The discount is allocated onto all the lines."""
   ALL
 
-  """The discount is allocated onto only the lines it is entitled for."""
+  """The discount is allocated onto only the lines that it's entitled for."""
   ENTITLED
 
   """The discount is allocated onto explicitly chosen lines."""
@@ -3509,12 +3522,12 @@ type Domain {
 }
 
 """Represents a video hosted outside of Shopify."""
-type ExternalVideo implements Node & Media {
+type ExternalVideo implements Media & Node {
   """A word or phrase to share the nature or contents of a media."""
   alt: String
 
   """The URL."""
-  embeddedUrl: URL!
+  embeddedUrl: URL! @deprecated(reason: "Use `originUrl` instead")
 
   """The host of the external video."""
   host: MediaHost!
@@ -3614,7 +3627,10 @@ input GeoCoordinateInput {
 }
 
 """
-A string containing HTML code. Example value: `"<p>Grey cotton knit sweater.</p>"`.
+A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a
+complete list of HTML elements.
+
+Example value: `"<p>Grey cotton knit sweater.</p>"`.
 """
 scalar HTML
 
@@ -3650,7 +3666,7 @@ interface HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 }
 
 """Represents an image resource."""
@@ -3671,10 +3687,10 @@ type Image {
   
   If there are any existing transformations in the original source URL, they will remain and not be stripped.
   """
-  originalSrc: URL!
+  originalSrc: URL! @deprecated(reason: "Use `url` instead")
 
   """The location of the image as a URL."""
-  src: URL! @deprecated(reason: "Previously an image had a single `src` field. This could either return the original image\nlocation or a URL that contained transformations such as sizing or scale.\n\nThese transformations were specified by arguments on the parent field.\n\nNow an image has two distinct URL fields: `originalSrc` and `transformedSrc`.\n\n* `originalSrc` - the original unmodified image URL\n* `transformedSrc` - the image URL with the specified transformations included\n\nTo migrate to the new fields, image transformations should be moved from the parent field to `transformedSrc`.\n\nBefore:\n```graphql\n{\n  shop {\n    productImages(maxWidth: 200, scale: 2) {\n      edges {\n        node {\n          src\n        }\n      }\n    }\n  }\n}\n```\n\nAfter:\n```graphql\n{\n  shop {\n    productImages {\n      edges {\n        node {\n          transformedSrc(maxWidth: 200, scale: 2)\n        }\n      }\n    }\n  }\n}\n```\n")
+  src: URL! @deprecated(reason: "Use `url` instead")
 
   """
   The location of the transformed image as a URL.
@@ -3698,10 +3714,10 @@ type Image {
     scale: Int = 1
 
     """
-    Best effort conversion of image into content type (SVG -> PNG, Anything -> JGP, Anything -> WEBP are supported).
+    Best effort conversion of image into content type (SVG -> PNG, Anything -> JPG, Anything -> WEBP are supported).
     """
     preferredContentType: ImageContentType
-  ): URL!
+  ): URL! @deprecated(reason: "Use `url(transform:)` instead")
 
   """
   The original width of the image in pixels. Returns `null` if the image is not hosted by Shopify.
@@ -3743,7 +3759,7 @@ type ImageEdge {
 
 """Information about the localized experiences configured for the shop."""
 type Localization {
-  """List of countries with enabled localized experiences."""
+  """The list of countries with enabled localized experiences."""
   availableCountries: [Country!]!
 
   """
@@ -3764,7 +3780,7 @@ type Location implements Node {
   name: String!
 }
 
-"""Represents the address of the location."""
+"""Represents the address of a location."""
 type LocationAddress {
   """The first line of the address for the location."""
   address1: String
@@ -3778,10 +3794,10 @@ type LocationAddress {
   """The country of the location."""
   country: String
 
-  """The two-letter country code of the location."""
+  """The country code of the location."""
   countryCode: String
 
-  """A formatted version of the location address."""
+  """A formatted version of the address for the location."""
   formatted: [String!]!
 
   """The latitude coordinates of the location."""
@@ -3797,8 +3813,7 @@ type LocationAddress {
   province: String
 
   """
-  The code for the region of the address, such as the province, state, or district.
-  For example QC for Quebec, Canada.
+  The code for the province, state, or district of the address of the location.
   """
   provinceCode: String
 
@@ -4074,7 +4089,7 @@ enum MediaHost {
 }
 
 """Represents a Shopify hosted image."""
-type MediaImage implements Node & Media {
+type MediaImage implements Media & Node {
   """A word or phrase to share the nature or contents of a media."""
   alt: String
 
@@ -4163,10 +4178,13 @@ enum MetafieldValueType {
 
   """A json string metafield."""
   JSON_STRING
+
+  """A boolean metafield."""
+  BOOLEAN
 }
 
 """Represents a Shopify hosted 3D model."""
-type Model3d implements Node & Media {
+type Model3d implements Media & Node {
   """A word or phrase to share the nature or contents of a media."""
   alt: String
 
@@ -4198,7 +4216,9 @@ type Model3dSource {
   url: String!
 }
 
-"""A monetary value string. Example value: `"100.57"`."""
+"""
+A monetary value string without a currency symbol or code. Example value: `"100.57"`.
+"""
 scalar Money
 
 """Specifies the fields for a monetary value with currency."""
@@ -4283,7 +4303,7 @@ type Mutation {
   ): CheckoutCompleteWithCreditCardPayload @deprecated(reason: "Use `checkoutCompleteWithCreditCardV2` instead")
 
   """
-  Completes a checkout using a credit card token from Shopify's card vault. Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, you need to  [_request payment processing_](https://help.shopify.com/api/guides/sales-channel-sdk/getting-started#request-payment-processing).
+  Completes a checkout using a credit card token from Shopify's card vault. Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, you need to  [_request payment processing_](https://shopify.dev/apps/channels/getting-started#request-payment-processing).
   """
   checkoutCompleteWithCreditCardV2(
     """The ID of the checkout."""
@@ -4377,7 +4397,7 @@ type Mutation {
     checkoutId: ID!
   ): CheckoutDiscountCodeApplyV2Payload
 
-  """Removes the applied discount from an existing checkout."""
+  """Removes the applied discounts from an existing checkout."""
   checkoutDiscountCodeRemove(
     """The ID of the checkout."""
     checkoutId: ID!
@@ -4645,7 +4665,12 @@ type Mutation {
   ): CustomerUpdatePayload
 }
 
-"""An object with an ID to support global identification."""
+"""
+An object with an ID field to support global identification, in accordance with the
+[Relay specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface).
+This interface is used by the [node](https://shopify.dev/api/admin-graphql/unstable/queries/node)
+and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) queries.
+"""
 interface Node {
   """A globally-unique identifier."""
   id: ID!
@@ -4654,7 +4679,7 @@ interface Node {
 """
 An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information.
 """
-type Order implements Node & HasMetafields {
+type Order implements HasMetafields & Node {
   """
   The reason for the order's cancellation. Returns `null` if the order wasn't canceled.
   """
@@ -4771,7 +4796,7 @@ type Order implements Node & HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """
   Unique identifier for the order that appears on the order.
@@ -4914,33 +4939,53 @@ enum OrderFinancialStatus {
   REFUNDED
 }
 
-"""Represents the order's current fulfillment status."""
+"""
+Represents the order's aggregated fulfillment status for display purposes.
+"""
 enum OrderFulfillmentStatus {
-  """Displayed as **Unfulfilled**."""
+  """
+  Displayed as **Unfulfilled**. None of the items in the order have been fulfilled.
+  """
   UNFULFILLED
 
-  """Displayed as **Partially fulfilled**."""
+  """
+  Displayed as **Partially fulfilled**. Some of the items in the order have been fulfilled.
+  """
   PARTIALLY_FULFILLED
 
-  """Displayed as **Fulfilled**."""
+  """
+  Displayed as **Fulfilled**. All of the items in the order have been fulfilled.
+  """
   FULFILLED
 
-  """Displayed as **Restocked**."""
+  """
+  Displayed as **Restocked**. All of the items in the order have been restocked. Replaced by "UNFULFILLED" status.
+  """
   RESTOCKED
 
-  """Displayed as **Pending fulfillment**."""
+  """
+  Displayed as **Pending fulfillment**. A request for fulfillment of some items awaits a response from the fulfillment service. Replaced by "IN_PROGRESS" status.
+  """
   PENDING_FULFILLMENT
 
-  """Displayed as **Open**."""
+  """
+  Displayed as **Open**. None of the items in the order have been fulfilled. Replaced by "UNFULFILLED" status.
+  """
   OPEN
 
-  """Displayed as **In progress**."""
+  """
+  Displayed as **In progress**. Some of the items in the order have been fulfilled, or a request for fulfillment has been sent to the fulfillment service.
+  """
   IN_PROGRESS
 
-  """Displayed as **On hold**."""
+  """
+  Displayed as **On hold**. All of the unfulfilled items in this order are on hold.
+  """
   ON_HOLD
 
-  """Displayed as **Scheduled**."""
+  """
+  Displayed as **Scheduled**. All of the unfulfilled items in this order are scheduled for fulfillment at later time.
+  """
   SCHEDULED
 }
 
@@ -5013,9 +5058,8 @@ enum OrderSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -5023,7 +5067,7 @@ enum OrderSortKeys {
 """
 Shopify merchants can create pages to hold static HTML content. Each Page object represents a custom page on the online store.
 """
-type Page implements Node & HasMetafields {
+type Page implements HasMetafields & Node {
   """The description of the page, complete with HTML formatting."""
   body: HTML!
 
@@ -5069,7 +5113,7 @@ type Page implements Node & HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """The page's SEO information."""
   seo: SEO
@@ -5081,7 +5125,7 @@ type Page implements Node & HasMetafields {
   updatedAt: DateTime!
 
   """The url pointing to the page accessible from the web."""
-  url: URL!
+  url: URL! @deprecated(reason: "Use `onlineStoreUrl` instead")
 }
 
 """An auto-generated type for paginating through multiple Pages."""
@@ -5104,12 +5148,15 @@ type PageEdge {
   node: Page!
 }
 
-"""Information about pagination in a connection."""
+"""
+Returns information about pagination in a connection, in accordance with the
+[Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
+"""
 type PageInfo {
-  """Indicates if there are more pages to fetch."""
+  """Whether there are more pages to fetch following the current page."""
   hasNextPage: Boolean!
 
-  """Indicates if there are any pages prior to the current page."""
+  """Whether there are any pages prior to the current page."""
   hasPreviousPage: Boolean!
 }
 
@@ -5125,9 +5172,8 @@ enum PageSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -5160,7 +5206,7 @@ type Payment implements Node {
   """
   A client-side generated token to identify a payment and perform idempotent operations.
   For more information, refer to
-  [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+  [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
   """
   idempotencyKey: String
 
@@ -5237,7 +5283,7 @@ union PricingValue = MoneyV2 | PricingPercentageValue
 A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
 For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
 """
-type Product implements Node & HasMetafields {
+type Product implements HasMetafields & Node {
   """Indicates if at least one product variant is available for sale."""
   availableForSale: Boolean!
 
@@ -5287,24 +5333,6 @@ type Product implements Node & HasMetafields {
 
   """List of images associated with the product."""
   images(
-    """Returns up to the first `n` elements from the list."""
-    first: Int
-
-    """Returns the elements that come after the specified cursor."""
-    after: String
-
-    """Returns up to the last `n` elements from the list."""
-    last: Int
-
-    """Returns the elements that come before the specified cursor."""
-    before: String
-
-    """Reverse the order of the underlying list."""
-    reverse: Boolean = false
-
-    """Sort the underlying list by the given key."""
-    sortKey: ProductImageSortKeys = POSITION
-
     """
     Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.
     """
@@ -5324,6 +5352,24 @@ type Product implements Node & HasMetafields {
     Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.
     """
     scale: Int = 1
+
+    """Returns up to the first `n` elements from the list."""
+    first: Int
+
+    """Returns the elements that come after the specified cursor."""
+    after: String
+
+    """Returns up to the last `n` elements from the list."""
+    last: Int
+
+    """Returns the elements that come before the specified cursor."""
+    before: String
+
+    """Reverse the order of the underlying list."""
+    reverse: Boolean = false
+
+    """Sort the underlying list by the given key."""
+    sortKey: ProductImageSortKeys = POSITION
   ): ImageConnection!
 
   """The media associated with the product."""
@@ -5375,10 +5421,10 @@ type Product implements Node & HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """
-  The URL used for viewing the resource on the shop's Online Store. May be null if the resource is currently not published to the Online Store sales channel.
+  The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel.
   """
   onlineStoreUrl: URL
 
@@ -5525,9 +5571,8 @@ enum ProductCollectionSortKeys {
   COLLECTION_DEFAULT
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -5564,9 +5609,8 @@ enum ProductImageSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -5580,9 +5624,8 @@ enum ProductMediaSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -5661,9 +5704,8 @@ enum ProductSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -5671,7 +5713,7 @@ enum ProductSortKeys {
 """
 A product variant represents a different version of a product, such as differing sizes or differing colors.
 """
-type ProductVariant implements Node & HasMetafields {
+type ProductVariant implements HasMetafields & Node {
   """Indicates if the product variant is in stock."""
   available: Boolean @deprecated(reason: "Use `availableForSale` instead")
 
@@ -5749,7 +5791,7 @@ type ProductVariant implements Node & HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """
   List of prices and compare-at prices in the presentment currencies for this shop.
@@ -5944,9 +5986,8 @@ enum ProductVariantSortKeys {
   ID
 
   """
-  During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
-  results by relevance to the search term(s). When no search query is specified, this sort key is not
-  deterministic and should not be used.
+  Sort by relevance to the search terms when the `query` parameter is specified on the connection.
+  Don't use this sort key when no search query is specified.
   """
   RELEVANCE
 }
@@ -5981,9 +6022,10 @@ type QueryRoot {
      - `blog_title`
      - `created_at`
      - `tag`
+     - `tag_not`
      - `updated_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -5993,7 +6035,7 @@ type QueryRoot {
   blogByHandle(
     """The handle of the blog."""
     handle: String!
-  ): Blog
+  ): Blog @deprecated(reason: "Use `blog` instead")
 
   """List of the shop's blogs."""
   blogs(
@@ -6022,7 +6064,7 @@ type QueryRoot {
      - `title`
      - `updated_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -6032,7 +6074,7 @@ type QueryRoot {
   collectionByHandle(
     """The handle of the collection."""
     handle: String!
-  ): Collection
+  ): Collection @deprecated(reason: "Use `collection` instead")
 
   """List of the shop’s collections."""
   collections(
@@ -6060,7 +6102,7 @@ type QueryRoot {
      - `title`
      - `updated_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -6119,7 +6161,7 @@ type QueryRoot {
   pageByHandle(
     """The handle of the page."""
     handle: String!
-  ): Page
+  ): Page @deprecated(reason: "Use `page` instead")
 
   """List of the shop's pages."""
   pages(
@@ -6148,7 +6190,7 @@ type QueryRoot {
      - `title`
      - `updated_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -6158,7 +6200,7 @@ type QueryRoot {
   productByHandle(
     """The handle of the product."""
     handle: String!
-  ): Product
+  ): Product @deprecated(reason: "Use `product` instead")
 
   """
   Find recommended products related to a given `product_id`.
@@ -6213,12 +6255,13 @@ type QueryRoot {
      - `created_at`
      - `product_type`
      - `tag`
+     - `tag_not`
      - `title`
      - `updated_at`
      - `variants.price`
      - `vendor`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -6303,12 +6346,12 @@ type SellingPlan {
   name: String!
 
   """
-  Represents the selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product.
+  The selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product.
   """
   options: [SellingPlanOption!]!
 
   """
-  Represents how a selling plan affects pricing when a variant is purchased with a selling plan.
+  The price adjustments that a selling plan makes when a variant is purchased with a selling plan.
   """
   priceAdjustments: [SellingPlanPriceAdjustment!]!
 
@@ -6323,7 +6366,7 @@ Represents an association between a variant and a selling plan. Selling plan all
 """
 type SellingPlanAllocation {
   """
-  A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders.
+  A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders. A price adjustment represents how a selling plan affects pricing when a variant is purchased with a selling plan. Prices display in the customer's currency if the shop is configured for it.
   """
   priceAdjustments: [SellingPlanAllocationPriceAdjustment!]!
 
@@ -6571,9 +6614,10 @@ type Shop implements HasMetafields {
      - `blog_title`
      - `created_at`
      - `tag`
+     - `tag_not`
      - `updated_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -6606,7 +6650,7 @@ type Shop implements HasMetafields {
      - `title`
      - `updated_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -6644,7 +6688,7 @@ type Shop implements HasMetafields {
      - `title`
      - `updated_at`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -6684,7 +6728,7 @@ type Shop implements HasMetafields {
 
     """Reverse the order of the underlying list."""
     reverse: Boolean = false
-  ): MetafieldConnection!
+  ): MetafieldConnection! @deprecated(reason: "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
   """
   A string representing the way currency is formatted when the currency isn’t specified.
@@ -6750,12 +6794,13 @@ type Shop implements HasMetafields {
      - `created_at`
      - `product_type`
      - `tag`
+     - `tag_not`
      - `title`
      - `updated_at`
      - `variants.price`
      - `vendor`
     
-    See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+    See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
     for more information about using filters.
     """
     query: String
@@ -6798,7 +6843,8 @@ type ShopPolicy implements Node {
 }
 
 """
-Describes the availability of a product variant at a particular location.
+The availability of a product variant at a particular location.
+Local pick-up must be enabled in the  store's shipping settings, otherwise this will return an empty result.
 """
 type StoreAvailability {
   """Whether or not this product variant is in-stock at this location."""
@@ -6835,7 +6881,7 @@ type StoreAvailabilityEdge {
   node: StoreAvailability!
 }
 
-"""An auto-generated type for paginating through multiple Strings."""
+"""An auto-generated type for paginating through a list of Strings."""
 type StringConnection {
   """A list of edges."""
   edges: [StringEdge!]!
@@ -6864,7 +6910,7 @@ input TokenizedPaymentInput {
   amount: Money!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -6895,7 +6941,7 @@ input TokenizedPaymentInputV2 {
   paymentAmount: MoneyInput!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -6928,7 +6974,7 @@ input TokenizedPaymentInputV3 {
   paymentAmount: MoneyInput!
 
   """
-  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+  A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
   """
   idempotencyKey: String!
 
@@ -7012,9 +7058,11 @@ enum TransactionStatus {
 }
 
 """
-An RFC 3986 and RFC 3987 compliant URI string.
+Represents an [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986) and
+[RFC 3987](https://datatracker.ietf.org/doc/html/rfc3987)-compliant URI string.
 
-Example value: `"https://johns-apparel.myshopify.com"`.
+For example, `"https://johns-apparel.myshopify.com"` is a valid URL. It includes a scheme (`https`) and a host
+(`johns-apparel.myshopify.com`).
 """
 scalar URL
 
@@ -7108,7 +7156,7 @@ type UserError implements DisplayableError {
 }
 
 """Represents a Shopify hosted video."""
-type Video implements Node & Media {
+type Video implements Media & Node {
   """A word or phrase to share the nature or contents of a media."""
   alt: String
 

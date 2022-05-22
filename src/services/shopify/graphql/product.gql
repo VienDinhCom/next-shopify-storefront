@@ -82,6 +82,13 @@ query getCollectionList($after: String) {
           transformedSrc(maxWidth: 768, maxHeight: 1024, crop: CENTER, preferredContentType: JPG)
           altText
         }
+        products(first: 1) {
+          edges {
+            node {
+              id
+            }
+          }
+        }
       }
       cursor
     }
