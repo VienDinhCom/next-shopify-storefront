@@ -37,7 +37,7 @@
     "react-ga": "^3.3.0",
     "react-query": "^3.21.0",
     "react-use": "^17.2.4",
-    "sharp": "^0.29.0",
+    "sharp": "^0.30.5",
     "swiper": "^6.8.4",
     "title": "^3.4.3",
     "use-immer": "^0.6.0"
