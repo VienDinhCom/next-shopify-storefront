@@ -4,7 +4,7 @@ A **[Shopping Cart](https://github.com/maxvien/next-shopify-storefront)** built 
 
 ## Experience
 
-These are my experience when I have been working on this project:
+These are my experiences when I have been working on this project:
 
 - Designing & Building the [Storefront](https://github.com/maxvien/next-shopify-storefront) from Scratch.
 - Using [Emotion](https://emotion.sh/) to Write Component-scoped Styles.
