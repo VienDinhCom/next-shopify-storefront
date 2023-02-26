@@ -50,7 +50,7 @@ export function Header() {
           </button>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <Popover className="relative">
+          {/* <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
               Product
               <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
@@ -99,7 +99,19 @@ export function Header() {
                 </div>
               </Popover.Panel>
             </Transition>
-          </Popover>
+          </Popover> */}
+
+          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/">
+            Home
+          </NextLink>
+
+          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/products">
+            Products
+          </NextLink>
+
+          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/collections">
+            Collections
+          </NextLink>
 
           <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/about">
             About
@@ -135,7 +147,7 @@ export function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
+                {/* <Disclosure as="div" className="-mx-3">
                   {({ open }) => (
                     <>
                       <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50">
@@ -159,7 +171,7 @@ export function Header() {
                       </Disclosure.Panel>
                     </>
                   )}
-                </Disclosure>
+                </Disclosure> */}
                 <a
                   href="#"
                   className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

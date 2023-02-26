@@ -9,7 +9,7 @@ export function DefaultLayout(props: Props) {
   return (
     <main>
       <Header />
-      {/* {props.children} */}
+      {props.children}
     </main>
   );
 }
