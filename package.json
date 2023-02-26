@@ -13,7 +13,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint && prettier --check src",
+    "fix": "next lint --fix && prettier --write src"
   },
   "dependencies": {
     "@types/node": "18.14.1",
