@@ -1,11 +1,6 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  webpack5: false,
+const nextConfig = {
   reactStrictMode: true,
-  images: {
-    domains: ['cdn.shopify.com'],
-  },
-  eslint: {
-    dirs: ['src'],
-  },
-};
+}
+
+module.exports = nextConfig

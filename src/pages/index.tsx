@@ -1,10 +1,3 @@
-import { DefaultLayout } from '@app/components/layouts/default-layout';
-import { Welcome } from '@app/components/sections/welcome';
-
 export default function Page() {
-  return (
-    <DefaultLayout>
-      <Welcome />
-    </DefaultLayout>
-  );
+  return <h1 className="bg-black text-white">Hello World!</h1>;
 }
