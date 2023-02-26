@@ -1,5 +1,5 @@
-import '@assets/style.css';
-import type { AppProps } from 'next/app';
+import '@app/assets/style.css';
+import { AppProps } from '@app/utilities/deps';
 
 export default function App({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
