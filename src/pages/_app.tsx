@@ -1,6 +1,6 @@
 import '@app/assets/style.css';
-import { AppProps } from '@app/utilities/deps';
+import { NextAppProps } from '@app/utilities/deps';
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: NextAppProps) {
   return <Component {...pageProps} />;
 }
