@@ -1,3 +1,3 @@
 export default function Page() {
-  return <h1>Post List</h1>;
+  return <h1>Blog Single</h1>;
 }
