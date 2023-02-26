@@ -1,4 +1,4 @@
-import { useState, Fragment, Dialog, Disclosure, Popover, Transition, NextImage } from '@app/utilities/deps';
+import { useState, Fragment, Dialog, Disclosure, Popover, Transition, NextImage, NextLink } from '@app/utilities/deps';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
 
 import {
@@ -101,15 +101,13 @@ export function Header() {
             </Transition>
           </Popover>
 
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Features
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Marketplace
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Company
-          </a>
+          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/about">
+            About
+          </NextLink>
+
+          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/contact">
+            Contact
+          </NextLink>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
