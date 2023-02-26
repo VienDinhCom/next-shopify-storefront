@@ -1,4 +1,5 @@
 import { ReactNode } from '@app/utilities/deps';
+import { Header } from '@app/sections/Header';
 
 interface Props {
   children: ReactNode;
@@ -7,8 +8,8 @@ interface Props {
 export function DefaultLayout(props: Props) {
   return (
     <main>
-      <h1>Default Layout</h1>
-      {props.children}
+      <Header />
+      {/* {props.children} */}
     </main>
   );
 }
