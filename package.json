@@ -20,6 +20,9 @@
     "prebuild": "npm run codegen"
   },
   "dependencies": {
+    "next": "13.2.1"
+  },
+  "devDependencies": {
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
     "@types/node": "18.14.1",
@@ -34,7 +37,6 @@
     "eslint-plugin-tailwindcss": "^3.9.0",
     "graphql-zeus": "^5.2.8",
     "immer": "^9.0.19",
-    "next": "13.2.1",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "react": "18.2.0",
