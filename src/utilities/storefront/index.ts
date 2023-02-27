@@ -1,15 +1,15 @@
 import { Thunder } from './zeus';
 
-const endpoint = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_ENDPOINT as string;
-const token = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN as string;
+const apiEndpoint = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_ENDPOINT as string;
+const accessToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN as string;
 
 const thunder = Thunder(async (query: string, variables: Record<string, unknown> = {}) => {
-  const response = await fetch(endpoint, {
+  const response = await fetch(apiEndpoint, {
     body: JSON.stringify({ query, variables }),
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': token,
+      'X-Shopify-Storefront-Access-Token': accessToken,
     },
   });
 
