@@ -109,7 +109,7 @@ export function Header() {
             Products
           </NextLink>
 
-          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/collections">
+          {/* <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/collections">
             Collections
           </NextLink>
 
@@ -119,7 +119,7 @@ export function Header() {
 
           <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/contact">
             Contact
-          </NextLink>
+          </NextLink> */}
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
