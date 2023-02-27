@@ -6,6 +6,5 @@ export type { ReactNode, ReactElement } from 'react';
 export { Fragment, useEffect } from 'react';
 export { useImmer as useState } from 'use-immer';
 
-export { default as clsx } from 'clsx';
-
 export * from '@headlessui/react';
+export { default as clsx } from 'clsx';
