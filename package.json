@@ -14,7 +14,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint && prettier --check src",
-    "fix": "next lint --fix && prettier --write src"
+    "fix": "next lint --fix && prettier --write src",
+    "codegen": "node codegen.mjs",
+    "predev": "npm run codegen",
+    "prebuild": "npm run codegen"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.12",
@@ -24,10 +27,12 @@
     "@types/react-dom": "18.0.11",
     "autoprefixer": "^10.4.13",
     "clsx": "^1.2.1",
+    "dotenv": "^16.0.3",
     "eslint": "8.34.0",
     "eslint-config-next": "13.2.1",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-tailwindcss": "^3.9.0",
+    "graphql-zeus": "^5.2.8",
     "immer": "^9.0.19",
     "next": "13.2.1",
     "postcss": "^8.4.21",
