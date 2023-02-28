@@ -11,14 +11,11 @@ export const AllTypesProps: Record<string,any> = {
 		excerpt:{
 
 		},
-		image:{
-			crop:"CropRegion"
-		},
 		metafield:{
 
 		},
 		metafields:{
-
+			identifiers:"HasMetafieldsIdentifier"
 		}
 	},
 	ArticleSortKeys: "enum" as const,
@@ -36,18 +33,30 @@ export const AllTypesProps: Record<string,any> = {
 
 		},
 		metafields:{
-
+			identifiers:"HasMetafieldsIdentifier"
 		}
 	},
 	BlogSortKeys: "enum" as const,
 	CardBrand: "enum" as const,
 	Cart:{
+		attribute:{
+
+		},
+		deliveryGroups:{
+
+		},
 		lines:{
 
 		}
 	},
 	CartBuyerIdentityInput:{
-		countryCode:"CountryCode"
+		countryCode:"CountryCode",
+		deliveryAddressPreferences:"DeliveryAddressInput"
+	},
+	CartDeliveryGroup:{
+		cartLines:{
+
+		}
 	},
 	CartErrorCode: "enum" as const,
 	CartInput:{
@@ -55,11 +64,19 @@ export const AllTypesProps: Record<string,any> = {
 		lines:"CartLineInput",
 		buyerIdentity:"CartBuyerIdentityInput"
 	},
+	CartLine:{
+		attribute:{
+
+		}
+	},
 	CartLineInput:{
 		attributes:"AttributeInput"
 	},
 	CartLineUpdateInput:{
 		attributes:"AttributeInput"
+	},
+	CartSelectedDeliveryOptionInput:{
+
 	},
 	Checkout:{
 		discountApplications:{
@@ -68,9 +85,6 @@ export const AllTypesProps: Record<string,any> = {
 		lineItems:{
 
 		}
-	},
-	CheckoutAttributesUpdateInput:{
-		customAttributes:"AttributeInput"
 	},
 	CheckoutAttributesUpdateV2Input:{
 		customAttributes:"AttributeInput"
@@ -82,7 +96,6 @@ export const AllTypesProps: Record<string,any> = {
 		lineItems:"CheckoutLineItemInput",
 		shippingAddress:"MailingAddressInput",
 		customAttributes:"AttributeInput",
-		presentmentCurrencyCode:"CurrencyCode",
 		buyerIdentity:"CheckoutBuyerIdentityInput"
 	},
 	CheckoutErrorCode: "enum" as const,
@@ -96,14 +109,11 @@ export const AllTypesProps: Record<string,any> = {
 		description:{
 
 		},
-		image:{
-			crop:"CropRegion"
-		},
 		metafield:{
 
 		},
 		metafields:{
-
+			identifiers:"HasMetafieldsIdentifier"
 		},
 		products:{
 			sortKey:"ProductCollectionSortKeys",
@@ -111,16 +121,13 @@ export const AllTypesProps: Record<string,any> = {
 		}
 	},
 	CollectionSortKeys: "enum" as const,
+	Color: `scalar.Color` as const,
 	Comment:{
 		content:{
 
 		}
 	},
 	CountryCode: "enum" as const,
-	CreditCardPaymentInput:{
-		amount:"Money",
-		billingAddress:"MailingAddressInput"
-	},
 	CreditCardPaymentInputV2:{
 		paymentAmount:"MoneyInput",
 		billingAddress:"MailingAddressInput"
@@ -135,7 +142,7 @@ export const AllTypesProps: Record<string,any> = {
 
 		},
 		metafields:{
-
+			identifiers:"HasMetafieldsIdentifier"
 		},
 		orders:{
 			sortKey:"OrderSortKeys"
@@ -159,6 +166,10 @@ export const AllTypesProps: Record<string,any> = {
 	},
 	DateTime: `scalar.DateTime` as const,
 	Decimal: `scalar.Decimal` as const,
+	DeliveryAddressInput:{
+		deliveryAddress:"MailingAddressInput"
+	},
+	DeliveryMethodType: "enum" as const,
 	DigitalWallet: "enum" as const,
 	DiscountApplicationAllocationMethod: "enum" as const,
 	DiscountApplicationTargetSelection: "enum" as const,
@@ -181,8 +192,11 @@ export const AllTypesProps: Record<string,any> = {
 
 		},
 		metafields:{
-
+			identifiers:"HasMetafieldsIdentifier"
 		}
+	},
+	HasMetafieldsIdentifier:{
+
 	},
 	Image:{
 		transformedSrc:{
@@ -199,6 +213,7 @@ export const AllTypesProps: Record<string,any> = {
 		preferredContentType:"ImageContentType"
 	},
 	JSON: `scalar.JSON` as const,
+	LanguageCode: "enum" as const,
 	LocationSortKeys: "enum" as const,
 	MailingAddress:{
 		formatted:{
@@ -210,11 +225,28 @@ export const AllTypesProps: Record<string,any> = {
 	},
 	MediaContentType: "enum" as const,
 	MediaHost: "enum" as const,
+	MenuItemType: "enum" as const,
+	Metafield:{
+		references:{
+
+		}
+	},
 	MetafieldFilter:{
 
 	},
-	MetafieldValueType: "enum" as const,
-	Money: `scalar.Money` as const,
+	Metaobject:{
+		field:{
+
+		}
+	},
+	MetaobjectField:{
+		references:{
+
+		}
+	},
+	MetaobjectHandleInput:{
+
+	},
 	MoneyInput:{
 		amount:"Decimal",
 		currencyCode:"CurrencyCode"
@@ -244,8 +276,8 @@ export const AllTypesProps: Record<string,any> = {
 		cartNoteUpdate:{
 
 		},
-		checkoutAttributesUpdate:{
-			input:"CheckoutAttributesUpdateInput"
+		cartSelectedDeliveryOptionsUpdate:{
+			selectedDeliveryOptions:"CartSelectedDeliveryOptionInput"
 		},
 		checkoutAttributesUpdateV2:{
 			input:"CheckoutAttributesUpdateV2Input"
@@ -253,17 +285,8 @@ export const AllTypesProps: Record<string,any> = {
 		checkoutCompleteFree:{
 
 		},
-		checkoutCompleteWithCreditCard:{
-			payment:"CreditCardPaymentInput"
-		},
 		checkoutCompleteWithCreditCardV2:{
 			payment:"CreditCardPaymentInputV2"
-		},
-		checkoutCompleteWithTokenizedPayment:{
-			payment:"TokenizedPaymentInput"
-		},
-		checkoutCompleteWithTokenizedPaymentV2:{
-			payment:"TokenizedPaymentInputV2"
 		},
 		checkoutCompleteWithTokenizedPaymentV3:{
 			payment:"TokenizedPaymentInputV3"
@@ -271,19 +294,10 @@ export const AllTypesProps: Record<string,any> = {
 		checkoutCreate:{
 			input:"CheckoutCreateInput"
 		},
-		checkoutCustomerAssociate:{
-
-		},
 		checkoutCustomerAssociateV2:{
 
 		},
-		checkoutCustomerDisassociate:{
-
-		},
 		checkoutCustomerDisassociateV2:{
-
-		},
-		checkoutDiscountCodeApply:{
 
 		},
 		checkoutDiscountCodeApplyV2:{
@@ -292,16 +306,7 @@ export const AllTypesProps: Record<string,any> = {
 		checkoutDiscountCodeRemove:{
 
 		},
-		checkoutEmailUpdate:{
-
-		},
 		checkoutEmailUpdateV2:{
-
-		},
-		checkoutGiftCardApply:{
-
-		},
-		checkoutGiftCardRemove:{
 
 		},
 		checkoutGiftCardRemoveV2:{
@@ -321,9 +326,6 @@ export const AllTypesProps: Record<string,any> = {
 		},
 		checkoutLineItemsUpdate:{
 			lineItems:"CheckoutLineItemUpdateInput"
-		},
-		checkoutShippingAddressUpdate:{
-			shippingAddress:"MailingAddressInput"
 		},
 		checkoutShippingAddressUpdateV2:{
 			shippingAddress:"MailingAddressInput"
@@ -388,7 +390,7 @@ export const AllTypesProps: Record<string,any> = {
 
 		},
 		metafields:{
-
+			identifiers:"HasMetafieldsIdentifier"
 		},
 		successfulFulfillments:{
 
@@ -403,7 +405,7 @@ export const AllTypesProps: Record<string,any> = {
 
 		},
 		metafields:{
-
+			identifiers:"HasMetafieldsIdentifier"
 		}
 	},
 	PageSortKeys: "enum" as const,
@@ -419,7 +421,6 @@ export const AllTypesProps: Record<string,any> = {
 
 		},
 		images:{
-			crop:"CropRegion",
 			sortKey:"ProductImageSortKeys"
 		},
 		media:{
@@ -429,13 +430,10 @@ export const AllTypesProps: Record<string,any> = {
 
 		},
 		metafields:{
-
+			identifiers:"HasMetafieldsIdentifier"
 		},
 		options:{
 
-		},
-		presentmentPriceRanges:{
-			presentmentCurrencies:"CurrencyCode"
 		},
 		sellingPlanGroups:{
 
@@ -458,26 +456,17 @@ export const AllTypesProps: Record<string,any> = {
 	ProductMediaSortKeys: "enum" as const,
 	ProductSortKeys: "enum" as const,
 	ProductVariant:{
-		image:{
-			crop:"CropRegion"
-		},
 		metafield:{
 
 		},
 		metafields:{
-
-		},
-		presentmentPrices:{
-			presentmentCurrencies:"CurrencyCode"
-		},
-		presentmentUnitPrices:{
-			presentmentCurrencies:"CurrencyCode"
+			identifiers:"HasMetafieldsIdentifier"
 		},
 		sellingPlanAllocations:{
 
 		},
 		storeAvailability:{
-
+			near:"GeoCoordinateInput"
 		}
 	},
 	ProductVariantSortKeys: "enum" as const,
@@ -513,6 +502,15 @@ export const AllTypesProps: Record<string,any> = {
 			sortKey:"LocationSortKeys",
 			near:"GeoCoordinateInput"
 		},
+		menu:{
+
+		},
+		metaobject:{
+			handle:"MetaobjectHandleInput"
+		},
+		metaobjects:{
+
+		},
 		node:{
 
 		},
@@ -545,55 +543,27 @@ export const AllTypesProps: Record<string,any> = {
 		},
 		products:{
 			sortKey:"ProductSortKeys"
+		},
+		urlRedirects:{
+
 		}
 	},
 	SelectedOptionInput:{
 
 	},
+	SellingPlanCheckoutChargeType: "enum" as const,
 	SellingPlanGroup:{
 		sellingPlans:{
 
 		}
 	},
 	Shop:{
-		articles:{
-			sortKey:"ArticleSortKeys"
-		},
-		blogs:{
-			sortKey:"BlogSortKeys"
-		},
-		collectionByHandle:{
-
-		},
-		collections:{
-			sortKey:"CollectionSortKeys"
-		},
 		metafield:{
 
 		},
 		metafields:{
-
-		},
-		productByHandle:{
-
-		},
-		productTags:{
-
-		},
-		productTypes:{
-
-		},
-		products:{
-			sortKey:"ProductSortKeys"
+			identifiers:"HasMetafieldsIdentifier"
 		}
-	},
-	TokenizedPaymentInput:{
-		amount:"Money",
-		billingAddress:"MailingAddressInput"
-	},
-	TokenizedPaymentInputV2:{
-		paymentAmount:"MoneyInput",
-		billingAddress:"MailingAddressInput"
 	},
 	TokenizedPaymentInputV3:{
 		paymentAmount:"MoneyInput",
@@ -606,6 +576,7 @@ export const AllTypesProps: Record<string,any> = {
 	UnitPriceMeasurementMeasuredType: "enum" as const,
 	UnitPriceMeasurementMeasuredUnit: "enum" as const,
 	UnitSystem: "enum" as const,
+	UnsignedInt64: `scalar.UnsignedInt64` as const,
 	VariantOptionFilter:{
 
 	},
@@ -618,6 +589,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	inContext:{
 		country:"CountryCode",
+		language:"LanguageCode",
 		preferredLocationId:"ID"
 	},
 	ApiVersion:{
@@ -626,9 +598,9 @@ export const ReturnTypes: Record<string,any> = {
 		supported:"Boolean"
 	},
 	AppliedGiftCard:{
-		amountUsed:"Money",
+		amountUsed:"MoneyV2",
 		amountUsedV2:"MoneyV2",
-		balance:"Money",
+		balance:"MoneyV2",
 		balanceV2:"MoneyV2",
 		id:"ID",
 		lastCharacters:"String",
@@ -647,13 +619,12 @@ export const ReturnTypes: Record<string,any> = {
 		id:"ID",
 		image:"Image",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
+		metafields:"Metafield",
 		onlineStoreUrl:"URL",
 		publishedAt:"DateTime",
 		seo:"SEO",
 		tags:"String",
-		title:"String",
-		url:"URL"
+		title:"String"
 	},
 	ArticleAuthor:{
 		bio:"String",
@@ -664,6 +635,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	ArticleConnection:{
 		edges:"ArticleEdge",
+		nodes:"Article",
 		pageInfo:"PageInfo"
 	},
 	ArticleEdge:{
@@ -692,30 +664,51 @@ export const ReturnTypes: Record<string,any> = {
 		handle:"String",
 		id:"ID",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
+		metafields:"Metafield",
 		onlineStoreUrl:"URL",
 		seo:"SEO",
-		title:"String",
-		url:"URL"
+		title:"String"
 	},
 	BlogConnection:{
 		edges:"BlogEdge",
+		nodes:"Blog",
 		pageInfo:"PageInfo"
 	},
 	BlogEdge:{
 		cursor:"String",
 		node:"Blog"
 	},
+	Brand:{
+		colors:"BrandColors",
+		coverImage:"MediaImage",
+		logo:"MediaImage",
+		shortDescription:"String",
+		slogan:"String",
+		squareLogo:"MediaImage"
+	},
+	BrandColorGroup:{
+		background:"Color",
+		foreground:"Color"
+	},
+	BrandColors:{
+		primary:"BrandColorGroup",
+		secondary:"BrandColorGroup"
+	},
 	Cart:{
+		attribute:"Attribute",
 		attributes:"Attribute",
 		buyerIdentity:"CartBuyerIdentity",
 		checkoutUrl:"URL",
+		cost:"CartCost",
 		createdAt:"DateTime",
+		deliveryGroups:"CartDeliveryGroupConnection",
+		discountAllocations:"CartDiscountAllocation",
 		discountCodes:"CartDiscountCode",
 		estimatedCost:"CartEstimatedCost",
 		id:"ID",
 		lines:"CartLineConnection",
 		note:"String",
+		totalQuantity:"Int",
 		updatedAt:"DateTime"
 	},
 	CartAttributesUpdatePayload:{
@@ -729,6 +722,7 @@ export const ReturnTypes: Record<string,any> = {
 	CartBuyerIdentity:{
 		countryCode:"CountryCode",
 		customer:"Customer",
+		deliveryAddressPreferences:"DeliveryAddress",
 		email:"String",
 		phone:"String"
 	},
@@ -740,13 +734,53 @@ export const ReturnTypes: Record<string,any> = {
 		code:"String",
 		discountedAmount:"MoneyV2"
 	},
+	CartCost:{
+		checkoutChargeAmount:"MoneyV2",
+		subtotalAmount:"MoneyV2",
+		subtotalAmountEstimated:"Boolean",
+		totalAmount:"MoneyV2",
+		totalAmountEstimated:"Boolean",
+		totalDutyAmount:"MoneyV2",
+		totalDutyAmountEstimated:"Boolean",
+		totalTaxAmount:"MoneyV2",
+		totalTaxAmountEstimated:"Boolean"
+	},
 	CartCreatePayload:{
 		cart:"Cart",
 		userErrors:"CartUserError"
 	},
+	CartCustomDiscountAllocation:{
+		discountedAmount:"MoneyV2",
+		title:"String"
+	},
+	CartDeliveryGroup:{
+		cartLines:"CartLineConnection",
+		deliveryAddress:"MailingAddress",
+		deliveryOptions:"CartDeliveryOption",
+		id:"ID",
+		selectedDeliveryOption:"CartDeliveryOption"
+	},
+	CartDeliveryGroupConnection:{
+		edges:"CartDeliveryGroupEdge",
+		nodes:"CartDeliveryGroup",
+		pageInfo:"PageInfo"
+	},
+	CartDeliveryGroupEdge:{
+		cursor:"String",
+		node:"CartDeliveryGroup"
+	},
+	CartDeliveryOption:{
+		code:"String",
+		deliveryMethodType:"DeliveryMethodType",
+		description:"String",
+		estimatedCost:"MoneyV2",
+		handle:"String",
+		title:"String"
+	},
 	CartDiscountAllocation:{
 		"...on CartAutomaticDiscountAllocation": "CartAutomaticDiscountAllocation",
 		"...on CartCodeDiscountAllocation": "CartCodeDiscountAllocation",
+		"...on CartCustomDiscountAllocation": "CartCustomDiscountAllocation",
 		discountedAmount:"MoneyV2"
 	},
 	CartDiscountCode:{
@@ -758,13 +792,16 @@ export const ReturnTypes: Record<string,any> = {
 		userErrors:"CartUserError"
 	},
 	CartEstimatedCost:{
+		checkoutChargeAmount:"MoneyV2",
 		subtotalAmount:"MoneyV2",
 		totalAmount:"MoneyV2",
 		totalDutyAmount:"MoneyV2",
 		totalTaxAmount:"MoneyV2"
 	},
 	CartLine:{
+		attribute:"Attribute",
 		attributes:"Attribute",
+		cost:"CartLineCost",
 		discountAllocations:"CartDiscountAllocation",
 		estimatedCost:"CartLineEstimatedCost",
 		id:"ID",
@@ -774,13 +811,22 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	CartLineConnection:{
 		edges:"CartLineEdge",
+		nodes:"CartLine",
 		pageInfo:"PageInfo"
+	},
+	CartLineCost:{
+		amountPerQuantity:"MoneyV2",
+		compareAtAmountPerQuantity:"MoneyV2",
+		subtotalAmount:"MoneyV2",
+		totalAmount:"MoneyV2"
 	},
 	CartLineEdge:{
 		cursor:"String",
 		node:"CartLine"
 	},
 	CartLineEstimatedCost:{
+		amount:"MoneyV2",
+		compareAtAmount:"MoneyV2",
 		subtotalAmount:"MoneyV2",
 		totalAmount:"MoneyV2"
 	},
@@ -800,6 +846,10 @@ export const ReturnTypes: Record<string,any> = {
 		cart:"Cart",
 		userErrors:"CartUserError"
 	},
+	CartSelectedDeliveryOptionsUpdatePayload:{
+		cart:"Cart",
+		userErrors:"CartUserError"
+	},
 	CartUserError:{
 		code:"CartErrorCode",
 		field:"String",
@@ -813,7 +863,6 @@ export const ReturnTypes: Record<string,any> = {
 		createdAt:"DateTime",
 		currencyCode:"CurrencyCode",
 		customAttributes:"Attribute",
-		customer:"Customer",
 		discountApplications:"DiscountApplicationConnection",
 		email:"String",
 		id:"ID",
@@ -822,29 +871,24 @@ export const ReturnTypes: Record<string,any> = {
 		note:"String",
 		order:"Order",
 		orderStatusUrl:"URL",
-		paymentDue:"Money",
+		paymentDue:"MoneyV2",
 		paymentDueV2:"MoneyV2",
 		ready:"Boolean",
 		requiresShipping:"Boolean",
 		shippingAddress:"MailingAddress",
 		shippingDiscountAllocations:"DiscountAllocation",
 		shippingLine:"ShippingRate",
-		subtotalPrice:"Money",
+		subtotalPrice:"MoneyV2",
 		subtotalPriceV2:"MoneyV2",
 		taxExempt:"Boolean",
 		taxesIncluded:"Boolean",
 		totalDuties:"MoneyV2",
-		totalPrice:"Money",
+		totalPrice:"MoneyV2",
 		totalPriceV2:"MoneyV2",
-		totalTax:"Money",
+		totalTax:"MoneyV2",
 		totalTaxV2:"MoneyV2",
 		updatedAt:"DateTime",
 		webUrl:"URL"
-	},
-	CheckoutAttributesUpdatePayload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		userErrors:"UserError"
 	},
 	CheckoutAttributesUpdateV2Payload:{
 		checkout:"Checkout",
@@ -859,25 +903,7 @@ export const ReturnTypes: Record<string,any> = {
 		checkoutUserErrors:"CheckoutUserError",
 		userErrors:"UserError"
 	},
-	CheckoutCompleteWithCreditCardPayload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		payment:"Payment",
-		userErrors:"UserError"
-	},
 	CheckoutCompleteWithCreditCardV2Payload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		payment:"Payment",
-		userErrors:"UserError"
-	},
-	CheckoutCompleteWithTokenizedPaymentPayload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		payment:"Payment",
-		userErrors:"UserError"
-	},
-	CheckoutCompleteWithTokenizedPaymentV2Payload:{
 		checkout:"Checkout",
 		checkoutUserErrors:"CheckoutUserError",
 		payment:"Payment",
@@ -895,28 +921,13 @@ export const ReturnTypes: Record<string,any> = {
 		queueToken:"String",
 		userErrors:"UserError"
 	},
-	CheckoutCustomerAssociatePayload:{
-		checkout:"Checkout",
-		customer:"Customer",
-		userErrors:"UserError"
-	},
 	CheckoutCustomerAssociateV2Payload:{
 		checkout:"Checkout",
 		checkoutUserErrors:"CheckoutUserError",
 		customer:"Customer",
 		userErrors:"UserError"
 	},
-	CheckoutCustomerDisassociatePayload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		userErrors:"UserError"
-	},
 	CheckoutCustomerDisassociateV2Payload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		userErrors:"UserError"
-	},
-	CheckoutDiscountCodeApplyPayload:{
 		checkout:"Checkout",
 		checkoutUserErrors:"CheckoutUserError",
 		userErrors:"UserError"
@@ -931,22 +942,7 @@ export const ReturnTypes: Record<string,any> = {
 		checkoutUserErrors:"CheckoutUserError",
 		userErrors:"UserError"
 	},
-	CheckoutEmailUpdatePayload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		userErrors:"UserError"
-	},
 	CheckoutEmailUpdateV2Payload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		userErrors:"UserError"
-	},
-	CheckoutGiftCardApplyPayload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		userErrors:"UserError"
-	},
-	CheckoutGiftCardRemovePayload:{
 		checkout:"Checkout",
 		checkoutUserErrors:"CheckoutUserError",
 		userErrors:"UserError"
@@ -972,6 +968,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	CheckoutLineItemConnection:{
 		edges:"CheckoutLineItemEdge",
+		nodes:"CheckoutLineItem",
 		pageInfo:"PageInfo"
 	},
 	CheckoutLineItemEdge:{
@@ -993,11 +990,6 @@ export const ReturnTypes: Record<string,any> = {
 		userErrors:"CheckoutUserError"
 	},
 	CheckoutLineItemsUpdatePayload:{
-		checkout:"Checkout",
-		checkoutUserErrors:"CheckoutUserError",
-		userErrors:"UserError"
-	},
-	CheckoutShippingAddressUpdatePayload:{
 		checkout:"Checkout",
 		checkoutUserErrors:"CheckoutUserError",
 		userErrors:"UserError"
@@ -1024,20 +1016,23 @@ export const ReturnTypes: Record<string,any> = {
 		id:"ID",
 		image:"Image",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
+		metafields:"Metafield",
 		onlineStoreUrl:"URL",
 		products:"ProductConnection",
+		seo:"SEO",
 		title:"String",
 		updatedAt:"DateTime"
 	},
 	CollectionConnection:{
 		edges:"CollectionEdge",
+		nodes:"Collection",
 		pageInfo:"PageInfo"
 	},
 	CollectionEdge:{
 		cursor:"String",
 		node:"Collection"
 	},
+	Color: `scalar.Color` as const,
 	Comment:{
 		author:"CommentAuthor",
 		content:"String",
@@ -1050,6 +1045,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	CommentConnection:{
 		edges:"CommentEdge",
+		nodes:"Comment",
 		pageInfo:"PageInfo"
 	},
 	CommentEdge:{
@@ -1057,6 +1053,7 @@ export const ReturnTypes: Record<string,any> = {
 		node:"Comment"
 	},
 	Country:{
+		availableLanguages:"Language",
 		currency:"Currency",
 		isoCode:"CountryCode",
 		name:"String",
@@ -1089,7 +1086,8 @@ export const ReturnTypes: Record<string,any> = {
 		lastIncompleteCheckout:"Checkout",
 		lastName:"String",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
+		metafields:"Metafield",
+		numberOfOrders:"UnsignedInt64",
 		orders:"OrderConnection",
 		phone:"String",
 		tags:"String",
@@ -1182,6 +1180,9 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	DateTime: `scalar.DateTime` as const,
 	Decimal: `scalar.Decimal` as const,
+	DeliveryAddress:{
+		"...on MailingAddress":"MailingAddress"
+	},
 	DiscountAllocation:{
 		allocatedAmount:"MoneyV2",
 		discountApplication:"DiscountApplication"
@@ -1198,6 +1199,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	DiscountApplicationConnection:{
 		edges:"DiscountApplicationEdge",
+		nodes:"DiscountApplication",
 		pageInfo:"PageInfo"
 	},
 	DiscountApplicationEdge:{
@@ -1227,10 +1229,12 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	ExternalVideo:{
 		alt:"String",
+		embedUrl:"URL",
 		embeddedUrl:"URL",
 		host:"MediaHost",
 		id:"ID",
 		mediaContentType:"MediaContentType",
+		originUrl:"URL",
 		previewImage:"Image"
 	},
 	Filter:{
@@ -1256,6 +1260,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	FulfillmentLineItemConnection:{
 		edges:"FulfillmentLineItemEdge",
+		nodes:"FulfillmentLineItem",
 		pageInfo:"PageInfo"
 	},
 	FulfillmentLineItemEdge:{
@@ -1264,6 +1269,14 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	FulfillmentTrackingInfo:{
 		number:"String",
+		url:"URL"
+	},
+	GenericFile:{
+		alt:"String",
+		id:"ID",
+		mimeType:"String",
+		originalFileSize:"Int",
+		previewImage:"Image",
 		url:"URL"
 	},
 	HTML: `scalar.HTML` as const,
@@ -1278,7 +1291,7 @@ export const ReturnTypes: Record<string,any> = {
 		"...on ProductVariant": "ProductVariant",
 		"...on Shop": "Shop",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection"
+		metafields:"Metafield"
 	},
 	Image:{
 		altText:"String",
@@ -1292,6 +1305,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	ImageConnection:{
 		edges:"ImageEdge",
+		nodes:"Image",
 		pageInfo:"PageInfo"
 	},
 	ImageEdge:{
@@ -1299,9 +1313,16 @@ export const ReturnTypes: Record<string,any> = {
 		node:"Image"
 	},
 	JSON: `scalar.JSON` as const,
+	Language:{
+		endonymName:"String",
+		isoCode:"LanguageCode",
+		name:"String"
+	},
 	Localization:{
 		availableCountries:"Country",
-		country:"Country"
+		availableLanguages:"Language",
+		country:"Country",
+		language:"Language"
 	},
 	Location:{
 		address:"LocationAddress",
@@ -1324,6 +1345,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	LocationConnection:{
 		edges:"LocationEdge",
+		nodes:"Location",
 		pageInfo:"PageInfo"
 	},
 	LocationEdge:{
@@ -1353,6 +1375,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	MailingAddressConnection:{
 		edges:"MailingAddressEdge",
+		nodes:"MailingAddress",
 		pageInfo:"PageInfo"
 	},
 	MailingAddressEdge:{
@@ -1378,6 +1401,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	MediaConnection:{
 		edges:"MediaEdge",
+		nodes:"Media",
 		pageInfo:"PageInfo"
 	},
 	MediaEdge:{
@@ -1391,6 +1415,22 @@ export const ReturnTypes: Record<string,any> = {
 		mediaContentType:"MediaContentType",
 		previewImage:"Image"
 	},
+	Menu:{
+		handle:"String",
+		id:"ID",
+		items:"MenuItem",
+		itemsCount:"Int",
+		title:"String"
+	},
+	MenuItem:{
+		id:"ID",
+		items:"MenuItem",
+		resourceId:"ID",
+		tags:"String",
+		title:"String",
+		type:"MenuItemType",
+		url:"URL"
+	},
 	Merchandise:{
 		"...on ProductVariant":"ProductVariant"
 	},
@@ -1402,18 +1442,10 @@ export const ReturnTypes: Record<string,any> = {
 		namespace:"String",
 		parentResource:"MetafieldParentResource",
 		reference:"MetafieldReference",
+		references:"MetafieldReferenceConnection",
 		type:"String",
 		updatedAt:"DateTime",
-		value:"String",
-		valueType:"MetafieldValueType"
-	},
-	MetafieldConnection:{
-		edges:"MetafieldEdge",
-		pageInfo:"PageInfo"
-	},
-	MetafieldEdge:{
-		cursor:"String",
-		node:"Metafield"
+		value:"String"
 	},
 	MetafieldParentResource:{
 		"...on Article":"Article",
@@ -1427,10 +1459,47 @@ export const ReturnTypes: Record<string,any> = {
 		"...on Shop":"Shop"
 	},
 	MetafieldReference:{
+		"...on Collection":"Collection",
+		"...on GenericFile":"GenericFile",
 		"...on MediaImage":"MediaImage",
+		"...on Metaobject":"Metaobject",
 		"...on Page":"Page",
 		"...on Product":"Product",
-		"...on ProductVariant":"ProductVariant"
+		"...on ProductVariant":"ProductVariant",
+		"...on Video":"Video"
+	},
+	MetafieldReferenceConnection:{
+		edges:"MetafieldReferenceEdge",
+		nodes:"MetafieldReference",
+		pageInfo:"PageInfo"
+	},
+	MetafieldReferenceEdge:{
+		cursor:"String",
+		node:"MetafieldReference"
+	},
+	Metaobject:{
+		field:"MetaobjectField",
+		fields:"MetaobjectField",
+		handle:"String",
+		id:"ID",
+		type:"String",
+		updatedAt:"DateTime"
+	},
+	MetaobjectConnection:{
+		edges:"MetaobjectEdge",
+		nodes:"Metaobject",
+		pageInfo:"PageInfo"
+	},
+	MetaobjectEdge:{
+		cursor:"String",
+		node:"Metaobject"
+	},
+	MetaobjectField:{
+		key:"String",
+		reference:"MetafieldReference",
+		references:"MetafieldReferenceConnection",
+		type:"String",
+		value:"String"
 	},
 	Model3d:{
 		alt:"String",
@@ -1445,18 +1514,9 @@ export const ReturnTypes: Record<string,any> = {
 		mimeType:"String",
 		url:"String"
 	},
-	Money: `scalar.Money` as const,
 	MoneyV2:{
 		amount:"Decimal",
 		currencyCode:"CurrencyCode"
-	},
-	MoneyV2Connection:{
-		edges:"MoneyV2Edge",
-		pageInfo:"PageInfo"
-	},
-	MoneyV2Edge:{
-		cursor:"String",
-		node:"MoneyV2"
 	},
 	Mutation:{
 		cartAttributesUpdate:"CartAttributesUpdatePayload",
@@ -1467,33 +1527,23 @@ export const ReturnTypes: Record<string,any> = {
 		cartLinesRemove:"CartLinesRemovePayload",
 		cartLinesUpdate:"CartLinesUpdatePayload",
 		cartNoteUpdate:"CartNoteUpdatePayload",
-		checkoutAttributesUpdate:"CheckoutAttributesUpdatePayload",
+		cartSelectedDeliveryOptionsUpdate:"CartSelectedDeliveryOptionsUpdatePayload",
 		checkoutAttributesUpdateV2:"CheckoutAttributesUpdateV2Payload",
 		checkoutCompleteFree:"CheckoutCompleteFreePayload",
-		checkoutCompleteWithCreditCard:"CheckoutCompleteWithCreditCardPayload",
 		checkoutCompleteWithCreditCardV2:"CheckoutCompleteWithCreditCardV2Payload",
-		checkoutCompleteWithTokenizedPayment:"CheckoutCompleteWithTokenizedPaymentPayload",
-		checkoutCompleteWithTokenizedPaymentV2:"CheckoutCompleteWithTokenizedPaymentV2Payload",
 		checkoutCompleteWithTokenizedPaymentV3:"CheckoutCompleteWithTokenizedPaymentV3Payload",
 		checkoutCreate:"CheckoutCreatePayload",
-		checkoutCustomerAssociate:"CheckoutCustomerAssociatePayload",
 		checkoutCustomerAssociateV2:"CheckoutCustomerAssociateV2Payload",
-		checkoutCustomerDisassociate:"CheckoutCustomerDisassociatePayload",
 		checkoutCustomerDisassociateV2:"CheckoutCustomerDisassociateV2Payload",
-		checkoutDiscountCodeApply:"CheckoutDiscountCodeApplyPayload",
 		checkoutDiscountCodeApplyV2:"CheckoutDiscountCodeApplyV2Payload",
 		checkoutDiscountCodeRemove:"CheckoutDiscountCodeRemovePayload",
-		checkoutEmailUpdate:"CheckoutEmailUpdatePayload",
 		checkoutEmailUpdateV2:"CheckoutEmailUpdateV2Payload",
-		checkoutGiftCardApply:"CheckoutGiftCardApplyPayload",
-		checkoutGiftCardRemove:"CheckoutGiftCardRemovePayload",
 		checkoutGiftCardRemoveV2:"CheckoutGiftCardRemoveV2Payload",
 		checkoutGiftCardsAppend:"CheckoutGiftCardsAppendPayload",
 		checkoutLineItemsAdd:"CheckoutLineItemsAddPayload",
 		checkoutLineItemsRemove:"CheckoutLineItemsRemovePayload",
 		checkoutLineItemsReplace:"CheckoutLineItemsReplacePayload",
 		checkoutLineItemsUpdate:"CheckoutLineItemsUpdatePayload",
-		checkoutShippingAddressUpdate:"CheckoutShippingAddressUpdatePayload",
 		checkoutShippingAddressUpdateV2:"CheckoutShippingAddressUpdateV2Payload",
 		checkoutShippingLineUpdate:"CheckoutShippingLineUpdatePayload",
 		customerAccessTokenCreate:"CustomerAccessTokenCreatePayload",
@@ -1523,10 +1573,14 @@ export const ReturnTypes: Record<string,any> = {
 		"...on Collection": "Collection",
 		"...on Comment": "Comment",
 		"...on ExternalVideo": "ExternalVideo",
+		"...on GenericFile": "GenericFile",
 		"...on Location": "Location",
 		"...on MailingAddress": "MailingAddress",
 		"...on MediaImage": "MediaImage",
+		"...on Menu": "Menu",
+		"...on MenuItem": "MenuItem",
 		"...on Metafield": "Metafield",
+		"...on Metaobject": "Metaobject",
 		"...on Model3d": "Model3d",
 		"...on Order": "Order",
 		"...on Page": "Page",
@@ -1534,7 +1588,9 @@ export const ReturnTypes: Record<string,any> = {
 		"...on Product": "Product",
 		"...on ProductOption": "ProductOption",
 		"...on ProductVariant": "ProductVariant",
+		"...on Shop": "Shop",
 		"...on ShopPolicy": "ShopPolicy",
+		"...on UrlRedirect": "UrlRedirect",
 		"...on Video": "Video",
 		id:"ID"
 	},
@@ -1554,6 +1610,7 @@ export const ReturnTypes: Record<string,any> = {
 		currentTotalDuties:"MoneyV2",
 		currentTotalPrice:"MoneyV2",
 		currentTotalTax:"MoneyV2",
+		customAttributes:"Attribute",
 		customerLocale:"String",
 		customerUrl:"URL",
 		discountApplications:"DiscountApplicationConnection",
@@ -1564,7 +1621,7 @@ export const ReturnTypes: Record<string,any> = {
 		id:"ID",
 		lineItems:"OrderLineItemConnection",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
+		metafields:"Metafield",
 		name:"String",
 		orderNumber:"Int",
 		originalTotalDuties:"MoneyV2",
@@ -1574,21 +1631,23 @@ export const ReturnTypes: Record<string,any> = {
 		shippingAddress:"MailingAddress",
 		shippingDiscountAllocations:"DiscountAllocation",
 		statusUrl:"URL",
-		subtotalPrice:"Money",
+		subtotalPrice:"MoneyV2",
 		subtotalPriceV2:"MoneyV2",
 		successfulFulfillments:"Fulfillment",
-		totalPrice:"Money",
+		totalPrice:"MoneyV2",
 		totalPriceV2:"MoneyV2",
-		totalRefunded:"Money",
+		totalRefunded:"MoneyV2",
 		totalRefundedV2:"MoneyV2",
-		totalShippingPrice:"Money",
+		totalShippingPrice:"MoneyV2",
 		totalShippingPriceV2:"MoneyV2",
-		totalTax:"Money",
+		totalTax:"MoneyV2",
 		totalTaxV2:"MoneyV2"
 	},
 	OrderConnection:{
 		edges:"OrderEdge",
-		pageInfo:"PageInfo"
+		nodes:"Order",
+		pageInfo:"PageInfo",
+		totalCount:"UnsignedInt64"
 	},
 	OrderEdge:{
 		cursor:"String",
@@ -1606,6 +1665,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	OrderLineItemConnection:{
 		edges:"OrderLineItemEdge",
+		nodes:"OrderLineItem",
 		pageInfo:"PageInfo"
 	},
 	OrderLineItemEdge:{
@@ -1619,15 +1679,15 @@ export const ReturnTypes: Record<string,any> = {
 		handle:"String",
 		id:"ID",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
+		metafields:"Metafield",
 		onlineStoreUrl:"URL",
 		seo:"SEO",
 		title:"String",
-		updatedAt:"DateTime",
-		url:"URL"
+		updatedAt:"DateTime"
 	},
 	PageConnection:{
 		edges:"PageEdge",
+		nodes:"Page",
 		pageInfo:"PageInfo"
 	},
 	PageEdge:{
@@ -1635,11 +1695,13 @@ export const ReturnTypes: Record<string,any> = {
 		node:"Page"
 	},
 	PageInfo:{
+		endCursor:"String",
 		hasNextPage:"Boolean",
-		hasPreviousPage:"Boolean"
+		hasPreviousPage:"Boolean",
+		startCursor:"String"
 	},
 	Payment:{
-		amount:"Money",
+		amount:"MoneyV2",
 		amountV2:"MoneyV2",
 		billingAddress:"MailingAddress",
 		checkout:"Checkout",
@@ -1679,12 +1741,12 @@ export const ReturnTypes: Record<string,any> = {
 		handle:"String",
 		id:"ID",
 		images:"ImageConnection",
+		isGiftCard:"Boolean",
 		media:"MediaConnection",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
+		metafields:"Metafield",
 		onlineStoreUrl:"URL",
 		options:"ProductOption",
-		presentmentPriceRanges:"ProductPriceRangeConnection",
 		priceRange:"ProductPriceRange",
 		productType:"String",
 		publishedAt:"DateTime",
@@ -1702,6 +1764,7 @@ export const ReturnTypes: Record<string,any> = {
 	ProductConnection:{
 		edges:"ProductEdge",
 		filters:"Filter",
+		nodes:"Product",
 		pageInfo:"PageInfo"
 	},
 	ProductEdge:{
@@ -1717,28 +1780,17 @@ export const ReturnTypes: Record<string,any> = {
 		maxVariantPrice:"MoneyV2",
 		minVariantPrice:"MoneyV2"
 	},
-	ProductPriceRangeConnection:{
-		edges:"ProductPriceRangeEdge",
-		pageInfo:"PageInfo"
-	},
-	ProductPriceRangeEdge:{
-		cursor:"String",
-		node:"ProductPriceRange"
-	},
 	ProductVariant:{
-		available:"Boolean",
 		availableForSale:"Boolean",
 		barcode:"String",
-		compareAtPrice:"Money",
+		compareAtPrice:"MoneyV2",
 		compareAtPriceV2:"MoneyV2",
 		currentlyNotInStock:"Boolean",
 		id:"ID",
 		image:"Image",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
-		presentmentPrices:"ProductVariantPricePairConnection",
-		presentmentUnitPrices:"MoneyV2Connection",
-		price:"Money",
+		metafields:"Metafield",
+		price:"MoneyV2",
 		priceV2:"MoneyV2",
 		product:"Product",
 		quantityAvailable:"Int",
@@ -1755,23 +1807,12 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	ProductVariantConnection:{
 		edges:"ProductVariantEdge",
+		nodes:"ProductVariant",
 		pageInfo:"PageInfo"
 	},
 	ProductVariantEdge:{
 		cursor:"String",
 		node:"ProductVariant"
-	},
-	ProductVariantPricePair:{
-		compareAtPrice:"MoneyV2",
-		price:"MoneyV2"
-	},
-	ProductVariantPricePairConnection:{
-		edges:"ProductVariantPricePairEdge",
-		pageInfo:"PageInfo"
-	},
-	ProductVariantPricePairEdge:{
-		cursor:"String",
-		node:"ProductVariantPricePair"
 	},
 	QueryRoot:{
 		articles:"ArticleConnection",
@@ -1785,6 +1826,9 @@ export const ReturnTypes: Record<string,any> = {
 		customer:"Customer",
 		localization:"Localization",
 		locations:"LocationConnection",
+		menu:"Menu",
+		metaobject:"Metaobject",
+		metaobjects:"MetaobjectConnection",
 		node:"Node",
 		nodes:"Node",
 		page:"Page",
@@ -1797,7 +1841,8 @@ export const ReturnTypes: Record<string,any> = {
 		productTypes:"StringConnection",
 		products:"ProductConnection",
 		publicApiVersions:"ApiVersion",
-		shop:"Shop"
+		shop:"Shop",
+		urlRedirects:"UrlRedirectConnection"
 	},
 	SEO:{
 		description:"String",
@@ -1805,7 +1850,6 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	ScriptDiscountApplication:{
 		allocationMethod:"DiscountApplicationAllocationMethod",
-		description:"String",
 		targetSelection:"DiscountApplicationTargetSelection",
 		targetType:"DiscountApplicationTargetType",
 		title:"String",
@@ -1816,6 +1860,7 @@ export const ReturnTypes: Record<string,any> = {
 		value:"String"
 	},
 	SellingPlan:{
+		checkoutCharge:"SellingPlanCheckoutCharge",
 		description:"String",
 		id:"ID",
 		name:"String",
@@ -1824,11 +1869,14 @@ export const ReturnTypes: Record<string,any> = {
 		recurringDeliveries:"Boolean"
 	},
 	SellingPlanAllocation:{
+		checkoutChargeAmount:"MoneyV2",
 		priceAdjustments:"SellingPlanAllocationPriceAdjustment",
+		remainingBalanceChargeAmount:"MoneyV2",
 		sellingPlan:"SellingPlan"
 	},
 	SellingPlanAllocationConnection:{
 		edges:"SellingPlanAllocationEdge",
+		nodes:"SellingPlanAllocation",
 		pageInfo:"PageInfo"
 	},
 	SellingPlanAllocationEdge:{
@@ -1841,8 +1889,20 @@ export const ReturnTypes: Record<string,any> = {
 		price:"MoneyV2",
 		unitPrice:"MoneyV2"
 	},
+	SellingPlanCheckoutCharge:{
+		type:"SellingPlanCheckoutChargeType",
+		value:"SellingPlanCheckoutChargeValue"
+	},
+	SellingPlanCheckoutChargePercentageValue:{
+		percentage:"Float"
+	},
+	SellingPlanCheckoutChargeValue:{
+		"...on MoneyV2":"MoneyV2",
+		"...on SellingPlanCheckoutChargePercentageValue":"SellingPlanCheckoutChargePercentageValue"
+	},
 	SellingPlanConnection:{
 		edges:"SellingPlanEdge",
+		nodes:"SellingPlan",
 		pageInfo:"PageInfo"
 	},
 	SellingPlanEdge:{
@@ -1863,6 +1923,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	SellingPlanGroupConnection:{
 		edges:"SellingPlanGroupEdge",
+		nodes:"SellingPlanGroup",
 		pageInfo:"PageInfo"
 	},
 	SellingPlanGroupEdge:{
@@ -1891,32 +1952,24 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	ShippingRate:{
 		handle:"String",
-		price:"Money",
+		price:"MoneyV2",
 		priceV2:"MoneyV2",
 		title:"String"
 	},
 	Shop:{
-		articles:"ArticleConnection",
-		blogs:"BlogConnection",
-		collectionByHandle:"Collection",
-		collections:"CollectionConnection",
-		currencyCode:"CurrencyCode",
+		brand:"Brand",
 		description:"String",
+		id:"ID",
 		metafield:"Metafield",
-		metafields:"MetafieldConnection",
+		metafields:"Metafield",
 		moneyFormat:"String",
 		name:"String",
 		paymentSettings:"PaymentSettings",
 		primaryDomain:"Domain",
 		privacyPolicy:"ShopPolicy",
-		productByHandle:"Product",
-		productTags:"StringConnection",
-		productTypes:"StringConnection",
-		products:"ProductConnection",
 		refundPolicy:"ShopPolicy",
 		shippingPolicy:"ShopPolicy",
 		shipsToCountries:"CountryCode",
-		shopifyPaymentsAccountId:"String",
 		subscriptionPolicy:"ShopPolicyWithDefault",
 		termsOfService:"ShopPolicy"
 	},
@@ -1941,6 +1994,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	StoreAvailabilityConnection:{
 		edges:"StoreAvailabilityEdge",
+		nodes:"StoreAvailability",
 		pageInfo:"PageInfo"
 	},
 	StoreAvailabilityEdge:{
@@ -1956,7 +2010,7 @@ export const ReturnTypes: Record<string,any> = {
 		node:"String"
 	},
 	Transaction:{
-		amount:"Money",
+		amount:"MoneyV2",
 		amountV2:"MoneyV2",
 		kind:"TransactionKind",
 		status:"TransactionStatus",
@@ -1970,6 +2024,21 @@ export const ReturnTypes: Record<string,any> = {
 		quantityValue:"Float",
 		referenceUnit:"UnitPriceMeasurementMeasuredUnit",
 		referenceValue:"Int"
+	},
+	UnsignedInt64: `scalar.UnsignedInt64` as const,
+	UrlRedirect:{
+		id:"ID",
+		path:"String",
+		target:"String"
+	},
+	UrlRedirectConnection:{
+		edges:"UrlRedirectEdge",
+		nodes:"UrlRedirect",
+		pageInfo:"PageInfo"
+	},
+	UrlRedirectEdge:{
+		cursor:"String",
+		node:"UrlRedirect"
 	},
 	UserError:{
 		field:"String",
