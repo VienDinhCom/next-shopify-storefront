@@ -48,11 +48,13 @@
   },
   "eslintConfig": {
     "extends": [
-      "eslint:recommended",
       "next/core-web-vitals",
       "plugin:tailwindcss/recommended",
       "prettier"
-    ]
+    ],
+    "rules": {
+      "no-unused-vars": "warn"
+    }
   },
   "prettier": {
     "tabWidth": 2,
