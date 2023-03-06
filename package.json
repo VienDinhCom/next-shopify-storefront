@@ -20,7 +20,8 @@
     "prebuild": "npm run codegen"
   },
   "dependencies": {
-    "next": "13.2.1"
+    "next": "13.2.1",
+    "type-fest": "^3.6.1"
   },
   "devDependencies": {
     "@headlessui/react": "^1.7.12",
