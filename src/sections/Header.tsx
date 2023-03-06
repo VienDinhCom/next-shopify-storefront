@@ -109,7 +109,7 @@ export function Header() {
             <NextLink
               className={clsx(
                 'text-sm font-semibold leading-6 text-gray-900',
-                router.pathname.startsWith(pathname) && 'text-blue-900'
+                router.pathname.startsWith(pathname) && 'text-primary-600'
               )}
               key={href}
               href={href}
@@ -174,7 +174,7 @@ export function Header() {
                   <NextLink
                     className={clsx(
                       '-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50',
-                      router.pathname.startsWith(pathname) && 'text-blue-900'
+                      router.pathname.startsWith(pathname) && 'text-primary-600'
                     )}
                     key={href}
                     href={href}
