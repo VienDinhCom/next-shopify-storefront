@@ -1,4 +1,3 @@
-import { decode } from 'punycode';
 import { Thunder } from './zeus';
 
 const apiEndpoint = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_ENDPOINT as string;

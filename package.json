@@ -48,6 +48,7 @@
   },
   "eslintConfig": {
     "extends": [
+      "eslint:recommended",
       "next/core-web-vitals",
       "plugin:tailwindcss/recommended",
       "prettier"

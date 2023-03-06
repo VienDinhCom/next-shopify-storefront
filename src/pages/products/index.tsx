@@ -37,7 +37,7 @@ interface Props {
   products: AsyncReturnType<typeof getProducts>;
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   return {
     props: {
       products: await getProducts(),
