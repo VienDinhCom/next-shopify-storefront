@@ -1,3 +1,4 @@
+import { decode } from 'punycode';
 import { Thunder } from './zeus';
 
 const apiEndpoint = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_ENDPOINT as string;
@@ -34,7 +35,18 @@ const thunder = Thunder(async (query: string, variables: Record<string, unknown>
 });
 
 export const storefront = {
-  query: thunder('query'),
+  query: thunder('query', {
+    scalars: {
+      URL: {
+        encode: (e) => e as string,
+        decode: (e) => e as string,
+      },
+      Decimal: {
+        encode: (e) => `${e}`,
+        decode: (e) => parseFloat(e as string),
+      },
+    },
+  }),
   mutation: thunder('mutation'),
 };
 
