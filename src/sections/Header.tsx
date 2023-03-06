@@ -1,4 +1,16 @@
-import { useState, Fragment, Dialog, Disclosure, Popover, Transition, NextImage, NextLink } from '@app/utilities/deps';
+import {
+  useState,
+  Fragment,
+  Dialog,
+  Disclosure,
+  Popover,
+  Transition,
+  NextImage,
+  NextLink,
+  useRouter,
+  clsx,
+} from '@app/utilities/deps';
+
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
 
 import {
@@ -11,29 +23,25 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 
-const products = [
-  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-  { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-  { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-  { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-];
-const callsToAction = [
-  { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-  { name: 'Contact sales', href: '#', icon: PhoneIcon },
-];
+const mainMenuItems: { text: string; href: string; pathname: string }[] = [
+  {
+    text: 'Products',
+    href: '/products',
+  },
+].map((item) => ({ ...item, pathname: new URL('https://x' + item.href).pathname }));
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <header className="shadow-sm">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+          <NextLink href="/" className="-m-1.5 p-1.5">
+            <span className="sr-only">Next Shopify Storefront</span>
             <NextImage className="h-8 w-auto" src="/logo.svg" alt="" width={160} height={24} />
-          </a>
+          </NextLink>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -97,25 +105,18 @@ export function Header() {
             </Transition>
           </Popover> */}
 
-          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/">
-            Home
-          </NextLink>
-
-          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/products">
-            Products
-          </NextLink>
-
-          {/* <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/collections">
-            Collections
-          </NextLink>
-
-          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/about">
-            About
-          </NextLink>
-
-          <NextLink className="text-sm font-semibold leading-6 text-gray-900" href="/contact">
-            Contact
-          </NextLink> */}
+          {mainMenuItems.map(({ text, href, pathname }) => (
+            <NextLink
+              className={clsx(
+                'text-sm font-semibold leading-6 text-gray-900',
+                router.pathname.startsWith(pathname) && 'text-blue-900'
+              )}
+              key={href}
+              href={href}
+            >
+              {text}
+            </NextLink>
+          ))}
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
@@ -125,12 +126,12 @@ export function Header() {
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-black p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+            <NextLink href="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">Next Shopify Storefront</span>
               <NextImage className="h-8 w-auto" src="/logo.svg" alt="" width={160} height={24} />
-            </a>
+            </NextLink>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -168,24 +169,19 @@ export function Header() {
                     </>
                   )}
                 </Disclosure> */}
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Company
-                </a>
+
+                {mainMenuItems.map(({ text, href, pathname }) => (
+                  <NextLink
+                    className={clsx(
+                      '-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50',
+                      router.pathname.startsWith(pathname) && 'text-blue-900'
+                    )}
+                    key={href}
+                    href={href}
+                  >
+                    {text}
+                  </NextLink>
+                ))}
               </div>
               <div className="py-6">
                 <a
