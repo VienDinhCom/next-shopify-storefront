@@ -9,18 +9,18 @@ interface Props {
   disabled?: boolean;
 }
 
+const colors = {
+  primary: clsx('bg-primary-600 text-white hover:bg-primary-500 disabled:bg-primary-400'),
+  danger: clsx('bg-danger-600 text-white hover:bg-danger-500 disabled:bg-danger-400'),
+};
+
+const sizes = {
+  xs: clsx('py-1 px-2 text-xs'),
+  sm: clsx('py-2 px-3 text-sm'),
+  md: clsx('py-3 px-4 text-base'),
+};
+
 export function Button(props: Props) {
-  const colors = {
-    primary: clsx('bg-primary-600 text-white hover:bg-primary-500 disabled:bg-primary-400'),
-    danger: clsx('bg-danger-600 text-white hover:bg-danger-500 disabled:bg-danger-400'),
-  };
-
-  const sizes = {
-    xs: clsx('py-1 px-2 text-xs'),
-    sm: clsx('py-2 px-3 text-sm'),
-    md: clsx('py-3 px-4 text-base'),
-  };
-
   if (props.href) {
     return (
       <NextLink
