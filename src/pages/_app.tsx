@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }: NextAppProps) {
   return (
     <>
       <ProgressBar color="orange" />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }
