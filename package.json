@@ -25,6 +25,7 @@
   "devDependencies": {
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
+    "@types/lodash": "^4.14.191",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -37,6 +38,7 @@
     "eslint-plugin-tailwindcss": "^3.9.0",
     "graphql-zeus": "^5.2.8",
     "immer": "^9.0.19",
+    "lodash": "^4.17.21",
     "nextjs-progressbar": "^0.0.16",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
