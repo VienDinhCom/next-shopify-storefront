@@ -87,13 +87,14 @@ export default function Page(props: Props) {
             </a>
           ))}
       </div>
-      <div className="text-center">
-        {hasNextPage && (
+
+      {hasNextPage && (
+        <div className="text-center">
           <Button color={loader.error ? 'danger' : 'primary'} size="md" onClick={load} disabled={loader.loading}>
             {loader.loading ? 'Loading' : loader.error ? 'Try Again' : 'Load More'}
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </DefaultLayout>
   );
 }
