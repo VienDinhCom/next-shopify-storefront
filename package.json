@@ -37,6 +37,7 @@
     "eslint-plugin-tailwindcss": "^3.9.0",
     "graphql-zeus": "^5.2.8",
     "immer": "^9.0.19",
+    "nextjs-progressbar": "^0.0.16",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "react": "18.2.0",
