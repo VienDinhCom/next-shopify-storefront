@@ -1,6 +1,6 @@
 import { storefront } from '@app/utilities/storefront';
 import { AsyncReturnType } from '@app/utilities/types';
-import { GetServerSideProps, NextImage, useState } from '@app/utilities/deps';
+import { GetServerSideProps, NextImage, NextLink, useState } from '@app/utilities/deps';
 import { DefaultLayout } from '@app/layouts/DefaultLayout';
 import { useAsyncFn } from '@app/utilities/hooks';
 import { Button } from '@app/snippets';
@@ -69,7 +69,7 @@ export default function Page(props: Props) {
         {pages
           .flatMap(({ edges }) => edges)
           .map(({ node }) => (
-            <a key={node.handle} href={`/products/${node.handle}`} className="group">
+            <NextLink key={node.handle} href={`/products/${node.handle}`} className="group">
               <div className="w-full overflow-hidden rounded-lg bg-gray-200">
                 <NextImage
                   src={node.featuredImage!.url}
@@ -84,7 +84,7 @@ export default function Page(props: Props) {
               <p className="mt-1 text-lg font-medium text-gray-900">
                 {node.priceRange.minVariantPrice.currencyCode} {node.priceRange.minVariantPrice.amount}
               </p>
-            </a>
+            </NextLink>
           ))}
       </div>
 
