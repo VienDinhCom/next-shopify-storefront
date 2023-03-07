@@ -3,6 +3,7 @@ import { AsyncReturnType } from '@app/utilities/types';
 import { GetServerSideProps, NextImage, useState } from '@app/utilities/deps';
 import { DefaultLayout } from '@app/layouts/DefaultLayout';
 import { useAsyncFn } from '@app/utilities/hooks';
+import { Button } from '@app/snippets';
 
 async function getProducts(cursor?: string) {
   const { products } = await storefront.query({
@@ -64,7 +65,6 @@ export default function Page(props: Props) {
   return (
     <DefaultLayout>
       <h2 className="sr-only">Products</h2>
-
       <div className="mb-10 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         {pages
           .flatMap(({ edges }) => edges)
@@ -87,8 +87,13 @@ export default function Page(props: Props) {
             </a>
           ))}
       </div>
-
-      {hasNextPage && <button onClick={load}>Load More</button>}
+      <div className="text-center">
+        {hasNextPage && (
+          <Button color={loader.error ? 'danger' : 'primary'} size="md" onClick={load} disabled={loader.loading}>
+            {loader.loading ? 'Loading' : loader.error ? 'Try Again' : 'Load More'}
+          </Button>
+        )}
+      </div>
     </DefaultLayout>
   );
 }
