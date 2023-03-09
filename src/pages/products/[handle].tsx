@@ -3,6 +3,7 @@ import { Breadcrumb } from '@app/snippets';
 import { useAsyncFn } from '@app/utilities/hooks';
 import { storefront } from '@app/utilities/storefront';
 import { AsyncReturnType } from '@app/utilities/types';
+import { uniq } from 'lodash';
 
 import { GetServerSideProps, NextImage, useState, validator, invariant } from '@app/utilities/deps';
 import { StarIcon } from '@heroicons/react/20/solid';
@@ -137,7 +138,21 @@ export default function Page(props: Props) {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
-  console.log(props.product);
+  // console.log(props.product);
+
+  const colors = (() => {
+    const colors: string[] = [];
+
+    props.product.variants.nodes.forEach(({ selectedOptions }) => {
+      selectedOptions.forEach(({ name, value }) => {
+        if (name === 'Color') {
+        } else {
+        }
+      });
+    });
+
+    console.log(uniq(colors));
+  })();
 
   return (
     <DefaultLayout>
