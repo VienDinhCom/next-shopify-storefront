@@ -1,11 +1,11 @@
 import { DefaultLayout } from '@app/layouts/DefaultLayout';
 import { Breadcrumb } from '@app/snippets';
-import { useAsyncFn } from '@app/utilities/hooks';
-import { storefront } from '@app/utilities/storefront';
-import { AsyncReturnType } from '@app/utilities/types';
+import { useAsyncFn } from '@app/utils/hooks';
+import { storefront } from '@app/utils/storefront';
+import { AsyncReturnType } from '@app/utils/types';
 import { uniq } from 'lodash';
 
-import { GetServerSideProps, NextImage, useState, validator, invariant } from '@app/utilities/deps';
+import { GetServerSideProps, NextImage, useState, validator, invariant } from '@app/utils/deps';
 import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
 

@@ -1,8 +1,8 @@
-import { storefront } from '@app/utilities/storefront';
-import { AsyncReturnType } from '@app/utilities/types';
-import { GetServerSideProps, NextImage, NextLink, useState } from '@app/utilities/deps';
+import { storefront } from '@app/utils/storefront';
+import { AsyncReturnType } from '@app/utils/types';
+import { GetServerSideProps, NextImage, NextLink, useState } from '@app/utils/deps';
 import { DefaultLayout } from '@app/layouts/DefaultLayout';
-import { useAsyncFn } from '@app/utilities/hooks';
+import { useAsyncFn } from '@app/utils/hooks';
 import { Button } from '@app/snippets';
 
 async function getProducts(cursor?: string) {
