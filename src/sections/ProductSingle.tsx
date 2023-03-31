@@ -9,31 +9,6 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
 
 const product = {
-  name: 'Basic Tee 6-Pack',
-  price: '$192',
-  href: '#',
-  breadcrumbs: [
-    { id: '1', name: 'Men', href: '#' },
-    { id: '2', name: 'Clothing', href: '#' },
-  ],
-  images: [
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-      alt: 'Two each of gray, white, and black shirts laying flat.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-      alt: 'Model wearing plain black basic tee.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-      alt: 'Model wearing plain gray basic tee.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
-      alt: 'Model wearing plain white basic tee.',
-    },
-  ],
   colors: [
     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
     { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
@@ -49,18 +24,7 @@ const product = {
     { name: '2XL', inStock: true },
     { name: '3XL', inStock: true },
   ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    'Hand cut and sewn locally',
-    'Dyed with our proprietary colors',
-    'Pre-washed & pre-shrunk',
-    'Ultra-soft 100% cotton',
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 };
-const reviews = { href: '#', average: 4, totalCount: 117 };
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
@@ -72,6 +36,13 @@ export async function getProductSingle(handle: string) {
       { handle },
       {
         title: true,
+        description: [{ truncateAt: null }, true],
+        priceRange: {
+          minVariantPrice: {
+            amount: true,
+            currencyCode: true,
+          },
+        },
         images: [
           { first: 250 },
           {
@@ -129,8 +100,6 @@ export function ProductSingle(props: Props) {
 
   return (
     <section>
-      {/* <Breadcrumb breadcrumbs={product.breadcrumbs} node={product} /> */}
-
       <div className="flex space-x-8 rounded-lg  shadow-sm">
         <div className="basis-6/12">
           <div className="h-full w-full overflow-hidden rounded-lg bg-gray-200">
@@ -151,30 +120,11 @@ export function ProductSingle(props: Props) {
             <h1 className="mb-5 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               {props.productSingle.title}
             </h1>
-            <p className="text-3xl tracking-tight text-gray-900">$000000</p>
-
-            {/* Reviews */}
-            <div className="mt-6">
-              <h3 className="sr-only">Reviews</h3>
-              <div className="flex items-center">
-                <div className="flex items-center">
-                  {[0, 1, 2, 3, 4].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      className={classNames(
-                        reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
-                        'h-5 w-5 flex-shrink-0'
-                      )}
-                      aria-hidden="true"
-                    />
-                  ))}
-                </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a href={reviews.href} className="ml-3 text-sm font-medium text-primary-600 hover:text-primary-500">
-                  {reviews.totalCount} reviews
-                </a>
-              </div>
-            </div>
+            <p className="text-3xl tracking-tight text-gray-900">
+              {props.productSingle.priceRange.minVariantPrice.currencyCode}
+              &nbsp;
+              {props.productSingle.priceRange.minVariantPrice.amount}
+            </p>
 
             <form className="mt-10">
               {/* Colors */}
@@ -288,37 +238,10 @@ export function ProductSingle(props: Props) {
       </div>
 
       <section>
-        <br />
-        <br />
-        {/* Description and details */}
-        <div>
-          <h3 className="sr-only">Description</h3>
+        <h3 className="sr-only">Description</h3>
 
-          <div className="space-y-6">
-            <p className="text-base text-gray-900">{product.description}</p>
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-          <div className="mt-4">
-            <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-              {product.highlights.map((highlight) => (
-                <li key={highlight} className="text-gray-400">
-                  <span className="text-gray-600">{highlight}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-          <div className="mt-4 space-y-6">
-            <p className="text-sm text-gray-600">{product.details}</p>
-          </div>
+        <div className="space-y-6">
+          <p className="text-base text-gray-900">{props.productSingle.description}</p>
         </div>
       </section>
     </section>
