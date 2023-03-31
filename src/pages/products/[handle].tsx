@@ -1,7 +1,9 @@
 import { DefaultLayout } from '@app/layouts/DefaultLayout';
 import { GetServerSideProps, invariant } from '@app/utils/deps';
 import { AsyncReturnType } from '@app/utils/types';
-import { ProductSingle, getProductSingle } from '@app/sections/ProductSingle';
+
+import { ProductSingle } from '@app/sections/ProductSingle/ProductSingle';
+import { getProductSingle } from '@app/sections/ProductSingle/ProductSingle.service';
 
 interface Props {
   productSingle: AsyncReturnType<typeof getProductSingle>;

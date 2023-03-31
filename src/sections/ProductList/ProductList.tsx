@@ -1,42 +1,8 @@
-import { storefront } from '@app/utils/storefront';
-import { AsyncReturnType } from '@app/utils/types';
 import { NextImage, NextLink, useState } from '@app/utils/deps';
 import { useAsyncFn } from '@app/utils/hooks';
 import { Button } from '@app/snippets';
-
-export async function getProductList(cursor?: string) {
-  const { products } = await storefront.query({
-    products: [
-      { first: 12, after: cursor || null },
-      {
-        pageInfo: {
-          hasNextPage: true,
-        },
-        edges: {
-          cursor: true,
-          node: {
-            handle: true,
-            title: true,
-            priceRange: {
-              minVariantPrice: {
-                amount: true,
-                currencyCode: true,
-              },
-            },
-            featuredImage: {
-              url: [{ transform: { maxWidth: 500 } }, true],
-              altText: true,
-              width: true,
-              height: true,
-            },
-          },
-        },
-      },
-    ],
-  });
-
-  return products;
-}
+import { AsyncReturnType } from 'type-fest';
+import { getProductList } from './ProductList.service';
 
 interface Props {
   productList: AsyncReturnType<typeof getProductList>;
