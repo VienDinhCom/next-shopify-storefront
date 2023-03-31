@@ -1,11 +1,10 @@
 import { NextImage, NextLink, useState } from '@app/utils/deps';
 import { useAsyncFn } from '@app/utils/hooks';
 import { Button } from '@app/snippets';
-import { AsyncReturnType } from 'type-fest';
-import { getProductList } from './ProductList.service';
+import { getProductList, GetProductListOutput } from './ProductList.service';
 
 interface Props {
-  productList: AsyncReturnType<typeof getProductList>;
+  productList: GetProductListOutput;
 }
 
 export function ProductList(props: Props) {

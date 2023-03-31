@@ -1,12 +1,11 @@
 import { DefaultLayout } from '@app/layouts/DefaultLayout';
 import { GetServerSideProps, invariant } from '@app/utils/deps';
-import { AsyncReturnType } from '@app/utils/types';
 
 import { ProductSingle } from '@app/sections/ProductSingle/ProductSingle';
-import { getProductSingle } from '@app/sections/ProductSingle/ProductSingle.service';
+import { getProductSingle, GetProductSingleOutput } from '@app/sections/ProductSingle/ProductSingle.service';
 
 interface Props {
-  productSingle: AsyncReturnType<typeof getProductSingle>;
+  productSingle: GetProductSingleOutput;
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({ params }) => {

@@ -1,5 +1,6 @@
 import { storefront } from '@app/utils/storefront';
 import { invariant } from '@app/utils/deps';
+import { AsyncReturnType } from '@app/utils/types';
 
 import fs from 'fs';
 
@@ -65,3 +66,5 @@ export async function getProductSingle(handle: string) {
 
   return productByHandle;
 }
+
+export type GetProductSingleOutput = AsyncReturnType<typeof getProductSingle>;

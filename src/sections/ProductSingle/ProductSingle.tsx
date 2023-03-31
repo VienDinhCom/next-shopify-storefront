@@ -1,7 +1,6 @@
-import { AsyncReturnType } from '@app/utils/types';
 import { NextImage, useState } from '@app/utils/deps';
 import { RadioGroup } from '@headlessui/react';
-import { getProductSingle } from './ProductSingle.service';
+import { GetProductSingleOutput } from './ProductSingle.service';
 
 const product = {
   colors: [
@@ -26,7 +25,7 @@ function classNames(...classes: any) {
 }
 
 interface Props {
-  productSingle: AsyncReturnType<typeof getProductSingle>;
+  productSingle: GetProductSingleOutput;
 }
 
 export function ProductSingle(props: Props) {
