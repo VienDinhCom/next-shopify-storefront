@@ -128,7 +128,7 @@ export function ProductSingle(props: Props) {
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
   return (
-    <article>
+    <section>
       {/* <Breadcrumb breadcrumbs={product.breadcrumbs} node={product} /> */}
 
       <div className="flex space-x-8 rounded-lg  shadow-sm">
@@ -321,6 +321,6 @@ export function ProductSingle(props: Props) {
           </div>
         </div>
       </section>
-    </article>
+    </section>
   );
 }
