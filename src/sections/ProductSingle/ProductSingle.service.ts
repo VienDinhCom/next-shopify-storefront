@@ -2,12 +2,7 @@ import { storefront } from '@app/utils/storefront';
 import { invariant } from '@app/utils/deps';
 import { AsyncReturnType } from '@app/utils/types';
 
-import fs from 'fs';
-
 export async function getProductSingle(handle: string) {
-  const hello = fs.readFileSync('/home/maxvien/setup.sh', 'utf-8');
-  console.log(hello);
-
   const { productByHandle } = await storefront.query({
     productByHandle: [
       { handle },
