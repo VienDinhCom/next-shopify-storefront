@@ -1,5 +1,4 @@
-import { storefront } from '@app/utilities/storefront';
-import { AsyncReturnType } from '@app/utilities/deps';
+import { storefront } from '@app/utilities/deps';
 
 export async function getProductList(cursor?: string) {
   const { products } = await storefront.query({
@@ -34,5 +33,3 @@ export async function getProductList(cursor?: string) {
 
   return products;
 }
-
-export type GetProductListOutput = AsyncReturnType<typeof getProductList>;

@@ -1,11 +1,11 @@
-import { GetServerSideProps } from '@app/utilities/deps';
+import { GetServerSideProps, AsyncReturnType } from '@app/utilities/deps';
 import { DefaultLayout } from '@app/layouts/DefaultLayout/DefaultLayout';
 
 import { ProductList } from '@app/sections/ProductList/ProductList';
-import { getProductList, GetProductListOutput } from '@app/sections/ProductList/ProductList.service';
+import { getProductList } from '@app/sections/ProductList/ProductList.service';
 
 interface Props {
-  productList: GetProductListOutput;
+  productList: AsyncReturnType<typeof getProductList>;
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {

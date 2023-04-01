@@ -1,9 +1,9 @@
-import { NextImage, NextLink, useState, useAsyncFn } from '@app/utilities/deps';
+import { NextImage, NextLink, useState, useAsyncFn, AsyncReturnType } from '@app/utilities/deps';
 import { Button } from '@app/snippets';
-import { getProductList, GetProductListOutput } from './ProductList.service';
+import { getProductList } from './ProductList.service';
 
 interface Props {
-  productList: GetProductListOutput;
+  productList: AsyncReturnType<typeof getProductList>;
 }
 
 export function ProductList(props: Props) {
