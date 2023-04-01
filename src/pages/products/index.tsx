@@ -1,5 +1,5 @@
 import { GetServerSideProps } from '@app/utils/deps';
-import { DefaultLayout } from '@app/layouts/DefaultLayout';
+import { DefaultLayout } from '@app/layouts/DefaultLayout/DefaultLayout';
 
 import { ProductList } from '@app/sections/ProductList/ProductList';
 import { getProductList, GetProductListOutput } from '@app/sections/ProductList/ProductList.service';

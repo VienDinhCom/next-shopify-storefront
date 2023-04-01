@@ -1,4 +1,4 @@
-import { DefaultLayout } from '@app/layouts/DefaultLayout';
+import { DefaultLayout } from '@app/layouts/DefaultLayout/DefaultLayout';
 import { GetServerSideProps, invariant } from '@app/utils/deps';
 
 import { ProductSingle } from '@app/sections/ProductSingle/ProductSingle';
