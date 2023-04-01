@@ -1,4 +1,4 @@
-import { NextImage, useState } from '@app/utils/deps';
+import { NextImage, useState } from '@app/utilities/deps';
 import { RadioGroup } from '@headlessui/react';
 import { GetProductSingleOutput } from './ProductSingle.service';
 

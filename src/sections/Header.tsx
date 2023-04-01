@@ -9,7 +9,7 @@ import {
   NextLink,
   useRouter,
   clsx,
-} from '@app/utils/deps';
+} from '@app/utilities/deps';
 
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
 

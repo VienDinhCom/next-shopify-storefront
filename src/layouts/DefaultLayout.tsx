@@ -1,4 +1,4 @@
-import { ReactNode } from '@app/utils/deps';
+import { ReactNode } from '@app/utilities/deps';
 import { Header } from '@app/sections/Header';
 
 interface Props {

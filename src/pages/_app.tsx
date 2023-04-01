@@ -1,6 +1,6 @@
 import '@app/assets/style.css';
 import ProgressBar from 'nextjs-progressbar';
-import { NextAppProps } from '@app/utils/deps';
+import { NextAppProps } from '@app/utilities/deps';
 
 export default function App({ Component, pageProps }: NextAppProps) {
   return (

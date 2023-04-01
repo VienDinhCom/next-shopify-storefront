@@ -1,4 +1,4 @@
-import { GetServerSideProps } from '@app/utils/deps';
+import { GetServerSideProps } from '@app/utilities/deps';
 import { DefaultLayout } from '@app/layouts/DefaultLayout';
 
 import { ProductList } from '@app/sections/ProductList';

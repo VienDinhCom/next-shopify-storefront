@@ -1,5 +1,5 @@
 import { DefaultLayout } from '@app/layouts/DefaultLayout';
-import { GetServerSideProps, invariant } from '@app/utils/deps';
+import { GetServerSideProps, invariant } from '@app/utilities/deps';
 
 import { ProductSingle } from '@app/sections/ProductSingle';
 import { getProductSingle, GetProductSingleOutput } from '@app/sections/ProductSingle.service';
