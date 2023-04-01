@@ -1,14 +1,3 @@
-/* Services
- ********************************************************************************/
-export { storefront } from './storefront';
-
-/* Types
- ********************************************************************************/
-export type { GetServerSideProps } from 'next';
-export type { AppProps as NextAppProps } from 'next/app';
-export type { ReactNode, ReactElement } from 'react';
-export type { AsyncReturnType } from 'type-fest';
-
 /* Components
  ********************************************************************************/
 export * from '@headlessui/react';
@@ -26,3 +15,14 @@ export { default as invariant } from 'tiny-invariant';
 export { useRouter } from 'next/router';
 export { useEffect, useState } from 'react';
 export { useAsyncFn } from 'react-use';
+
+/* Services
+ ********************************************************************************/
+export { storefront } from './storefront';
+
+/* Types
+ ********************************************************************************/
+export type { GetServerSideProps } from 'next';
+export type { AppProps as NextAppProps } from 'next/app';
+export type { ReactNode, ReactElement } from 'react';
+export type { AsyncReturnType } from 'type-fest';
