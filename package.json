@@ -17,7 +17,8 @@
     "fix": "next lint --fix && prettier --write src",
     "codegen": "node codegen.mjs",
     "predev": "npm run codegen",
-    "prebuild": "npm run codegen"
+    "prebuild": "npm run codegen",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "next": "13.2.1"
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
+    "@next/bundle-analyzer": "^13.2.4",
     "@types/lodash": "^4.14.191",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
