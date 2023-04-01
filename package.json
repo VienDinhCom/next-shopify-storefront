@@ -21,12 +21,13 @@
     "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
-    "next": "13.2.1"
+    "@next/bundle-analyzer": "^13.2.4",
+    "next": "13.2.1",
+    "next-compose-plugins": "^2.2.1"
   },
   "devDependencies": {
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
-    "@next/bundle-analyzer": "^13.2.4",
     "@types/lodash": "^4.14.191",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
