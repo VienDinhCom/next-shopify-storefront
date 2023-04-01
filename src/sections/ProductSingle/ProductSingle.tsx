@@ -1,5 +1,4 @@
-import { NextImage, useState } from '@app/utilities/deps';
-import { RadioGroup } from '@headlessui/react';
+import { NextImage, useState, RadioGroup } from '@app/utilities/deps';
 import { GetProductSingleOutput } from './ProductSingle.service';
 
 const product = {
