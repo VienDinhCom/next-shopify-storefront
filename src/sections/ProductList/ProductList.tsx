@@ -1,5 +1,5 @@
 import { NextImage, NextLink, useState } from '@app/utilities/deps';
-import { useAsyncFn } from '@app/utilities/hooks';
+import { useAsyncFn } from '@app/utilities/deps';
 import { Button } from '@app/snippets';
 import { getProductList, GetProductListOutput } from './ProductList.service';
 
