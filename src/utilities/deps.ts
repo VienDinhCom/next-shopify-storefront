@@ -1,5 +1,3 @@
-export * from '@headlessui/react';
-
 /* Types
  ********************************************************************************/
 export type { GetServerSideProps } from 'next';
@@ -9,6 +7,7 @@ export type { AsyncReturnType } from 'type-fest';
 
 /* Components
  ********************************************************************************/
+export * from '@headlessui/react';
 export { Fragment } from 'react';
 export { default as NextLink } from 'next/link';
 export { default as NextImage } from 'next/image';
