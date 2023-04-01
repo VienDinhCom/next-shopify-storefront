@@ -1,4 +1,5 @@
-import { storefront, invariant } from '@app/utilities/deps';
+import { invariant } from '@app/utilities/deps';
+import { storefront } from '@app/utilities/storefront';
 
 export async function getProductSingle(handle: string) {
   const { productByHandle } = await storefront.query({

@@ -1,4 +1,4 @@
-import { storefront } from '@app/utilities/deps';
+import { storefront } from '@app/utilities/storefront';
 
 export async function getProductList(cursor?: string) {
   const { products } = await storefront.query({

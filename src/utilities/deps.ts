@@ -1,6 +1,6 @@
 /* Components
  ********************************************************************************/
-export * from '@headlessui/react';
+export { Dialog, Disclosure, Popover, Transition, RadioGroup } from '@headlessui/react';
 export { Fragment } from 'react';
 export { default as NextLink } from 'next/link';
 export { default as NextImage } from 'next/image';
@@ -15,10 +15,6 @@ export { default as invariant } from 'tiny-invariant';
 export { useRouter } from 'next/router';
 export { useEffect, useState } from 'react';
 export { useAsyncFn } from 'react-use';
-
-/* Services
- ********************************************************************************/
-export { storefront } from './storefront';
 
 /* Types
  ********************************************************************************/
