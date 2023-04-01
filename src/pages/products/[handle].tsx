@@ -1,8 +1,8 @@
-import { DefaultLayout } from '@app/layouts/DefaultLayout';
+import { DefaultLayout } from '@app/layouts/DefaultLayout/DefaultLayout';
 import { GetServerSideProps, invariant } from '@app/utilities/deps';
 
-import { ProductSingle } from '@app/sections/ProductSingle';
-import { getProductSingle, GetProductSingleOutput } from '@app/sections/ProductSingle.service';
+import { ProductSingle } from '@app/sections/ProductSingle/ProductSingle';
+import { getProductSingle, GetProductSingleOutput } from '@app/sections/ProductSingle/ProductSingle.service';
 
 interface Props {
   productSingle: GetProductSingleOutput;
