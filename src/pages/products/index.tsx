@@ -1,8 +1,8 @@
 import { GetServerSideProps } from '@app/utils/deps';
-import { DefaultLayout } from '@app/layouts/DefaultLayout/DefaultLayout';
+import { DefaultLayout } from '@app/layouts/DefaultLayout';
 
-import { ProductList } from '@app/sections/ProductList/ProductList';
-import { getProductList, GetProductListOutput } from '@app/sections/ProductList/ProductList.service';
+import { ProductList } from '@app/sections/ProductList';
+import { getProductList, GetProductListOutput } from '@app/sections/ProductList.service';
 
 interface Props {
   productList: GetProductListOutput;
