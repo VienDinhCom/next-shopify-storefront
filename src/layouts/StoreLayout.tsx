@@ -5,7 +5,7 @@ interface Props {
   children: ReactNode;
 }
 
-export function DefaultLayout(props: Props) {
+export function StoreLayout(props: Props) {
   return (
     <>
       <Header />

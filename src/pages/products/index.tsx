@@ -1,5 +1,5 @@
 import { PageProps, fetchServerSideProps } from '@app/utilities/deps';
-import { DefaultLayout } from '@app/layouts/DefaultLayout/DefaultLayout';
+import { StoreLayout } from '@app/layouts/StoreLayout';
 import { ProductListSection, fetchProductListSection } from '@app/sections/ProductListSection';
 
 export const getServerSideProps = fetchServerSideProps(async () => {
@@ -14,8 +14,8 @@ export const getServerSideProps = fetchServerSideProps(async () => {
 
 export default function Page(props: PageProps<typeof getServerSideProps>) {
   return (
-    <DefaultLayout>
+    <StoreLayout>
       <ProductListSection data={props.data.productListSection}></ProductListSection>
-    </DefaultLayout>
+    </StoreLayout>
   );
 }
