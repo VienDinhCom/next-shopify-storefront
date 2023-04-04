@@ -1,27 +1,23 @@
+import { invariant, fetchServerSideProps, PageProps } from '@app/utilities/deps';
 import { DefaultLayout } from '@app/layouts/DefaultLayout/DefaultLayout';
-import { GetServerSideProps, invariant, AsyncReturnType } from '@app/utilities/deps';
+import { ProductSingleSection, fetchProductSingleSection } from '@app/sections/ProuctSingleSection';
 
-import { ProductSingle } from '@app/sections/ProductSingle/ProductSingle';
-import { getProductSingle } from '@app/sections/ProductSingle/ProductSingle.service';
-
-interface Props {
-  productSingle: AsyncReturnType<typeof getProductSingle>;
-}
-
-export const getServerSideProps: GetServerSideProps<Props> = async ({ params }) => {
+export const getServerSideProps = fetchServerSideProps(async ({ params }) => {
   invariant(typeof params?.handle === 'string', `params.handle is required`);
 
   return {
     props: {
-      productSingle: await getProductSingle(params?.handle),
+      data: {
+        productSingle: await fetchProductSingleSection(params?.handle),
+      },
     },
   };
-};
+});
 
-export default function Page(props: Props) {
+export default function Page(props: PageProps<typeof getServerSideProps>) {
   return (
     <DefaultLayout>
-      <ProductSingle productSingle={props.productSingle}></ProductSingle>
+      <ProductSingleSection data={props.data.productSingle}></ProductSingleSection>
     </DefaultLayout>
   );
 }
