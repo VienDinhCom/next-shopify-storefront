@@ -1,16 +1,5 @@
-import {
-  useState,
-  Fragment,
-  Dialog,
-  Disclosure,
-  Popover,
-  Transition,
-  NextImage,
-  NextLink,
-  useRouter,
-  clsx,
-} from '@app/utilities/deps';
-
+import { useState, NextImage, NextLink, useRouter, clsx } from '@app/utilities/deps';
+import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
 
 import {

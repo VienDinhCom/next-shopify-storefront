@@ -1,6 +1,5 @@
 /* Components
  ********************************************************************************/
-export { Dialog, Disclosure, Popover, Transition, RadioGroup } from '@headlessui/react';
 export { Fragment } from 'react';
 export { default as NextLink } from 'next/link';
 export { default as NextImage } from 'next/image';

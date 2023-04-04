@@ -1,5 +1,6 @@
 import { storefront } from '@app/utilities/storefront';
-import { NextImage, useState, RadioGroup, DataProps, invariant } from '@app/utilities/deps';
+import { RadioGroup } from '@headlessui/react';
+import { NextImage, useState, DataProps, invariant } from '@app/utilities/deps';
 
 const product = {
   colors: [
