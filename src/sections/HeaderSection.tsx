@@ -10,6 +10,8 @@ import {
   FingerPrintIcon,
   SquaresPlusIcon,
   XMarkIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
 
 const mainMenuItems: { text: string; href: string; pathname: string }[] = [
@@ -29,7 +31,7 @@ export function HeaderSection() {
         <div className="flex lg:flex-1">
           <NextLink href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Next Shopify Storefront</span>
-            <NextImage className="h-8 w-auto" src="/logo.svg" alt="" width={160} height={24} />
+            <ShoppingBagIcon className="h-6 w-6"></ShoppingBagIcon>
           </NextLink>
         </div>
         <div className="flex lg:hidden">
@@ -108,9 +110,10 @@ export function HeaderSection() {
           ))}
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          <NextLink href="/cart">
+            <span className="sr-only">Cart</span>
+            <ShoppingCartIcon className="h-6 w-6"></ShoppingCartIcon>
+          </NextLink>
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
