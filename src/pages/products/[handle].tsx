@@ -8,7 +8,7 @@ export const getServerSideProps = fetchServerSideProps(async ({ params }) => {
   return {
     props: {
       data: {
-        productSingle: await fetchProductSingleSection(params?.handle),
+        productSingleSection: await fetchProductSingleSection(params?.handle),
       },
     },
   };
@@ -17,7 +17,7 @@ export const getServerSideProps = fetchServerSideProps(async ({ params }) => {
 export default function Page(props: PageProps<typeof getServerSideProps>) {
   return (
     <DefaultLayout>
-      <ProductSingleSection data={props.data.productSingle}></ProductSingleSection>
+      <ProductSingleSection data={props.data.productSingleSection}></ProductSingleSection>
     </DefaultLayout>
   );
 }
