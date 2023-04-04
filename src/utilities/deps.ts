@@ -9,6 +9,7 @@ export { default as NextImage } from 'next/image';
  ********************************************************************************/
 export { default as clsx } from 'clsx';
 export { default as invariant } from 'tiny-invariant';
+export { fetchServerSideProps, fetchStaticProps } from './fetch';
 
 /* Hooks
  ********************************************************************************/
@@ -22,3 +23,4 @@ export type { GetServerSideProps } from 'next';
 export type { AppProps as NextAppProps } from 'next/app';
 export type { ReactNode, ReactElement } from 'react';
 export type { AsyncReturnType } from 'type-fest';
+export type { DataProps, PageProps } from './fetch';
