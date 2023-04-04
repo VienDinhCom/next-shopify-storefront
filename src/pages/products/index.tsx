@@ -1,25 +1,21 @@
-import { GetServerSideProps, AsyncReturnType } from '@app/utilities/deps';
+import { PageProps, fetchServerSideProps } from '@app/utilities/deps';
 import { DefaultLayout } from '@app/layouts/DefaultLayout/DefaultLayout';
+import { ProductListSection, fetchProductListSection } from '@app/sections/ProductListSection';
 
-import { ProductList } from '@app/sections/ProductList/ProductList';
-import { getProductList } from '@app/sections/ProductList/ProductList.service';
-
-interface Props {
-  productList: AsyncReturnType<typeof getProductList>;
-}
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getServerSideProps = fetchServerSideProps(async () => {
   return {
     props: {
-      productList: await getProductList(),
+      data: {
+        productListSection: await fetchProductListSection(),
+      },
     },
   };
-};
+});
 
-export default function Page(props: Props) {
+export default function Page(props: PageProps<typeof getServerSideProps>) {
   return (
     <DefaultLayout>
-      <ProductList productList={props.productList}></ProductList>
+      <ProductListSection data={props.data.productListSection}></ProductListSection>
     </DefaultLayout>
   );
 }
