@@ -19,7 +19,7 @@ const mainMenuItems: { text: string; href: string; pathname: string }[] = [
   },
 ].map((item) => ({ ...item, pathname: new URL('https://x' + item.href).pathname }));
 
-export function Header() {
+export function HeaderSection() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
