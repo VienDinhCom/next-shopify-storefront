@@ -1,8 +1,15 @@
-import { invariant, fetchServerSideProps, PageProps } from '@app/utilities/deps';
+import { invariant, fetchStaticProps, fetchStaticPaths, PageProps } from '@app/utilities/deps';
 import { StoreLayout } from '@app/layouts/StoreLayout';
 import { ProductSingleSection, fetchProductSingleSection } from '@app/sections/ProuctSingleSection';
 
-export const getServerSideProps = fetchServerSideProps(async ({ params }) => {
+export const getStaticPaths = fetchStaticPaths(async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+});
+
+export const getStaticProps = fetchStaticProps(async ({ params }) => {
   invariant(typeof params?.handle === 'string', `params.handle is required`);
 
   return {
@@ -11,10 +18,11 @@ export const getServerSideProps = fetchServerSideProps(async ({ params }) => {
         productSingleSection: await fetchProductSingleSection(params?.handle),
       },
     },
+    revalidate: 60,
   };
 });
 
-export default function Page(props: PageProps<typeof getServerSideProps>) {
+export default function Page(props: PageProps<typeof getStaticProps>) {
   return (
     <StoreLayout>
       <ProductSingleSection data={props.data.productSingleSection}></ProductSingleSection>

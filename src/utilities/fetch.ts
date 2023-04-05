@@ -1,6 +1,6 @@
 import type { AsyncReturnType } from 'type-fest';
 import type { ParsedUrlQuery } from 'querystring';
-import type { GetServerSideProps, GetStaticProps, PreviewData } from 'next';
+import type { GetServerSideProps, GetStaticProps, GetStaticPaths, PreviewData } from 'next';
 
 export interface DataProps<Fn extends (...args: any[]) => Promise<unknown>> {
   data: AsyncReturnType<Fn>;
@@ -20,6 +20,13 @@ export function fetchStaticProps<
   Fn extends GetStaticProps<{ data: any }, Params, Preview> = GetStaticProps<{ data: any }>
 >(getStaticProps: Fn) {
   return getStaticProps;
+}
+
+export function fetchStaticPaths<
+  Params extends ParsedUrlQuery = ParsedUrlQuery,
+  Fn extends GetStaticPaths<Params> = GetStaticPaths<Params>
+>(getStaticPaths: Fn) {
+  return getStaticPaths;
 }
 
 export type PageProps<Fn extends (...args: any[]) => Promise<{ props: { data: any } }>> = AsyncReturnType<Fn>['props'];

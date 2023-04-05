@@ -8,7 +8,7 @@ export { default as NextImage } from 'next/image';
  ********************************************************************************/
 export { default as clsx } from 'clsx';
 export { default as invariant } from 'tiny-invariant';
-export { fetchServerSideProps, fetchStaticProps } from './fetch';
+export { fetchServerSideProps, fetchStaticProps, fetchStaticPaths } from './fetch';
 
 /* Hooks
  ********************************************************************************/
