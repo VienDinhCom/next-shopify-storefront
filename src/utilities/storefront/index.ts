@@ -1,36 +1,35 @@
 import { Thunder, ZeusScalars } from './zeus';
+import { createStorefrontClient } from '@shopify/hydrogen-react';
 
-const apiEndpoint = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_ENDPOINT as string;
-const accessToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN as string;
+const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN as string;
+const publicStorefrontToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN as string;
+const storefrontApiVersion = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION as string;
+
+const { getStorefrontApiUrl, getPublicTokenHeaders } = createStorefrontClient({
+  storeDomain,
+  storefrontApiVersion,
+  publicStorefrontToken,
+});
 
 const thunder = Thunder(async (query: string, variables: Record<string, unknown> = {}) => {
-  const response = await fetch(apiEndpoint, {
-    body: JSON.stringify({ query, variables }),
+  const response = await fetch(getStorefrontApiUrl(), {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': accessToken,
-    },
+    body: JSON.stringify({ query, variables }),
+    headers: getPublicTokenHeaders(),
   });
 
   if (!response.ok) {
-    return new Promise((_resolve, reject) => {
-      response
-        .text()
-        .then((text) => {
-          try {
-            reject(JSON.parse(text));
-          } catch (_error) {
-            reject(text);
-          }
-        })
-        .catch(reject);
-    });
+    const body = await response.text();
+    throw new Error(`${response.status} ${body}`);
   }
 
-  const { data } = await response.json();
+  const json = await response.json();
 
-  return data;
+  if (json.errors) {
+    throw new Error(json.errors.map((e: Error) => e.message).join('\n'));
+  }
+
+  return json.data;
 });
 
 const scalars = ZeusScalars({
