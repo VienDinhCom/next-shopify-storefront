@@ -1,6 +1,7 @@
 import { storefront } from '@app/utilities/storefront';
 import { NextImage, NextLink, useState, useAsyncFn, DataProps } from '@app/utilities/deps';
 import { Button } from '@app/snippets';
+import { FormattedNumber } from 'react-intl';
 
 export async function fetchProductListSection(cursor?: string) {
   const { products } = await storefront.query({
@@ -67,7 +68,11 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
               <h3 className="mt-4 text-sm text-gray-700">{node.title}</h3>
 
               <p className="mt-1 text-lg font-medium text-gray-900">
-                {node.priceRange.minVariantPrice.currencyCode} {node.priceRange.minVariantPrice.amount}
+                <FormattedNumber
+                  style="currency"
+                  value={node.priceRange.minVariantPrice.amount}
+                  currency={node.priceRange.minVariantPrice.currencyCode}
+                ></FormattedNumber>
               </p>
             </NextLink>
           ))}

@@ -1,5 +1,6 @@
 import { storefront } from '@app/utilities/storefront';
 import { RadioGroup } from '@headlessui/react';
+import { FormattedNumber } from 'react-intl';
 import { NextImage, useState, DataProps, invariant } from '@app/utilities/deps';
 
 const product = {
@@ -109,9 +110,11 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
             <h2 className="sr-only">Product information</h2>
             <h1 className="mb-5 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{props.data.title}</h1>
             <p className="text-3xl tracking-tight text-gray-900">
-              {props.data.priceRange.minVariantPrice.currencyCode}
-              &nbsp;
-              {props.data.priceRange.minVariantPrice.amount}
+              <FormattedNumber
+                style="currency"
+                value={props.data.priceRange.minVariantPrice.amount}
+                currency={props.data.priceRange.minVariantPrice.currencyCode}
+              ></FormattedNumber>
             </p>
 
             <form className="mt-10">
