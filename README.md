@@ -2,6 +2,21 @@
 
 A **[Shopping Cart](https://github.com/maxvien/next-shopify-storefront)** built with [TypeScript](https://www.typescriptlang.org/), [Emotion](https://emotion.sh/), [Next.js](https://nextjs.org/), [React.js](https://reactjs.org/), [React Query](https://react-query.tanstack.com/), [Shopify Storefront GraphQL API](https://shopify.dev/api/storefront), ... and [Material UI](https://material-ui.com/).
 
+## Version 3
+
+I am planning to release **Version 3** of **Next Shopify Storefront** with new features:
+
+- **Type-safe Modular Data Fetching**
+- Styling with [Tailwind CSS](https://tailwindcss.com/)
+- Consuming API with [GraphQL Zeus](https://github.com/graphql-editor/graphql-zeus)
+- Focusing on [Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)
+
+I will send you an email to notify you the release of the new version, if you leave your email here. I never share your email address and you can unsubscribe in a single click.
+
+**[SUBSCRIBE NOW](https://bit.ly/3nUSPO4)**
+
+
+
 ## Experience
 
 These are my experiences when I have been working on this project:
