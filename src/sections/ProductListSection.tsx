@@ -1,7 +1,7 @@
 import { storefront } from '@app/utilities/storefront';
 import { NextImage, NextLink, useState, useAsyncFn, DataProps } from '@app/utilities/deps';
 import { Button } from '@app/snippets';
-import { FormattedNumber } from 'react-intl';
+import { Money } from '@shopify/hydrogen-react';
 
 export async function fetchProductListSection(cursor?: string) {
   const { products } = await storefront.query({
@@ -67,13 +67,9 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{node.title}</h3>
 
-              <p className="mt-1 text-lg font-medium text-gray-900">
-                <FormattedNumber
-                  style="currency"
-                  value={node.priceRange.minVariantPrice.amount}
-                  currency={node.priceRange.minVariantPrice.currencyCode}
-                ></FormattedNumber>
-              </p>
+              <div className="mt-1 text-lg font-medium text-gray-900">
+                <Money data={node.priceRange.minVariantPrice}></Money>
+              </div>
             </NextLink>
           ))}
       </div>

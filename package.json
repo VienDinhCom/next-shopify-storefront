@@ -21,12 +21,11 @@
     "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
-    "@shopify/hydrogen-react": "^2023.1.7",
-    "next": "13.2.1",
-    "prev-fetch": "^0.1.0",
-    "react-intl": "^6.3.2"
+    "next": "13.2.1"
   },
   "devDependencies": {
+    "@shopify/hydrogen-react": "^2023.1.7",
+    "prev-fetch": "^0.1.0",
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
     "@types/lodash": "^4.14.191",

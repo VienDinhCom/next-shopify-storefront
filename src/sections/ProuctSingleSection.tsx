@@ -1,6 +1,6 @@
 import { storefront } from '@app/utilities/storefront';
 import { RadioGroup } from '@headlessui/react';
-import { FormattedNumber } from 'react-intl';
+import { ProductPrice } from '@shopify/hydrogen-react';
 import { NextImage, useState, DataProps, invariant } from '@app/utilities/deps';
 
 const product = {
@@ -109,13 +109,9 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
           <div className="mt-4 pt-8 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <h1 className="mb-5 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{props.data.title}</h1>
-            <p className="text-3xl tracking-tight text-gray-900">
-              <FormattedNumber
-                style="currency"
-                value={props.data.priceRange.minVariantPrice.amount}
-                currency={props.data.priceRange.minVariantPrice.currencyCode}
-              ></FormattedNumber>
-            </p>
+            <div className="text-3xl tracking-tight text-gray-900">
+              <ProductPrice data={props.data}></ProductPrice>
+            </div>
 
             <form className="mt-10">
               {/* Colors */}

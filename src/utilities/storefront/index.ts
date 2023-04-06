@@ -1,9 +1,9 @@
 import { Thunder, ZeusScalars } from './zeus';
 import { createStorefrontClient } from '@shopify/hydrogen-react';
 
-const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN as string;
-const publicStorefrontToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN as string;
-const storefrontApiVersion = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION as string;
+export const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN as string;
+export const publicStorefrontToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN as string;
+export const storefrontApiVersion = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION as string;
 
 const { getStorefrontApiUrl, getPublicTokenHeaders } = createStorefrontClient({
   storeDomain,
@@ -38,8 +38,8 @@ const scalars = ZeusScalars({
     decode: (e) => e as string,
   },
   Decimal: {
-    encode: (e) => `${e}`,
-    decode: (e) => parseFloat(e as string),
+    encode: (e) => e as string,
+    decode: (e) => e as string,
   },
 });
 
