@@ -21,10 +21,8 @@
     "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^13.2.4",
     "@shopify/hydrogen-react": "^2023.1.7",
     "next": "13.2.1",
-    "next-compose-plugins": "^2.2.1",
     "prev-fetch": "^0.1.0",
     "react-intl": "^6.3.2"
   },
