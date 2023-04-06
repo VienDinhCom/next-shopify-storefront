@@ -1,6 +1,7 @@
 import { useState, NextImage, NextLink, useRouter, clsx } from '@app/utilities/deps';
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
+import { useCart } from '@shopify/hydrogen-react';
 
 import {
   ArrowPathIcon,
@@ -24,6 +25,7 @@ const mainMenuItems: { text: string; href: string; pathname: string }[] = [
 export function HeaderSection() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const { totalQuantity } = useCart();
 
   return (
     <header className="shadow-sm">
@@ -61,7 +63,14 @@ export function HeaderSection() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <NextLink href="/cart">
             <span className="sr-only">Cart</span>
-            <ShoppingCartIcon className="h-6 w-6"></ShoppingCartIcon>
+            <span className="relative inline-block">
+              <ShoppingCartIcon className="h-6 w-6"></ShoppingCartIcon>
+              {totalQuantity && (
+                <span className="absolute top-0 right-0 inline-flex translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-red-600 px-2 py-1 text-xs font-bold leading-none text-red-100">
+                  {totalQuantity}
+                </span>
+              )}
+            </span>
           </NextLink>
         </div>
       </nav>
