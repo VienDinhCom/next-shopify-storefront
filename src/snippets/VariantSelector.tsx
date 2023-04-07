@@ -1,5 +1,5 @@
 import { DataProps, useState } from '@app/utilities/deps';
-import { uniqBy, isEqual } from 'lodash';
+import { isEqual } from 'lodash';
 import type { fetchProductSingleSection } from '@app/sections/ProuctSingleSection';
 
 interface Props {
@@ -7,19 +7,23 @@ interface Props {
 }
 
 export function VariantSelector(props: Props) {
+  const options = (() => {
+    const options: Record<string, Record<string, { selected: boolean; available: boolean }>> = {};
+
+    props.variants.nodes.forEach(({ selectedOptions }) =>
+      selectedOptions.forEach(({ name, value }) => {
+        if (options[name]) {
+          options[name][value] = { available: false, selected: false };
+        } else {
+          options[name] = {};
+        }
+      })
+    );
+
+    return options;
+  })();
+
   const [selectedOptions, setSelectedOptions] = useState({});
-
-  const options: Record<string, { value: string; avalable: boolean; selected: boolean }[]> = {};
-
-  props.variants.nodes.forEach((node) => {
-    node.selectedOptions.forEach(({ name, value }) => {
-      if (options[name]) {
-        options[name] = uniqBy([...options[name], { value, avalable: true, selected: false }], 'value');
-      } else {
-        options[name] = [];
-      }
-    });
-  });
 
   const selectedVariant = props.variants.nodes.find((variant) => {
     const options = variant.selectedOptions.reduce(
@@ -36,22 +40,27 @@ export function VariantSelector(props: Props) {
 
   return (
     <div>
-      {Object.keys(options).map((key) => (
-        <div key={key}>
-          <div>{key}</div>
-          {options[key].map(({ value, avalable }) => (
-            <button
-              className="m-3 border"
-              key={value}
-              onClick={() => {
-                setSelectedOptions({ ...selectedOptions, [key]: value });
-              }}
-            >
-              {value}
-            </button>
-          ))}
-        </div>
-      ))}
+      {Object.keys(options).map((name) => {
+        return (
+          <div key={name}>
+            <h3>{name}</h3>
+
+            {Object.keys(options[name]).map((value) => {
+              return (
+                <button
+                  key={value}
+                  className="m-3 border"
+                  onClick={() => {
+                    setSelectedOptions({ ...selectedOptions, [name]: value });
+                  }}
+                >
+                  {value}
+                </button>
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }
