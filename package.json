@@ -24,10 +24,9 @@
     "next": "13.2.1"
   },
   "devDependencies": {
-    "@shopify/hydrogen-react": "^2023.1.7",
-    "prev-fetch": "^0.1.0",
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
+    "@shopify/hydrogen-react": "^2023.1.7",
     "@types/lodash": "^4.14.191",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
@@ -40,10 +39,12 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-tailwindcss": "^3.9.0",
     "graphql-zeus": "^5.2.8",
+    "immer": "^9.0.21",
     "lodash": "^4.17.21",
     "nextjs-progressbar": "^0.0.16",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
+    "prev-fetch": "^0.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-use": "^17.4.0",
@@ -51,6 +52,7 @@
     "tiny-invariant": "^1.3.1",
     "type-fest": "^3.6.1",
     "typescript": "4.9.5",
+    "use-immer": "^0.9.0",
     "zod": "^3.21.4"
   },
   "eslintConfig": {
