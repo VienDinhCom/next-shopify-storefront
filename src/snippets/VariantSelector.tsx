@@ -125,18 +125,13 @@ export function VariantSelector(props: Props) {
                         // Clear dependent options
                         if (optionIndex > currentOptionIndex) {
                           draftValue.selected = false;
+                          draftValue.disabled = true;
                         }
 
                         // Enable next option
                         if (optionIndex === currentOptionIndex + 1) {
                           draftValue.disabled = false;
                         }
-
-                        if (optionIndex > currentOptionIndex + 1) {
-                          draftValue.disabled = true;
-                        }
-
-                        // Available
                       });
                     });
                   });
