@@ -1,66 +1,107 @@
 import { DataProps, useState } from '@app/utilities/deps';
-import { isEqual } from 'lodash';
 import type { fetchProductSingleSection } from '@app/sections/ProuctSingleSection';
+import { uniqBy } from 'lodash';
 
 interface Props {
   variants: DataProps<typeof fetchProductSingleSection>['data']['variants'];
 }
 
-export function VariantSelector(props: Props) {
-  const options = (() => {
-    const options: Record<string, Record<string, { selected: boolean; available: boolean }>> = {};
+type Options = {
+  name: string;
+  values: {
+    value: string;
+    selected: boolean;
+    disabled: boolean;
+    availabile: boolean;
+  }[];
+}[];
 
-    props.variants.nodes.forEach(({ selectedOptions }) =>
-      selectedOptions.forEach(({ name, value }) => {
-        if (options[name]) {
-          options[name][value] = { available: false, selected: false };
-        } else {
-          options[name] = {};
-        }
-      })
-    );
+function getOptions(variants: Props['variants']): Options {
+  const options: Record<string, Options[0]['values']> = {};
 
-    return options;
-  })();
-
-  const [selectedOptions, setSelectedOptions] = useState({});
-
-  const selectedVariant = props.variants.nodes.find((variant) => {
-    const options = variant.selectedOptions.reduce(
-      (previous, current) => ({ ...previous, [current.name]: current.value }),
-      {}
-    );
-
-    return isEqual(selectedOptions, options);
+  variants.nodes.forEach(({ selectedOptions }) => {
+    selectedOptions.forEach(({ name, value }) => {
+      if (options[name]) {
+        options[name].push({ value, selected: false, availabile: false, disabled: true });
+      } else {
+        options[name] = [];
+      }
+    });
   });
 
-  console.log('options', options);
-  console.log('selectedOptions', selectedOptions);
-  console.log('selectedVariant', selectedVariant);
+  return Object.entries(options).map(([name, values], index) => {
+    return {
+      name,
+      values:
+        index === 0 ? uniqBy(values, 'value').map((value) => ({ ...value, disabled: false })) : uniqBy(values, 'value'),
+    };
+  });
+}
+
+export function VariantSelector(props: Props) {
+  const [options, setOptions] = useState(getOptions(props.variants));
+
+  // We have two sources
+  // Orginal source
+  // Selected source
+  // We can render the original source but using the selected source to disable inavailable items
 
   return (
     <div>
-      {Object.keys(options).map((name) => {
-        return (
-          <div key={name}>
-            <h3>{name}</h3>
+      {options.map(({ name, values }) => (
+        <div key={name}>
+          <h3>{name}</h3>
 
-            {Object.keys(options[name]).map((value) => {
-              return (
-                <button
-                  key={value}
-                  className="m-3 border"
-                  onClick={() => {
-                    setSelectedOptions({ ...selectedOptions, [name]: value });
-                  }}
-                >
-                  {value}
-                </button>
-              );
-            })}
-          </div>
-        );
-      })}
+          {values.map(({ value, selected, availabile, disabled }) => {
+            return (
+              <button
+                key={value}
+                disabled={disabled}
+                className="m-3 border"
+                style={{ color: selected ? 'red' : 'blue' }}
+                onClick={() => {
+                  setOptions((draftOptions) => {
+                    let ableToClear = false;
+
+                    draftOptions.forEach((draftOption, index) => {
+                      const nextDraftOption = draftOptions[index + 1];
+
+                      // Enable dependent options
+                      if (nextDraftOption) {
+                        nextDraftOption.values.forEach((draftValue) => {
+                          draftValue.disabled = false;
+                        });
+                      }
+
+                      draftOption.values.forEach((draftValue) => {
+                        // Select an option
+                        if (draftOption.name === name) {
+                          draftValue.selected = false;
+
+                          if (draftValue.value === value) {
+                            draftValue.selected = true;
+                          }
+                        }
+
+                        // Clear dependent options
+                        if (ableToClear) {
+                          draftValue.selected = false;
+                        }
+                      });
+
+                      if (draftOption.name === name) {
+                        ableToClear = true;
+                      }
+                    });
+                  });
+                }}
+              >
+                {value}
+              </button>
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 }
