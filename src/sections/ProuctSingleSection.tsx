@@ -59,6 +59,14 @@ export async function fetchProductSingleSection(handle: string) {
             },
           },
         ],
+        options: [
+          { first: 250 },
+          {
+            id: true,
+            name: true,
+            values: true,
+          },
+        ],
         variants: [
           { first: 250 },
           {
