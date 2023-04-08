@@ -4,6 +4,7 @@ import { uniqBy } from 'lodash';
 
 interface Props {
   variants: DataProps<typeof fetchProductSingleSection>['data']['variants'];
+  options: DataProps<typeof fetchProductSingleSection>['data']['options'];
 }
 
 type Options = {
@@ -16,30 +17,24 @@ type Options = {
   }[];
 }[];
 
-function getOptions(variants: Props['variants']): Options {
-  const options: Record<string, Options[0]['values']> = {};
-
-  variants.nodes.forEach(({ selectedOptions }) => {
-    selectedOptions.forEach(({ name, value }) => {
-      if (options[name]) {
-        options[name].push({ value, selected: false, availabile: false, disabled: true });
-      } else {
-        options[name] = [];
-      }
-    });
-  });
-
-  return Object.entries(options).map(([name, values], index) => {
+function getOptions(options: Props['options']): Options {
+  return options.map(({ name, values }, optionIndex) => {
     return {
       name,
-      values:
-        index === 0 ? uniqBy(values, 'value').map((value) => ({ ...value, disabled: false })) : uniqBy(values, 'value'),
+      values: values.map((value) => {
+        return {
+          value,
+          selected: false,
+          disabled: optionIndex === 0 ? false : true,
+          availabile: false,
+        };
+      }),
     };
   });
 }
 
 export function VariantSelector(props: Props) {
-  const [options, setOptions] = useState(getOptions(props.variants));
+  const [options, setOptions] = useState(getOptions(props.options));
 
   // We have two sources
   // Orginal source

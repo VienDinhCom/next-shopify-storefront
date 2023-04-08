@@ -136,7 +136,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
 
                   <br />
 
-                  <VariantSelector variants={props.data.variants}></VariantSelector>
+                  <VariantSelector variants={props.data.variants} options={props.data.options}></VariantSelector>
 
                   <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                     <RadioGroup.Label className="sr-only"> Choose a size </RadioGroup.Label>
