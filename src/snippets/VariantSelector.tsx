@@ -61,13 +61,9 @@ export function VariantSelector(props: Props) {
                 style={{ color: selected ? 'red' : 'blue' }}
                 onClick={() => {
                   setOptions((draftOptions) => {
-                    let currentOptionIndex: number;
+                    const currentOptionIndex = draftOptions.findIndex((draftOption) => draftOption.name === name);
 
                     draftOptions.forEach((draftOption, optionIndex) => {
-                      if (draftOption.name === name) {
-                        currentOptionIndex = optionIndex;
-                      }
-
                       draftOption.values.forEach((draftValue) => {
                         // Select current value
                         if (optionIndex === currentOptionIndex) {
