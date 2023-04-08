@@ -61,21 +61,16 @@ export function VariantSelector(props: Props) {
                 style={{ color: selected ? 'red' : 'blue' }}
                 onClick={() => {
                   setOptions((draftOptions) => {
-                    let ableToClear = false;
+                    let currentOptionIndex: number;
 
-                    draftOptions.forEach((draftOption, index) => {
-                      const nextDraftOption = draftOptions[index + 1];
-
-                      // Enable dependent options
-                      if (nextDraftOption) {
-                        nextDraftOption.values.forEach((draftValue) => {
-                          draftValue.disabled = false;
-                        });
+                    draftOptions.forEach((draftOption, optionIndex) => {
+                      if (draftOption.name === name) {
+                        currentOptionIndex = optionIndex;
                       }
 
                       draftOption.values.forEach((draftValue) => {
-                        // Select an option
-                        if (draftOption.name === name) {
+                        // Select current value
+                        if (optionIndex === currentOptionIndex) {
                           draftValue.selected = false;
 
                           if (draftValue.value === value) {
@@ -84,14 +79,15 @@ export function VariantSelector(props: Props) {
                         }
 
                         // Clear dependent options
-                        if (ableToClear) {
+                        if (optionIndex > currentOptionIndex) {
                           draftValue.selected = false;
                         }
-                      });
 
-                      if (draftOption.name === name) {
-                        ableToClear = true;
-                      }
+                        // Enable next option
+                        if (optionIndex === currentOptionIndex + 1) {
+                          draftValue.disabled = false;
+                        }
+                      });
                     });
                   });
                 }}
