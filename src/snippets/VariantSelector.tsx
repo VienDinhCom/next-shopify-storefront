@@ -1,6 +1,6 @@
 import { DataProps, useState } from '@app/utilities/deps';
 import type { fetchProductSingleSection } from '@app/sections/ProuctSingleSection';
-import { uniqBy } from 'lodash';
+import { uniq, uniqBy, find } from 'lodash';
 
 interface Props {
   variants: DataProps<typeof fetchProductSingleSection>['data']['variants'];
@@ -33,13 +33,64 @@ function getOptions(options: Props['options']): Options {
   });
 }
 
+function getOptionsFromVariants(variants: Props['variants']['nodes']): Options {
+  const options: Record<string, Options[0]['values']> = {};
+
+  variants.forEach(({ selectedOptions }) => {
+    selectedOptions.forEach(({ name, value }) => {
+      if (options[name]) {
+        options[name].push({ value, selected: false, availabile: true, disabled: true });
+      } else {
+        options[name] = [];
+      }
+    });
+  });
+
+  return Object.entries(options).map(([name, values], index) => {
+    return {
+      name,
+      values:
+        index === 0 ? uniqBy(values, 'value').map((value) => ({ ...value, disabled: false })) : uniqBy(values, 'value'),
+    };
+  });
+}
+
 export function VariantSelector(props: Props) {
   const [options, setOptions] = useState(getOptions(props.options));
 
-  // We have two sources
-  // Orginal source
-  // Selected source
-  // We can render the original source but using the selected source to disable inavailable items
+  const selectedOptions = options
+    .map(({ name, values }) => {
+      return {
+        name,
+        value: values.find(({ selected }) => selected)?.value,
+      };
+    })
+    .filter(({ value }) => value !== undefined);
+
+  const variantOptions = (() => {
+    const variants = props.variants.nodes.filter((variant) => {
+      const hello = selectedOptions.map(({ name, value }) => !!find(variant.selectedOptions, { name, value }));
+      return !hello.includes(false);
+    });
+
+    const ok: Record<string, string[]> = {};
+
+    variants.forEach(({ selectedOptions }) => {
+      selectedOptions.forEach(({ name, value }) => {
+        if (ok[name]) {
+          ok[name] = uniq([...ok[name], value]);
+        } else {
+          ok[name] = [value];
+        }
+      });
+    });
+
+    return ok;
+  })();
+
+  console.log('\n\n\n\n');
+  console.log(JSON.stringify(selectedOptions, null, 2));
+  console.log(JSON.stringify(variantOptions, null, 2));
 
   return (
     <div>
@@ -53,7 +104,9 @@ export function VariantSelector(props: Props) {
                 key={value}
                 disabled={disabled}
                 className="m-3 border"
-                style={{ color: selected ? 'red' : 'blue' }}
+                style={{
+                  color: selected ? 'red' : 'black',
+                }}
                 onClick={() => {
                   setOptions((draftOptions) => {
                     const currentOptionIndex = draftOptions.findIndex((draftOption) => draftOption.name === name);
@@ -78,6 +131,12 @@ export function VariantSelector(props: Props) {
                         if (optionIndex === currentOptionIndex + 1) {
                           draftValue.disabled = false;
                         }
+
+                        if (optionIndex > currentOptionIndex + 1) {
+                          draftValue.disabled = true;
+                        }
+
+                        // Available
                       });
                     });
                   });
