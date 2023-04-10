@@ -13,9 +13,10 @@ export { fetchStaticProps, fetchStaticPaths } from 'prev-fetch';
 /* Hooks
  ********************************************************************************/
 export { useRouter } from 'next/router';
-export { useEffect } from 'react';
+export { useEffect, useState } from 'react';
 export { useAsyncFn } from 'react-use';
-export { useImmer as useState } from 'use-immer';
+export { useImmer } from 'use-immer';
+export { useVariantSelector } from '@maxvien/shopify';
 
 /* Types
  ********************************************************************************/

@@ -1,30 +1,6 @@
 import { storefront } from '@app/utilities/storefront';
-import { RadioGroup } from '@headlessui/react';
 import { ProductPrice, AddToCartButton, ProductProvider } from '@shopify/hydrogen-react';
-import { NextImage, useState, DataProps, invariant } from '@app/utilities/deps';
-import { VariantSelector } from '@app/snippets';
-
-const product = {
-  colors: [
-    { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-  ],
-  sizes: [
-    { name: 'XXS', inStock: false },
-    { name: 'XS', inStock: true },
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: true },
-    { name: '2XL', inStock: true },
-    { name: '3XL', inStock: true },
-  ],
-};
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ');
-}
+import { NextImage, DataProps, invariant, useVariantSelector } from '@app/utilities/deps';
 
 export async function fetchProductSingleSection(handle: string) {
   const { productByHandle } = await storefront.query({
@@ -96,7 +72,7 @@ export async function fetchProductSingleSection(handle: string) {
 }
 
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const { options, selectOption } = useVariantSelector(props.data);
 
   return (
     <ProductProvider data={props.data}>
@@ -134,59 +110,31 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
 
                   <br />
 
-                  <VariantSelector variants={props.data.variants.nodes} options={props.data.options}></VariantSelector>
+                  <div>
+                    {options.map(({ name, values }) => (
+                      <div key={name}>
+                        <h3>{name}</h3>
 
-                  <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                    <RadioGroup.Label className="sr-only"> Choose a size </RadioGroup.Label>
-                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                      {product.sizes.map((size) => (
-                        <RadioGroup.Option
-                          key={size.name}
-                          value={size}
-                          disabled={!size.inStock}
-                          className={({ active }) =>
-                            classNames(
-                              size.inStock
-                                ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                                : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                              active ? 'ring-2 ring-primary-500' : '',
-                              'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
-                            )
-                          }
-                        >
-                          {({ active, checked }) => (
-                            <>
-                              <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                              {size.inStock ? (
-                                <span
-                                  className={classNames(
-                                    active ? 'border' : 'border-2',
-                                    checked ? 'border-primary-500' : 'border-transparent',
-                                    'pointer-events-none absolute -inset-px rounded-md'
-                                  )}
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <span
-                                  aria-hidden="true"
-                                  className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                                >
-                                  <svg
-                                    className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                    viewBox="0 0 100 100"
-                                    preserveAspectRatio="none"
-                                    stroke="currentColor"
-                                  >
-                                    <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                  </svg>
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </RadioGroup.Option>
-                      ))}
-                    </div>
-                  </RadioGroup>
+                        {values.map(({ value, selected, disabled }) => {
+                          return (
+                            <button
+                              key={value}
+                              disabled={disabled}
+                              className="m-3 border"
+                              style={{
+                                color: selected ? 'red' : 'black',
+                              }}
+                              onClick={() => {
+                                console.log(selectOption(name, value));
+                              }}
+                            >
+                              {value}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <AddToCartButton
