@@ -74,6 +74,8 @@ export async function fetchProductSingleSection(handle: string) {
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {
   const { selectedVariantId, options, selectOption } = useVariantSelector(props.data);
 
+  console.log({ selectedVariantId });
+
   return (
     <ProductProvider data={props.data}>
       <section>
