@@ -72,9 +72,9 @@ export async function fetchProductSingleSection(handle: string) {
 }
 
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {
-  const { selectedVariantId, options, selectOption } = useVariantSelector(props.data);
+  const { variantId, options, selectOption } = useVariantSelector(props.data);
 
-  console.log({ selectedVariantId });
+  console.log({ variantId });
 
   return (
     <ProductProvider data={props.data}>
@@ -138,7 +138,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                 </div>
 
                 <AddToCartButton
-                  variantId={selectedVariantId}
+                  variantId={variantId}
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 p-3 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-black"
                 >
                   Add to Cart
