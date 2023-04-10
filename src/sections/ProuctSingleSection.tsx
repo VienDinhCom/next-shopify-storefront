@@ -1,8 +1,7 @@
 import { storefront } from '@app/utilities/storefront';
 import { RadioGroup } from '@headlessui/react';
 import { ProductPrice, AddToCartButton, ProductProvider } from '@shopify/hydrogen-react';
-import { NextImage, useState, DataProps, invariant, useEffect } from '@app/utilities/deps';
-import { uniqBy } from 'lodash';
+import { NextImage, useState, DataProps, invariant } from '@app/utilities/deps';
 import { VariantSelector } from '@app/snippets';
 
 const product = {
@@ -97,7 +96,6 @@ export async function fetchProductSingleSection(handle: string) {
 }
 
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
   return (
@@ -136,7 +134,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
 
                   <br />
 
-                  <VariantSelector variants={props.data.variants} options={props.data.options}></VariantSelector>
+                  <VariantSelector variants={props.data.variants.nodes} options={props.data.options}></VariantSelector>
 
                   <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                     <RadioGroup.Label className="sr-only"> Choose a size </RadioGroup.Label>

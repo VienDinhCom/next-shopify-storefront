@@ -1,10 +1,18 @@
-import { DataProps, useState } from '@app/utilities/deps';
-import type { fetchProductSingleSection } from '@app/sections/ProuctSingleSection';
-import { uniq, find } from 'lodash';
+import { useState } from '@app/utilities/deps';
 
 interface Props {
-  variants: DataProps<typeof fetchProductSingleSection>['data']['variants'];
-  options: DataProps<typeof fetchProductSingleSection>['data']['options'];
+  variants: {
+    id: string;
+    selectedOptions: {
+      name: string;
+      value: string;
+    }[];
+  }[];
+
+  options: {
+    name: string;
+    values: string[];
+  }[];
 }
 
 type Options = {
@@ -13,11 +21,10 @@ type Options = {
     value: string;
     selected: boolean;
     disabled: boolean;
-    availabile: boolean;
   }[];
 }[];
 
-function getOptions(options: Props['options']): Options {
+function transformOptions(options: Props['options']): Options {
   return options.map(({ name, values }, optionIndex) => {
     return {
       name,
@@ -26,49 +33,33 @@ function getOptions(options: Props['options']): Options {
           value,
           selected: false,
           disabled: optionIndex === 0 ? false : true,
-          availabile: false,
         };
       }),
     };
   });
 }
 
-function isAvailable(variants: Props['variants']['nodes'], selectedOptions: Options) {
-  const selected = selectedOptions
-    .map(({ name, values }) => {
-      return {
-        name,
-        value: values.find(({ selected }) => selected)?.value,
-      };
-    })
+function isAvailable(variants: Props['variants'], draftOptions: Options) {
+  const selectedOptions = draftOptions
+    .map(({ name, values }) => ({ name, value: values.find(({ selected }) => selected)?.value }))
     .filter(({ value }) => value !== undefined);
 
-  const variantOptions = (() => {
-    const _variants = variants.filter((variant) => {
-      const hello = selected.map(({ name, value }) => !!find(variant.selectedOptions, { name, value }));
-      return !hello.includes(false);
-    });
+  const availabileVariantOptions = variants.filter((variant) => {
+    const conditions = selectedOptions.map(
+      (selectedOption) =>
+        !!variant.selectedOptions.find(
+          ({ name, value }) => name === selectedOption.name && value === selectedOption.value
+        )
+    );
 
-    const ok: Record<string, string[]> = {};
+    return !conditions.includes(false);
+  });
 
-    _variants.forEach(({ selectedOptions }) => {
-      selectedOptions.forEach(({ name, value }) => {
-        if (ok[name]) {
-          ok[name] = uniq([...ok[name], value]);
-        } else {
-          ok[name] = [value];
-        }
-      });
-    });
-
-    return ok;
-  })();
-
-  return !!Object.keys(variantOptions).length;
+  return !!availabileVariantOptions.length;
 }
 
 export function VariantSelector(props: Props) {
-  const [options, setOptions] = useState(getOptions(props.options));
+  const [options, setOptions] = useState(transformOptions(props.options));
 
   return (
     <div>
@@ -76,7 +67,7 @@ export function VariantSelector(props: Props) {
         <div key={name}>
           <h3>{name}</h3>
 
-          {values.map(({ value, selected, availabile, disabled }) => {
+          {values.map(({ value, selected, disabled }) => {
             return (
               <button
                 key={value}
@@ -108,7 +99,7 @@ export function VariantSelector(props: Props) {
 
                         // Enable next option
                         if (optionIndex === currentOptionIndex + 1) {
-                          if (isAvailable(props.variants.nodes, draftOptions)) {
+                          if (isAvailable(props.variants, draftOptions)) {
                             draftValue.disabled = false;
                           }
                         }
