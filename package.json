@@ -20,7 +20,7 @@
     "prebuild": "npm run codegen"
   },
   "dependencies": {
-    "@maxvien/shopify": "^0.1.5",
+    "@maxvien/shopify": "^0.1.6",
     "next": "13.2.1"
   },
   "devDependencies": {

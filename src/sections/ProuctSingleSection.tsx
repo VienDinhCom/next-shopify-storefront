@@ -138,8 +138,8 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                 </div>
 
                 <AddToCartButton
-                  variantId={props.data.variants.nodes[0].id}
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 p-3 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                  variantId={selectedVariantId}
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 p-3 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-black"
                 >
                   Add to Cart
                 </AddToCartButton>
