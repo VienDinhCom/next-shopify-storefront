@@ -72,7 +72,7 @@ export async function fetchProductSingleSection(handle: string) {
 }
 
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {
-  const { options, selectOption } = useVariantSelector(props.data);
+  const { selectedVariantId, options, selectOption } = useVariantSelector(props.data);
 
   return (
     <ProductProvider data={props.data}>
@@ -124,9 +124,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                               style={{
                                 color: selected ? 'red' : 'black',
                               }}
-                              onClick={() => {
-                                console.log(selectOption(name, value));
-                              }}
+                              onClick={() => selectOption(name, value)}
                             >
                               {value}
                             </button>

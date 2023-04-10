@@ -17,11 +17,10 @@
     "fix": "next lint --fix && prettier --write src",
     "codegen": "node codegen.mjs",
     "predev": "npm run codegen",
-    "prebuild": "npm run codegen",
-    "analyze": "ANALYZE=true npm run build"
+    "prebuild": "npm run codegen"
   },
   "dependencies": {
-    "@maxvien/shopify": "^0.1.0",
+    "@maxvien/shopify": "^0.1.3",
     "next": "13.2.1"
   },
   "devDependencies": {
