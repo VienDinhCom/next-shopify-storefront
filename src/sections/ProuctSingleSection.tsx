@@ -92,7 +92,6 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
           </div>
 
           <div className="md:basis-6/12">
-            {/* Options */}
             <div className="mt-4 pt-5 md:pt-10">
               <h2 className="sr-only">Product information</h2>
 
