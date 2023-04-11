@@ -8,7 +8,7 @@ export { default as NextImage } from 'next/image';
  ********************************************************************************/
 export { default as clsx } from 'clsx';
 export { default as invariant } from 'tiny-invariant';
-export { fetchStaticProps, fetchStaticPaths } from 'prev-fetch';
+export { fetchStaticProps, fetchStaticPaths } from '@maxvien/next';
 
 /* Hooks
  ********************************************************************************/
@@ -24,4 +24,4 @@ export type { GetServerSideProps } from 'next';
 export type { AppProps as NextAppProps } from 'next/app';
 export type { ReactNode, ReactElement } from 'react';
 export type { AsyncReturnType } from 'type-fest';
-export type { DataProps, PageProps } from 'prev-fetch';
+export type { DataProps, PageProps } from '@maxvien/next';
