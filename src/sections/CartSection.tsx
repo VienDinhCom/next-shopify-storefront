@@ -12,8 +12,6 @@ import {
 export function CartSection() {
   const cart = useCart();
 
-  console.log(cart);
-
   return (
     <section>
       <ul role="list" className="-my-6 mb-2 divide-y divide-gray-200">
