@@ -1,6 +1,7 @@
 import { storefront } from '@app/utilities/storefront';
 import { ProductPrice, AddToCartButton, ProductProvider } from '@shopify/hydrogen-react';
 import { NextImage, DataProps, invariant, useVariantSelector } from '@app/utilities/deps';
+import { Button } from '@app/snippets';
 
 export async function fetchProductSingleSection(handle: string) {
   const { productByHandle } = await storefront.query({
@@ -8,7 +9,7 @@ export async function fetchProductSingleSection(handle: string) {
       { handle },
       {
         title: true,
-        description: [{ truncateAt: null }, true],
+        description: [{ truncateAt: 256 }, true],
         priceRange: {
           minVariantPrice: {
             amount: true,
@@ -74,13 +75,11 @@ export async function fetchProductSingleSection(handle: string) {
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {
   const { variantId, options, selectOption } = useVariantSelector(props.data);
 
-  console.log({ variantId });
-
   return (
     <ProductProvider data={props.data}>
       <section>
-        <div className="flex space-x-8 rounded-lg  shadow-sm">
-          <div className="basis-6/12">
+        <div className="flex flex-col rounded-lg shadow-sm md:flex-row md:space-x-8">
+          <div className="md:basis-6/12 ">
             <div className="h-full w-full overflow-hidden rounded-lg bg-gray-200">
               <NextImage
                 src={props.data.images.nodes[0].url}
@@ -92,69 +91,53 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
             </div>
           </div>
 
-          <div className="basis-6/12">
+          <div className="md:basis-6/12">
             {/* Options */}
-            <div className="mt-4 pt-8 lg:row-span-3 lg:mt-0">
+            <div className="mt-4 pt-5 md:pt-10">
               <h2 className="sr-only">Product information</h2>
+
               <h1 className="mb-5 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{props.data.title}</h1>
-              <div className="text-3xl tracking-tight text-gray-900">
+
+              <p className="mb-5 text-base text-gray-900">{props.data.description}</p>
+
+              <div className="mb-5 text-3xl tracking-tight text-gray-900">
                 <ProductPrice data={props.data}></ProductPrice>
               </div>
 
-              <div className="mt-10">
-                <div className="mt-10">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                    <a href="#" className="text-sm font-medium text-primary-600 hover:text-primary-500">
-                      Size guide
-                    </a>
+              <div className="mb-2">
+                {options.map(({ name, values }) => (
+                  <div className="mb-3" key={name}>
+                    <div className="flex items-center justify-between">
+                      <h3 className="mb-1 text-lg font-medium text-gray-900">{name}</h3>
+                    </div>
+
+                    {values.map(({ value, selected, disabled }) => {
+                      return (
+                        <Button
+                          className="mr-1"
+                          color={selected ? 'primary' : 'dark'}
+                          size="sm"
+                          key={value}
+                          disabled={disabled}
+                          onClick={() => selectOption(name, value)}
+                        >
+                          {value}
+                        </Button>
+                      );
+                    })}
                   </div>
-
-                  <br />
-
-                  <div>
-                    {options.map(({ name, values }) => (
-                      <div key={name}>
-                        <h3>{name}</h3>
-
-                        {values.map(({ value, selected, disabled }) => {
-                          return (
-                            <button
-                              key={value}
-                              disabled={disabled}
-                              className="m-3 border"
-                              style={{
-                                color: selected ? 'red' : 'black',
-                              }}
-                              onClick={() => selectOption(name, value)}
-                            >
-                              {value}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <AddToCartButton
-                  variantId={variantId}
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 p-3 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-black"
-                >
-                  Add to Cart
-                </AddToCartButton>
+                ))}
               </div>
+
+              <AddToCartButton
+                variantId={variantId}
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 p-3 text-base font-semibold text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-gray-700"
+              >
+                Add to Cart
+              </AddToCartButton>
             </div>
           </div>
         </div>
-
-        <section>
-          <h3 className="sr-only">Description</h3>
-
-          <div className="space-y-6">
-            <p className="text-base text-gray-900">{props.data.description}</p>
-          </div>
-        </section>
       </section>
     </ProductProvider>
   );
