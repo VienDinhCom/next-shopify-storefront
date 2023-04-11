@@ -1,3 +1,10 @@
+import { StoreLayout } from '@app/layouts/StoreLayout';
+import { CartSection } from '@app/sections/CartSection';
+
 export default function Page() {
-  return <h1>Cart</h1>;
+  return (
+    <StoreLayout>
+      <CartSection></CartSection>
+    </StoreLayout>
+  );
 }
