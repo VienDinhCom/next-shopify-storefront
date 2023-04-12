@@ -1,6 +1,7 @@
 import { storefront } from '@app/utilities/storefront';
+import { truncate } from 'lodash';
 import { ProductPrice, AddToCartButton, ProductProvider } from '@shopify/hydrogen-react';
-import { NextImage, DataProps, invariant, useVariantSelector } from '@app/utilities/deps';
+import { NextImage, DataProps, invariant, useVariantSelector, formatTitle } from '@app/utilities/deps';
 import { Button } from '@app/snippets';
 
 export async function fetchProductSingleSection(handle: string) {
@@ -10,6 +11,10 @@ export async function fetchProductSingleSection(handle: string) {
       {
         title: true,
         description: [{ truncateAt: 256 }, true],
+        seo: {
+          title: true,
+          description: true,
+        },
         priceRange: {
           minVariantPrice: {
             amount: true,
@@ -69,7 +74,15 @@ export async function fetchProductSingleSection(handle: string) {
 
   invariant(productByHandle, `Product not found: ${handle}`);
 
-  return productByHandle;
+  const { seo, title, description } = productByHandle;
+
+  return {
+    ...productByHandle,
+    seo: {
+      title: formatTitle(seo.title || title),
+      description: seo.description || truncate(description, { length: 256 }),
+    },
+  };
 }
 
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {

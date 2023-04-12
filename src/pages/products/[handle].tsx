@@ -1,4 +1,4 @@
-import { invariant, fetchStaticProps, fetchStaticPaths, PageProps } from '@app/utilities/deps';
+import { invariant, fetchStaticProps, fetchStaticPaths, PageProps, NextSeo } from '@app/utilities/deps';
 import { StoreLayout } from '@app/layouts/StoreLayout';
 import { ProductSingleSection, fetchProductSingleSection } from '@app/sections/ProuctSingleSection';
 
@@ -25,6 +25,10 @@ export const getStaticProps = fetchStaticProps(async ({ params }) => {
 export default function Page(props: PageProps<typeof getStaticProps>) {
   return (
     <StoreLayout>
+      <NextSeo
+        title={props.data.productSingleSection.seo.title}
+        description={props.data.productSingleSection.seo.description}
+      />
       <ProductSingleSection data={props.data.productSingleSection}></ProductSingleSection>
     </StoreLayout>
   );

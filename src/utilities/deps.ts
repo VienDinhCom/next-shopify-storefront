@@ -3,10 +3,12 @@
 export { Fragment } from 'react';
 export { default as NextLink } from 'next/link';
 export { default as NextImage } from 'next/image';
+export { DefaultSeo, NextSeo } from 'next-seo';
 
 /* Functions
  ********************************************************************************/
 export { default as clsx } from 'clsx';
+export { default as formatTitle } from 'title';
 export { default as invariant } from 'tiny-invariant';
 export { fetchStaticProps, fetchStaticPaths } from '@maxvien/next';
 
