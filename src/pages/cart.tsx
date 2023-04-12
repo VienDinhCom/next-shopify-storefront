@@ -4,7 +4,7 @@ import { CartSection } from '@app/sections/CartSection';
 export default function Page() {
   return (
     <StoreLayout>
-      <CartSection></CartSection>
+      <CartSection />
     </StoreLayout>
   );
 }
