@@ -1,38 +1,105 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛍 Next Shopify Storefront
 
-## Getting Started
+A **[Shopping Cart](https://github.com/Maxvien/next-shopify-storefront)** built with [TypeScript](https://www.typescriptlang.org), [Tailwind CSS](https://tailwindcss.com), [Headless UI](https://headlessui.com), [Next.js](https://nextjs.org), [React.js](https://react.dev), [Shopify Hydrogen React](https://shopify.dev/docs/api/hydrogen-react),... and [Shopify Storefront GraphQL API](https://shopify.dev/docs/api/storefront).
 
-First, run the development server:
+## Experience
+
+These are my experiences when I have been working on this project:
+
+- Designing & Building the [Storefront](https://github.com/maxvien/next-shopify-storefront) from Scratch.
+- Creating [Next Utilities](https://www.npmjs.com/package/@maxvien/next) for Type-safe Modular Data Fetching.
+- Creating [Shopify Utilities](https://www.npmjs.com/package/@maxvien/shopify) to Simplify Variant Selecting.
+- Using [GraphQL Zeus](https://github.com/graphql-editor/graphql-zeus) to Interact with Storefront API.
+- Using [Shopify Hydrogen](https://shopify.dev/docs/custom-storefronts/hydrogen-react) to Implement Storefront Features.
+- Using [Tailwind CSS](https://tailwindcss.com/) & [Headless UI](https://headlessui.com/) to Build the Storefront UI.
+- Using [Next.js](https://nextjs.org/) for Incremental Static Regeneration.
+- Using [Next SEO](https://www.npmjs.com/package/next-seo) to Implement Search Engine Optimization.
+- Using [TypeScript](https://www.typescriptlang.org/) to Safely Create React Hooks, and Components.
+- Using [React Use](https://github.com/streamich/react-use) Hooks to Speed Up Component Development.
+- Using [Swiper](https://swiperjs.com/) to Create Beautiful, Touchable, Responsive Sliders.
+- Using [ESlint](https://eslint.org/), [Prettier](https://prettier.io/) to Follow Next.js Best Practices.
+
+If you like this project, hit the **STAR** button to bookmark it ⭐️
+
+## Demonstration
+
+You can visit here to see the demo: https://next-shopify-storefront.vercel.app/
+
+## Installation
+
+Clone the source code into your computer.
+
+```bash
+git clone https://github.com/maxvien/next-shopify-storefront.git
+```
+
+Install the project's dependencies.
+
+```bash
+npm install
+```
+
+## Usage
+
+First, you need to set the below environment variables in the `.env` file or your deployment platforms.
+
+- `NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN`
+- `NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN`
+- `NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION`
+
+You can follow the [Shopify Storefront GraphQL API](https://shopify.dev/api/storefront/getting-started) documentation to get Storefront API information.
+
+### Develop
+
+Develop the project in development mode.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Build
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Build the project in production mode.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npm run build
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Start
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Start the project in production mode.
 
-## Learn More
+```bash
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Lint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Analyze the code to find problems with `eslint` and `prettier`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npm run lint
+```
 
-## Deploy on Vercel
+Automatically fix problems.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run fix
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Visual Studio Code Extensions
+
+To speed up your productivity, you can install these extensions:
+
+- [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Visual Studio IntelliCode](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- [PostCSS Language Support](https://marketplace.visualstudio.com/items?itemName=csstools.postcss)
+
+## Related Projects
+
+- **[Shopify Data Faker](https://github.com/Maxvien/shopify-data-faker)** • A Shopify development tool for generating dummy store data.
+- **[Bootstrap Shopify Theme](https://github.com/Maxvien/bootstrap-shopify-theme/tree/v1)** • A free Shopify Theme built with Bootstrap, BEM, Liquid, Sass, ESNext, Theme Tools, ... and Webpack.
+- **[Next Shopify Storefront (v2)](https://github.com/Maxvien/next-shopify-storefront/tree/v2)** • A Shopping Cart built with TypeScript, Emotion, Next.js, React.js, React Query, Shopify Storefront GraphQL API, ... and Material UI.
+- **[Next Shopify Storefront (v1)](https://github.com/Maxvien/next-shopify-storefront/tree/v1)** • A Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ... and Material UI.
