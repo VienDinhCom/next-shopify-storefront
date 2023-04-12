@@ -23,12 +23,11 @@ export const getStaticProps = fetchStaticProps(async ({ params }) => {
 });
 
 export default function Page(props: PageProps<typeof getStaticProps>) {
+  const { seo } = props.data.productSingleSection;
+
   return (
     <StoreLayout>
-      <NextSeo
-        title={props.data.productSingleSection.seo.title}
-        description={props.data.productSingleSection.seo.description}
-      />
+      <NextSeo title={seo.title} description={seo.description} />
       <ProductSingleSection data={props.data.productSingleSection}></ProductSingleSection>
     </StoreLayout>
   );
