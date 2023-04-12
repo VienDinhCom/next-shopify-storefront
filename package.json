@@ -1,6 +1,6 @@
 {
   "name": "next-shopify-storefront",
-  "description": "Next Shopify Storefront",
+  "description": "A Shopping Cart built with TypeScript, Tailwind CSS, Headless UI, Next.js, React.js, Shopify Hydrogen React,... and Shopify Storefront GraphQL API.",
   "repository": "https://github.com/maxvien/next-shopify-storefront.git",
   "version": "3.0.0",
   "license": "MIT",
@@ -75,5 +75,27 @@
       "tailwindcss": {},
       "autoprefixer": {}
     }
-  }
+  },
+  "keywords": [
+    "graphql",
+    "typescript",
+    "eslint",
+    "reactjs",
+    "nextjs",
+    "seo",
+    "storefront",
+    "prettier",
+    "shopify",
+    "server-side-rendering",
+    "shopify-storefronts",
+    "tailwindcss",
+    "shopify-storefront-api",
+    "graphql-codegen",
+    "headlessui",
+    "incremental-static-regeneration",
+    "shopify-hydrogen",
+    "graphql-zeus",
+    "typesafe-data-fetching",
+    "hydrogen-react"
+  ]
 }
