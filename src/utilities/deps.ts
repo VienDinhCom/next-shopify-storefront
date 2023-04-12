@@ -24,5 +24,4 @@ export { useVariantSelector } from '@maxvien/shopify';
 export type { GetServerSideProps } from 'next';
 export type { AppProps as NextAppProps } from 'next/app';
 export type { ReactNode, ReactElement } from 'react';
-export type { AsyncReturnType } from 'type-fest';
 export type { DataProps, PageProps } from '@maxvien/next';
