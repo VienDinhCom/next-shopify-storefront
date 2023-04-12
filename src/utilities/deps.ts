@@ -17,7 +17,6 @@ export { fetchStaticProps, fetchStaticPaths } from '@maxvien/next';
 export { useRouter } from 'next/router';
 export { useEffect, useState } from 'react';
 export { useAsyncFn } from 'react-use';
-export { useImmer } from 'use-immer';
 export { useVariantSelector } from '@maxvien/shopify';
 
 /* Types
