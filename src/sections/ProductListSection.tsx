@@ -1,6 +1,6 @@
-import { storefront } from '@app/utilities/storefront';
-import { NextImage, NextLink, useState, useAsyncFn, DataProps } from '@app/utilities/deps';
-import { Button } from '@app/snippets';
+import { storefront } from '@site/utilities/storefront';
+import { NextImage, NextLink, useState, useAsyncFn, DataProps } from '@site/utilities/deps';
+import { Button } from '@site/snippets';
 import { Money } from '@shopify/hydrogen-react';
 
 export async function fetchProductListSection(cursor?: string) {
@@ -51,7 +51,7 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
   return (
     <section>
       <h2 className="sr-only">Products</h2>
-      <div className="mb-10 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+      <div className="mb-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         {pages
           .flatMap(({ edges }) => edges)
           .map(({ node }) => (

@@ -1,6 +1,6 @@
-import { PageProps, fetchStaticProps, NextSeo } from '@app/utilities/deps';
-import { StoreLayout } from '@app/layouts/StoreLayout';
-import { ProductListSection, fetchProductListSection } from '@app/sections/ProductListSection';
+import { PageProps, fetchStaticProps, NextSeo } from '@site/utilities/deps';
+import { StoreLayout } from '@site/layouts/StoreLayout';
+import { ProductListSection, fetchProductListSection } from '@site/sections/ProductListSection';
 
 export const getStaticProps = fetchStaticProps(async () => {
   return {

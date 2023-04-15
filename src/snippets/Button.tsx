@@ -1,4 +1,4 @@
-import { ReactNode, clsx, NextLink } from '@app/utilities/deps';
+import { ReactNode, clsx, NextLink } from '@site/utilities/deps';
 
 interface Props {
   onClick?: () => void;
@@ -18,9 +18,9 @@ const colors = {
 };
 
 const sizes = {
-  xs: clsx('py-1 px-2 text-xs'),
-  sm: clsx('py-2 px-3 text-sm'),
-  md: clsx('py-3 px-4 text-base'),
+  xs: clsx('px-2 py-1 text-xs'),
+  sm: clsx('px-3 py-2 text-sm'),
+  md: clsx('px-4 py-3 text-base'),
 };
 
 export function Button(props: Props) {

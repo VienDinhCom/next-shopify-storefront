@@ -1,4 +1,4 @@
-import { NextImage, NextLink } from '@app/utilities/deps';
+import { NextImage, NextLink } from '@site/utilities/deps';
 import {
   CartCost,
   useCart,

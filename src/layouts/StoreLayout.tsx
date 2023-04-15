@@ -1,5 +1,5 @@
-import { ReactNode } from '@app/utilities/deps';
-import { HeaderSection } from '@app/sections/HeaderSection';
+import { ReactNode } from '@site/utilities/deps';
+import { HeaderSection } from '@site/sections/HeaderSection';
 
 interface Props {
   children: ReactNode;

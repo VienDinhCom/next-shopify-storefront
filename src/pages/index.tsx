@@ -1,5 +1,5 @@
-import { StoreLayout } from '@app/layouts/StoreLayout';
-import { HeroSection } from '@app/sections/HeroSection';
+import { StoreLayout } from '@site/layouts/StoreLayout';
+import { HeroSection } from '@site/sections/HeroSection';
 
 export default function Page() {
   return (
