@@ -2,6 +2,10 @@
 
 A **[Shopping Cart](https://github.com/Maxvien/next-shopify-storefront)** built with [TypeScript](https://www.typescriptlang.org), [Tailwind CSS](https://tailwindcss.com), [Headless UI](https://headlessui.com), [Next.js](https://nextjs.org), [React.js](https://react.dev), [Shopify Hydrogen React](https://shopify.dev/docs/api/hydrogen-react),... and [Shopify Storefront GraphQL API](https://shopify.dev/docs/api/storefront).
 
+## Tutorials
+
+- [How Do I Organize a Sustainable Next.js Project?](https://github.com/Maxvien/next-shopify-storefront/issues/68)
+
 ## Experience
 
 These are my experiences when I have been working on this project:
