@@ -5,6 +5,7 @@ A **[Shopping Cart](https://github.com/Maxvien/next-shopify-storefront)** built 
 ## Tutorials
 
 - [How Do I Organize a Sustainable Next.js Project?](https://github.com/Maxvien/next-shopify-storefront/issues/68)
+- [How Do I Handle Typesafe Modular Data Fetching in Next.js?](https://github.com/Maxvien/next-shopify-storefront/issues/69)
 
 ## Experience
 
