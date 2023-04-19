@@ -26,7 +26,7 @@
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
     "@maxvien/next": "^1.0.0",
-    "@maxvien/shopify": "^1.0.0",
+    "@maxvien/shopify": "^1.0.1",
     "@shopify/hydrogen-react": "^2023.1.7",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.14.1",
