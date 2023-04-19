@@ -111,3 +111,7 @@ To speed up your productivity, you can install these extensions:
 - **[Bootstrap Shopify Theme](https://github.com/Maxvien/bootstrap-shopify-theme/tree/v1)** • A free Shopify Theme built with Bootstrap, BEM, Liquid, Sass, ESNext, Theme Tools, ... and Webpack.
 - **[Next Shopify Storefront (v2)](https://github.com/Maxvien/next-shopify-storefront/tree/v2)** • A Shopping Cart built with TypeScript, Emotion, Next.js, React.js, React Query, Shopify Storefront GraphQL API, ... and Material UI.
 - **[Next Shopify Storefront (v1)](https://github.com/Maxvien/next-shopify-storefront/tree/v1)** • A Shopping Cart built with TypeScript, NextJS, React, Redux, Apollo Client, Shopify Storefront GraphQL API, ... and Material UI.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Maxvien/next-shopify-storefront&type=Date)](https://star-history.com/#Maxvien/next-shopify-storefront&Date)
