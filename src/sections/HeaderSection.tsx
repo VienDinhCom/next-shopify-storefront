@@ -3,17 +3,23 @@ import { Dialog, Popover } from '@headlessui/react';
 import { useCart } from '@shopify/hydrogen-react';
 import { Bars3Icon, XMarkIcon, ShoppingBagIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 
-const mainMenuItems: { text: string; href: string; pathname: string }[] = [
+const mainMenuItems: { text: string; href: string }[] = [
   {
     text: 'Products',
     href: '/products',
   },
-].map((item) => ({ ...item, pathname: new URL('https://x' + item.href).pathname }));
+];
 
 export function HeaderSection() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const { totalQuantity } = useCart();
+
+  function isMenuItemActive(href: string) {
+    const { pathname } = new URL('https://x' + href);
+
+    return router.pathname.startsWith(pathname);
+  }
 
   return (
     <header className="shadow-sm">
@@ -25,11 +31,11 @@ export function HeaderSection() {
           </NextLink>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          {mainMenuItems.map(({ text, href, pathname }) => (
+          {mainMenuItems.map(({ text, href }) => (
             <NextLink
               className={clsx(
                 'text-sm font-semibold leading-6 text-gray-900',
-                router.pathname.startsWith(pathname) && 'text-primary-600'
+                isMenuItemActive(href) && 'text-primary-600'
               )}
               key={href}
               href={href}
@@ -80,11 +86,11 @@ export function HeaderSection() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {mainMenuItems.map(({ text, href, pathname }) => (
+                {mainMenuItems.map(({ text, href }) => (
                   <NextLink
                     className={clsx(
                       '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50',
-                      router.pathname.startsWith(pathname) && 'text-primary-600'
+                      isMenuItemActive(href) && 'text-primary-600'
                     )}
                     key={href}
                     href={href}
