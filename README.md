@@ -32,8 +32,7 @@ These are my experiences when I have been working on this project:
 
 If you like this project, hit the **STAR** button to bookmark it ⭐️
 
-[![Buy Me a Coffee](https://img.shields.io/badge/%e2%98%95-Buy%20Me%20a%20Coffee-blue)](https://www.buymeacoffee.com/maxvien)
-[![Work with Me](https://img.shields.io/badge/%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB-Click%20Here%20to%20Work%20with%20Me-blue)](https://www.maxvien.com/)
+[![Work with Me | Starting at $20/hr](https://dabuttonfactory.com/button.png?t=Work+with+Me+%7C+Starting+at+%2420%2Fhr&f=Roboto-Bold&ts=20&tc=fff&hp=20&vp=15&c=11&bgt=unicolored&bgc=108a00)](https://www.maxvien.com/)
 
 
 ## Demonstration
