@@ -32,6 +32,9 @@ These are my experiences when I have been working on this project:
 
 If you like this project, hit the **STAR** button to bookmark it ⭐️
 
+## Services
+I help agencies and freelancers to develop Next.js headless cms/commerce websites. Do you have a Web Design? Do you have a Headless API? I am here at your service to help you grow your business and earn profits.
+
 [![Work with Me](https://www.maxvien.com/work-with-vien.png)](https://www.maxvien.com/)
 
 
