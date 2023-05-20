@@ -1,4 +1,4 @@
-import { Thunder, ZeusScalars } from './zeus';
+import { ZeusScalars, Chain } from './zeus';
 import { createStorefrontClient } from '@shopify/hydrogen-react';
 
 export const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN as string;
@@ -11,25 +11,8 @@ const { getStorefrontApiUrl, getPublicTokenHeaders } = createStorefrontClient({
   publicStorefrontToken,
 });
 
-const thunder = Thunder(async (query: string, variables: Record<string, unknown> = {}) => {
-  const response = await fetch(getStorefrontApiUrl(), {
-    method: 'POST',
-    body: JSON.stringify({ query, variables }),
-    headers: getPublicTokenHeaders(),
-  });
-
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`${response.status} ${body}`);
-  }
-
-  const json = await response.json();
-
-  if (json.errors) {
-    throw new Error(json.errors.map((e: Error) => e.message).join('\n'));
-  }
-
-  return json.data;
+const chain = Chain(getStorefrontApiUrl(), {
+  headers: getPublicTokenHeaders(),
 });
 
 const scalars = ZeusScalars({
@@ -44,10 +27,10 @@ const scalars = ZeusScalars({
 });
 
 export const storefront = {
-  query: thunder('query', {
+  query: chain('query', {
     scalars,
   }),
-  mutation: thunder('mutation', {
+  mutation: chain('mutation', {
     scalars,
   }),
 };

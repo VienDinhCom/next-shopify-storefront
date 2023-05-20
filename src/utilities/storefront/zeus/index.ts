@@ -859,7 +859,7 @@ Versions are commonly referred to by their handle (for example, `2021-10`).
 	balance?:ValueTypes["MoneyV2"],
 	/** The amount left on the gift card. */
 	balanceV2?:ValueTypes["MoneyV2"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The last characters of the gift card. */
 	lastCharacters?:boolean | `@${string}`,
@@ -892,7 +892,7 @@ excerpt?: [{	/** Truncates string after the given length. */
 	/** A human-friendly unique string for the Article automatically generated from its title.
  */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The image associated with the article. */
 	image?:ValueTypes["Image"],
@@ -957,7 +957,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 	value?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields required for an attribute. */
+	/** The input fields for an attribute. */
 ["AttributeInput"]: {
 	/** Key or name of the attribute. */
 	key: string | Variable<any, string>,
@@ -1017,7 +1017,7 @@ for more information about using filters.
 	/** A human-friendly unique string for the Blog automatically generated from its title.
  */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 metafield?: [{	/** A container for a set of metafields. */
 	namespace: string | Variable<any, string>,	/** The identifier for the metafield. */
@@ -1054,7 +1054,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 }>;
 	/** The set of valid sort keys for the Blog query. */
 ["BlogSortKeys"]:BlogSortKeys;
-	/** The store's branding configuration.
+	/** The store's [branding configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets).
  */
 ["Brand"]: AliasType<{
 	/** The colors of the store's brand. */
@@ -1126,7 +1126,7 @@ The `estimatedCost` field uses the `buyerIdentity` field to determine
 [international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
  */
 	estimatedCost?:ValueTypes["CartEstimatedCost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 lines?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null | Variable<any, string>,	/** Returns the elements that come after the specified cursor. */
@@ -1352,7 +1352,7 @@ to determine
 	totalTaxAmount?:ValueTypes["MoneyV2"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields to create a cart. */
+	/** The input fields to create a cart. */
 ["CartInput"]: {
 	/** An array of key-value pairs that contains additional information about the cart. */
 	attributes?: Array<ValueTypes["AttributeInput"]> | undefined | null | Variable<any, string>,
@@ -1381,7 +1381,7 @@ attribute?: [{	/** The key of the attribute. */
 	discountAllocations?:ValueTypes["CartDiscountAllocation"],
 	/** The estimated cost of the merchandise that the buyer will pay for at checkout. The estimated costs are subject to change and changes will be reflected at checkout. */
 	estimatedCost?:ValueTypes["CartLineEstimatedCost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The merchandise that the buyer intends to purchase. */
 	merchandise?:ValueTypes["Merchandise"],
@@ -1435,28 +1435,28 @@ attribute?: [{	/** The key of the attribute. */
 	totalAmount?:ValueTypes["MoneyV2"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields to create a merchandise line on a cart. */
+	/** The input fields to create a merchandise line on a cart. */
 ["CartLineInput"]: {
 	/** An array of key-value pairs that contains additional information about the merchandise line. */
 	attributes?: Array<ValueTypes["AttributeInput"]> | undefined | null | Variable<any, string>,
 	/** The quantity of the merchandise. */
 	quantity?: number | undefined | null | Variable<any, string>,
-	/** The identifier of the merchandise that the buyer intends to purchase. */
+	/** The ID of the merchandise that the buyer intends to purchase. */
 	merchandiseId: string | Variable<any, string>,
-	/** The identifier of the selling plan that the merchandise is being purchased with. */
+	/** The ID of the selling plan that the merchandise is being purchased with. */
 	sellingPlanId?: string | undefined | null | Variable<any, string>
 };
-	/** Specifies the input fields to update a line item on a cart. */
+	/** The input fields to update a line item on a cart. */
 ["CartLineUpdateInput"]: {
-	/** The identifier of the merchandise line. */
+	/** The ID of the merchandise line. */
 	id: string | Variable<any, string>,
 	/** The quantity of the line item. */
 	quantity?: number | undefined | null | Variable<any, string>,
-	/** The identifier of the merchandise for the line item. */
+	/** The ID of the merchandise for the line item. */
 	merchandiseId?: string | undefined | null | Variable<any, string>,
 	/** An array of key-value pairs that contains additional information about the merchandise line. */
 	attributes?: Array<ValueTypes["AttributeInput"]> | undefined | null | Variable<any, string>,
-	/** The identifier of the selling plan that the merchandise is being purchased with. */
+	/** The ID of the selling plan that the merchandise is being purchased with. */
 	sellingPlanId?: string | undefined | null | Variable<any, string>
 };
 	/** Return type for `cartLinesAdd` mutation. */
@@ -1544,7 +1544,7 @@ discountApplications?: [{	/** Returns up to the first `n` elements from the list
 	reverse?: boolean | undefined | null | Variable<any, string>},ValueTypes["DiscountApplicationConnection"]],
 	/** The email attached to this checkout. */
 	email?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 lineItems?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null | Variable<any, string>,	/** Returns the elements that come after the specified cursor. */
@@ -1603,7 +1603,7 @@ date, polling is required until the value is true.
 	webUrl?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields required to update a checkout's attributes. */
+	/** The input fields required to update a checkout's attributes. */
 ["CheckoutAttributesUpdateV2Input"]: {
 	/** The text of an optional note that a shop owner can attach to the checkout. */
 	note?: string | undefined | null | Variable<any, string>,
@@ -1632,7 +1632,7 @@ each operation.
 	countryCode?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the identity of the customer associated with the checkout. */
+	/** The input fields for the identity of the customer associated with the checkout. */
 ["CheckoutBuyerIdentityInput"]: {
 	/** The country code of one of the shop's
 [enabled countries](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency/setup).
@@ -1674,7 +1674,7 @@ For example, `CA`. Including this field creates a checkout in the specified coun
 	userErrors?:ValueTypes["UserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields required to create a checkout. */
+	/** The input fields required to create a checkout. */
 ["CheckoutCreateInput"]: {
 	/** The email with which the customer wants to checkout. */
 	email?: string | undefined | null | Variable<any, string>,
@@ -1786,7 +1786,7 @@ Full validation of addresses is still done at completion time. Defaults to `null
 	customAttributes?:ValueTypes["Attribute"],
 	/** The discounts that have been allocated onto the checkout line item by discount applications. */
 	discountAllocations?:ValueTypes["DiscountAllocation"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The quantity of the line item. */
 	quantity?:boolean | `@${string}`,
@@ -1818,20 +1818,20 @@ Full validation of addresses is still done at completion time. Defaults to `null
 	node?:ValueTypes["CheckoutLineItem"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields to create a line item on a checkout. */
+	/** The input fields to create a line item on a checkout. */
 ["CheckoutLineItemInput"]: {
 	/** Extra information in the form of an array of Key-Value pairs about the line item. */
 	customAttributes?: Array<ValueTypes["AttributeInput"]> | undefined | null | Variable<any, string>,
 	/** The quantity of the line item. */
 	quantity: number | Variable<any, string>,
-	/** The identifier of the product variant for the line item. */
+	/** The ID of the product variant for the line item. */
 	variantId: string | Variable<any, string>
 };
-	/** Specifies the input fields to update a line item on the checkout. */
+	/** The input fields to update a line item on the checkout. */
 ["CheckoutLineItemUpdateInput"]: {
-	/** The identifier of the line item. */
+	/** The ID of the line item. */
 	id?: string | undefined | null | Variable<any, string>,
-	/** The variant identifier of the line item. */
+	/** The variant ID of the line item. */
 	variantId?: string | undefined | null | Variable<any, string>,
 	/** The quantity of the line item. */
 	quantity?: number | undefined | null | Variable<any, string>,
@@ -1916,7 +1916,7 @@ description?: [{	/** Truncates string after the given length. */
 Limit of 255 characters.
  */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** Image associated with the collection. */
 	image?:ValueTypes["Image"],
@@ -1978,7 +1978,7 @@ content?: [{	/** Truncates string after the given length. */
 	truncateAt?: number | undefined | null | Variable<any, string>},boolean | `@${string}`],
 	/** The content of the comment, complete with HTML formatting. */
 	contentHtml?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
@@ -2101,7 +2101,7 @@ addresses?: [{	/** Returns up to the first `n` elements from the list. */
 	email?:boolean | `@${string}`,
 	/** The customer’s first name. */
 	firstName?:boolean | `@${string}`,
-	/** A unique identifier for the customer. */
+	/** A unique ID for the customer. */
 	id?:boolean | `@${string}`,
 	/** The customer's most recently updated, incomplete checkout. */
 	lastIncompleteCheckout?:ValueTypes["Checkout"],
@@ -2145,7 +2145,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	expiresAt?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields required to create a customer access token. */
+	/** The input fields required to create a customer access token. */
 ["CustomerAccessTokenCreateInput"]: {
 	/** The email associated to the customer. */
 	email: string | Variable<any, string>,
@@ -2198,7 +2198,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	customerUserErrors?:ValueTypes["CustomerUserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields required to activate a customer. */
+	/** The input fields to activate a customer. */
 ["CustomerActivateInput"]: {
 	/** The activation token required to activate the customer. */
 	activationToken: string | Variable<any, string>,
@@ -2247,7 +2247,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	userErrors?:ValueTypes["UserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** The fields required to create a new customer. */
+	/** The input fields to create a new customer. */
 ["CustomerCreateInput"]: {
 	/** The customer’s first name. */
 	firstName?: string | undefined | null | Variable<any, string>,
@@ -2307,7 +2307,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	userErrors?:ValueTypes["UserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields required to reset a customer’s password. */
+	/** The input fields to reset a customer's password. */
 ["CustomerResetInput"]: {
 	/** The reset token required to reset the customer’s password. */
 	resetToken: string | Variable<any, string>,
@@ -2326,7 +2326,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	userErrors?:ValueTypes["UserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields required to update the Customer information. */
+	/** The input fields to update the Customer information. */
 ["CustomerUpdateInput"]: {
 	/** The customer’s first name. */
 	firstName?: string | undefined | null | Variable<any, string>,
@@ -2500,7 +2500,7 @@ the time that it is applied.
 	embeddedUrl?:boolean | `@${string}`,
 	/** The host of the external video. */
 	host?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The media content type. */
 	mediaContentType?:boolean | `@${string}`,
@@ -2597,7 +2597,7 @@ trackingInfo?: [{	/** Truncate the array result to this size. */
 ["GenericFile"]: AliasType<{
 	/** A word or phrase to indicate the contents of a file. */
 	alt?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The MIME type of the file. */
 	mimeType?:boolean | `@${string}`,
@@ -2609,7 +2609,7 @@ trackingInfo?: [{	/** Truncate the array result to this size. */
 	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Used to specify a geographical location. */
+	/** The input fields used to specify a geographical location. */
 ["GeoCoordinateInput"]: {
 	/** The coordinate's latitude value. */
 	latitude: number | Variable<any, string>,
@@ -2640,7 +2640,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 		['...on Shop']?: Omit<ValueTypes["Shop"],keyof ValueTypes["HasMetafields"]>;
 		__typename?: boolean | `@${string}`
 }>;
-	/** Identifies a metafield on an owner resource by namespace and key. */
+	/** The input fields to identify a metafield on an owner resource by namespace and key. */
 ["HasMetafieldsIdentifier"]: {
 	/** A container for a set of metafields. */
 	namespace: string | Variable<any, string>,
@@ -2653,7 +2653,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 	altText?:boolean | `@${string}`,
 	/** The original height of the image in pixels. Returns `null` if the image is not hosted by Shopify. */
 	height?:boolean | `@${string}`,
-	/** A unique identifier for the image. */
+	/** A unique ID for the image. */
 	id?:boolean | `@${string}`,
 	/** The location of the original image as a URL.
 
@@ -2765,7 +2765,7 @@ Example value:
 ["Location"]: AliasType<{
 	/** The address of the location. */
 	address?:ValueTypes["LocationAddress"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The name of the location. */
 	name?:boolean | `@${string}`,
@@ -2856,7 +2856,7 @@ formatted?: [{	/** Whether to include the customer's name in the formatted addre
 	withCompany?: boolean | undefined | null | Variable<any, string>},boolean | `@${string}`],
 	/** A comma-separated list of the values for city, province, and country. */
 	formattedArea?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The last name of the customer. */
 	lastName?:boolean | `@${string}`,
@@ -2903,7 +2903,7 @@ For example, ON.
 	node?:ValueTypes["MailingAddress"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields accepted to create or update a mailing address. */
+	/** The input fields to create or update a mailing address. */
 ["MailingAddressInput"]: {
 	/** The first line of the address. Typically the street address or PO Box number.
  */
@@ -2992,7 +2992,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 ["MediaImage"]: AliasType<{
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The image for the media. */
 	image?:ValueTypes["Image"],
@@ -3002,12 +3002,13 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	previewImage?:ValueTypes["Image"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** A menu used for navigation within a storefront.
+	/** A [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) representing a hierarchy
+of hyperlinks (items).
  */
 ["Menu"]: AliasType<{
 	/** The menu's handle. */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The menu's child items. */
 	items?:ValueTypes["MenuItem"],
@@ -3020,7 +3021,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** A menu item within a parent menu.
  */
 ["MenuItem"]: AliasType<{
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The menu item's child items. */
 	items?:ValueTypes["MenuItem"],
@@ -3050,15 +3051,15 @@ comprised of keys, values, and value types.
 	createdAt?:boolean | `@${string}`,
 	/** The description of a metafield. */
 	description?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
-	/** The key name for a metafield. */
+	/** The unique identifier for the metafield within its namespace. */
 	key?:boolean | `@${string}`,
-	/** The namespace for a metafield. */
+	/** The container for a group of metafields that the metafield is associated with. */
 	namespace?:boolean | `@${string}`,
-	/** The parent object that the metafield belongs to. */
+	/** The type of resource that the metafield is attached to. */
 	parentResource?:ValueTypes["MetafieldParentResource"],
-	/** Returns a reference object if the metafield definition's type is a resource reference. */
+	/** Returns a reference object if the metafield's type is a resource reference. */
 	reference?:ValueTypes["MetafieldReference"],
 references?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null | Variable<any, string>,	/** Returns the elements that come after the specified cursor. */
@@ -3066,12 +3067,12 @@ references?: [{	/** Returns up to the first `n` elements from the list. */
 	last?: number | undefined | null | Variable<any, string>,	/** Returns the elements that come before the specified cursor. */
 	before?: string | undefined | null | Variable<any, string>},ValueTypes["MetafieldReferenceConnection"]],
 	/** The type name of the metafield.
-See the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
+Refer to the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
  */
 	type?:boolean | `@${string}`,
-	/** The date and time when the storefront metafield was updated. */
+	/** The date and time when the metafield was last updated. */
 	updatedAt?:boolean | `@${string}`,
-	/** The value of a metafield. */
+	/** The data stored in the metafield. Always stored as a string, regardless of the metafield's type. */
 	value?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
@@ -3145,7 +3146,7 @@ Omitted object keys can be assumed null, and no guarantees are made about field 
 	fields?:ValueTypes["MetaobjectField"],
 	/** The unique handle of the metaobject. Useful as a custom ID. */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The type of the metaobject. Defines the namespace of its associated metafields. */
 	type?:boolean | `@${string}`,
@@ -3203,7 +3204,7 @@ See the list of [supported types](https://shopify.dev/apps/metafields/definition
 ["Model3d"]: AliasType<{
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The media content type. */
 	mediaContentType?:boolean | `@${string}`,
@@ -3225,7 +3226,7 @@ See the list of [supported types](https://shopify.dev/apps/metafields/definition
 	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields for a monetary value with currency. */
+	/** The input fields for a monetary value with currency. */
 ["MoneyInput"]: {
 	/** Decimal money amount. */
 	amount: ValueTypes["Decimal"] | Variable<any, string>,
@@ -3372,7 +3373,7 @@ This interface is used by the [node](https://shopify.dev/api/admin-graphql/unsta
 and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) queries.
  */
 ["Node"]:AliasType<{
-		/** A globally-unique identifier. */
+		/** A globally-unique ID. */
 	id?:boolean | `@${string}`;
 		['...on AppliedGiftCard']?: Omit<ValueTypes["AppliedGiftCard"],keyof ValueTypes["Node"]>;
 		['...on Article']?: Omit<ValueTypes["Article"],keyof ValueTypes["Node"]>;
@@ -3452,7 +3453,7 @@ discountApplications?: [{	/** Returns up to the first `n` elements from the list
 	financialStatus?:boolean | `@${string}`,
 	/** The fulfillment status for the order. */
 	fulfillmentStatus?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 lineItems?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null | Variable<any, string>,	/** Returns the elements that come after the specified cursor. */
@@ -3593,7 +3594,7 @@ successfulFulfillments?: [{	/** Truncate the array result to this size. */
 	createdAt?:boolean | `@${string}`,
 	/** A human-friendly unique string for the page automatically generated from its title. */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 metafield?: [{	/** A container for a set of metafields. */
 	namespace: string | Variable<any, string>,	/** The identifier for the metafield. */
@@ -3661,7 +3662,7 @@ For more information, please read our [GraphQL Pagination Usage Guide](https://s
 	creditCard?:ValueTypes["CreditCard"],
 	/** A message describing a processing error during asynchronous processing. */
 	errorMessage?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** A client-side generated token to identify a payment and perform idempotent operations.
 For more information, refer to
@@ -3690,7 +3691,7 @@ For more information, refer to
 	currencyCode?:boolean | `@${string}`,
 	/** A list of enabled currencies (ISO 4217 format) that the shop accepts. Merchants can enable currencies from their Shopify Payments settings in the Shopify admin. */
 	enabledPresentmentCurrencies?:boolean | `@${string}`,
-	/** The shop’s Shopify Payments account id. */
+	/** The shop’s Shopify Payments account ID. */
 	shopifyPaymentsAccountId?:boolean | `@${string}`,
 	/** List of the digital wallets which the shop supports. */
 	supportedDigitalWallets?:boolean | `@${string}`,
@@ -3698,7 +3699,8 @@ For more information, refer to
 }>;
 	/** The valid values for the types of payment token. */
 ["PaymentTokenType"]:PaymentTokenType;
-	/** A filter used to view a subset of products in a collection matching a specific price range. */
+	/** The input fields for a filter used to view a subset of products in a collection matching a specific price range.
+ */
 ["PriceRangeFilter"]: {
 	/** The minimum price in the range. Defaults to zero. */
 	min?: number | undefined | null | Variable<any, string>,
@@ -3744,7 +3746,7 @@ This field is functionally equivalent to `images(first: 1)`.
 They are used by the Liquid templating language to refer to objects.
  */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 images?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null | Variable<any, string>,	/** Returns the elements that come after the specified cursor. */
@@ -3838,7 +3840,7 @@ variants?: [{	/** Returns up to the first `n` elements from the list. */
 	node?:ValueTypes["Product"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** A filter used to view a subset of products in a collection. */
+	/** The input fields for a filter used to view a subset of products in a collection. */
 ["ProductFilter"]: {
 	/** Filter on if the product is available for sale. */
 	available?: boolean | undefined | null | Variable<any, string>,
@@ -3866,7 +3868,7 @@ Variants are selected based on permutations of these options.
 255 characters limit each.
  */
 ["ProductOption"]: AliasType<{
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The product option’s name. */
 	name?:boolean | `@${string}`,
@@ -3896,7 +3898,7 @@ Variants are selected based on permutations of these options.
 	compareAtPriceV2?:ValueTypes["MoneyV2"],
 	/** Whether a product is out of stock but still available for purchase (used for backorders). */
 	currentlyNotInStock?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** Image associated with the product variant. This field falls back to the product image if no image is available.
  */
@@ -4042,7 +4044,7 @@ locations?: [{	/** Returns up to the first `n` elements from the list. */
 	reverse?: boolean | undefined | null | Variable<any, string>,	/** Sort the underlying list by the given key. */
 	sortKey?: ValueTypes["LocationSortKeys"] | undefined | null | Variable<any, string>,	/** Used to sort results based on proximity to the provided location. */
 	near?: ValueTypes["GeoCoordinateInput"] | undefined | null | Variable<any, string>},ValueTypes["LocationConnection"]],
-menu?: [{	/** Returns a storefront menu by the specified handle. */
+menu?: [{	/** The navigation menu's handle. */
 	handle: string | Variable<any, string>},ValueTypes["Menu"]],
 metaobject?: [{	/** The ID of the metaobject. */
 	id?: string | undefined | null | Variable<any, string>,	/** The handle and type of the metaobject. */
@@ -4166,7 +4168,7 @@ Products can have multiple options, like different sizes or colors.
 	value?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields required for a selected option. */
+	/** The input fields required for a selected option. */
 ["SelectedOptionInput"]: {
 	/** The product option’s name. */
 	name: string | Variable<any, string>,
@@ -4179,7 +4181,7 @@ Products can have multiple options, like different sizes or colors.
 	checkoutCharge?:ValueTypes["SellingPlanCheckoutCharge"],
 	/** The description of the selling plan. */
 	description?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The name of the selling plan. For example, '6 weeks of prepaid granola, delivered weekly'. */
 	name?:boolean | `@${string}`,
@@ -4380,7 +4382,7 @@ Individual selling plans contribute their options to the associated selling plan
 	brand?:ValueTypes["Brand"],
 	/** A description of the shop. */
 	description?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 metafield?: [{	/** A container for a set of metafields. */
 	namespace: string | Variable<any, string>,	/** The identifier for the metafield. */
@@ -4415,7 +4417,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 	body?:boolean | `@${string}`,
 	/** Policy’s handle. */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** Policy’s title. */
 	title?:boolean | `@${string}`,
@@ -4432,7 +4434,7 @@ Otherwise, the policy will return the merchant-configured value.
 	body?:boolean | `@${string}`,
 	/** The handle of the policy. */
 	handle?:boolean | `@${string}`,
-	/** The unique identifier of the policy. A default policy doesn't have an ID. */
+	/** The unique ID of the policy. A default policy doesn't have an ID. */
 	id?:boolean | `@${string}`,
 	/** The title of the policy. */
 	title?:boolean | `@${string}`,
@@ -4600,7 +4602,8 @@ Example value: `"50"`.
 	message?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** A filter used to view a subset of products in a collection matching a specific variant option. */
+	/** The input fields for a filter used to view a subset of products in a collection matching a specific variant option.
+ */
 ["VariantOptionFilter"]: {
 	/** The name of the variant option to filter on. */
 	name: string | Variable<any, string>,
@@ -4611,7 +4614,7 @@ Example value: `"50"`.
 ["Video"]: AliasType<{
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The media content type. */
 	mediaContentType?:boolean | `@${string}`,
@@ -4662,7 +4665,7 @@ Versions are commonly referred to by their handle (for example, `2021-10`).
 	balance?:ResolverInputTypes["MoneyV2"],
 	/** The amount left on the gift card. */
 	balanceV2?:ResolverInputTypes["MoneyV2"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The last characters of the gift card. */
 	lastCharacters?:boolean | `@${string}`,
@@ -4695,7 +4698,7 @@ excerpt?: [{	/** Truncates string after the given length. */
 	/** A human-friendly unique string for the Article automatically generated from its title.
  */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The image associated with the article. */
 	image?:ResolverInputTypes["Image"],
@@ -4760,7 +4763,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 	value?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields required for an attribute. */
+	/** The input fields for an attribute. */
 ["AttributeInput"]: {
 	/** Key or name of the attribute. */
 	key: string,
@@ -4820,7 +4823,7 @@ for more information about using filters.
 	/** A human-friendly unique string for the Blog automatically generated from its title.
  */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 metafield?: [{	/** A container for a set of metafields. */
 	namespace: string,	/** The identifier for the metafield. */
@@ -4857,7 +4860,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 }>;
 	/** The set of valid sort keys for the Blog query. */
 ["BlogSortKeys"]:BlogSortKeys;
-	/** The store's branding configuration.
+	/** The store's [branding configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets).
  */
 ["Brand"]: AliasType<{
 	/** The colors of the store's brand. */
@@ -4929,7 +4932,7 @@ The `estimatedCost` field uses the `buyerIdentity` field to determine
 [international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
  */
 	estimatedCost?:ResolverInputTypes["CartEstimatedCost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 lines?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null,	/** Returns the elements that come after the specified cursor. */
@@ -5155,7 +5158,7 @@ to determine
 	totalTaxAmount?:ResolverInputTypes["MoneyV2"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields to create a cart. */
+	/** The input fields to create a cart. */
 ["CartInput"]: {
 	/** An array of key-value pairs that contains additional information about the cart. */
 	attributes?: Array<ResolverInputTypes["AttributeInput"]> | undefined | null,
@@ -5184,7 +5187,7 @@ attribute?: [{	/** The key of the attribute. */
 	discountAllocations?:ResolverInputTypes["CartDiscountAllocation"],
 	/** The estimated cost of the merchandise that the buyer will pay for at checkout. The estimated costs are subject to change and changes will be reflected at checkout. */
 	estimatedCost?:ResolverInputTypes["CartLineEstimatedCost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The merchandise that the buyer intends to purchase. */
 	merchandise?:ResolverInputTypes["Merchandise"],
@@ -5238,28 +5241,28 @@ attribute?: [{	/** The key of the attribute. */
 	totalAmount?:ResolverInputTypes["MoneyV2"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields to create a merchandise line on a cart. */
+	/** The input fields to create a merchandise line on a cart. */
 ["CartLineInput"]: {
 	/** An array of key-value pairs that contains additional information about the merchandise line. */
 	attributes?: Array<ResolverInputTypes["AttributeInput"]> | undefined | null,
 	/** The quantity of the merchandise. */
 	quantity?: number | undefined | null,
-	/** The identifier of the merchandise that the buyer intends to purchase. */
+	/** The ID of the merchandise that the buyer intends to purchase. */
 	merchandiseId: string,
-	/** The identifier of the selling plan that the merchandise is being purchased with. */
+	/** The ID of the selling plan that the merchandise is being purchased with. */
 	sellingPlanId?: string | undefined | null
 };
-	/** Specifies the input fields to update a line item on a cart. */
+	/** The input fields to update a line item on a cart. */
 ["CartLineUpdateInput"]: {
-	/** The identifier of the merchandise line. */
+	/** The ID of the merchandise line. */
 	id: string,
 	/** The quantity of the line item. */
 	quantity?: number | undefined | null,
-	/** The identifier of the merchandise for the line item. */
+	/** The ID of the merchandise for the line item. */
 	merchandiseId?: string | undefined | null,
 	/** An array of key-value pairs that contains additional information about the merchandise line. */
 	attributes?: Array<ResolverInputTypes["AttributeInput"]> | undefined | null,
-	/** The identifier of the selling plan that the merchandise is being purchased with. */
+	/** The ID of the selling plan that the merchandise is being purchased with. */
 	sellingPlanId?: string | undefined | null
 };
 	/** Return type for `cartLinesAdd` mutation. */
@@ -5347,7 +5350,7 @@ discountApplications?: [{	/** Returns up to the first `n` elements from the list
 	reverse?: boolean | undefined | null},ResolverInputTypes["DiscountApplicationConnection"]],
 	/** The email attached to this checkout. */
 	email?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 lineItems?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null,	/** Returns the elements that come after the specified cursor. */
@@ -5406,7 +5409,7 @@ date, polling is required until the value is true.
 	webUrl?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields required to update a checkout's attributes. */
+	/** The input fields required to update a checkout's attributes. */
 ["CheckoutAttributesUpdateV2Input"]: {
 	/** The text of an optional note that a shop owner can attach to the checkout. */
 	note?: string | undefined | null,
@@ -5435,7 +5438,7 @@ each operation.
 	countryCode?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the identity of the customer associated with the checkout. */
+	/** The input fields for the identity of the customer associated with the checkout. */
 ["CheckoutBuyerIdentityInput"]: {
 	/** The country code of one of the shop's
 [enabled countries](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency/setup).
@@ -5477,7 +5480,7 @@ For example, `CA`. Including this field creates a checkout in the specified coun
 	userErrors?:ResolverInputTypes["UserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields required to create a checkout. */
+	/** The input fields required to create a checkout. */
 ["CheckoutCreateInput"]: {
 	/** The email with which the customer wants to checkout. */
 	email?: string | undefined | null,
@@ -5589,7 +5592,7 @@ Full validation of addresses is still done at completion time. Defaults to `null
 	customAttributes?:ResolverInputTypes["Attribute"],
 	/** The discounts that have been allocated onto the checkout line item by discount applications. */
 	discountAllocations?:ResolverInputTypes["DiscountAllocation"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The quantity of the line item. */
 	quantity?:boolean | `@${string}`,
@@ -5621,20 +5624,20 @@ Full validation of addresses is still done at completion time. Defaults to `null
 	node?:ResolverInputTypes["CheckoutLineItem"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields to create a line item on a checkout. */
+	/** The input fields to create a line item on a checkout. */
 ["CheckoutLineItemInput"]: {
 	/** Extra information in the form of an array of Key-Value pairs about the line item. */
 	customAttributes?: Array<ResolverInputTypes["AttributeInput"]> | undefined | null,
 	/** The quantity of the line item. */
 	quantity: number,
-	/** The identifier of the product variant for the line item. */
+	/** The ID of the product variant for the line item. */
 	variantId: string
 };
-	/** Specifies the input fields to update a line item on the checkout. */
+	/** The input fields to update a line item on the checkout. */
 ["CheckoutLineItemUpdateInput"]: {
-	/** The identifier of the line item. */
+	/** The ID of the line item. */
 	id?: string | undefined | null,
-	/** The variant identifier of the line item. */
+	/** The variant ID of the line item. */
 	variantId?: string | undefined | null,
 	/** The quantity of the line item. */
 	quantity?: number | undefined | null,
@@ -5719,7 +5722,7 @@ description?: [{	/** Truncates string after the given length. */
 Limit of 255 characters.
  */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** Image associated with the collection. */
 	image?:ResolverInputTypes["Image"],
@@ -5781,7 +5784,7 @@ content?: [{	/** Truncates string after the given length. */
 	truncateAt?: number | undefined | null},boolean | `@${string}`],
 	/** The content of the comment, complete with HTML formatting. */
 	contentHtml?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
@@ -5904,7 +5907,7 @@ addresses?: [{	/** Returns up to the first `n` elements from the list. */
 	email?:boolean | `@${string}`,
 	/** The customer’s first name. */
 	firstName?:boolean | `@${string}`,
-	/** A unique identifier for the customer. */
+	/** A unique ID for the customer. */
 	id?:boolean | `@${string}`,
 	/** The customer's most recently updated, incomplete checkout. */
 	lastIncompleteCheckout?:ResolverInputTypes["Checkout"],
@@ -5948,7 +5951,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	expiresAt?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields required to create a customer access token. */
+	/** The input fields required to create a customer access token. */
 ["CustomerAccessTokenCreateInput"]: {
 	/** The email associated to the customer. */
 	email: string,
@@ -6001,7 +6004,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	customerUserErrors?:ResolverInputTypes["CustomerUserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields required to activate a customer. */
+	/** The input fields to activate a customer. */
 ["CustomerActivateInput"]: {
 	/** The activation token required to activate the customer. */
 	activationToken: string,
@@ -6050,7 +6053,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	userErrors?:ResolverInputTypes["UserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** The fields required to create a new customer. */
+	/** The input fields to create a new customer. */
 ["CustomerCreateInput"]: {
 	/** The customer’s first name. */
 	firstName?: string | undefined | null,
@@ -6110,7 +6113,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	userErrors?:ResolverInputTypes["UserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields required to reset a customer’s password. */
+	/** The input fields to reset a customer's password. */
 ["CustomerResetInput"]: {
 	/** The reset token required to reset the customer’s password. */
 	resetToken: string,
@@ -6129,7 +6132,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	userErrors?:ResolverInputTypes["UserError"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields required to update the Customer information. */
+	/** The input fields to update the Customer information. */
 ["CustomerUpdateInput"]: {
 	/** The customer’s first name. */
 	firstName?: string | undefined | null,
@@ -6304,7 +6307,7 @@ the time that it is applied.
 	embeddedUrl?:boolean | `@${string}`,
 	/** The host of the external video. */
 	host?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The media content type. */
 	mediaContentType?:boolean | `@${string}`,
@@ -6401,7 +6404,7 @@ trackingInfo?: [{	/** Truncate the array result to this size. */
 ["GenericFile"]: AliasType<{
 	/** A word or phrase to indicate the contents of a file. */
 	alt?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The MIME type of the file. */
 	mimeType?:boolean | `@${string}`,
@@ -6413,7 +6416,7 @@ trackingInfo?: [{	/** Truncate the array result to this size. */
 	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Used to specify a geographical location. */
+	/** The input fields used to specify a geographical location. */
 ["GeoCoordinateInput"]: {
 	/** The coordinate's latitude value. */
 	latitude: number,
@@ -6444,7 +6447,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 		['...on Shop']?: Omit<ResolverInputTypes["Shop"],keyof ResolverInputTypes["HasMetafields"]>;
 		__typename?: boolean | `@${string}`
 }>;
-	/** Identifies a metafield on an owner resource by namespace and key. */
+	/** The input fields to identify a metafield on an owner resource by namespace and key. */
 ["HasMetafieldsIdentifier"]: {
 	/** A container for a set of metafields. */
 	namespace: string,
@@ -6457,7 +6460,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 	altText?:boolean | `@${string}`,
 	/** The original height of the image in pixels. Returns `null` if the image is not hosted by Shopify. */
 	height?:boolean | `@${string}`,
-	/** A unique identifier for the image. */
+	/** A unique ID for the image. */
 	id?:boolean | `@${string}`,
 	/** The location of the original image as a URL.
 
@@ -6569,7 +6572,7 @@ Example value:
 ["Location"]: AliasType<{
 	/** The address of the location. */
 	address?:ResolverInputTypes["LocationAddress"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The name of the location. */
 	name?:boolean | `@${string}`,
@@ -6660,7 +6663,7 @@ formatted?: [{	/** Whether to include the customer's name in the formatted addre
 	withCompany?: boolean | undefined | null},boolean | `@${string}`],
 	/** A comma-separated list of the values for city, province, and country. */
 	formattedArea?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The last name of the customer. */
 	lastName?:boolean | `@${string}`,
@@ -6707,7 +6710,7 @@ For example, ON.
 	node?:ResolverInputTypes["MailingAddress"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields accepted to create or update a mailing address. */
+	/** The input fields to create or update a mailing address. */
 ["MailingAddressInput"]: {
 	/** The first line of the address. Typically the street address or PO Box number.
  */
@@ -6796,7 +6799,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 ["MediaImage"]: AliasType<{
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The image for the media. */
 	image?:ResolverInputTypes["Image"],
@@ -6806,12 +6809,13 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	previewImage?:ResolverInputTypes["Image"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** A menu used for navigation within a storefront.
+	/** A [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) representing a hierarchy
+of hyperlinks (items).
  */
 ["Menu"]: AliasType<{
 	/** The menu's handle. */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The menu's child items. */
 	items?:ResolverInputTypes["MenuItem"],
@@ -6824,7 +6828,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** A menu item within a parent menu.
  */
 ["MenuItem"]: AliasType<{
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The menu item's child items. */
 	items?:ResolverInputTypes["MenuItem"],
@@ -6855,15 +6859,15 @@ comprised of keys, values, and value types.
 	createdAt?:boolean | `@${string}`,
 	/** The description of a metafield. */
 	description?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
-	/** The key name for a metafield. */
+	/** The unique identifier for the metafield within its namespace. */
 	key?:boolean | `@${string}`,
-	/** The namespace for a metafield. */
+	/** The container for a group of metafields that the metafield is associated with. */
 	namespace?:boolean | `@${string}`,
-	/** The parent object that the metafield belongs to. */
+	/** The type of resource that the metafield is attached to. */
 	parentResource?:ResolverInputTypes["MetafieldParentResource"],
-	/** Returns a reference object if the metafield definition's type is a resource reference. */
+	/** Returns a reference object if the metafield's type is a resource reference. */
 	reference?:ResolverInputTypes["MetafieldReference"],
 references?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null,	/** Returns the elements that come after the specified cursor. */
@@ -6871,12 +6875,12 @@ references?: [{	/** Returns up to the first `n` elements from the list. */
 	last?: number | undefined | null,	/** Returns the elements that come before the specified cursor. */
 	before?: string | undefined | null},ResolverInputTypes["MetafieldReferenceConnection"]],
 	/** The type name of the metafield.
-See the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
+Refer to the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
  */
 	type?:boolean | `@${string}`,
-	/** The date and time when the storefront metafield was updated. */
+	/** The date and time when the metafield was last updated. */
 	updatedAt?:boolean | `@${string}`,
-	/** The value of a metafield. */
+	/** The data stored in the metafield. Always stored as a string, regardless of the metafield's type. */
 	value?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
@@ -6952,7 +6956,7 @@ Omitted object keys can be assumed null, and no guarantees are made about field 
 	fields?:ResolverInputTypes["MetaobjectField"],
 	/** The unique handle of the metaobject. Useful as a custom ID. */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The type of the metaobject. Defines the namespace of its associated metafields. */
 	type?:boolean | `@${string}`,
@@ -7010,7 +7014,7 @@ See the list of [supported types](https://shopify.dev/apps/metafields/definition
 ["Model3d"]: AliasType<{
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The media content type. */
 	mediaContentType?:boolean | `@${string}`,
@@ -7032,7 +7036,7 @@ See the list of [supported types](https://shopify.dev/apps/metafields/definition
 	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the fields for a monetary value with currency. */
+	/** The input fields for a monetary value with currency. */
 ["MoneyInput"]: {
 	/** Decimal money amount. */
 	amount: ResolverInputTypes["Decimal"],
@@ -7179,7 +7183,7 @@ This interface is used by the [node](https://shopify.dev/api/admin-graphql/unsta
 and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) queries.
  */
 ["Node"]:AliasType<{
-		/** A globally-unique identifier. */
+		/** A globally-unique ID. */
 	id?:boolean | `@${string}`;
 		['...on AppliedGiftCard']?: Omit<ResolverInputTypes["AppliedGiftCard"],keyof ResolverInputTypes["Node"]>;
 		['...on Article']?: Omit<ResolverInputTypes["Article"],keyof ResolverInputTypes["Node"]>;
@@ -7259,7 +7263,7 @@ discountApplications?: [{	/** Returns up to the first `n` elements from the list
 	financialStatus?:boolean | `@${string}`,
 	/** The fulfillment status for the order. */
 	fulfillmentStatus?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 lineItems?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null,	/** Returns the elements that come after the specified cursor. */
@@ -7400,7 +7404,7 @@ successfulFulfillments?: [{	/** Truncate the array result to this size. */
 	createdAt?:boolean | `@${string}`,
 	/** A human-friendly unique string for the page automatically generated from its title. */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 metafield?: [{	/** A container for a set of metafields. */
 	namespace: string,	/** The identifier for the metafield. */
@@ -7468,7 +7472,7 @@ For more information, please read our [GraphQL Pagination Usage Guide](https://s
 	creditCard?:ResolverInputTypes["CreditCard"],
 	/** A message describing a processing error during asynchronous processing. */
 	errorMessage?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** A client-side generated token to identify a payment and perform idempotent operations.
 For more information, refer to
@@ -7497,7 +7501,7 @@ For more information, refer to
 	currencyCode?:boolean | `@${string}`,
 	/** A list of enabled currencies (ISO 4217 format) that the shop accepts. Merchants can enable currencies from their Shopify Payments settings in the Shopify admin. */
 	enabledPresentmentCurrencies?:boolean | `@${string}`,
-	/** The shop’s Shopify Payments account id. */
+	/** The shop’s Shopify Payments account ID. */
 	shopifyPaymentsAccountId?:boolean | `@${string}`,
 	/** List of the digital wallets which the shop supports. */
 	supportedDigitalWallets?:boolean | `@${string}`,
@@ -7505,7 +7509,8 @@ For more information, refer to
 }>;
 	/** The valid values for the types of payment token. */
 ["PaymentTokenType"]:PaymentTokenType;
-	/** A filter used to view a subset of products in a collection matching a specific price range. */
+	/** The input fields for a filter used to view a subset of products in a collection matching a specific price range.
+ */
 ["PriceRangeFilter"]: {
 	/** The minimum price in the range. Defaults to zero. */
 	min?: number | undefined | null,
@@ -7552,7 +7557,7 @@ This field is functionally equivalent to `images(first: 1)`.
 They are used by the Liquid templating language to refer to objects.
  */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 images?: [{	/** Returns up to the first `n` elements from the list. */
 	first?: number | undefined | null,	/** Returns the elements that come after the specified cursor. */
@@ -7646,7 +7651,7 @@ variants?: [{	/** Returns up to the first `n` elements from the list. */
 	node?:ResolverInputTypes["Product"],
 		__typename?: boolean | `@${string}`
 }>;
-	/** A filter used to view a subset of products in a collection. */
+	/** The input fields for a filter used to view a subset of products in a collection. */
 ["ProductFilter"]: {
 	/** Filter on if the product is available for sale. */
 	available?: boolean | undefined | null,
@@ -7674,7 +7679,7 @@ Variants are selected based on permutations of these options.
 255 characters limit each.
  */
 ["ProductOption"]: AliasType<{
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The product option’s name. */
 	name?:boolean | `@${string}`,
@@ -7704,7 +7709,7 @@ Variants are selected based on permutations of these options.
 	compareAtPriceV2?:ResolverInputTypes["MoneyV2"],
 	/** Whether a product is out of stock but still available for purchase (used for backorders). */
 	currentlyNotInStock?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** Image associated with the product variant. This field falls back to the product image if no image is available.
  */
@@ -7850,7 +7855,7 @@ locations?: [{	/** Returns up to the first `n` elements from the list. */
 	reverse?: boolean | undefined | null,	/** Sort the underlying list by the given key. */
 	sortKey?: ResolverInputTypes["LocationSortKeys"] | undefined | null,	/** Used to sort results based on proximity to the provided location. */
 	near?: ResolverInputTypes["GeoCoordinateInput"] | undefined | null},ResolverInputTypes["LocationConnection"]],
-menu?: [{	/** Returns a storefront menu by the specified handle. */
+menu?: [{	/** The navigation menu's handle. */
 	handle: string},ResolverInputTypes["Menu"]],
 metaobject?: [{	/** The ID of the metaobject. */
 	id?: string | undefined | null,	/** The handle and type of the metaobject. */
@@ -7974,7 +7979,7 @@ Products can have multiple options, like different sizes or colors.
 	value?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** Specifies the input fields required for a selected option. */
+	/** The input fields required for a selected option. */
 ["SelectedOptionInput"]: {
 	/** The product option’s name. */
 	name: string,
@@ -7987,7 +7992,7 @@ Products can have multiple options, like different sizes or colors.
 	checkoutCharge?:ResolverInputTypes["SellingPlanCheckoutCharge"],
 	/** The description of the selling plan. */
 	description?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The name of the selling plan. For example, '6 weeks of prepaid granola, delivered weekly'. */
 	name?:boolean | `@${string}`,
@@ -8190,7 +8195,7 @@ Individual selling plans contribute their options to the associated selling plan
 	brand?:ResolverInputTypes["Brand"],
 	/** A description of the shop. */
 	description?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 metafield?: [{	/** A container for a set of metafields. */
 	namespace: string,	/** The identifier for the metafield. */
@@ -8225,7 +8230,7 @@ metafields?: [{	/** The list of metafields to retrieve by namespace and key. */
 	body?:boolean | `@${string}`,
 	/** Policy’s handle. */
 	handle?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** Policy’s title. */
 	title?:boolean | `@${string}`,
@@ -8242,7 +8247,7 @@ Otherwise, the policy will return the merchant-configured value.
 	body?:boolean | `@${string}`,
 	/** The handle of the policy. */
 	handle?:boolean | `@${string}`,
-	/** The unique identifier of the policy. A default policy doesn't have an ID. */
+	/** The unique ID of the policy. A default policy doesn't have an ID. */
 	id?:boolean | `@${string}`,
 	/** The title of the policy. */
 	title?:boolean | `@${string}`,
@@ -8410,7 +8415,8 @@ Example value: `"50"`.
 	message?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
-	/** A filter used to view a subset of products in a collection matching a specific variant option. */
+	/** The input fields for a filter used to view a subset of products in a collection matching a specific variant option.
+ */
 ["VariantOptionFilter"]: {
 	/** The name of the variant option to filter on. */
 	name: string,
@@ -8421,7 +8427,7 @@ Example value: `"50"`.
 ["Video"]: AliasType<{
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?:boolean | `@${string}`,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id?:boolean | `@${string}`,
 	/** The media content type. */
 	mediaContentType?:boolean | `@${string}`,
@@ -8471,7 +8477,7 @@ Versions are commonly referred to by their handle (for example, `2021-10`).
 	balance: ModelTypes["MoneyV2"],
 	/** The amount left on the gift card. */
 	balanceV2: ModelTypes["MoneyV2"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The last characters of the gift card. */
 	lastCharacters: string,
@@ -8499,7 +8505,7 @@ Versions are commonly referred to by their handle (for example, `2021-10`).
 	/** A human-friendly unique string for the Article automatically generated from its title.
  */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The image associated with the article. */
 	image?: ModelTypes["Image"] | undefined,
@@ -8558,7 +8564,7 @@ Versions are commonly referred to by their handle (for example, `2021-10`).
 	/** Value of the attribute. */
 	value?: string | undefined
 };
-	/** Specifies the input fields required for an attribute. */
+	/** The input fields for an attribute. */
 ["AttributeInput"]: {
 	/** Key or name of the attribute. */
 	key: string,
@@ -8600,7 +8606,7 @@ This field should be polled until its value becomes `true`.
 	/** A human-friendly unique string for the Blog automatically generated from its title.
  */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Returns a metafield found by namespace and key. */
 	metafield?: ModelTypes["Metafield"] | undefined,
@@ -8633,7 +8639,7 @@ This field should be polled until its value becomes `true`.
 	node: ModelTypes["Blog"]
 };
 	["BlogSortKeys"]:BlogSortKeys;
-	/** The store's branding configuration.
+	/** The store's [branding configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets).
  */
 ["Brand"]: {
 		/** The colors of the store's brand. */
@@ -8699,7 +8705,7 @@ The `estimatedCost` field uses the `buyerIdentity` field to determine
 [international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
  */
 	estimatedCost: ModelTypes["CartEstimatedCost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** A list of lines containing information about the items the customer intends to purchase. */
 	lines: ModelTypes["CartLineConnection"],
@@ -8893,7 +8899,7 @@ to determine
 	/** The estimated tax amount for the customer to pay at checkout. */
 	totalTaxAmount?: ModelTypes["MoneyV2"] | undefined
 };
-	/** Specifies the input fields to create a cart. */
+	/** The input fields to create a cart. */
 ["CartInput"]: {
 	/** An array of key-value pairs that contains additional information about the cart. */
 	attributes?: Array<ModelTypes["AttributeInput"]> | undefined,
@@ -8922,7 +8928,7 @@ Buyer identity should match the customer's shipping address.
 	discountAllocations: Array<ModelTypes["CartDiscountAllocation"]>,
 	/** The estimated cost of the merchandise that the buyer will pay for at checkout. The estimated costs are subject to change and changes will be reflected at checkout. */
 	estimatedCost: ModelTypes["CartLineEstimatedCost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The merchandise that the buyer intends to purchase. */
 	merchandise: ModelTypes["Merchandise"],
@@ -8971,28 +8977,28 @@ Buyer identity should match the customer's shipping address.
 	/** The estimated total cost of the merchandise line. */
 	totalAmount: ModelTypes["MoneyV2"]
 };
-	/** Specifies the input fields to create a merchandise line on a cart. */
+	/** The input fields to create a merchandise line on a cart. */
 ["CartLineInput"]: {
 	/** An array of key-value pairs that contains additional information about the merchandise line. */
 	attributes?: Array<ModelTypes["AttributeInput"]> | undefined,
 	/** The quantity of the merchandise. */
 	quantity?: number | undefined,
-	/** The identifier of the merchandise that the buyer intends to purchase. */
+	/** The ID of the merchandise that the buyer intends to purchase. */
 	merchandiseId: string,
-	/** The identifier of the selling plan that the merchandise is being purchased with. */
+	/** The ID of the selling plan that the merchandise is being purchased with. */
 	sellingPlanId?: string | undefined
 };
-	/** Specifies the input fields to update a line item on a cart. */
+	/** The input fields to update a line item on a cart. */
 ["CartLineUpdateInput"]: {
-	/** The identifier of the merchandise line. */
+	/** The ID of the merchandise line. */
 	id: string,
 	/** The quantity of the line item. */
 	quantity?: number | undefined,
-	/** The identifier of the merchandise for the line item. */
+	/** The ID of the merchandise for the line item. */
 	merchandiseId?: string | undefined,
 	/** An array of key-value pairs that contains additional information about the merchandise line. */
 	attributes?: Array<ModelTypes["AttributeInput"]> | undefined,
-	/** The identifier of the selling plan that the merchandise is being purchased with. */
+	/** The ID of the selling plan that the merchandise is being purchased with. */
 	sellingPlanId?: string | undefined
 };
 	/** Return type for `cartLinesAdd` mutation. */
@@ -9070,7 +9076,7 @@ the shipping address is valid.
 	discountApplications: ModelTypes["DiscountApplicationConnection"],
 	/** The email attached to this checkout. */
 	email?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** A list of line item objects, each one containing information about an item in the checkout. */
 	lineItems: ModelTypes["CheckoutLineItemConnection"],
@@ -9124,7 +9130,7 @@ date, polling is required until the value is true.
 	/** The url pointing to the checkout accessible from the web. */
 	webUrl: ModelTypes["URL"]
 };
-	/** Specifies the fields required to update a checkout's attributes. */
+	/** The input fields required to update a checkout's attributes. */
 ["CheckoutAttributesUpdateV2Input"]: {
 	/** The text of an optional note that a shop owner can attach to the checkout. */
 	note?: string | undefined,
@@ -9151,7 +9157,7 @@ each operation.
 		/** The country code for the checkout. For example, `CA`. */
 	countryCode?: ModelTypes["CountryCode"] | undefined
 };
-	/** Specifies the identity of the customer associated with the checkout. */
+	/** The input fields for the identity of the customer associated with the checkout. */
 ["CheckoutBuyerIdentityInput"]: {
 	/** The country code of one of the shop's
 [enabled countries](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency/setup).
@@ -9190,7 +9196,7 @@ For example, `CA`. Including this field creates a checkout in the specified coun
 	/** The list of errors that occurred from executing the mutation. */
 	userErrors: Array<ModelTypes["UserError"]>
 };
-	/** Specifies the fields required to create a checkout. */
+	/** The input fields required to create a checkout. */
 ["CheckoutCreateInput"]: {
 	/** The email with which the customer wants to checkout. */
 	email?: string | undefined,
@@ -9293,7 +9299,7 @@ Full validation of addresses is still done at completion time. Defaults to `null
 	customAttributes: Array<ModelTypes["Attribute"]>,
 	/** The discounts that have been allocated onto the checkout line item by discount applications. */
 	discountAllocations: Array<ModelTypes["DiscountAllocation"]>,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The quantity of the line item. */
 	quantity: number,
@@ -9322,20 +9328,20 @@ Full validation of addresses is still done at completion time. Defaults to `null
 	/** The item at the end of CheckoutLineItemEdge. */
 	node: ModelTypes["CheckoutLineItem"]
 };
-	/** Specifies the input fields to create a line item on a checkout. */
+	/** The input fields to create a line item on a checkout. */
 ["CheckoutLineItemInput"]: {
 	/** Extra information in the form of an array of Key-Value pairs about the line item. */
 	customAttributes?: Array<ModelTypes["AttributeInput"]> | undefined,
 	/** The quantity of the line item. */
 	quantity: number,
-	/** The identifier of the product variant for the line item. */
+	/** The ID of the product variant for the line item. */
 	variantId: string
 };
-	/** Specifies the input fields to update a line item on the checkout. */
+	/** The input fields to update a line item on the checkout. */
 ["CheckoutLineItemUpdateInput"]: {
-	/** The identifier of the line item. */
+	/** The ID of the line item. */
 	id?: string | undefined,
-	/** The variant identifier of the line item. */
+	/** The variant ID of the line item. */
 	variantId?: string | undefined,
 	/** The quantity of the line item. */
 	quantity?: number | undefined,
@@ -9413,7 +9419,7 @@ Full validation of addresses is still done at completion time. Defaults to `null
 Limit of 255 characters.
  */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Image associated with the collection. */
 	image?: ModelTypes["Image"] | undefined,
@@ -9465,7 +9471,7 @@ For example, "#6A8D48".
 	content: string,
 	/** The content of the comment, complete with HTML formatting. */
 	contentHtml: ModelTypes["HTML"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string
 };
 	/** The author of a comment. */
@@ -9568,7 +9574,7 @@ a Shopify vaulted credit card payment.
 	email?: string | undefined,
 	/** The customer’s first name. */
 	firstName?: string | undefined,
-	/** A unique identifier for the customer. */
+	/** A unique ID for the customer. */
 	id: string,
 	/** The customer's most recently updated, incomplete checkout. */
 	lastIncompleteCheckout?: ModelTypes["Checkout"] | undefined,
@@ -9599,7 +9605,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	/** The date and time when the customer access token expires. */
 	expiresAt: ModelTypes["DateTime"]
 };
-	/** Specifies the input fields required to create a customer access token. */
+	/** The input fields required to create a customer access token. */
 ["CustomerAccessTokenCreateInput"]: {
 	/** The email associated to the customer. */
 	email: string,
@@ -9647,7 +9653,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	/** The list of errors that occurred from executing the mutation. */
 	customerUserErrors: Array<ModelTypes["CustomerUserError"]>
 };
-	/** Specifies the input fields required to activate a customer. */
+	/** The input fields to activate a customer. */
 ["CustomerActivateInput"]: {
 	/** The activation token required to activate the customer. */
 	activationToken: string,
@@ -9692,7 +9698,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	/** The list of errors that occurred from executing the mutation. */
 	userErrors: Array<ModelTypes["UserError"]>
 };
-	/** The fields required to create a new customer. */
+	/** The input fields to create a new customer. */
 ["CustomerCreateInput"]: {
 	/** The customer’s first name. */
 	firstName?: string | undefined,
@@ -9747,7 +9753,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** The list of errors that occurred from executing the mutation. */
 	userErrors: Array<ModelTypes["UserError"]>
 };
-	/** Specifies the fields required to reset a customer’s password. */
+	/** The input fields to reset a customer's password. */
 ["CustomerResetInput"]: {
 	/** The reset token required to reset the customer’s password. */
 	resetToken: string,
@@ -9765,7 +9771,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** The list of errors that occurred from executing the mutation. */
 	userErrors: Array<ModelTypes["UserError"]>
 };
-	/** Specifies the fields required to update the Customer information. */
+	/** The input fields to update the Customer information. */
 ["CustomerUpdateInput"]: {
 	/** The customer’s first name. */
 	firstName?: string | undefined,
@@ -9896,7 +9902,7 @@ the time that it is applied.
 	embeddedUrl: ModelTypes["URL"],
 	/** The host of the external video. */
 	host: ModelTypes["MediaHost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The media content type. */
 	mediaContentType: ModelTypes["MediaContentType"],
@@ -9978,7 +9984,7 @@ such as the tracking number and tracking URL.
 ["GenericFile"]: {
 		/** A word or phrase to indicate the contents of a file. */
 	alt?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The MIME type of the file. */
 	mimeType?: string | undefined,
@@ -9989,7 +9995,7 @@ such as the tracking number and tracking URL.
 	/** The URL of the file. */
 	url?: ModelTypes["URL"] | undefined
 };
-	/** Used to specify a geographical location. */
+	/** The input fields used to specify a geographical location. */
 ["GeoCoordinateInput"]: {
 	/** The coordinate's latitude value. */
 	latitude: number,
@@ -10004,7 +10010,7 @@ Example value: `"<p>Grey cotton knit sweater.</p>"`
 ["HTML"]:any;
 	/** Represents information about the metafields associated to the specified resource. */
 ["HasMetafields"]: ModelTypes["Article"] | ModelTypes["Blog"] | ModelTypes["Collection"] | ModelTypes["Customer"] | ModelTypes["Order"] | ModelTypes["Page"] | ModelTypes["Product"] | ModelTypes["ProductVariant"] | ModelTypes["Shop"];
-	/** Identifies a metafield on an owner resource by namespace and key. */
+	/** The input fields to identify a metafield on an owner resource by namespace and key. */
 ["HasMetafieldsIdentifier"]: {
 	/** A container for a set of metafields. */
 	namespace: string,
@@ -10017,7 +10023,7 @@ Example value: `"<p>Grey cotton knit sweater.</p>"`
 	altText?: string | undefined,
 	/** The original height of the image in pixels. Returns `null` if the image is not hosted by Shopify. */
 	height?: number | undefined,
-	/** A unique identifier for the image. */
+	/** A unique ID for the image. */
 	id?: string | undefined,
 	/** The location of the original image as a URL.
 
@@ -10129,7 +10135,7 @@ Example value:
 ["Location"]: {
 		/** The address of the location. */
 	address: ModelTypes["LocationAddress"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The name of the location. */
 	name: string
@@ -10214,7 +10220,7 @@ For example, US.
 	formatted: Array<string>,
 	/** A comma-separated list of the values for city, province, and country. */
 	formattedArea?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The last name of the customer. */
 	lastName?: string | undefined,
@@ -10258,7 +10264,7 @@ For example, ON.
 	/** The item at the end of MailingAddressEdge. */
 	node: ModelTypes["MailingAddress"]
 };
-	/** Specifies the fields accepted to create or update a mailing address. */
+	/** The input fields to create or update a mailing address. */
 ["MailingAddressInput"]: {
 	/** The first line of the address. Typically the street address or PO Box number.
  */
@@ -10330,7 +10336,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 ["MediaImage"]: {
 		/** A word or phrase to share the nature or contents of a media. */
 	alt?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The image for the media. */
 	image?: ModelTypes["Image"] | undefined,
@@ -10339,12 +10345,13 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** The preview image for the media. */
 	previewImage?: ModelTypes["Image"] | undefined
 };
-	/** A menu used for navigation within a storefront.
+	/** A [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) representing a hierarchy
+of hyperlinks (items).
  */
 ["Menu"]: {
 		/** The menu's handle. */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The menu's child items. */
 	items: Array<ModelTypes["MenuItem"]>,
@@ -10356,7 +10363,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** A menu item within a parent menu.
  */
 ["MenuItem"]: {
-		/** A globally-unique identifier. */
+		/** A globally-unique ID. */
 	id: string,
 	/** The menu item's child items. */
 	items: Array<ModelTypes["MenuItem"]>,
@@ -10382,25 +10389,25 @@ comprised of keys, values, and value types.
 	createdAt: ModelTypes["DateTime"],
 	/** The description of a metafield. */
 	description?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
-	/** The key name for a metafield. */
+	/** The unique identifier for the metafield within its namespace. */
 	key: string,
-	/** The namespace for a metafield. */
+	/** The container for a group of metafields that the metafield is associated with. */
 	namespace: string,
-	/** The parent object that the metafield belongs to. */
+	/** The type of resource that the metafield is attached to. */
 	parentResource: ModelTypes["MetafieldParentResource"],
-	/** Returns a reference object if the metafield definition's type is a resource reference. */
+	/** Returns a reference object if the metafield's type is a resource reference. */
 	reference?: ModelTypes["MetafieldReference"] | undefined,
 	/** A list of reference objects if the metafield's type is a resource reference list. */
 	references?: ModelTypes["MetafieldReferenceConnection"] | undefined,
 	/** The type name of the metafield.
-See the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
+Refer to the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
  */
 	type: string,
-	/** The date and time when the storefront metafield was updated. */
+	/** The date and time when the metafield was last updated. */
 	updatedAt: ModelTypes["DateTime"],
-	/** The value of a metafield. */
+	/** The data stored in the metafield. Always stored as a string, regardless of the metafield's type. */
 	value: string
 };
 	/** A filter used to view a subset of products in a collection matching a specific metafield value.
@@ -10452,7 +10459,7 @@ Omitted object keys can be assumed null, and no guarantees are made about field 
 	fields: Array<ModelTypes["MetaobjectField"]>,
 	/** The unique handle of the metaobject. Useful as a custom ID. */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The type of the metaobject. Defines the namespace of its associated metafields. */
 	type: string,
@@ -10503,7 +10510,7 @@ See the list of [supported types](https://shopify.dev/apps/metafields/definition
 ["Model3d"]: {
 		/** A word or phrase to share the nature or contents of a media. */
 	alt?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The media content type. */
 	mediaContentType: ModelTypes["MediaContentType"],
@@ -10523,7 +10530,7 @@ See the list of [supported types](https://shopify.dev/apps/metafields/definition
 	/** The URL of the 3d model. */
 	url: string
 };
-	/** Specifies the fields for a monetary value with currency. */
+	/** The input fields for a monetary value with currency. */
 ["MoneyInput"]: {
 	/** Decimal money amount. */
 	amount: ModelTypes["Decimal"],
@@ -10692,7 +10699,7 @@ and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) querie
 	financialStatus?: ModelTypes["OrderFinancialStatus"] | undefined,
 	/** The fulfillment status for the order. */
 	fulfillmentStatus: ModelTypes["OrderFulfillmentStatus"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** List of the order’s line items. */
 	lineItems: ModelTypes["OrderLineItemConnection"],
@@ -10819,7 +10826,7 @@ If no value is provided, it will be auto-generated based on current date and tim
 	createdAt: ModelTypes["DateTime"],
 	/** A human-friendly unique string for the page automatically generated from its title. */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Returns a metafield found by namespace and key. */
 	metafield?: ModelTypes["Metafield"] | undefined,
@@ -10882,7 +10889,7 @@ For more information, please read our [GraphQL Pagination Usage Guide](https://s
 	creditCard?: ModelTypes["CreditCard"] | undefined,
 	/** A message describing a processing error during asynchronous processing. */
 	errorMessage?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** A client-side generated token to identify a payment and perform idempotent operations.
 For more information, refer to
@@ -10910,13 +10917,14 @@ For more information, refer to
 	currencyCode: ModelTypes["CurrencyCode"],
 	/** A list of enabled currencies (ISO 4217 format) that the shop accepts. Merchants can enable currencies from their Shopify Payments settings in the Shopify admin. */
 	enabledPresentmentCurrencies: Array<ModelTypes["CurrencyCode"]>,
-	/** The shop’s Shopify Payments account id. */
+	/** The shop’s Shopify Payments account ID. */
 	shopifyPaymentsAccountId?: string | undefined,
 	/** List of the digital wallets which the shop supports. */
 	supportedDigitalWallets: Array<ModelTypes["DigitalWallet"]>
 };
 	["PaymentTokenType"]:PaymentTokenType;
-	/** A filter used to view a subset of products in a collection matching a specific price range. */
+	/** The input fields for a filter used to view a subset of products in a collection matching a specific price range.
+ */
 ["PriceRangeFilter"]: {
 	/** The minimum price in the range. Defaults to zero. */
 	min?: number | undefined,
@@ -10954,7 +10962,7 @@ This field is functionally equivalent to `images(first: 1)`.
 They are used by the Liquid templating language to refer to objects.
  */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** List of images associated with the product. */
 	images: ModelTypes["ImageConnection"],
@@ -11028,7 +11036,7 @@ If there is not a variant for the selected options, `null` will be returned.
 	/** The item at the end of ProductEdge. */
 	node: ModelTypes["Product"]
 };
-	/** A filter used to view a subset of products in a collection. */
+	/** The input fields for a filter used to view a subset of products in a collection. */
 ["ProductFilter"]: {
 	/** Filter on if the product is available for sale. */
 	available?: boolean | undefined,
@@ -11054,7 +11062,7 @@ Variants are selected based on permutations of these options.
 255 characters limit each.
  */
 ["ProductOption"]: {
-		/** A globally-unique identifier. */
+		/** A globally-unique ID. */
 	id: string,
 	/** The product option’s name. */
 	name: string,
@@ -11081,7 +11089,7 @@ Variants are selected based on permutations of these options.
 	compareAtPriceV2?: ModelTypes["MoneyV2"] | undefined,
 	/** Whether a product is out of stock but still available for purchase (used for backorders). */
 	currentlyNotInStock: boolean,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Image associated with the product variant. This field falls back to the product image if no image is available.
  */
@@ -11159,7 +11167,9 @@ Variants are selected based on permutations of these options.
 	collectionByHandle?: ModelTypes["Collection"] | undefined,
 	/** List of the shop’s collections. */
 	collections: ModelTypes["CollectionConnection"],
-	/** Find a customer by its access token. */
+	/** The customer associated with the given access token. Tokens are obtained by using the
+[`customerAccessTokenCreate` mutation](https://shopify.dev/docs/api/storefront/latest/mutations/customerAccessTokenCreate).
+ */
 	customer?: ModelTypes["Customer"] | undefined,
 	/** Returns the localized experiences configured for the shop. */
 	localization: ModelTypes["Localization"],
@@ -11168,7 +11178,8 @@ Variants are selected based on permutations of these options.
 When sorting by distance, you must specify a location via the `near` argument.
  */
 	locations: ModelTypes["LocationConnection"],
-	/** A storefront menu. */
+	/** Retrieve a [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) by its handle.
+ */
 	menu?: ModelTypes["Menu"] | undefined,
 	/** Fetch a specific Metaobject by one of its unique identifiers. */
 	metaobject?: ModelTypes["Metaobject"] | undefined,
@@ -11239,7 +11250,7 @@ Products can have multiple options, like different sizes or colors.
 	/** The product option’s value. */
 	value: string
 };
-	/** Specifies the input fields required for a selected option. */
+	/** The input fields required for a selected option. */
 ["SelectedOptionInput"]: {
 	/** The product option’s name. */
 	name: string,
@@ -11252,7 +11263,7 @@ Products can have multiple options, like different sizes or colors.
 	checkoutCharge: ModelTypes["SellingPlanCheckoutCharge"],
 	/** The description of the selling plan. */
 	description?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The name of the selling plan. For example, '6 weeks of prepaid granola, delivered weekly'. */
 	name: string,
@@ -11422,7 +11433,7 @@ Individual selling plans contribute their options to the associated selling plan
 	brand?: ModelTypes["Brand"] | undefined,
 	/** A description of the shop. */
 	description?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Returns a metafield found by namespace and key. */
 	metafield?: ModelTypes["Metafield"] | undefined,
@@ -11456,7 +11467,7 @@ Individual selling plans contribute their options to the associated selling plan
 	body: string,
 	/** Policy’s handle. */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Policy’s title. */
 	title: string,
@@ -11472,7 +11483,7 @@ Otherwise, the policy will return the merchant-configured value.
 	body: string,
 	/** The handle of the policy. */
 	handle: string,
-	/** The unique identifier of the policy. A default policy doesn't have an ID. */
+	/** The unique ID of the policy. A default policy doesn't have an ID. */
 	id?: string | undefined,
 	/** The title of the policy. */
 	title: string,
@@ -11623,7 +11634,8 @@ Example value: `"50"`.
 	/** The error message. */
 	message: string
 };
-	/** A filter used to view a subset of products in a collection matching a specific variant option. */
+	/** The input fields for a filter used to view a subset of products in a collection matching a specific variant option.
+ */
 ["VariantOptionFilter"]: {
 	/** The name of the variant option to filter on. */
 	name: string,
@@ -11634,7 +11646,7 @@ Example value: `"50"`.
 ["Video"]: {
 		/** A word or phrase to share the nature or contents of a media. */
 	alt?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The media content type. */
 	mediaContentType: ModelTypes["MediaContentType"],
@@ -11683,7 +11695,7 @@ Versions are commonly referred to by their handle (for example, `2021-10`).
 	balance: GraphQLTypes["MoneyV2"],
 	/** The amount left on the gift card. */
 	balanceV2: GraphQLTypes["MoneyV2"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The last characters of the gift card. */
 	lastCharacters: string,
@@ -11712,7 +11724,7 @@ Versions are commonly referred to by their handle (for example, `2021-10`).
 	/** A human-friendly unique string for the Article automatically generated from its title.
  */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The image associated with the article. */
 	image?: GraphQLTypes["Image"] | undefined,
@@ -11776,7 +11788,7 @@ Versions are commonly referred to by their handle (for example, `2021-10`).
 	/** Value of the attribute. */
 	value?: string | undefined
 };
-	/** Specifies the input fields required for an attribute. */
+	/** The input fields for an attribute. */
 ["AttributeInput"]: {
 		/** Key or name of the attribute. */
 	key: string,
@@ -11821,7 +11833,7 @@ This field should be polled until its value becomes `true`.
 	/** A human-friendly unique string for the Blog automatically generated from its title.
  */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Returns a metafield found by namespace and key. */
 	metafield?: GraphQLTypes["Metafield"] | undefined,
@@ -11857,7 +11869,7 @@ This field should be polled until its value becomes `true`.
 };
 	/** The set of valid sort keys for the Blog query. */
 ["BlogSortKeys"]: BlogSortKeys;
-	/** The store's branding configuration.
+	/** The store's [branding configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets).
  */
 ["Brand"]: {
 	__typename: "Brand",
@@ -11928,7 +11940,7 @@ The `estimatedCost` field uses the `buyerIdentity` field to determine
 [international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
  */
 	estimatedCost: GraphQLTypes["CartEstimatedCost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** A list of lines containing information about the items the customer intends to purchase. */
 	lines: GraphQLTypes["CartLineConnection"],
@@ -12145,7 +12157,7 @@ to determine
 	/** The estimated tax amount for the customer to pay at checkout. */
 	totalTaxAmount?: GraphQLTypes["MoneyV2"] | undefined
 };
-	/** Specifies the input fields to create a cart. */
+	/** The input fields to create a cart. */
 ["CartInput"]: {
 		/** An array of key-value pairs that contains additional information about the cart. */
 	attributes?: Array<GraphQLTypes["AttributeInput"]> | undefined,
@@ -12175,7 +12187,7 @@ Buyer identity should match the customer's shipping address.
 	discountAllocations: Array<GraphQLTypes["CartDiscountAllocation"]>,
 	/** The estimated cost of the merchandise that the buyer will pay for at checkout. The estimated costs are subject to change and changes will be reflected at checkout. */
 	estimatedCost: GraphQLTypes["CartLineEstimatedCost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The merchandise that the buyer intends to purchase. */
 	merchandise: GraphQLTypes["Merchandise"],
@@ -12228,28 +12240,28 @@ Buyer identity should match the customer's shipping address.
 	/** The estimated total cost of the merchandise line. */
 	totalAmount: GraphQLTypes["MoneyV2"]
 };
-	/** Specifies the input fields to create a merchandise line on a cart. */
+	/** The input fields to create a merchandise line on a cart. */
 ["CartLineInput"]: {
 		/** An array of key-value pairs that contains additional information about the merchandise line. */
 	attributes?: Array<GraphQLTypes["AttributeInput"]> | undefined,
 	/** The quantity of the merchandise. */
 	quantity?: number | undefined,
-	/** The identifier of the merchandise that the buyer intends to purchase. */
+	/** The ID of the merchandise that the buyer intends to purchase. */
 	merchandiseId: string,
-	/** The identifier of the selling plan that the merchandise is being purchased with. */
+	/** The ID of the selling plan that the merchandise is being purchased with. */
 	sellingPlanId?: string | undefined
 };
-	/** Specifies the input fields to update a line item on a cart. */
+	/** The input fields to update a line item on a cart. */
 ["CartLineUpdateInput"]: {
-		/** The identifier of the merchandise line. */
+		/** The ID of the merchandise line. */
 	id: string,
 	/** The quantity of the line item. */
 	quantity?: number | undefined,
-	/** The identifier of the merchandise for the line item. */
+	/** The ID of the merchandise for the line item. */
 	merchandiseId?: string | undefined,
 	/** An array of key-value pairs that contains additional information about the merchandise line. */
 	attributes?: Array<GraphQLTypes["AttributeInput"]> | undefined,
-	/** The identifier of the selling plan that the merchandise is being purchased with. */
+	/** The ID of the selling plan that the merchandise is being purchased with. */
 	sellingPlanId?: string | undefined
 };
 	/** Return type for `cartLinesAdd` mutation. */
@@ -12334,7 +12346,7 @@ the shipping address is valid.
 	discountApplications: GraphQLTypes["DiscountApplicationConnection"],
 	/** The email attached to this checkout. */
 	email?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** A list of line item objects, each one containing information about an item in the checkout. */
 	lineItems: GraphQLTypes["CheckoutLineItemConnection"],
@@ -12388,7 +12400,7 @@ date, polling is required until the value is true.
 	/** The url pointing to the checkout accessible from the web. */
 	webUrl: GraphQLTypes["URL"]
 };
-	/** Specifies the fields required to update a checkout's attributes. */
+	/** The input fields required to update a checkout's attributes. */
 ["CheckoutAttributesUpdateV2Input"]: {
 		/** The text of an optional note that a shop owner can attach to the checkout. */
 	note?: string | undefined,
@@ -12417,7 +12429,7 @@ each operation.
 	/** The country code for the checkout. For example, `CA`. */
 	countryCode?: GraphQLTypes["CountryCode"] | undefined
 };
-	/** Specifies the identity of the customer associated with the checkout. */
+	/** The input fields for the identity of the customer associated with the checkout. */
 ["CheckoutBuyerIdentityInput"]: {
 		/** The country code of one of the shop's
 [enabled countries](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency/setup).
@@ -12459,7 +12471,7 @@ For example, `CA`. Including this field creates a checkout in the specified coun
 	/** The list of errors that occurred from executing the mutation. */
 	userErrors: Array<GraphQLTypes["UserError"]>
 };
-	/** Specifies the fields required to create a checkout. */
+	/** The input fields required to create a checkout. */
 ["CheckoutCreateInput"]: {
 		/** The email with which the customer wants to checkout. */
 	email?: string | undefined,
@@ -12572,7 +12584,7 @@ Full validation of addresses is still done at completion time. Defaults to `null
 	customAttributes: Array<GraphQLTypes["Attribute"]>,
 	/** The discounts that have been allocated onto the checkout line item by discount applications. */
 	discountAllocations: Array<GraphQLTypes["DiscountAllocation"]>,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The quantity of the line item. */
 	quantity: number,
@@ -12603,20 +12615,20 @@ Full validation of addresses is still done at completion time. Defaults to `null
 	/** The item at the end of CheckoutLineItemEdge. */
 	node: GraphQLTypes["CheckoutLineItem"]
 };
-	/** Specifies the input fields to create a line item on a checkout. */
+	/** The input fields to create a line item on a checkout. */
 ["CheckoutLineItemInput"]: {
 		/** Extra information in the form of an array of Key-Value pairs about the line item. */
 	customAttributes?: Array<GraphQLTypes["AttributeInput"]> | undefined,
 	/** The quantity of the line item. */
 	quantity: number,
-	/** The identifier of the product variant for the line item. */
+	/** The ID of the product variant for the line item. */
 	variantId: string
 };
-	/** Specifies the input fields to update a line item on the checkout. */
+	/** The input fields to update a line item on the checkout. */
 ["CheckoutLineItemUpdateInput"]: {
-		/** The identifier of the line item. */
+		/** The ID of the line item. */
 	id?: string | undefined,
-	/** The variant identifier of the line item. */
+	/** The variant ID of the line item. */
 	variantId?: string | undefined,
 	/** The quantity of the line item. */
 	quantity?: number | undefined,
@@ -12702,7 +12714,7 @@ Full validation of addresses is still done at completion time. Defaults to `null
 Limit of 255 characters.
  */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Image associated with the collection. */
 	image?: GraphQLTypes["Image"] | undefined,
@@ -12758,7 +12770,7 @@ For example, "#6A8D48".
 	content: string,
 	/** The content of the comment, complete with HTML formatting. */
 	contentHtml: GraphQLTypes["HTML"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string
 };
 	/** The author of a comment. */
@@ -12877,7 +12889,7 @@ and non-standard codes.
 	email?: string | undefined,
 	/** The customer’s first name. */
 	firstName?: string | undefined,
-	/** A unique identifier for the customer. */
+	/** A unique ID for the customer. */
 	id: string,
 	/** The customer's most recently updated, incomplete checkout. */
 	lastIncompleteCheckout?: GraphQLTypes["Checkout"] | undefined,
@@ -12909,7 +12921,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	/** The date and time when the customer access token expires. */
 	expiresAt: GraphQLTypes["DateTime"]
 };
-	/** Specifies the input fields required to create a customer access token. */
+	/** The input fields required to create a customer access token. */
 ["CustomerAccessTokenCreateInput"]: {
 		/** The email associated to the customer. */
 	email: string,
@@ -12962,7 +12974,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	/** The list of errors that occurred from executing the mutation. */
 	customerUserErrors: Array<GraphQLTypes["CustomerUserError"]>
 };
-	/** Specifies the input fields required to activate a customer. */
+	/** The input fields to activate a customer. */
 ["CustomerActivateInput"]: {
 		/** The activation token required to activate the customer. */
 	activationToken: string,
@@ -13011,7 +13023,7 @@ Additional access scope required: unauthenticated_read_customer_tags.
 	/** The list of errors that occurred from executing the mutation. */
 	userErrors: Array<GraphQLTypes["UserError"]>
 };
-	/** The fields required to create a new customer. */
+	/** The input fields to create a new customer. */
 ["CustomerCreateInput"]: {
 		/** The customer’s first name. */
 	firstName?: string | undefined,
@@ -13071,7 +13083,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** The list of errors that occurred from executing the mutation. */
 	userErrors: Array<GraphQLTypes["UserError"]>
 };
-	/** Specifies the fields required to reset a customer’s password. */
+	/** The input fields to reset a customer's password. */
 ["CustomerResetInput"]: {
 		/** The reset token required to reset the customer’s password. */
 	resetToken: string,
@@ -13090,7 +13102,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** The list of errors that occurred from executing the mutation. */
 	userErrors: Array<GraphQLTypes["UserError"]>
 };
-	/** Specifies the fields required to update the Customer information. */
+	/** The input fields to update the Customer information. */
 ["CustomerUpdateInput"]: {
 		/** The customer’s first name. */
 	firstName?: string | undefined,
@@ -13266,7 +13278,7 @@ the time that it is applied.
 	embeddedUrl: GraphQLTypes["URL"],
 	/** The host of the external video. */
 	host: GraphQLTypes["MediaHost"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The media content type. */
 	mediaContentType: GraphQLTypes["MediaContentType"],
@@ -13361,7 +13373,7 @@ such as the tracking number and tracking URL.
 	__typename: "GenericFile",
 	/** A word or phrase to indicate the contents of a file. */
 	alt?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The MIME type of the file. */
 	mimeType?: string | undefined,
@@ -13372,7 +13384,7 @@ such as the tracking number and tracking URL.
 	/** The URL of the file. */
 	url?: GraphQLTypes["URL"] | undefined
 };
-	/** Used to specify a geographical location. */
+	/** The input fields used to specify a geographical location. */
 ["GeoCoordinateInput"]: {
 		/** The coordinate's latitude value. */
 	latitude: number,
@@ -13403,7 +13415,7 @@ Example value: `"<p>Grey cotton knit sweater.</p>"`
 	['...on ProductVariant']: '__union' & GraphQLTypes["ProductVariant"];
 	['...on Shop']: '__union' & GraphQLTypes["Shop"];
 };
-	/** Identifies a metafield on an owner resource by namespace and key. */
+	/** The input fields to identify a metafield on an owner resource by namespace and key. */
 ["HasMetafieldsIdentifier"]: {
 		/** A container for a set of metafields. */
 	namespace: string,
@@ -13417,7 +13429,7 @@ Example value: `"<p>Grey cotton knit sweater.</p>"`
 	altText?: string | undefined,
 	/** The original height of the image in pixels. Returns `null` if the image is not hosted by Shopify. */
 	height?: number | undefined,
-	/** A unique identifier for the image. */
+	/** A unique ID for the image. */
 	id?: string | undefined,
 	/** The location of the original image as a URL.
 
@@ -13536,7 +13548,7 @@ Example value:
 	__typename: "Location",
 	/** The address of the location. */
 	address: GraphQLTypes["LocationAddress"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The name of the location. */
 	name: string
@@ -13626,7 +13638,7 @@ For example, US.
 	formatted: Array<string>,
 	/** A comma-separated list of the values for city, province, and country. */
 	formattedArea?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The last name of the customer. */
 	lastName?: string | undefined,
@@ -13672,7 +13684,7 @@ For example, ON.
 	/** The item at the end of MailingAddressEdge. */
 	node: GraphQLTypes["MailingAddress"]
 };
-	/** Specifies the fields accepted to create or update a mailing address. */
+	/** The input fields to create or update a mailing address. */
 ["MailingAddressInput"]: {
 		/** The first line of the address. Typically the street address or PO Box number.
  */
@@ -13762,7 +13774,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	__typename: "MediaImage",
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The image for the media. */
 	image?: GraphQLTypes["Image"] | undefined,
@@ -13771,13 +13783,14 @@ Formatted using E.164 standard. For example, _+16135551111_.
 	/** The preview image for the media. */
 	previewImage?: GraphQLTypes["Image"] | undefined
 };
-	/** A menu used for navigation within a storefront.
+	/** A [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) representing a hierarchy
+of hyperlinks (items).
  */
 ["Menu"]: {
 	__typename: "Menu",
 	/** The menu's handle. */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The menu's child items. */
 	items: Array<GraphQLTypes["MenuItem"]>,
@@ -13790,7 +13803,7 @@ Formatted using E.164 standard. For example, _+16135551111_.
  */
 ["MenuItem"]: {
 	__typename: "MenuItem",
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The menu item's child items. */
 	items: Array<GraphQLTypes["MenuItem"]>,
@@ -13821,25 +13834,25 @@ comprised of keys, values, and value types.
 	createdAt: GraphQLTypes["DateTime"],
 	/** The description of a metafield. */
 	description?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
-	/** The key name for a metafield. */
+	/** The unique identifier for the metafield within its namespace. */
 	key: string,
-	/** The namespace for a metafield. */
+	/** The container for a group of metafields that the metafield is associated with. */
 	namespace: string,
-	/** The parent object that the metafield belongs to. */
+	/** The type of resource that the metafield is attached to. */
 	parentResource: GraphQLTypes["MetafieldParentResource"],
-	/** Returns a reference object if the metafield definition's type is a resource reference. */
+	/** Returns a reference object if the metafield's type is a resource reference. */
 	reference?: GraphQLTypes["MetafieldReference"] | undefined,
 	/** A list of reference objects if the metafield's type is a resource reference list. */
 	references?: GraphQLTypes["MetafieldReferenceConnection"] | undefined,
 	/** The type name of the metafield.
-See the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
+Refer to the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
  */
 	type: string,
-	/** The date and time when the storefront metafield was updated. */
+	/** The date and time when the metafield was last updated. */
 	updatedAt: GraphQLTypes["DateTime"],
-	/** The value of a metafield. */
+	/** The data stored in the metafield. Always stored as a string, regardless of the metafield's type. */
 	value: string
 };
 	/** A filter used to view a subset of products in a collection matching a specific metafield value.
@@ -13915,7 +13928,7 @@ Omitted object keys can be assumed null, and no guarantees are made about field 
 	fields: Array<GraphQLTypes["MetaobjectField"]>,
 	/** The unique handle of the metaobject. Useful as a custom ID. */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The type of the metaobject. Defines the namespace of its associated metafields. */
 	type: string,
@@ -13970,7 +13983,7 @@ See the list of [supported types](https://shopify.dev/apps/metafields/definition
 	__typename: "Model3d",
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The media content type. */
 	mediaContentType: GraphQLTypes["MediaContentType"],
@@ -13991,7 +14004,7 @@ See the list of [supported types](https://shopify.dev/apps/metafields/definition
 	/** The URL of the 3d model. */
 	url: string
 };
-	/** Specifies the fields for a monetary value with currency. */
+	/** The input fields for a monetary value with currency. */
 ["MoneyInput"]: {
 		/** Decimal money amount. */
 	amount: GraphQLTypes["Decimal"],
@@ -14129,7 +14142,7 @@ and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) querie
  */
 ["Node"]: {
 	__typename:"AppliedGiftCard" | "Article" | "Blog" | "Cart" | "CartLine" | "Checkout" | "CheckoutLineItem" | "Collection" | "Comment" | "ExternalVideo" | "GenericFile" | "Location" | "MailingAddress" | "MediaImage" | "Menu" | "MenuItem" | "Metafield" | "Metaobject" | "Model3d" | "Order" | "Page" | "Payment" | "Product" | "ProductOption" | "ProductVariant" | "Shop" | "ShopPolicy" | "UrlRedirect" | "Video",
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string
 	['...on AppliedGiftCard']: '__union' & GraphQLTypes["AppliedGiftCard"];
 	['...on Article']: '__union' & GraphQLTypes["Article"];
@@ -14205,7 +14218,7 @@ and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) querie
 	financialStatus?: GraphQLTypes["OrderFinancialStatus"] | undefined,
 	/** The fulfillment status for the order. */
 	fulfillmentStatus: GraphQLTypes["OrderFulfillmentStatus"],
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** List of the order’s line items. */
 	lineItems: GraphQLTypes["OrderLineItemConnection"],
@@ -14342,7 +14355,7 @@ If no value is provided, it will be auto-generated based on current date and tim
 	createdAt: GraphQLTypes["DateTime"],
 	/** A human-friendly unique string for the page automatically generated from its title. */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Returns a metafield found by namespace and key. */
 	metafield?: GraphQLTypes["Metafield"] | undefined,
@@ -14410,7 +14423,7 @@ For more information, please read our [GraphQL Pagination Usage Guide](https://s
 	creditCard?: GraphQLTypes["CreditCard"] | undefined,
 	/** A message describing a processing error during asynchronous processing. */
 	errorMessage?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** A client-side generated token to identify a payment and perform idempotent operations.
 For more information, refer to
@@ -14439,14 +14452,15 @@ For more information, refer to
 	currencyCode: GraphQLTypes["CurrencyCode"],
 	/** A list of enabled currencies (ISO 4217 format) that the shop accepts. Merchants can enable currencies from their Shopify Payments settings in the Shopify admin. */
 	enabledPresentmentCurrencies: Array<GraphQLTypes["CurrencyCode"]>,
-	/** The shop’s Shopify Payments account id. */
+	/** The shop’s Shopify Payments account ID. */
 	shopifyPaymentsAccountId?: string | undefined,
 	/** List of the digital wallets which the shop supports. */
 	supportedDigitalWallets: Array<GraphQLTypes["DigitalWallet"]>
 };
 	/** The valid values for the types of payment token. */
 ["PaymentTokenType"]: PaymentTokenType;
-	/** A filter used to view a subset of products in a collection matching a specific price range. */
+	/** The input fields for a filter used to view a subset of products in a collection matching a specific price range.
+ */
 ["PriceRangeFilter"]: {
 		/** The minimum price in the range. Defaults to zero. */
 	min?: number | undefined,
@@ -14490,7 +14504,7 @@ This field is functionally equivalent to `images(first: 1)`.
 They are used by the Liquid templating language to refer to objects.
  */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** List of images associated with the product. */
 	images: GraphQLTypes["ImageConnection"],
@@ -14567,7 +14581,7 @@ If there is not a variant for the selected options, `null` will be returned.
 	/** The item at the end of ProductEdge. */
 	node: GraphQLTypes["Product"]
 };
-	/** A filter used to view a subset of products in a collection. */
+	/** The input fields for a filter used to view a subset of products in a collection. */
 ["ProductFilter"]: {
 		/** Filter on if the product is available for sale. */
 	available?: boolean | undefined,
@@ -14596,7 +14610,7 @@ Variants are selected based on permutations of these options.
  */
 ["ProductOption"]: {
 	__typename: "ProductOption",
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The product option’s name. */
 	name: string,
@@ -14626,7 +14640,7 @@ Variants are selected based on permutations of these options.
 	compareAtPriceV2?: GraphQLTypes["MoneyV2"] | undefined,
 	/** Whether a product is out of stock but still available for purchase (used for backorders). */
 	currentlyNotInStock: boolean,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Image associated with the product variant. This field falls back to the product image if no image is available.
  */
@@ -14708,7 +14722,9 @@ Variants are selected based on permutations of these options.
 	collectionByHandle?: GraphQLTypes["Collection"] | undefined,
 	/** List of the shop’s collections. */
 	collections: GraphQLTypes["CollectionConnection"],
-	/** Find a customer by its access token. */
+	/** The customer associated with the given access token. Tokens are obtained by using the
+[`customerAccessTokenCreate` mutation](https://shopify.dev/docs/api/storefront/latest/mutations/customerAccessTokenCreate).
+ */
 	customer?: GraphQLTypes["Customer"] | undefined,
 	/** Returns the localized experiences configured for the shop. */
 	localization: GraphQLTypes["Localization"],
@@ -14717,7 +14733,8 @@ Variants are selected based on permutations of these options.
 When sorting by distance, you must specify a location via the `near` argument.
  */
 	locations: GraphQLTypes["LocationConnection"],
-	/** A storefront menu. */
+	/** Retrieve a [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) by its handle.
+ */
 	menu?: GraphQLTypes["Menu"] | undefined,
 	/** Fetch a specific Metaobject by one of its unique identifiers. */
 	metaobject?: GraphQLTypes["Metaobject"] | undefined,
@@ -14791,7 +14808,7 @@ Products can have multiple options, like different sizes or colors.
 	/** The product option’s value. */
 	value: string
 };
-	/** Specifies the input fields required for a selected option. */
+	/** The input fields required for a selected option. */
 ["SelectedOptionInput"]: {
 		/** The product option’s name. */
 	name: string,
@@ -14805,7 +14822,7 @@ Products can have multiple options, like different sizes or colors.
 	checkoutCharge: GraphQLTypes["SellingPlanCheckoutCharge"],
 	/** The description of the selling plan. */
 	description?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The name of the selling plan. For example, '6 weeks of prepaid granola, delivered weekly'. */
 	name: string,
@@ -15004,7 +15021,7 @@ Individual selling plans contribute their options to the associated selling plan
 	brand?: GraphQLTypes["Brand"] | undefined,
 	/** A description of the shop. */
 	description?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Returns a metafield found by namespace and key. */
 	metafield?: GraphQLTypes["Metafield"] | undefined,
@@ -15039,7 +15056,7 @@ Individual selling plans contribute their options to the associated selling plan
 	body: string,
 	/** Policy’s handle. */
 	handle: string,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** Policy’s title. */
 	title: string,
@@ -15056,7 +15073,7 @@ Otherwise, the policy will return the merchant-configured value.
 	body: string,
 	/** The handle of the policy. */
 	handle: string,
-	/** The unique identifier of the policy. A default policy doesn't have an ID. */
+	/** The unique ID of the policy. A default policy doesn't have an ID. */
 	id?: string | undefined,
 	/** The title of the policy. */
 	title: string,
@@ -15223,7 +15240,8 @@ Example value: `"50"`.
 	/** The error message. */
 	message: string
 };
-	/** A filter used to view a subset of products in a collection matching a specific variant option. */
+	/** The input fields for a filter used to view a subset of products in a collection matching a specific variant option.
+ */
 ["VariantOptionFilter"]: {
 		/** The name of the variant option to filter on. */
 	name: string,
@@ -15235,7 +15253,7 @@ Example value: `"50"`.
 	__typename: "Video",
 	/** A word or phrase to share the nature or contents of a media. */
 	alt?: string | undefined,
-	/** A globally-unique identifier. */
+	/** A globally-unique ID. */
 	id: string,
 	/** The media content type. */
 	mediaContentType: GraphQLTypes["MediaContentType"],
