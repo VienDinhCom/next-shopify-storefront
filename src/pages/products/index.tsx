@@ -1,15 +1,14 @@
-import { PageProps, fetchStaticProps, NextSeo } from '@site/utilities/deps';
+import { PageProps, NextSeo, fetchServerSideProps } from '@site/utilities/deps';
 import { StoreLayout } from '@site/layouts/StoreLayout';
 import { ProductListSection, fetchProductListSection } from '@site/sections/ProductListSection';
 
-export const getStaticProps = fetchStaticProps(async () => {
+export const getStaticProps = fetchServerSideProps(async () => {
   return {
     props: {
       data: {
         productListSection: await fetchProductListSection(),
       },
     },
-    revalidate: 60,
   };
 });
 

@@ -10,7 +10,7 @@ export { DefaultSeo, NextSeo } from 'next-seo';
 export { default as clsx } from 'clsx';
 export { default as formatTitle } from 'title';
 export { default as invariant } from 'tiny-invariant';
-export { fetchStaticProps, fetchStaticPaths } from '@maxvien/next';
+export { fetchStaticProps, fetchStaticPaths, fetchServerSideProps } from '@maxvien/next';
 
 /* Hooks
  ********************************************************************************/
