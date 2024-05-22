@@ -9,6 +9,7 @@ export const getStaticProps = fetchServerSideProps(async () => {
         productListSection: await fetchProductListSection(),
       },
     },
+    revalidate: 60,
   };
 });
 
