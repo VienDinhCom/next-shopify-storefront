@@ -117,4 +117,4 @@ To speed up your productivity, you can install these extensions:
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Maxvien/next-shopify-storefront&type=Date)](https://star-history.com/#Maxvien/next-shopify-storefront&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=VienDinhCom/next-shopify-storefront&type=Date)](https://star-history.com/#Maxvien/next-shopify-storefront&Date)
