@@ -1,4 +1,4 @@
-import type { ReactNode } from "@site/utilities/deps";
+import type { ReactNode } from "react";
 
 import { HeaderSection } from "@site/sections/header-section";
 

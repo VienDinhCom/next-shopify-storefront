@@ -1,6 +1,7 @@
-import type { ReactNode } from "@site/utilities/deps";
+import type { ReactNode } from "react";
 
-import { clsx, NextLink } from "@site/utilities/deps";
+import { clsx } from "clsx";
+import NextLink from "next/link";
 
 interface Props {
   onClick?: () => void;

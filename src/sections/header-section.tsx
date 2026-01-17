@@ -1,8 +1,10 @@
 import { Dialog, Popover } from "@headlessui/react";
 import { Bars3Icon, ShoppingBagIcon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useCart } from "@shopify/hydrogen-react";
-
-import { clsx, NextLink, useRouter, useState } from "@site/utilities/deps";
+import { clsx } from "clsx";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const mainMenuItems: { text: string; href: string }[] = [
   {

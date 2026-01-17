@@ -1,8 +1,11 @@
-import type { PageProps } from "@site/utilities/deps";
+import type { PageProps } from "@maxvien/next";
+
+import { fetchStaticPaths, fetchStaticProps } from "@maxvien/next";
+import { NextSeo } from "next-seo";
+import invariant from "tiny-invariant";
 
 import { StoreLayout } from "@site/layouts/store-layout";
 import { fetchProductSingleSection, ProductSingleSection } from "@site/sections/prouct-single-section";
-import { fetchStaticPaths, fetchStaticProps, invariant, NextSeo } from "@site/utilities/deps";
 
 export const getStaticPaths = fetchStaticPaths(async () => {
   return {

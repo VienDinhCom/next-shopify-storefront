@@ -9,8 +9,8 @@ import {
   Money,
   useCart,
 } from "@shopify/hydrogen-react";
-
-import { NextImage, NextLink } from "@site/utilities/deps";
+import NextImage from "next/image";
+import NextLink from "next/link";
 
 export function CartSection() {
   const cart = useCart();

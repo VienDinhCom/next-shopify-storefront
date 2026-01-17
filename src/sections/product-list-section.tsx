@@ -1,9 +1,12 @@
-import { Money } from "@shopify/hydrogen-react";
+import type { DataProps } from "@maxvien/next";
 
-import type { DataProps } from "@site/utilities/deps";
+import { Money } from "@shopify/hydrogen-react";
+import NextImage from "next/image";
+import NextLink from "next/link";
+import { useState } from "react";
+import { useAsyncFn } from "react-use";
 
 import { Button } from "@site/snippets";
-import { NextImage, NextLink, useAsyncFn, useState } from "@site/utilities/deps";
 import { storefront } from "@site/utilities/storefront";
 
 export async function fetchProductListSection(cursor?: string) {

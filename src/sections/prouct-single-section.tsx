@@ -1,10 +1,13 @@
+import type { DataProps } from "@maxvien/next";
+
+import { useVariantSelector } from "@maxvien/shopify";
 import { AddToCartButton, ProductPrice, ProductProvider } from "@shopify/hydrogen-react";
 import { truncate } from "lodash";
-
-import type { DataProps } from "@site/utilities/deps";
+import NextImage from "next/image";
+import invariant from "tiny-invariant";
+import formatTitle from "title";
 
 import { Button } from "@site/snippets";
-import { formatTitle, invariant, NextImage, useVariantSelector } from "@site/utilities/deps";
 import { storefront } from "@site/utilities/storefront";
 
 export async function fetchProductSingleSection(handle: string) {
