@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <section className="mx-auto max-w-4xl px-4 py-10 sm:py-20 lg:py-32">
+    <section className="mx-auto max-w-4xl px-4 py-5 sm:py-10 lg:py-16">
       <div className="flex flex-col items-center space-y-8">
         {/* Hire Me Button */}
         <div>
