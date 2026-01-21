@@ -8,6 +8,15 @@ export default function Page() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-10 sm:py-20 lg:py-32">
       <div className="flex flex-col items-center space-y-8">
+        {/* Hire Me Button */}
+        <div>
+          <Button asChild size="lg" className="w-full gap-2 sm:w-auto bg-green-700 font-bold">
+              <a href="https://viendinh.vercel.app/" target="_blank" rel="noopener noreferrer">
+                Hire Me as Your Full-Stack Developer
+              </a>
+            </Button>
+        </div>
+
         {/* Hero Content */}
         <div className="space-y-6 text-center">
           <div className="space-y-4">
@@ -105,6 +114,7 @@ export default function Page() {
             <p className="text-sm text-muted-foreground">Integrated with Shopify Storefront API</p>
           </Card>
         </div>
+
       </div>
     </section>
   );
