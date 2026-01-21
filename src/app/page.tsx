@@ -10,7 +10,7 @@ export default function Page() {
       <div className="flex flex-col items-center space-y-8">
         {/* Hire Me Button */}
         <div>
-          <Button asChild size="lg" className="w-full gap-2 sm:w-auto bg-green-700 font-bold">
+          <Button asChild size="lg" className="w-full gap-2 sm:w-auto bg-orange-600 font-bold">
               <a href="https://viendinh.vercel.app/" target="_blank" rel="noopener noreferrer">
                 Hire Me as Your Full-Stack Developer
               </a>
