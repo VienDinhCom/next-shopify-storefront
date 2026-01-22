@@ -34,16 +34,20 @@
     "@graphql-codegen/schema-ast": "^5.0.0",
     "@parcel/watcher": "^2.5.1",
     "@tailwindcss/postcss": "^4.1.18",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/node": "^24.10.4",
     "@types/react": "^18.3.27",
     "@types/react-dom": "^18.3.7",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.1",
     "esmate": "^2.1.4",
+    "jsdom": "^27.4.0",
     "prettier": "^3.7.4",
     "rimraf": "^6.1.2",
     "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.17"
   },
   "tasks": {
     "dev": {
