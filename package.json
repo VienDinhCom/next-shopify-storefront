@@ -10,7 +10,8 @@
     "dev": "esmate task dev",
     "build": "esmate task build",
     "fix": "esmate task fix",
-    "check": "esmate task check"
+    "check": "esmate task check",
+    "test": "esmate task test"
   },
   "dependencies": {
     "@esmate/react": "^3.1.2",
@@ -50,6 +51,7 @@
     "vitest": "^4.0.17"
   },
   "tasks": {
+    "test": "vitest",
     "dev": {
       "codegen": "graphql-codegen --watch --config codegen.config.ts",
       "nextdev": "rimraf .next && next dev"
