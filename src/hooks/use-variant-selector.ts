@@ -1,14 +1,21 @@
 import { useState, useMemo } from "react";
 
+
 interface Product {
   variants: {
     nodes: {
       id: string;
       availableForSale: boolean;
-      selectedOptions: { name: string; value: string }[];
+      selectedOptions: {
+        name: string;
+        value: string;
+      }[];
     }[];
   };
-  options: { name: string; values: string[] }[];
+  options: {
+    name: string;
+    values: string[];
+  }[];
 }
 
 type OptionValue = {
@@ -22,64 +29,115 @@ type Option = {
   values: OptionValue[];
 };
 
+type Options = Option[];
+
 export function useVariantSelector(product: Product) {
-  const [selectedValues, setSelectedValues] = useState<Record<string, string>>({});
+  const [selections, setSelections] = useState<Record<string, string>>({});
 
-  const options: Option[] = useMemo(() => {
-    // Get available values for an option based on current selections
-    const getAvailableValues = (optionName: string): Set<string> => {
-      const optionIndex = product.options.findIndex((opt) => opt.name === optionName);
-      const priorSelections = product.options
-        .slice(0, optionIndex)
-        .map((opt) => ({ name: opt.name, value: selectedValues[opt.name] }))
-        .filter((sel) => sel.value);
+  const options = useMemo(() => {
+    const computedOptions: Options = [];
+    let availableVariants = product.variants.nodes;
 
-      const matchingVariants = product.variants.nodes.filter((variant) =>
-        priorSelections.every((sel) =>
-          variant.selectedOptions.some((vo) => vo.name === sel.name && vo.value === sel.value),
-        ),
-      );
+    for (let i = 0; i < product.options.length; i++) {
+      const productOption = product.options[i];
+      const selectedValue = selections[productOption.name];
 
-      return new Set(
-        matchingVariants.flatMap((v) => v.selectedOptions.filter((so) => so.name === optionName).map((so) => so.value)),
-      );
-    };
+      // Calculate available values for the current option based on previous selections
+      const availableValues = new Set<string>();
+      for (const variant of availableVariants) {
+        const variantOption = variant.selectedOptions.find(
+          (o) => o.name === productOption.name
+        );
+        if (variantOption) {
+          availableValues.add(variantOption.value);
+        }
+      }
 
-    return product.options.map((option, index) => ({
-      name: option.name,
-      values: option.values.map((value) => {
-        const availableValues = getAvailableValues(option.name);
-        return {
-          value,
-          selected: selectedValues[option.name] === value,
-          disabled: index > 0 && !availableValues.has(value),
-        };
-      }),
-    }));
-  }, [selectedValues, product]);
+      const isPreviousSelected =
+        i === 0 || !!selections[product.options[i - 1].name];
 
-  // Find matching variant
+      computedOptions.push({
+        name: productOption.name,
+        values: productOption.values.map((value) => {
+          const isSelected = selectedValue === value;
+          const isAvailable = availableValues.has(value);
+          
+          return {
+            value,
+            selected: isSelected,
+            // Disabled if:
+            // 1. Previous option not selected (enforce sequential)
+            // 2. Value not available in current filtered variants
+            disabled: !isPreviousSelected || !isAvailable,
+          };
+        }),
+      });
+
+      // Prepare variants for the next option
+      if (selectedValue) {
+        availableVariants = availableVariants.filter((variant) =>
+          variant.selectedOptions.some(
+            (o) => o.name === productOption.name && o.value === selectedValue
+          )
+        );
+      } else {
+        // If current option not selected, subsequent options have no available variants
+        // (This keeps strict sequential logic)
+        availableVariants = [];
+      }
+    }
+
+    return computedOptions;
+  }, [product, selections]);
+
   const variantId = useMemo(() => {
-    const allSelected = product.options.every((opt) => selectedValues[opt.name]);
-    if (!allSelected) return null;
+    // Check if all options are selected
+    if (Object.keys(selections).length !== product.options.length) {
+      return null;
+    }
 
-    const variant = product.variants.nodes.find(
-      (v) => v.availableForSale && v.selectedOptions.every((so) => selectedValues[so.name] === so.value),
-    );
-    return variant?.id || null;
-  }, [selectedValues, product]);
+    // Find the variant reasoning:
+    // We can rely on basic finding because the options derivation handles the "existence" check logic
+    // But we need to verify the specific combination exists and is available.
+    
+    // Convert selections object to array matching variant structure for easier comparison could be one way,
+    // but simpler to just search.
+    const matchedVariant = product.variants.nodes.find((variant) => {
+      // 1. Must match all selections
+      const matchesAll = variant.selectedOptions.every((opt) => {
+        return selections[opt.name] === opt.value;
+      });
+      if (!matchesAll) return false;
 
-  const selectOption = (name: string, value: string) => {
-    const optionIndex = product.options.findIndex((opt) => opt.name === name);
-
-    // Clear dependent options
-    const newSelections = { ...selectedValues, [name]: value };
-    product.options.slice(optionIndex + 1).forEach((opt) => {
-      delete newSelections[opt.name];
+      // 2. Must check equality of option counts to avoid partial matches (though unlikely with proper structure)
+      // (The helper type ensures variants have selectedOptions)
+      return true;
     });
 
-    setSelectedValues(newSelections);
-  };
+    return matchedVariant && matchedVariant.availableForSale
+      ? matchedVariant.id
+      : null;
+  }, [product, selections]);
 
-  return { variantId, options, selectOption };
+  function selectOption(name: string, value: string) {
+    setSelections((prev) => {
+      const next = { ...prev, [name]: value };
+      
+      // Clear dependent options (those that come after the modified option)
+      const optionIndex = product.options.findIndex((o) => o.name === name);
+      if (optionIndex !== -1) {
+        for (let i = optionIndex + 1; i < product.options.length; i++) {
+          delete next[product.options[i].name];
+        }
+      }
+      
+      return next;
+    });
+  }
+
+  return {
+    variantId,
+    options,
+    selectOption,
+  };
 }
