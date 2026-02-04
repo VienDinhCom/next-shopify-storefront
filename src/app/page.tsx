@@ -10,11 +10,11 @@ export default function Page() {
       <div className="flex flex-col items-center space-y-8">
         {/* Hire Me Button */}
         <div>
-          <Button asChild size="lg" className="w-full gap-2 sm:w-auto bg-orange-600 font-bold">
-              <a href="https://viendinh.vercel.app/" target="_blank" rel="noopener noreferrer">
-                Hire Me as Your Full-Stack Developer
-              </a>
-            </Button>
+          <Button asChild size="lg" className="w-full gap-2 bg-orange-600 font-bold sm:w-auto">
+            <a href="https://viendinh.vercel.app/" target="_blank" rel="noopener noreferrer">
+              Hire Me as Your Full-Stack Developer
+            </a>
+          </Button>
         </div>
 
         {/* Hero Content */}
@@ -114,7 +114,6 @@ export default function Page() {
             <p className="text-sm text-muted-foreground">Integrated with Shopify Storefront API</p>
           </Card>
         </div>
-
       </div>
     </section>
   );

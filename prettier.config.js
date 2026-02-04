@@ -7,5 +7,5 @@ export default defineConfig({
     tailwindFunctions: ["cn"],
     tailwindStylesheet: "src/app/globals.css",
   },
-  ignores: ["src/lib/graphql", "next-env.d.ts"],
+  ignores: ["./src/lib/graphql/**/*", "next-env.d.ts"],
 });

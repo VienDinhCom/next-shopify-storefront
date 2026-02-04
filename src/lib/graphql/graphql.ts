@@ -1539,7 +1539,12 @@ export type CartInput = {
   note?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** The input fields for a cart metafield value to set. */
+/**
+ * The input fields for a cart metafield value to set.
+ *
+ * Cart metafields will be copied to order metafields at order creation time if there is a matching order metafield definition with the [`cart to order copyable`](https://shopify.dev/docs/apps/build/metafields/use-metafield-capabilities#cart-to-order-copyable) capability enabled.
+ *
+ */
 export type CartInputMetafieldInput = {
   /** The key name of the metafield. */
   key: Scalars['String']['input'];
@@ -5404,12 +5409,23 @@ export type Mutation = {
   cartLinesRemove?: Maybe<CartLinesRemovePayload>;
   /** Updates one or more merchandise lines on a cart. */
   cartLinesUpdate?: Maybe<CartLinesUpdatePayload>;
-  /** Deletes a cart metafield. */
+  /**
+   * Deletes a cart metafield.
+   *
+   * > Note:
+   * > This mutation won't trigger [Shopify Functions](https://shopify.dev/docs/api/functions). The changes won't be available to Shopify Functions until the buyer goes to checkout or performs another cart interaction that triggers the functions.
+   *
+   */
   cartMetafieldDelete?: Maybe<CartMetafieldDeletePayload>;
   /**
    * Sets cart metafield values. Cart metafield values will be set regardless if they were previously created or not.
    *
    * Allows a maximum of 25 cart metafields to be set at a time.
+   *
+   * Cart metafields will be copied to order metafields at order creation time if there is a matching order metafield definition with the [`cart to order copyable`](https://shopify.dev/docs/apps/build/metafields/use-metafield-capabilities#cart-to-order-copyable) capability enabled.
+   *
+   * > Note:
+   * > This mutation won't trigger [Shopify Functions](https://shopify.dev/docs/api/functions). The changes won't be available to Shopify Functions until the buyer goes to checkout or performs another cart interaction that triggers the functions.
    *
    */
   cartMetafieldsSet?: Maybe<CartMetafieldsSetPayload>;

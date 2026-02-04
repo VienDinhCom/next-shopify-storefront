@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 
-
 interface Product {
   variants: {
     nodes: {
@@ -45,23 +44,20 @@ export function useVariantSelector(product: Product) {
       // Calculate available values for the current option based on previous selections
       const availableValues = new Set<string>();
       for (const variant of availableVariants) {
-        const variantOption = variant.selectedOptions.find(
-          (o) => o.name === productOption.name
-        );
+        const variantOption = variant.selectedOptions.find((o) => o.name === productOption.name);
         if (variantOption) {
           availableValues.add(variantOption.value);
         }
       }
 
-      const isPreviousSelected =
-        i === 0 || !!selections[product.options[i - 1].name];
+      const isPreviousSelected = i === 0 || !!selections[product.options[i - 1].name];
 
       computedOptions.push({
         name: productOption.name,
         values: productOption.values.map((value) => {
           const isSelected = selectedValue === value;
           const isAvailable = availableValues.has(value);
-          
+
           return {
             value,
             selected: isSelected,
@@ -76,9 +72,7 @@ export function useVariantSelector(product: Product) {
       // Prepare variants for the next option
       if (selectedValue) {
         availableVariants = availableVariants.filter((variant) =>
-          variant.selectedOptions.some(
-            (o) => o.name === productOption.name && o.value === selectedValue
-          )
+          variant.selectedOptions.some((o) => o.name === productOption.name && o.value === selectedValue),
         );
       } else {
         // If current option not selected, subsequent options have no available variants
@@ -99,7 +93,7 @@ export function useVariantSelector(product: Product) {
     // Find the variant reasoning:
     // We can rely on basic finding because the options derivation handles the "existence" check logic
     // But we need to verify the specific combination exists and is available.
-    
+
     // Convert selections object to array matching variant structure for easier comparison could be one way,
     // but simpler to just search.
     const matchedVariant = product.variants.nodes.find((variant) => {
@@ -114,15 +108,13 @@ export function useVariantSelector(product: Product) {
       return true;
     });
 
-    return matchedVariant && matchedVariant.availableForSale
-      ? matchedVariant.id
-      : null;
+    return matchedVariant && matchedVariant.availableForSale ? matchedVariant.id : null;
   }, [product, selections]);
 
   function selectOption(name: string, value: string) {
     setSelections((prev) => {
       const next = { ...prev, [name]: value };
-      
+
       // Clear dependent options (those that come after the modified option)
       const optionIndex = product.options.findIndex((o) => o.name === name);
       if (optionIndex !== -1) {
@@ -130,7 +122,7 @@ export function useVariantSelector(product: Product) {
           delete next[product.options[i].name];
         }
       }
-      
+
       return next;
     });
   }
